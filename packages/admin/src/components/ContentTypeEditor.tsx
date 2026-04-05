@@ -20,6 +20,7 @@ import type {
 } from "../lib/api";
 import { cn } from "../lib/utils";
 import { ConfirmDialog } from "./ConfirmDialog";
+import { DialogError, getMutationError } from "./DialogError";
 import { FieldEditor } from "./FieldEditor";
 
 // Regex patterns for slug generation
@@ -34,6 +35,10 @@ export interface ContentTypeEditorProps {
 	collection?: SchemaCollectionWithFields;
 	isNew?: boolean;
 	isSaving?: boolean;
+	/** Mutation error from the last save attempt. */
+	error?: Error | null;
+	/** Called when the user edits form fields, to reset the mutation error. */
+	onErrorClear?: () => void;
 	onSave: (input: CreateCollectionInput | UpdateCollectionInput) => void;
 	onAddField?: (input: CreateFieldInput) => void;
 	onUpdateField?: (fieldSlug: string, input: CreateFieldInput) => void;
@@ -114,6 +119,8 @@ export function ContentTypeEditor({
 	collection,
 	isNew,
 	isSaving,
+	error,
+	onErrorClear,
 	onSave,
 	onAddField,
 	onUpdateField,
@@ -207,6 +214,7 @@ export function ContentTypeEditor({
 	const handleLabelChange = (value: string) => {
 		setLabel(value);
 		setFieldErrors((prev) => ({ ...prev, label: "", slug: "" }));
+		onErrorClear?.();
 		if (isNew) {
 			const newSlug = value
 				.toLowerCase()
@@ -224,6 +232,7 @@ export function ContentTypeEditor({
 	const handleSingularLabelChange = (value: string) => {
 		setLabelSingular(value);
 		setFieldErrors((prev) => ({ ...prev, labelSingular: "" }));
+		onErrorClear?.();
 		if (isNew) {
 			const plural = value ? `${value}s` : "";
 			handleLabelChange(plural);
@@ -376,6 +385,7 @@ export function ContentTypeEditor({
 									onChange={(e) => {
 										setSlug(e.target.value);
 										setFieldErrors((prev) => ({ ...prev, slug: "" }));
+										onErrorClear?.();
 									}}
 									placeholder="posts"
 									description="Used in URLs and API endpoints"
@@ -400,6 +410,7 @@ export function ContentTypeEditor({
 									setUrlPattern(e.target.value);
 									setUrlPatternTouched(true);
 									setFieldErrors((prev) => ({ ...prev, urlPattern: "" }));
+									onErrorClear?.();
 								}}
 								placeholder="/{slug}"
 								disabled={isFromCode}
@@ -541,6 +552,8 @@ export function ContentTypeEditor({
 								)}
 							</div>
 						)}
+
+						<DialogError message={getMutationError(error)} />
 
 						{!isFromCode && (
 							<Button type="submit" disabled={!hasChanges || isSaving} className="w-full">

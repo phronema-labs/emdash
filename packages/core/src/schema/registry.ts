@@ -132,6 +132,9 @@ export class SchemaRegistry {
 		// Check label uniqueness
 		await this.checkLabelUniqueness(input.label, input.labelSingular);
 
+		// Check URL pattern uniqueness
+		await this.checkUrlPatternUniqueness(input.urlPattern);
+
 		const id = ulid();
 
 		// Insert collection record and create content table in a transaction
@@ -195,6 +198,13 @@ export class SchemaRegistry {
 				labelSingularChanged ? input.labelSingular : undefined,
 				slug,
 			);
+		}
+
+		// Check URL pattern uniqueness when it changes
+		const urlPatternChanged =
+			input.urlPattern !== undefined && input.urlPattern !== (existing.urlPattern ?? null);
+		if (urlPatternChanged) {
+			await this.checkUrlPatternUniqueness(input.urlPattern, slug);
 		}
 
 		const now = new Date().toISOString();
@@ -289,6 +299,34 @@ export class SchemaRegistry {
 				throw new SchemaError(
 					`A content type with the singular label "${labelSingular}" already exists`,
 					"LABEL_EXISTS",
+				);
+			}
+		}
+	}
+
+	/**
+	 * Check that a collection's URL pattern is unique across all collections.
+	 * Pass `excludeSlug` to skip the collection being updated.
+	 */
+	private async checkUrlPatternUniqueness(
+		urlPattern?: string | null,
+		excludeSlug?: string,
+	): Promise<void> {
+		if (!urlPattern) return;
+
+		let query = this.db.selectFrom("_emdash_collections").select(["slug", "label", "url_pattern"]);
+
+		if (excludeSlug) {
+			query = query.where("slug", "!=", excludeSlug);
+		}
+
+		const others = await query.execute();
+
+		for (const other of others) {
+			if (other.url_pattern === urlPattern) {
+				throw new SchemaError(
+					`The URL pattern "${urlPattern}" is already used by "${other.label}"`,
+					"URL_PATTERN_EXISTS",
 				);
 			}
 		}
