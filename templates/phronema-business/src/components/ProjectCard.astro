@@ -1,0 +1,81 @@
+---
+import { Image } from "emdash/ui";
+
+interface Props {
+	title: string;
+	summary?: string;
+	featuredImage: any;
+	client?: string;
+	year?: string;
+	href: string;
+}
+
+const { title, summary, featuredImage, client, year, href } = Astro.props;
+---
+
+<a href={href} class="project-card">
+	{featuredImage && (
+		<div class="project-image">
+			<Image image={featuredImage} />
+		</div>
+	)}
+	<div class="project-info">
+		<h3>{title}</h3>
+		{(client || year) && (
+			<p class="project-meta">
+				{client}{client && year && " · "}{year}
+			</p>
+		)}
+		{summary && <p class="project-summary">{summary}</p>}
+	</div>
+</a>
+
+<style>
+	.project-card {
+		display: block;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		border: 1px solid var(--color-border);
+		transition: transform var(--transition-base), box-shadow var(--transition-base);
+		text-decoration: none;
+		color: var(--color-text);
+	}
+
+	.project-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.project-image {
+		aspect-ratio: 4/3;
+		overflow: hidden;
+	}
+
+	.project-image :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-slow);
+	}
+
+	.project-card:hover .project-image :global(img) {
+		transform: scale(1.03);
+	}
+
+	.project-info {
+		padding: var(--spacing-lg);
+	}
+
+	.project-meta {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		margin-top: var(--spacing-xs);
+	}
+
+	.project-summary {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.5;
+		margin-top: var(--spacing-sm);
+	}
+</style>

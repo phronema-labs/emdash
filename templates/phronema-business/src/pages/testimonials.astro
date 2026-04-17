@@ -1,0 +1,103 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const { entries: testimonials, cacheHint } = await getEmDashCollection("testimonials", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+---
+
+<Base title="Testimonials" description="See what our customers have to say about Summit Home Services.">
+	<PageHero
+		title="What Our Customers Say"
+		subtitle="Don't just take our word for it — hear from real homeowners."
+		image="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&h=500&fit=crop"
+	/>
+
+	<section class="container section">
+
+		{testimonials.length > 0 ? (
+			<div class="testimonials-grid">
+				{testimonials.map((t) => (
+					<div class="testimonial-card">
+						{t.data.rating && (
+							<div class="rating" aria-label={`${t.data.rating} out of 5 stars`}>
+								{Array.from({ length: 5 }).map((_, i) => (
+									<i class={`ph ${i < (t.data.rating as number) ? "ph-star-fill" : "ph-star"}`} />
+								))}
+							</div>
+						)}
+						<blockquote>"{t.data.quote}"</blockquote>
+						<div class="author">
+							<div>
+								<strong>{t.data.author}</strong>
+								{(t.data.role || t.data.company) && (
+									<span class="role">
+										{t.data.role}{t.data.role && t.data.company && " at "}{t.data.company}
+									</span>
+								)}
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		) : (
+			<p style="text-align: center; color: var(--color-muted);">
+				No testimonials yet. <a href="/_emdash/admin">Add testimonials</a> in the admin panel.
+			</p>
+		)}
+	</section>
+</Base>
+
+<style>
+	.testimonials-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-xl);
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.testimonial-card {
+		padding: var(--spacing-xl);
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+	}
+
+	.rating {
+		display: flex;
+		gap: 2px;
+		color: #f59e0b;
+		font-size: 18px;
+	}
+
+	blockquote {
+		font-size: var(--font-size-md);
+		line-height: 1.6;
+		flex: 1;
+	}
+
+	.author {
+		padding-top: var(--spacing-md);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.author strong {
+		display: block;
+		font-size: var(--font-size-sm);
+	}
+
+	.role {
+		display: block;
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+	}
+
+	@media (max-width: 700px) {
+		.testimonials-grid { grid-template-columns: 1fr; }
+	}
+</style>

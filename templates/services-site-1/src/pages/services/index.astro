@@ -1,0 +1,50 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../layouts/Base.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const { entries: services, cacheHint } = await getEmDashCollection("services", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+---
+
+<Base title="Services" description="Plumbing, HVAC, and electrical services for homeowners and businesses.">
+	<PageHero
+		title="Our Services"
+		subtitle="Licensed technicians for plumbing, HVAC, and electrical — residential and commercial."
+		image="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&h=500&fit=crop"
+	/>
+
+	<section class="container section">
+		{services.length > 0 ? (
+			<div class="services-grid">
+				{services.map((service) => (
+					<ServiceCard
+						title={service.data.title}
+						summary={service.data.summary}
+						icon={service.data.icon}
+						priceFrom={service.data.price_from}
+						href={`/services/${service.slug}`}
+						ctaLabel={service.data.cta_label}
+					/>
+				))}
+			</div>
+		) : (
+			<p style="text-align: center; color: var(--color-muted);">
+				No services yet. <a href="/_emdash/admin">Add services</a> in the admin panel.
+			</p>
+		)}
+	</section>
+</Base>
+
+<style>
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-xl);
+	}
+
+	@media (max-width: 600px) {
+		.services-grid { grid-template-columns: 1fr; }
+	}
+</style>

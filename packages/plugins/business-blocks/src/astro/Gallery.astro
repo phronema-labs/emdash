@@ -1,0 +1,106 @@
+---
+interface Props {
+	node: {
+		headline?: string;
+		images: Array<{
+			src: string;
+			alt?: string;
+			caption?: string;
+		}>;
+		layout?: "grid" | "masonry" | "carousel";
+		columns?: number;
+	};
+}
+
+const { node } = Astro.props;
+const { headline, images, layout = "grid", columns = 3 } = node;
+---
+
+<section class="gallery section">
+	<div class="container">
+		{headline && (
+			<header class="gallery-header">
+				<h2 class="gallery-headline">{headline}</h2>
+			</header>
+		)}
+		<div class="gallery-grid" style={`--columns: ${columns}`} data-layout={layout}>
+			{images.map((image) => (
+				<figure class="gallery-item">
+					<img src={image.src} alt={image.alt || ""} loading="lazy" />
+					{image.caption && <figcaption>{image.caption}</figcaption>}
+				</figure>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.gallery-header {
+		text-align: center;
+		margin-bottom: var(--spacing-4xl);
+	}
+
+	.gallery-headline {
+		font-size: var(--font-size-3xl);
+		font-weight: 800;
+	}
+
+	.gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(var(--columns, 3), 1fr);
+		gap: var(--spacing-md);
+	}
+
+	.gallery-grid[data-layout="masonry"] {
+		columns: var(--columns, 3);
+		display: block;
+		gap: unset;
+	}
+
+	.gallery-grid[data-layout="masonry"] .gallery-item {
+		break-inside: avoid;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.gallery-item {
+		margin: 0;
+		overflow: hidden;
+		border-radius: var(--radius);
+	}
+
+	.gallery-item img {
+		width: 100%;
+		height: auto;
+		display: block;
+		transition: transform var(--transition-base);
+	}
+
+	.gallery-item:hover img {
+		transform: scale(1.03);
+	}
+
+	.gallery-item figcaption {
+		padding: var(--spacing-sm) var(--spacing-md);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		background: var(--color-surface);
+	}
+
+	@media (max-width: 900px) {
+		.gallery-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.gallery-grid[data-layout="masonry"] {
+			columns: 2;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.gallery-grid {
+			grid-template-columns: 1fr;
+		}
+		.gallery-grid[data-layout="masonry"] {
+			columns: 1;
+		}
+	}
+</style>

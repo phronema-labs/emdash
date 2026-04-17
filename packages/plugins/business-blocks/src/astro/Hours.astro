@@ -1,0 +1,67 @@
+---
+interface Props {
+	node: {
+		headline?: string;
+		hours: Array<{
+			day: string;
+			open?: string;
+			close?: string;
+			closed?: boolean;
+		}>;
+	};
+}
+
+const { node } = Astro.props;
+const { headline, hours } = node;
+---
+
+<section class="hours section">
+	<div class="container">
+		{headline && <h3 class="hours-headline">{headline}</h3>}
+		<div class="hours-table">
+			{hours.map((h) => (
+				<div class:list={["hours-row", { "hours-closed": h.closed }]}>
+					<span class="hours-day">{h.day}</span>
+					<span class="hours-time">
+						{h.closed ? "Closed" : `${h.open} – ${h.close}`}
+					</span>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.hours-headline {
+		font-size: var(--font-size-xl);
+		font-weight: 700;
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.hours-table {
+		max-width: 400px;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-xs);
+	}
+
+	.hours-row {
+		display: flex;
+		justify-content: space-between;
+		padding: var(--spacing-sm) 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.hours-day {
+		font-weight: 500;
+	}
+
+	.hours-time {
+		color: var(--color-muted);
+	}
+
+	.hours-closed .hours-time {
+		color: var(--color-muted);
+		font-style: italic;
+	}
+</style>

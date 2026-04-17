@@ -1,0 +1,127 @@
+---
+import { getEmDashEntry, getEmDashCollection } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "about");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const { entries: teamMembers } = await getEmDashCollection("team", { status: "published" });
+---
+
+<Base title="About Us" description="Learn about our team and how we keep homes running smoothly.">
+	<PageHero
+		title="About Summit Home Services"
+		subtitle="Trusted by homeowners since 2009"
+		image="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&h=500&fit=crop"
+	/>
+
+	{entry?.data.content && (
+		<section class="container section">
+			<div class="about-grid">
+				<div class="prose">
+					<PortableText value={entry.data.content} />
+				</div>
+				<div class="about-image">
+					<img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=800&fit=crop" alt="Service technician at work" loading="lazy" />
+				</div>
+			</div>
+		</section>
+	)}
+
+	{teamMembers.length > 0 && (
+		<section class="section" style="background: var(--color-surface);">
+			<div class="container">
+				<h2 style="text-align: center; margin-bottom: var(--spacing-4xl);">Meet the Team</h2>
+				<div class="team-grid">
+					{teamMembers.map((member) => (
+						<div class="team-card">
+							{member.data.photo && (
+								<img src={typeof member.data.photo === "string" ? member.data.photo : (member.data.photo as any)?.url} alt={member.data.name} class="team-photo" loading="lazy" />
+							)}
+							<h3>{member.data.name}</h3>
+							{member.data.role && <p class="team-role">{member.data.role}</p>}
+							{member.data.bio && <p class="team-bio">{member.data.bio}</p>}
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+</Base>
+
+<style>
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: var(--spacing-3xl);
+		align-items: start;
+	}
+
+	.about-image img {
+		width: 100%;
+		border-radius: var(--radius-lg);
+		box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+	}
+
+	.prose {
+		max-width: var(--max-width);
+	}
+
+	.prose :global(p) {
+		margin-bottom: var(--spacing-md);
+		line-height: 1.7;
+	}
+
+	.prose :global(h2) {
+		margin-top: var(--spacing-2xl);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.team-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-xl);
+	}
+
+	.team-card {
+		text-align: center;
+		padding: var(--spacing-xl);
+		background: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.team-photo {
+		width: 120px;
+		height: 120px;
+		border-radius: var(--radius-full);
+		object-fit: cover;
+		margin: 0 auto var(--spacing-md);
+	}
+
+	.team-role {
+		color: var(--color-primary);
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		margin-top: var(--spacing-xs);
+	}
+
+	.team-bio {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+		line-height: 1.6;
+		margin-top: var(--spacing-md);
+	}
+
+	@media (max-width: 900px) {
+		.about-grid { grid-template-columns: 1fr; }
+		.about-image { order: -1; }
+		.team-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+
+	@media (max-width: 600px) {
+		.team-grid { grid-template-columns: 1fr; }
+	}
+</style>

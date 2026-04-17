@@ -1,0 +1,22 @@
+/* Phronema Labs - Business Theme
+   Trust-forward palette: Blue primary, orange accent */
+:root {
+	--color-primary: #1e6bb8;
+	--color-primary-dark: #155a9c;
+	--color-primary-light: #dbeafe;
+	--color-accent: #ff6b35;
+	--color-accent-light: #fff3ed;
+	--color-surface: #f7f9fc;
+	--color-surface-warm: #fef8f4;
+	--color-dark-section: #1a2332;
+}
+
+:root.dark {
+	--color-primary: #60a5fa;
+	--color-primary-dark: #3b82f6;
+	--color-primary-light: #1e3a5f;
+	--color-accent: #ff8c61;
+	--color-surface: #1e293b;
+	--color-surface-warm: #2a2018;
+	--color-dark-section: #0f1724;
+}

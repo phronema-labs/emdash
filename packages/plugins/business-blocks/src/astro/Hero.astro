@@ -1,0 +1,121 @@
+---
+interface Props {
+	node: {
+		headline: string;
+		subheadline?: string;
+		primaryCta?: { label: string; url: string };
+		secondaryCta?: { label: string; url: string };
+		image?: { url: string; alt?: string };
+		style?: "split" | "centered";
+	};
+}
+
+const { node } = Astro.props;
+const { headline, subheadline, primaryCta, secondaryCta, image, style = "split" } = node;
+const isCentered = style === "centered";
+---
+
+<section class:list={["hero", { "hero-centered": isCentered, "hero-with-image": !!image }]}>
+	<div class="hero-content">
+		<h1 class="hero-headline">{headline}</h1>
+		{subheadline && <p class="hero-subheadline">{subheadline}</p>}
+		{(primaryCta || secondaryCta) && (
+			<div class="hero-actions">
+				{primaryCta && (
+					<a href={primaryCta.url} class="btn btn-primary btn-lg">
+						{primaryCta.label}
+					</a>
+				)}
+				{secondaryCta && (
+					<a href={secondaryCta.url} class="btn btn-secondary btn-lg">
+						{secondaryCta.label}
+					</a>
+				)}
+			</div>
+		)}
+	</div>
+	{image && !isCentered && (
+		<div class="hero-image">
+			<img src={image.url} alt={image.alt || ""} loading="eager" />
+		</div>
+	)}
+</section>
+
+<style>
+	.hero {
+		max-width: var(--wide-width);
+		margin: 0 auto;
+		padding: var(--spacing-4xl) var(--spacing-lg);
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--spacing-2xl);
+		align-items: center;
+	}
+
+	.hero-centered {
+		grid-template-columns: 1fr;
+		text-align: center;
+		max-width: var(--max-width);
+		padding-top: var(--spacing-4xl);
+		padding-bottom: var(--spacing-xl);
+	}
+
+	.hero-centered .hero-actions {
+		justify-content: center;
+	}
+
+	.hero-content {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-lg);
+	}
+
+	.hero-headline {
+		font-size: var(--font-size-5xl);
+		font-weight: 800;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		background: linear-gradient(135deg, var(--color-text) 0%, var(--color-muted) 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.hero-subheadline {
+		font-size: var(--font-size-xl);
+		line-height: 1.6;
+		color: var(--color-muted);
+	}
+
+	.hero-actions {
+		display: flex;
+		gap: var(--spacing-md);
+		flex-wrap: wrap;
+	}
+
+	.hero-image img {
+		width: 100%;
+		height: auto;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-xl);
+	}
+
+	@media (max-width: 1024px) {
+		.hero {
+			grid-template-columns: 1fr;
+			padding: var(--spacing-2xl) var(--spacing-lg);
+		}
+
+		.hero-headline {
+			font-size: var(--font-size-4xl);
+		}
+
+		.hero-with-image {
+			text-align: center;
+		}
+
+		.hero-with-image .hero-actions {
+			justify-content: center;
+		}
+	}
+</style>

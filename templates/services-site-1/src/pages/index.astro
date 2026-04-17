@@ -1,0 +1,571 @@
+---
+import { getEmDashEntry, getEmDashCollection } from "emdash";
+import { PortableText, Image } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import TrustBadges from "../components/TrustBadges.astro";
+import BrandStrip from "../components/BrandStrip.astro";
+import TestimonialCarousel from "../components/TestimonialCarousel.astro";
+import CostEstimator from "../components/CostEstimator.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import GoogleReviews from "../components/GoogleReviews.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "home");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const { entries: services } = await getEmDashCollection("services", { status: "published" });
+const { entries: testimonials } = await getEmDashCollection("testimonials", { status: "published" });
+const { entries: projects } = await getEmDashCollection("projects", { status: "published" });
+
+const testimonialData = testimonials.map((t) => ({
+	quote: t.data.quote,
+	author: t.data.author,
+	role: t.data.role,
+	company: t.data.company,
+	rating: t.data.rating as number | undefined,
+}));
+---
+
+<Base>
+	{/* ===== HERO — full bleed with overlay ===== */}
+	<section class="hero-section">
+		<div class="hero-overlay"></div>
+		<div class="container hero-inner">
+			<div class="hero-content">
+				<span class="hero-badge"><i class="ph ph-shield-check" /> Licensed & Insured · Since 2009</span>
+				<h1>Your home deserves the best care</h1>
+				<p class="hero-sub">Licensed plumbing, HVAC, and electrical services for homeowners and businesses. Same-day appointments available. Satisfaction guaranteed.</p>
+				<div class="hero-actions">
+					<a href="/contact" class="btn btn-hero-primary">
+						<i class="ph ph-calendar-check" /> Schedule Service
+					</a>
+					<a href="tel:5552345678" class="btn btn-hero-secondary">
+						<i class="ph ph-phone" /> (555) 234-5678
+					</a>
+				</div>
+				<div class="hero-proof">
+					<GoogleReviews rating={4.9} reviewCount={512} style="badge" />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== TRUST BAR ===== */}
+	<TrustBadges />
+
+	{/* ===== SERVICES — light gray bg ===== */}
+	{services.length > 0 && (
+		<section class="section section-gray">
+			<div class="container">
+				<div class="section-header">
+					<span class="section-label">What We Do</span>
+					<h2>Our Services</h2>
+					<p>Licensed technicians for every job, big or small. Same-day availability.</p>
+				</div>
+				<div class="services-grid">
+					{services.slice(0, 4).map((service) => (
+						<ServiceCard
+							title={service.data.title}
+							summary={service.data.summary}
+							icon={service.data.icon}
+							priceFrom={service.data.price_from}
+							href={`/services/${service.slug}`}
+							ctaLabel={service.data.cta_label}
+						/>
+					))}
+				</div>
+				<div style="text-align: center; margin-top: var(--spacing-2xl);">
+					<a href="/services" class="btn btn-secondary">View All Services &rarr;</a>
+				</div>
+			</div>
+		</section>
+	)}
+
+	{/* ===== STATS — dark section ===== */}
+	<section class="section section-dark">
+		<div class="container">
+			<div class="stats-row">
+				<div class="stat">
+					<span class="stat-number">15+</span>
+					<span class="stat-label">Years in Business</span>
+				</div>
+				<div class="stat-divider"></div>
+				<div class="stat">
+					<span class="stat-number">10,000+</span>
+					<span class="stat-label">Jobs Completed</span>
+				</div>
+				<div class="stat-divider"></div>
+				<div class="stat">
+					<span class="stat-number">4.9 <i class="ph ph-star-fill" style="color: #FBBC05; font-size: 20px;" /></span>
+					<span class="stat-label">Google Rating</span>
+				</div>
+				<div class="stat-divider"></div>
+				<div class="stat">
+					<span class="stat-number">24/7</span>
+					<span class="stat-label">Emergency Service</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== WHY CHOOSE US — white bg ===== */}
+	<section class="section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-label">Why Choose Us</span>
+				<h2>The Summit difference</h2>
+				<p>We're not the cheapest, but we're the best value. Here's why homeowners trust us.</p>
+			</div>
+			<div class="why-grid">
+				<div class="why-card">
+					<div class="why-icon"><i class="ph ph-clock" /></div>
+					<h3>Same-Day Service</h3>
+					<p>Call before noon and we'll be there today. No waiting around for a service window — we respect your time.</p>
+				</div>
+				<div class="why-card">
+					<div class="why-icon"><i class="ph ph-currency-dollar" /></div>
+					<h3>Upfront Pricing</h3>
+					<p>You'll know the price before we start. No surprises, no hidden fees, no hourly billing games.</p>
+				</div>
+				<div class="why-card">
+					<div class="why-icon"><i class="ph ph-seal-check" /></div>
+					<h3>Warranty on All Work</h3>
+					<p>Every repair and installation comes with our satisfaction guarantee and minimum 1-year labor warranty.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== BRANDS — subtle strip ===== */}
+	<BrandStrip />
+
+	{/* ===== TESTIMONIALS — warm accent bg ===== */}
+	{testimonialData.length > 0 && (
+		<section class="section section-warm">
+			<div class="container">
+				<div class="section-header">
+					<span class="section-label">Testimonials</span>
+					<h2>What our customers say</h2>
+					<div style="margin-top: var(--spacing-md);">
+						<GoogleReviews rating={4.9} reviewCount={512} style="badge" />
+					</div>
+				</div>
+				<TestimonialCarousel testimonials={testimonialData} />
+			</div>
+		</section>
+	)}
+
+	{/* ===== RECENT PROJECTS — gray bg ===== */}
+	{projects.length > 0 && (
+		<section class="section section-gray">
+			<div class="container">
+				<div class="section-header">
+					<span class="section-label">Our Work</span>
+					<h2>Recent projects</h2>
+					<p>See some of our latest work across the metro area.</p>
+				</div>
+				<div class="projects-preview">
+					{projects.slice(0, 3).map((project) => (
+						<a href={`/work/${project.slug}`} class="project-preview-card">
+							<div class="project-preview-img">
+								{project.data.featured_image ? (
+									<Image image={project.data.featured_image} />
+								) : (
+									<img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop" alt={project.data.title} loading="lazy" />
+								)}
+								<span class="project-overlay">View Project</span>
+							</div>
+							<div class="project-preview-info">
+								<h3>{project.data.title}</h3>
+								<p>{project.data.summary}</p>
+							</div>
+						</a>
+					))}
+				</div>
+				<div style="text-align: center; margin-top: var(--spacing-2xl);">
+					<a href="/work" class="btn btn-secondary">View All Projects &rarr;</a>
+				</div>
+			</div>
+		</section>
+	)}
+
+	{/* ===== COST ESTIMATOR — white bg ===== */}
+	<CostEstimator />
+
+	{/* ===== FINAL CTA — dark brand section ===== */}
+	<section class="section section-cta">
+		<div class="container" style="text-align: center;">
+			<h2>Need service today?</h2>
+			<p>Call now or book online. Same-day appointments and 24/7 emergency service available.</p>
+			<div class="cta-actions">
+				<a href="/contact" class="btn btn-accent btn-lg">Schedule Service</a>
+				<a href="tel:5552345678" class="btn btn-outline-light btn-lg">
+					<i class="ph ph-phone" /> (555) 234-5678
+				</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== Section styles ===== */
+	.section-gray { background: var(--color-surface); }
+	.section-warm { background: var(--color-surface-warm, #fef8f4); }
+	.section-dark {
+		background: var(--color-dark-section, #1a2332);
+		color: white;
+	}
+	.section-cta {
+		background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+		color: white;
+		padding: var(--space-4xl) var(--site-gutter);
+	}
+	.section-cta p {
+		color: rgba(255,255,255,0.8);
+		font-size: var(--font-size-lg);
+		margin-top: var(--spacing-sm);
+		max-width: 500px;
+		margin-inline: auto;
+	}
+
+	/* Section headers */
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--spacing-3xl);
+	}
+
+	.section-label {
+		display: inline-block;
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-primary);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.section-header h2 {
+		font-size: var(--font-size-3xl);
+		font-weight: 800;
+	}
+
+	.section-header p {
+		color: var(--color-muted);
+		font-size: var(--font-size-lg);
+		margin-top: var(--spacing-sm);
+		max-width: 550px;
+		margin-inline: auto;
+	}
+
+	/* ===== Hero ===== */
+	.hero-section {
+		position: relative;
+		background: url("https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&h=900&fit=crop") center/cover no-repeat;
+		min-height: 520px;
+		display: flex;
+		align-items: center;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, rgba(26, 35, 50, 0.92) 0%, rgba(30, 107, 184, 0.75) 100%);
+	}
+
+	.hero-inner {
+		position: relative;
+		z-index: 1;
+		padding: var(--space-4xl) var(--site-gutter);
+	}
+
+	.hero-content {
+		max-width: 620px;
+		color: white;
+	}
+
+	.hero-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		background: rgba(255,255,255,0.12);
+		border: 1px solid rgba(255,255,255,0.2);
+		padding: 6px 14px;
+		border-radius: 20px;
+		font-size: 13px;
+		font-weight: 500;
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.hero-badge i {
+		color: var(--color-accent);
+	}
+
+	.hero-content h1 {
+		font-size: clamp(2.2rem, 5vw, 3.5rem);
+		font-weight: 800;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+	}
+
+	.hero-sub {
+		font-size: var(--font-size-lg);
+		line-height: 1.6;
+		color: rgba(255,255,255,0.85);
+		margin-top: var(--spacing-md);
+	}
+
+	.hero-actions {
+		display: flex;
+		gap: var(--spacing-md);
+		flex-wrap: wrap;
+		margin-top: var(--spacing-xl);
+	}
+
+	.btn-hero-primary {
+		background: var(--color-accent, #ff6b35) !important;
+		color: white !important;
+		border: 2px solid var(--color-accent, #ff6b35) !important;
+		padding: 14px 28px !important;
+		font-size: var(--font-size-base) !important;
+		font-weight: 700 !important;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.btn-hero-primary:hover {
+		background: #e55a2b !important;
+		border-color: #e55a2b !important;
+	}
+
+	.btn-hero-secondary {
+		background: transparent !important;
+		color: white !important;
+		border: 2px solid rgba(255,255,255,0.4) !important;
+		padding: 14px 28px !important;
+		font-size: var(--font-size-base) !important;
+		font-weight: 600 !important;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.btn-hero-secondary:hover {
+		background: rgba(255,255,255,0.1) !important;
+		border-color: rgba(255,255,255,0.7) !important;
+	}
+
+	.hero-proof {
+		margin-top: var(--spacing-xl);
+	}
+
+	/* ===== Stats ===== */
+	.stats-row {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-3xl);
+		padding: var(--spacing-xl) 0;
+	}
+
+	.stat {
+		text-align: center;
+	}
+
+	.stat-number {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		font-size: var(--font-size-4xl);
+		font-weight: 800;
+		color: white;
+	}
+
+	.stat-label {
+		display: block;
+		font-size: var(--font-size-sm);
+		color: rgba(255,255,255,0.6);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-top: var(--spacing-xs);
+	}
+
+	.stat-divider {
+		width: 1px;
+		height: 50px;
+		background: rgba(255,255,255,0.15);
+	}
+
+	/* ===== Why cards ===== */
+	.why-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-xl);
+	}
+
+	.why-card {
+		text-align: center;
+		padding: var(--spacing-2xl) var(--spacing-xl);
+		background: var(--color-surface);
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border);
+		box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+		transition: transform var(--transition-base), box-shadow var(--transition-base);
+	}
+
+	.why-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+	}
+
+	.why-icon {
+		width: 60px;
+		height: 60px;
+		margin: 0 auto var(--spacing-lg);
+		border-radius: var(--radius-full);
+		background: var(--color-primary-light);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 28px;
+		color: var(--color-primary);
+	}
+
+	.why-card h3 {
+		font-size: var(--font-size-lg);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.why-card p {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+		line-height: 1.6;
+	}
+
+	/* ===== Services ===== */
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--spacing-lg);
+	}
+
+	/* ===== Projects ===== */
+	.projects-preview {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-xl);
+	}
+
+	.project-preview-card {
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		border: 1px solid var(--color-border);
+		text-decoration: none;
+		color: var(--color-text);
+		transition: transform var(--transition-base), box-shadow var(--transition-base);
+		background: white;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+	}
+
+	.project-preview-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+	}
+
+	.project-preview-img {
+		aspect-ratio: 16/10;
+		overflow: hidden;
+		position: relative;
+	}
+
+	.project-preview-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--transition-slow);
+	}
+
+	.project-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(30, 107, 184, 0.8);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-weight: 600;
+		font-size: var(--font-size-sm);
+		opacity: 0;
+		transition: opacity var(--transition-base);
+	}
+
+	.project-preview-card:hover .project-overlay {
+		opacity: 1;
+	}
+
+	.project-preview-card:hover img {
+		transform: scale(1.05);
+	}
+
+	.project-preview-info {
+		padding: var(--spacing-lg);
+	}
+
+	.project-preview-info h3 {
+		font-size: var(--font-size-md);
+	}
+
+	.project-preview-info p {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		margin-top: var(--spacing-xs);
+		line-height: 1.5;
+	}
+
+	/* ===== CTA buttons ===== */
+	.cta-actions {
+		display: flex;
+		gap: var(--spacing-md);
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-top: var(--spacing-xl);
+	}
+
+	.btn-accent {
+		background: var(--color-accent) !important;
+		color: white !important;
+		border: none;
+	}
+
+	.btn-accent:hover {
+		background: #e55a2b !important;
+	}
+
+	.btn-outline-light {
+		color: white !important;
+		border: 2px solid rgba(255,255,255,0.4) !important;
+		background: transparent;
+	}
+
+	.btn-outline-light:hover {
+		background: rgba(255,255,255,0.1) !important;
+		border-color: rgba(255,255,255,0.7) !important;
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 1024px) {
+		.services-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+
+	@media (max-width: 900px) {
+		.why-grid { grid-template-columns: 1fr; max-width: 400px; margin-inline: auto; }
+		.projects-preview { grid-template-columns: 1fr; max-width: 500px; margin-inline: auto; }
+		.stats-row { flex-wrap: wrap; gap: var(--spacing-xl); }
+		.stat-divider { display: none; }
+	}
+
+	@media (max-width: 600px) {
+		.services-grid { grid-template-columns: 1fr; }
+		.hero-content h1 { font-size: 2rem; }
+	}
+</style>

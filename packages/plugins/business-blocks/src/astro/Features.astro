@@ -1,0 +1,131 @@
+---
+interface Props {
+	node: {
+		headline?: string;
+		subheadline?: string;
+		features: Array<{
+			icon: string;
+			title: string;
+			description: string;
+		}>;
+	};
+}
+
+const { node } = Astro.props;
+const { headline, subheadline, features } = node;
+
+const ICON_MAP: Record<string, string> = {
+	globe: "ph-globe",
+	"paint-brush": "ph-paint-brush",
+	"chart-line-up": "ph-chart-line-up",
+	devices: "ph-devices",
+	"shield-check": "ph-shield-check",
+	headset: "ph-headset",
+	code: "ph-code",
+	zap: "ph-lightning",
+	shield: "ph-shield",
+	users: "ph-users",
+	chart: "ph-chart-bar",
+	star: "ph-star",
+	heart: "ph-heart",
+	check: "ph-check-circle",
+	clock: "ph-clock",
+	lock: "ph-lock",
+};
+---
+
+<section class="features section">
+	<div class="container">
+		{(headline || subheadline) && (
+			<header class="features-header">
+				{headline && <h2 class="features-headline">{headline}</h2>}
+				{subheadline && <p class="features-subheadline">{subheadline}</p>}
+			</header>
+		)}
+		<div class="features-grid">
+			{features.map((feature) => (
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class={`ph ${ICON_MAP[feature.icon] || `ph-${feature.icon}`}`} />
+					</div>
+					<h3 class="feature-title">{feature.title}</h3>
+					<p class="feature-description">{feature.description}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.features-header {
+		text-align: center;
+		margin-bottom: var(--spacing-4xl);
+	}
+
+	.features-headline {
+		font-size: var(--font-size-3xl);
+		font-weight: 800;
+	}
+
+	.features-subheadline {
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		margin-top: var(--spacing-sm);
+		max-width: 600px;
+		margin-inline: auto;
+	}
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-xl);
+	}
+
+	.feature-card {
+		padding: var(--spacing-xl);
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		transition: transform var(--transition-base);
+	}
+
+	.feature-card:hover {
+		transform: translateY(-4px);
+	}
+
+	.feature-icon {
+		width: 48px;
+		height: 48px;
+		border-radius: var(--radius);
+		background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent-light));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 24px;
+		color: var(--color-primary);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.feature-title {
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.feature-description {
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	@media (max-width: 900px) {
+		.features-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.features-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

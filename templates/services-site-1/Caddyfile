@@ -1,0 +1,5 @@
+# Replace with your domain or use :80 for IP-only access
+# demo.phronema-labs.com {
+:80 {
+	reverse_proxy emdash:4321
+}

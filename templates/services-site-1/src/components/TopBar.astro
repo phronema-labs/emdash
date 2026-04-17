@@ -1,0 +1,99 @@
+---
+---
+
+<div class="top-bar">
+	<div class="top-bar-inner">
+		<span class="top-bar-left">
+			<i class="ph ph-clock" /> Mon–Fri 7AM–6PM &bull; Sat 8AM–2PM
+			<span class="top-bar-sep">|</span>
+			<span class="top-bar-area"><i class="ph ph-map-pin" /> Serving Springfield & 30mi radius</span>
+		</span>
+		<span class="top-bar-right">
+			<a href="tel:5552345678" class="top-bar-phone">
+				<i class="ph ph-phone" /> (555) 234-5678
+			</a>
+			<span class="top-bar-emergency">24/7 Emergency</span>
+		</span>
+	</div>
+</div>
+
+<style>
+	.top-bar {
+		background: #1a2332;
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 13px;
+	}
+
+	.top-bar-inner {
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		padding: 8px var(--site-gutter);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.top-bar-left {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.top-bar-left i {
+		font-size: 14px;
+		color: var(--color-accent, #ff6b35);
+	}
+
+	.top-bar-sep {
+		opacity: 0.3;
+		margin: 0 6px;
+	}
+
+	.top-bar-area i {
+		font-size: 14px;
+		color: var(--color-accent, #ff6b35);
+	}
+
+	.top-bar-right {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-shrink: 0;
+	}
+
+	.top-bar-phone {
+		color: white;
+		font-weight: 700;
+		font-size: 15px;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		white-space: nowrap;
+	}
+
+	.top-bar-phone i {
+		color: var(--color-accent, #ff6b35);
+	}
+
+	.top-bar-phone:hover {
+		color: var(--color-accent, #ff6b35);
+	}
+
+	.top-bar-emergency {
+		background: var(--color-accent, #ff6b35);
+		color: white;
+		font-weight: 600;
+		font-size: 10px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		padding: 3px 8px;
+		border-radius: 3px;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 768px) {
+		.top-bar-left { display: none; }
+		.top-bar-inner { justify-content: flex-end; }
+	}
+</style>

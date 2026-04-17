@@ -1,0 +1,100 @@
+---
+import { getEmDashCollection, getTaxonomyTerms, getEntryTerms } from "emdash";
+import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const { entries: projects, cacheHint } = await getEmDashCollection("projects", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const categories = await getTaxonomyTerms("project_category");
+const activeCategory = Astro.url.searchParams.get("category");
+
+const projectsWithTerms = await Promise.all(
+	projects.map(async (project) => {
+		const terms = await getEntryTerms(project.id, "project_category");
+		return { project, terms };
+	})
+);
+
+const filtered = activeCategory
+	? projectsWithTerms.filter(({ terms }) => terms.some((t) => t.slug === activeCategory))
+	: projectsWithTerms;
+---
+
+<Base title="Our Work" description="Browse our portfolio of residential and commercial projects.">
+	<PageHero
+		title="Our Work"
+		subtitle="A selection of projects we're proud of across the metro area."
+		image="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&h=500&fit=crop"
+	/>
+
+	<section class="container section">
+
+		{categories.length > 0 && (
+			<div class="filters">
+				<a href="/work" class:list={["filter-btn", { active: !activeCategory }]}>All</a>
+				{categories.map((cat) => (
+					<a href={`/work?category=${cat.slug}`} class:list={["filter-btn", { active: activeCategory === cat.slug }]}>
+						{cat.label}
+					</a>
+				))}
+			</div>
+		)}
+
+		{filtered.length > 0 ? (
+			<div class="projects-grid">
+				{filtered.map(({ project }) => (
+					<ProjectCard
+						title={project.data.title}
+						summary={project.data.summary}
+						featuredImage={project.data.featured_image}
+						client={project.data.client}
+						year={project.data.year}
+						href={`/work/${project.slug}`}
+					/>
+				))}
+			</div>
+		) : (
+			<p style="text-align: center; color: var(--color-muted);">
+				No projects yet. <a href="/_emdash/admin">Add projects</a> in the admin panel.
+			</p>
+		)}
+	</section>
+</Base>
+
+<style>
+	.filters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
+		justify-content: center;
+		margin-bottom: var(--spacing-2xl);
+	}
+
+	.filter-btn {
+		padding: var(--spacing-sm) var(--spacing-md);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-full);
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: var(--color-muted);
+		transition: all var(--transition-fast);
+	}
+
+	.filter-btn:hover, .filter-btn.active {
+		background: var(--color-primary);
+		color: white;
+		border-color: var(--color-primary);
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-xl);
+	}
+
+	@media (max-width: 700px) {
+		.projects-grid { grid-template-columns: 1fr; }
+	}
+</style>

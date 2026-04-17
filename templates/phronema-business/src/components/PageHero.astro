@@ -1,0 +1,61 @@
+---
+interface Props {
+	title: string;
+	subtitle?: string;
+	image: string;
+}
+
+const { title, subtitle, image } = Astro.props;
+---
+
+<section class="page-hero" style={`background-image: url('${image}');`}>
+	<div class="page-hero-overlay"></div>
+	<div class="container page-hero-inner">
+		<h1>{title}</h1>
+		{subtitle && <p>{subtitle}</p>}
+	</div>
+</section>
+
+<style>
+	.page-hero {
+		position: relative;
+		background: center/cover no-repeat;
+		padding: var(--space-4xl) var(--site-gutter);
+		color: white;
+		text-align: center;
+		min-height: 200px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.page-hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, rgba(26, 35, 50, 0.88) 0%, rgba(30, 107, 184, 0.7) 100%);
+	}
+
+	.page-hero-inner {
+		position: relative;
+		z-index: 1;
+	}
+
+	.page-hero h1 {
+		font-size: var(--font-size-4xl);
+		font-weight: 800;
+	}
+
+	.page-hero p {
+		color: rgba(255, 255, 255, 0.8);
+		font-size: var(--font-size-lg);
+		margin-top: var(--spacing-sm);
+		max-width: 550px;
+		margin-inline: auto;
+	}
+
+	@media (max-width: 768px) {
+		.page-hero h1 {
+			font-size: var(--font-size-3xl);
+		}
+	}
+</style>

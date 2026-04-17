@@ -1,0 +1,95 @@
+---
+interface Props {
+	node: {
+		headline?: string;
+		items: Array<{
+			question: string;
+			answer: string;
+		}>;
+	};
+}
+
+const { node } = Astro.props;
+const { headline, items } = node;
+---
+
+<section class="faq section">
+	<div class="container">
+		{headline && (
+			<header class="faq-header">
+				<h2 class="faq-headline">{headline}</h2>
+			</header>
+		)}
+		<div class="faq-list">
+			{items.map((item) => (
+				<details class="faq-item">
+					<summary class="faq-question">
+						{item.question}
+						<svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+							<path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</summary>
+					<div class="faq-answer">
+						<p>{item.answer}</p>
+					</div>
+				</details>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.faq-header {
+		text-align: center;
+		margin-bottom: var(--spacing-4xl);
+	}
+
+	.faq-headline {
+		font-size: var(--font-size-3xl);
+		font-weight: 800;
+	}
+
+	.faq-list {
+		max-width: var(--max-width);
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+	}
+
+	.faq-item {
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		overflow: hidden;
+	}
+
+	.faq-question {
+		padding: var(--spacing-lg);
+		cursor: pointer;
+		font-weight: 600;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--spacing-md);
+		list-style: none;
+	}
+
+	.faq-question::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-icon {
+		flex-shrink: 0;
+		transition: transform var(--transition-base);
+	}
+
+	.faq-item[open] .faq-icon {
+		transform: rotate(180deg);
+	}
+
+	.faq-answer {
+		padding: 0 var(--spacing-lg) var(--spacing-lg);
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+</style>

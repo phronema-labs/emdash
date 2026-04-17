@@ -1,0 +1,116 @@
+---
+import { getEmDashCollection, getEntryTerms, getTaxonomyTerms } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const { entries: faqs, cacheHint } = await getEmDashCollection("faqs", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const categories = await getTaxonomyTerms("faq_category");
+
+const faqsWithCategories = await Promise.all(
+	faqs.map(async (faq) => {
+		const terms = await getEntryTerms(faq.id, "faq_category");
+		return { faq, category: terms[0]?.label || "General" };
+	})
+);
+
+const grouped = faqsWithCategories.reduce<Record<string, typeof faqsWithCategories>>((acc, item) => {
+	(acc[item.category] ??= []).push(item);
+	return acc;
+}, {});
+---
+
+<Base title="FAQ" description="Frequently asked questions about our services, pricing, and process.">
+	<PageHero
+		title="Frequently Asked Questions"
+		subtitle="Everything you need to know. Can't find an answer? Contact us."
+		image="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1600&h=500&fit=crop"
+	/>
+
+	<section class="container section">
+
+		<div class="faq-sections">
+			{Object.entries(grouped).map(([category, items]) => (
+				<div class="faq-category">
+					<h2>{category}</h2>
+					<div class="faq-list">
+						{items.map(({ faq }) => (
+							<details class="faq-item">
+								<summary>{faq.data.question}</summary>
+								<div class="faq-answer">
+									{faq.data.answer ? (
+										<PortableText value={faq.data.answer} />
+									) : (
+										<p>Answer coming soon.</p>
+									)}
+								</div>
+							</details>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+</Base>
+
+<style>
+	.faq-sections {
+		max-width: var(--max-width);
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-3xl);
+	}
+
+	.faq-category h2 {
+		font-size: var(--font-size-xl);
+		margin-bottom: var(--spacing-lg);
+		color: var(--color-primary);
+	}
+
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+	}
+
+	.faq-item {
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+	}
+
+	.faq-item summary {
+		padding: var(--spacing-lg);
+		cursor: pointer;
+		font-weight: 600;
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.faq-item summary::-webkit-details-marker { display: none; }
+
+	.faq-item summary::after {
+		content: "+";
+		font-size: var(--font-size-xl);
+		color: var(--color-muted);
+		transition: transform var(--transition-base);
+	}
+
+	.faq-item[open] summary::after {
+		content: "−";
+	}
+
+	.faq-answer {
+		padding: 0 var(--spacing-lg) var(--spacing-lg);
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	.faq-answer :global(p) {
+		margin-bottom: var(--spacing-sm);
+	}
+</style>

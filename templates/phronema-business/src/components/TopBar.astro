@@ -1,0 +1,112 @@
+---
+---
+
+<div class="top-bar">
+	<div class="top-bar-inner">
+		<div class="top-bar-left">
+			<a href="tel:5552345678" class="top-bar-phone">
+				<i class="ph ph-phone" /> (555) 234-5678
+			</a>
+			<span class="top-bar-sep">|</span>
+			<span class="top-bar-info"><i class="ph ph-clock" /> Mon–Fri 7AM–6PM &bull; Sat 8AM–2PM</span>
+			<span class="top-bar-sep top-bar-sep-area">|</span>
+			<span class="top-bar-info top-bar-area"><i class="ph ph-map-pin" /> Serving Springfield & 30mi</span>
+		</div>
+		<div class="top-bar-right">
+			<a href="tel:5552345678" class="top-bar-emergency">
+				<i class="ph ph-siren" /> 24/7 Emergency
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+	.top-bar {
+		background: #1a2332;
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 13px;
+	}
+
+	.top-bar-inner {
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		padding: 8px var(--site-gutter);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.top-bar-left {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.top-bar-phone {
+		color: white;
+		font-weight: 700;
+		font-size: 15px;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		white-space: nowrap;
+	}
+
+	.top-bar-phone i {
+		color: var(--color-accent, #ff6b35);
+	}
+
+	.top-bar-phone:hover {
+		color: var(--color-accent, #ff6b35);
+	}
+
+	.top-bar-sep {
+		opacity: 0.3;
+		margin: 0 6px;
+	}
+
+	.top-bar-info {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.top-bar-info i {
+		font-size: 14px;
+		color: var(--color-accent, #ff6b35);
+	}
+
+	.top-bar-right {
+		flex-shrink: 0;
+	}
+
+	.top-bar-emergency {
+		background: var(--color-accent, #ff6b35);
+		color: white;
+		font-weight: 600;
+		font-size: 10px;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		padding: 4px 10px;
+		border-radius: 3px;
+		white-space: nowrap;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.top-bar-emergency i {
+		font-size: 12px;
+	}
+
+	.top-bar-emergency:hover {
+		background: #e55a2b;
+	}
+
+	@media (max-width: 768px) {
+		.top-bar-info,
+		.top-bar-sep { display: none; }
+	}
+</style>

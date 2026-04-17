@@ -1,0 +1,84 @@
+---
+import { getEmDashEntry, decodeSlug } from "emdash";
+import { PortableText, Image } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+
+const slug = decodeSlug(Astro.params.slug!);
+const { entry, cacheHint } = await getEmDashEntry("services", slug);
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+if (!entry) return Astro.redirect("/404");
+---
+
+<Base title={entry.data.title} description={entry.data.summary}>
+	<article class="container section">
+		{entry.data.featured_image && (
+			<div class="service-hero">
+				<Image value={entry.data.featured_image} alt={entry.data.title} />
+			</div>
+		)}
+
+		<header class="service-header">
+			<h1>{entry.data.title}</h1>
+			{entry.data.price_from && (
+				<p class="service-price">Starting at <strong>{entry.data.price_from}</strong></p>
+			)}
+		</header>
+
+		{entry.data.content && (
+			<div class="prose">
+				<PortableText value={entry.data.content} />
+			</div>
+		)}
+
+		{entry.data.cta_url && (
+			<div class="service-cta">
+				<a href={entry.data.cta_url} class="btn btn-primary btn-lg">
+					{entry.data.cta_label || "Get Started"}
+				</a>
+			</div>
+		)}
+	</article>
+</Base>
+
+<style>
+	.service-hero {
+		margin-bottom: var(--spacing-2xl);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+
+	.service-hero :global(img) {
+		width: 100%;
+		max-height: 400px;
+		object-fit: cover;
+	}
+
+	.service-header {
+		margin-bottom: var(--spacing-2xl);
+	}
+
+	.service-price {
+		margin-top: var(--spacing-sm);
+		color: var(--color-primary);
+		font-size: var(--font-size-lg);
+	}
+
+	.prose {
+		max-width: var(--max-width);
+	}
+
+	.prose :global(p) {
+		margin-bottom: var(--spacing-md);
+		line-height: 1.7;
+	}
+
+	.prose :global(h2) {
+		margin-top: var(--spacing-2xl);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.service-cta {
+		margin-top: var(--spacing-3xl);
+	}
+</style>
