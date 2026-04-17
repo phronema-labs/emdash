@@ -1,0 +1,37 @@
+/* ==========================================================
+   Brand Config — Change these values to rebrand the entire site
+
+   For each client, update these 4 colors and you're done.
+   Everything else (buttons, sections, cards, badges, footer,
+   top bar, hero) inherits from these.
+   ========================================================== */
+
+:root {
+	/* Apex Roofing Co. (Demo) — Red / Dark Slate */
+	--brand-primary: #c0392b;
+	--brand-primary-dark: #a93226;
+	--brand-primary-light: #fadbd8;
+
+	--brand-accent: #e67e22;
+	--brand-accent-light: #fef5e7;
+
+	--brand-dark: #1c2833;
+
+	--brand-surface: #f8f9fa;
+	--brand-surface-warm: #fdf2e9;
+}
+
+/* ==========================================================
+   DO NOT EDIT BELOW — these map brand values to the site
+   ========================================================== */
+
+:root {
+	--color-primary: var(--brand-primary);
+	--color-primary-dark: var(--brand-primary-dark);
+	--color-primary-light: var(--brand-primary-light);
+	--color-accent: var(--brand-accent);
+	--color-accent-light: var(--brand-accent-light);
+	--color-dark-section: var(--brand-dark);
+	--color-surface: var(--brand-surface);
+	--color-surface-warm: var(--brand-surface-warm);
+}

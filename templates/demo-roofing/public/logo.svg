@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 48" fill="none">
+  <path d="M6 40L24 8L42 40" stroke="#c0392b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 28H36" stroke="#e67e22" stroke-width="3" stroke-linecap="round"/>
+  <path d="M16 34H32" stroke="#e67e22" stroke-width="2" stroke-linecap="round"/>
+  <text x="52" y="33" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="22" fill="#1c2833">Apex Roofing</text>
+</svg>

@@ -1,0 +1,44 @@
+/* ==========================================================
+   Brand Config — Change these values to rebrand the entire site
+
+   For each client, update these 4 colors and you're done.
+   Everything else (buttons, sections, cards, badges, footer,
+   top bar, hero) inherits from these.
+   ========================================================== */
+
+:root {
+	/* PRIMARY — main brand color (buttons, links, icons, accents)
+	   Pick the client's main brand color */
+	--brand-primary: #1e6bb8;
+	--brand-primary-dark: #155a9c;
+	--brand-primary-light: #dbeafe;
+
+	/* ACCENT — call-to-action color (CTA buttons, emergency badge, "Get a Quote")
+	   Should contrast with primary. Orange works for most service businesses */
+	--brand-accent: #ff6b35;
+	--brand-accent-light: #fff3ed;
+
+	/* DARK — dark sections (top bar, footer, stats bar, dark hero overlay)
+	   Usually a very dark navy/charcoal */
+	--brand-dark: #1a2332;
+
+	/* SURFACE — subtle background for alternating sections
+	   Light gray or very faint tint of the primary color */
+	--brand-surface: #f7f9fc;
+	--brand-surface-warm: #fef8f4;
+}
+
+/* ==========================================================
+   DO NOT EDIT BELOW — these map brand values to the site
+   ========================================================== */
+
+:root {
+	--color-primary: var(--brand-primary);
+	--color-primary-dark: var(--brand-primary-dark);
+	--color-primary-light: var(--brand-primary-light);
+	--color-accent: var(--brand-accent);
+	--color-accent-light: var(--brand-accent-light);
+	--color-dark-section: var(--brand-dark);
+	--color-surface: var(--brand-surface);
+	--color-surface-warm: var(--brand-surface-warm);
+}

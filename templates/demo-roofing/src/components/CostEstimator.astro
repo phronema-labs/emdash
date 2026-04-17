@@ -1,0 +1,259 @@
+---
+---
+
+<section class="estimator section" id="estimator">
+	<div class="container">
+		<header class="estimator-header">
+			<h2>Get a Quick Estimate</h2>
+			<p>Select your service type and details for an instant ballpark price. For an exact quote, <a href="/contact">schedule a free estimate</a>.</p>
+		</header>
+
+		<div class="estimator-form" data-estimator>
+			<div class="estimator-step">
+				<label class="step-label">1. What do you need?</label>
+				<div class="option-grid" data-field="service">
+					<button class="option-btn" data-value="plumbing">
+						<i class="ph ph-drop" />
+						<span>Plumbing</span>
+					</button>
+					<button class="option-btn" data-value="hvac">
+						<i class="ph ph-thermometer" />
+						<span>HVAC</span>
+					</button>
+					<button class="option-btn" data-value="electrical">
+						<i class="ph ph-lightning" />
+						<span>Electrical</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="estimator-step">
+				<label class="step-label">2. What type of job?</label>
+				<div class="option-grid" data-field="type">
+					<button class="option-btn" data-value="repair">
+						<i class="ph ph-wrench" />
+						<span>Repair</span>
+					</button>
+					<button class="option-btn" data-value="install">
+						<i class="ph ph-plus-circle" />
+						<span>New Install</span>
+					</button>
+					<button class="option-btn" data-value="maintenance">
+						<i class="ph ph-clipboard-text" />
+						<span>Maintenance</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="estimator-step">
+				<label class="step-label">3. How urgent?</label>
+				<div class="option-grid" data-field="urgency">
+					<button class="option-btn" data-value="routine">
+						<i class="ph ph-calendar" />
+						<span>Can wait a few days</span>
+					</button>
+					<button class="option-btn" data-value="soon">
+						<i class="ph ph-clock" />
+						<span>This week</span>
+					</button>
+					<button class="option-btn" data-value="emergency">
+						<i class="ph ph-siren" />
+						<span>Emergency</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="estimator-result" data-result style="display: none;">
+				<div class="result-card">
+					<span class="result-label">Estimated Range</span>
+					<span class="result-price" data-price></span>
+					<span class="result-note">*Exact pricing provided after on-site assessment. No obligation.</span>
+					<a href="/contact" class="btn btn-primary btn-lg">Schedule Free Estimate</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	document.querySelectorAll<HTMLElement>("[data-estimator]").forEach((form) => {
+		const state: Record<string, string> = {};
+		const result = form.querySelector<HTMLElement>("[data-result]")!;
+		const priceEl = form.querySelector<HTMLElement>("[data-price]")!;
+
+		const PRICES: Record<string, Record<string, Record<string, string>>> = {
+			plumbing: {
+				repair: { routine: "$89 – $350", soon: "$89 – $400", emergency: "$149 – $500" },
+				install: { routine: "$200 – $2,500", soon: "$250 – $2,800", emergency: "$350 – $3,500" },
+				maintenance: { routine: "$89 – $150", soon: "$89 – $175", emergency: "$149 – $250" },
+			},
+			hvac: {
+				repair: { routine: "$89 – $450", soon: "$89 – $500", emergency: "$149 – $650" },
+				install: { routine: "$3,500 – $12,000", soon: "$3,800 – $13,000", emergency: "$4,500 – $15,000" },
+				maintenance: { routine: "$89 – $175", soon: "$89 – $200", emergency: "$149 – $300" },
+			},
+			electrical: {
+				repair: { routine: "$99 – $400", soon: "$99 – $450", emergency: "$149 – $550" },
+				install: { routine: "$150 – $3,000", soon: "$200 – $3,500", emergency: "$300 – $4,000" },
+				maintenance: { routine: "$99 – $200", soon: "$99 – $225", emergency: "$149 – $300" },
+			},
+		};
+
+		form.querySelectorAll<HTMLElement>(".option-btn").forEach((btn) => {
+			btn.addEventListener("click", () => {
+				const field = btn.closest("[data-field]")?.getAttribute("data-field");
+				if (!field) return;
+
+				// Toggle active state
+				btn.closest(".option-grid")?.querySelectorAll(".option-btn").forEach((b) => b.classList.remove("active"));
+				btn.classList.add("active");
+				state[field] = btn.dataset.value!;
+
+				// Show result when all 3 selected
+				if (state.service && state.type && state.urgency) {
+					const price = PRICES[state.service]?.[state.type]?.[state.urgency] ?? "Call for quote";
+					priceEl.textContent = price;
+					result.style.display = "block";
+					result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+				}
+			});
+		});
+	});
+</script>
+
+<style>
+	.estimator {
+		background: white;
+	}
+
+	.estimator-header {
+		text-align: center;
+		margin-bottom: var(--spacing-3xl);
+	}
+
+	.estimator-header h2 {
+		font-size: var(--font-size-3xl);
+		font-weight: 800;
+	}
+
+	.estimator-header p {
+		color: var(--color-muted);
+		margin-top: var(--spacing-sm);
+	}
+
+	.estimator-header a {
+		color: var(--color-primary);
+		text-decoration: underline;
+	}
+
+	.estimator-form {
+		max-width: 700px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-2xl);
+	}
+
+	.step-label {
+		display: block;
+		font-weight: 600;
+		margin-bottom: var(--spacing-md);
+		font-size: var(--font-size-lg);
+	}
+
+	.option-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-md);
+	}
+
+	.option-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-sm);
+		padding: var(--spacing-lg);
+		background: var(--color-bg);
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		cursor: pointer;
+		font-family: inherit;
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: var(--color-text);
+		transition: all var(--transition-fast);
+	}
+
+	.option-btn i {
+		font-size: 28px;
+		color: var(--color-muted);
+		transition: color var(--transition-fast);
+	}
+
+	.option-btn:hover {
+		border-color: var(--color-primary);
+	}
+
+	.option-btn:hover i {
+		color: var(--color-primary);
+	}
+
+	.option-btn.active {
+		border-color: var(--color-primary);
+		background: var(--color-primary);
+		color: white;
+	}
+
+	.option-btn.active i {
+		color: white;
+	}
+
+	.result-card {
+		text-align: center;
+		padding: var(--spacing-2xl);
+		background: var(--color-bg);
+		border: 2px solid var(--color-primary);
+		border-radius: var(--radius-lg);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-md);
+		animation: slideUp 0.3s ease;
+	}
+
+	@keyframes slideUp {
+		from { opacity: 0; transform: translateY(10px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.result-label {
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--color-muted);
+	}
+
+	.result-price {
+		font-size: var(--font-size-4xl);
+		font-weight: 800;
+		color: var(--color-primary);
+	}
+
+	.result-note {
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		font-style: italic;
+	}
+
+	@media (max-width: 600px) {
+		.option-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.option-btn {
+			flex-direction: row;
+			justify-content: center;
+		}
+	}
+</style>

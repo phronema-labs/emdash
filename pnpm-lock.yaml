@@ -1469,6 +1469,42 @@ importers:
         specifier: 'catalog:'
         version: 4.80.0(@cloudflare/workers-types@4.20260305.1)
 
+  templates/demo-roofing:
+    dependencies:
+      '@astrojs/node':
+        specifier: 'catalog:'
+        version: 10.0.0(astro@6.0.1(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.31.1)(rollup@4.55.2)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2))
+      '@astrojs/react':
+        specifier: 'catalog:'
+        version: 5.0.0(@types/node@24.10.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(jiti@2.6.1)(lightningcss@1.31.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(tsx@4.21.0)(yaml@2.8.2)
+      '@emdash-cms/plugin-audit-log':
+        specifier: workspace:*
+        version: link:../../packages/plugins/audit-log
+      '@emdash-cms/plugin-business-blocks':
+        specifier: workspace:*
+        version: link:../../packages/plugins/business-blocks
+      '@emdash-cms/plugin-forms':
+        specifier: workspace:*
+        version: link:../../packages/plugins/forms
+      '@emdash-cms/plugin-seo':
+        specifier: workspace:*
+        version: link:../../packages/plugins/seo
+      astro:
+        specifier: 'catalog:'
+        version: 6.0.1(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.31.1)(rollup@4.55.2)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2)
+      better-sqlite3:
+        specifier: 'catalog:'
+        version: 12.8.0
+      emdash:
+        specifier: workspace:*
+        version: link:../../packages/core
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
   templates/marketing:
     dependencies:
       '@astrojs/node':

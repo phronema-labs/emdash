@@ -1,0 +1,72 @@
+/* ==========================================================
+   Phronema Labs — Shared Site Rules
+   Used across all client sites. Controls layout grid,
+   container widths, spacing rhythm, and base element styles.
+   ========================================================== */
+
+:root {
+	/* Layout grid */
+	--site-max-width: 1200px;
+	--site-gutter: 2rem; /* 32px — breathing room on all sides */
+	--site-gutter-mobile: 1.25rem; /* 20px — tighter on small screens */
+
+	/* Spacing scale */
+	--space-xs: 0.25rem;
+	--space-sm: 0.5rem;
+	--space-md: 1rem;
+	--space-lg: 1.5rem;
+	--space-xl: 2rem;
+	--space-2xl: 3rem;
+	--space-3xl: 4rem;
+	--space-4xl: 6rem;
+	--space-5xl: 8rem;
+
+	/* Typography scale — bigger headings for service industry */
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-base: 1.0625rem;
+	--text-md: 1.0625rem;
+	--text-lg: 1.1875rem;
+	--text-xl: 1.375rem;
+	--text-2xl: 1.75rem;
+	--text-3xl: 2.5rem;
+	--text-4xl: 3.25rem;
+	--text-5xl: 4.25rem;
+
+	/* Radii */
+	--radius-sm: 6px;
+	--radius-md: 10px;
+	--radius-lg: 16px;
+	--radius-full: 9999px;
+
+	/* Transitions */
+	--ease-fast: 150ms ease;
+	--ease-base: 200ms ease;
+	--ease-slow: 300ms ease;
+
+	/* Shadows */
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+	--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* ---- Container ---- */
+.container {
+	max-width: var(--site-max-width);
+	margin-inline: auto;
+	padding-inline: var(--site-gutter);
+}
+
+/* ---- Section ---- */
+.section {
+	padding-block: var(--space-5xl);
+	padding-inline: var(--site-gutter);
+}
+
+/* ---- Mobile overrides ---- */
+@media (max-width: 768px) {
+	:root {
+		--site-gutter: var(--site-gutter-mobile);
+	}
+}

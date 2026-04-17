@@ -1,0 +1,37 @@
+{
+	"name": "@phronema-labs/demo-roofing",
+	"version": "0.1.0",
+	"description": "Phronema Labs roofing company demo site",
+	"type": "module",
+	"private": true,
+	"emdash": {
+		"label": "Roofing Demo",
+		"description": "Roofing company website demo — residential and commercial",
+		"seed": "seed/seed.json"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"bootstrap": "emdash init && emdash seed",
+		"seed": "emdash seed"
+	},
+	"dependencies": {
+		"@astrojs/node": "catalog:",
+		"@astrojs/react": "catalog:",
+		"@emdash-cms/plugin-audit-log": "workspace:*",
+		"@emdash-cms/plugin-business-blocks": "workspace:*",
+		"@emdash-cms/plugin-forms": "workspace:*",
+		"@emdash-cms/plugin-seo": "workspace:*",
+		"astro": "catalog:",
+		"better-sqlite3": "catalog:",
+		"emdash": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"better-sqlite3"
+		]
+	}
+}

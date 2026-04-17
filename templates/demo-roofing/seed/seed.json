@@ -1,0 +1,1669 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "Roofing Demo",
+		"description": "A complete roofing contractor website demo",
+		"author": "Phronema Labs"
+	},
+
+	"settings": {
+		"title": "Apex Roofing Co.",
+		"tagline": "Residential & commercial roofing — built to last"
+	},
+
+	"collections": [
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		},
+		{
+			"slug": "posts",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"supports": ["drafts", "revisions", "search", "seo"],
+			"commentsEnabled": true,
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt",
+					"type": "text"
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		},
+		{
+			"slug": "services",
+			"label": "Services",
+			"labelSingular": "Service",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "icon",
+					"label": "Icon",
+					"type": "string"
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "price_from",
+					"label": "Starting Price",
+					"type": "string"
+				},
+				{
+					"slug": "cta_label",
+					"label": "CTA Button Label",
+					"type": "string"
+				},
+				{
+					"slug": "cta_url",
+					"label": "CTA Button URL",
+					"type": "string"
+				}
+			]
+		},
+		{
+			"slug": "team",
+			"label": "Team",
+			"labelSingular": "Team Member",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "name",
+					"label": "Name",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "role",
+					"label": "Role",
+					"type": "string"
+				},
+				{
+					"slug": "photo",
+					"label": "Photo",
+					"type": "image"
+				},
+				{
+					"slug": "bio",
+					"label": "Bio",
+					"type": "text"
+				},
+				{
+					"slug": "email",
+					"label": "Email",
+					"type": "string"
+				},
+				{
+					"slug": "phone",
+					"label": "Phone",
+					"type": "string"
+				},
+				{
+					"slug": "social_links",
+					"label": "Social Links",
+					"type": "json"
+				}
+			]
+		},
+		{
+			"slug": "testimonials",
+			"label": "Testimonials",
+			"labelSingular": "Testimonial",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "author",
+					"label": "Author",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "role",
+					"label": "Role",
+					"type": "string"
+				},
+				{
+					"slug": "company",
+					"label": "Company",
+					"type": "string"
+				},
+				{
+					"slug": "avatar",
+					"label": "Avatar",
+					"type": "image"
+				},
+				{
+					"slug": "quote",
+					"label": "Quote",
+					"type": "text",
+					"required": true
+				},
+				{
+					"slug": "rating",
+					"label": "Rating",
+					"type": "integer"
+				},
+				{
+					"slug": "featured",
+					"label": "Featured",
+					"type": "boolean"
+				}
+			]
+		},
+		{
+			"slug": "projects",
+			"label": "Projects",
+			"labelSingular": "Project",
+			"supports": ["drafts", "revisions", "search", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "client",
+					"label": "Client",
+					"type": "string"
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image",
+					"required": true
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "gallery",
+					"label": "Gallery",
+					"type": "json"
+				},
+				{
+					"slug": "year",
+					"label": "Year",
+					"type": "string"
+				},
+				{
+					"slug": "url",
+					"label": "Project URL",
+					"type": "string"
+				}
+			]
+		},
+		{
+			"slug": "faqs",
+			"label": "FAQs",
+			"labelSingular": "FAQ",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "question",
+					"label": "Question",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "answer",
+					"label": "Answer",
+					"type": "portableText"
+				}
+			]
+		}
+	],
+
+	"taxonomies": [
+		{
+			"name": "service_category",
+			"label": "Service Categories",
+			"labelSingular": "Service Category",
+			"hierarchical": true,
+			"collections": ["services"],
+			"terms": [
+				{ "slug": "residential", "label": "Residential" },
+				{ "slug": "commercial", "label": "Commercial" },
+				{ "slug": "emergency", "label": "Emergency" },
+				{ "slug": "maintenance", "label": "Maintenance" }
+			]
+		},
+		{
+			"name": "category",
+			"label": "Categories",
+			"labelSingular": "Category",
+			"hierarchical": true,
+			"collections": ["posts"],
+			"terms": [
+				{ "slug": "tips", "label": "Tips" },
+				{ "slug": "seasonal", "label": "Seasonal" },
+				{ "slug": "news", "label": "News" }
+			]
+		},
+		{
+			"name": "tag",
+			"label": "Tags",
+			"labelSingular": "Tag",
+			"hierarchical": false,
+			"collections": ["posts"],
+			"terms": [
+				{ "slug": "roofing", "label": "Roofing" },
+				{ "slug": "storm-damage", "label": "Storm Damage" },
+				{ "slug": "maintenance", "label": "Maintenance" },
+				{ "slug": "energy-savings", "label": "Energy Savings" }
+			]
+		},
+		{
+			"name": "faq_category",
+			"label": "FAQ Categories",
+			"labelSingular": "FAQ Category",
+			"hierarchical": false,
+			"collections": ["faqs"],
+			"terms": [
+				{ "slug": "general", "label": "General" },
+				{ "slug": "pricing", "label": "Pricing" },
+				{ "slug": "process", "label": "Process" },
+				{ "slug": "insurance", "label": "Insurance" }
+			]
+		},
+		{
+			"name": "project_category",
+			"label": "Project Categories",
+			"labelSingular": "Project Category",
+			"hierarchical": false,
+			"collections": ["projects"],
+			"terms": [
+				{ "slug": "residential", "label": "Residential" },
+				{ "slug": "commercial", "label": "Commercial" },
+				{ "slug": "restoration", "label": "Restoration" }
+			]
+		}
+	],
+
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary Navigation",
+			"items": [
+				{ "type": "custom", "label": "Home", "url": "/" },
+				{ "type": "custom", "label": "Services", "url": "/services" },
+				{ "type": "custom", "label": "Our Work", "url": "/work" },
+				{ "type": "custom", "label": "About", "url": "/about" },
+				{ "type": "custom", "label": "Blog", "url": "/blog" },
+				{ "type": "custom", "label": "Contact", "url": "/contact" }
+			]
+		},
+		{
+			"name": "footer",
+			"label": "Footer Navigation",
+			"items": [
+				{ "type": "custom", "label": "Privacy Policy", "url": "/pages/privacy" },
+				{ "type": "custom", "label": "Terms of Service", "url": "/pages/terms" },
+				{ "type": "custom", "label": "FAQ", "url": "/faq" }
+			]
+		}
+	],
+
+	"widgetAreas": [
+		{
+			"name": "sidebar",
+			"label": "Blog Sidebar",
+			"description": "Widget area displayed on blog pages",
+			"widgets": [
+				{
+					"type": "component",
+					"componentId": "core:search",
+					"title": "Search"
+				},
+				{
+					"type": "component",
+					"componentId": "core:categories",
+					"title": "Categories"
+				},
+				{
+					"type": "component",
+					"componentId": "core:recent-posts",
+					"title": "Recent Posts",
+					"settings": { "count": 5, "showDate": true }
+				}
+			]
+		},
+		{
+			"name": "footer",
+			"label": "Footer",
+			"description": "Widget area displayed in the site footer",
+			"widgets": [
+				{
+					"type": "content",
+					"title": "About Us",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Apex Roofing Co. has been protecting homes and businesses across the Mesa, AZ area for over 25 years. Licensed, bonded, and insured. ROC #298471."
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "content",
+					"title": "Service Area",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{ "_type": "span", "text": "Serving Mesa, Gilbert, Chandler, Tempe, Scottsdale, Apache Junction, Queen Creek, and the greater East Valley." }
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+
+	"content": {
+		"pages": [
+			{
+				"id": "home",
+				"slug": "home",
+				"status": "published",
+				"data": {
+					"title": "Home",
+					"content": [
+						{
+							"_type": "business.hero",
+							"_key": "hero",
+							"headline": "Protect your home from the top down",
+							"subheadline": "Residential and commercial roofing services in Mesa, AZ. From repairs to full replacements, our licensed crews deliver work that stands up to Arizona's toughest weather. Free inspections available.",
+							"primaryCta": { "label": "Get a Free Estimate", "url": "/contact" },
+							"secondaryCta": { "label": "Call (480) 555-8900", "url": "tel:4805558900" },
+							"image": { "url": "https://images.unsplash.com/photo-1632759145351-1d592919f522?w=800&h=600&fit=crop", "alt": "Roofing crew installing new shingles on a residential home" },
+							"style": "split"
+						},
+						{
+							"_type": "business.features",
+							"_key": "features",
+							"headline": "Why Arizona homeowners choose Apex",
+							"subheadline": "Over 25 years of protecting homes and businesses across the East Valley.",
+							"features": [
+								{
+									"icon": "shield-check",
+									"title": "Licensed & Insured",
+									"description": "Fully licensed (ROC #298471), bonded, and insured with $2M in liability coverage. Your property is in safe hands."
+								},
+								{
+									"icon": "seal-check",
+									"title": "10-Year Workmanship Warranty",
+									"description": "Every roof we install comes with a 10-year workmanship warranty on top of the manufacturer's material warranty."
+								},
+								{
+									"icon": "cloud-lightning",
+									"title": "Storm Damage Experts",
+									"description": "Monsoon season took a toll? We handle the full process — from tarp and temporary repair to insurance documentation and permanent fix."
+								},
+								{
+									"icon": "magnifying-glass",
+									"title": "Free Roof Inspections",
+									"description": "Not sure about the condition of your roof? We offer complimentary 21-point inspections with a written report and photos."
+								},
+								{
+									"icon": "wrench",
+									"title": "All Roof Types",
+									"description": "Tile, shingle, flat, foam, metal, and modified bitumen. Whatever is on your building, we know how to repair and replace it."
+								},
+								{
+									"icon": "clipboard",
+									"title": "Insurance Claim Assistance",
+									"description": "We work directly with your insurance company, document the damage, and handle the back-and-forth so you don't have to."
+								}
+							]
+						},
+						{
+							"_type": "business.testimonials",
+							"_key": "testimonials",
+							"headline": "What our customers say",
+							"testimonials": [
+								{
+									"quote": "After a monsoon ripped off half our ridge caps, Apex had a crew out the next morning. They tarped it immediately and completed the full repair within the week. Insurance covered everything thanks to their documentation.",
+									"author": "Jennifer K.",
+									"role": "Homeowner",
+									"company": "Mesa, AZ",
+									"rating": 5
+								},
+								{
+									"quote": "We got three bids for a full reroof on our 2,400 sq ft home. Apex wasn't the cheapest, but they were the most thorough — they showed us exactly what needed to be done and why. The crew was fast, clean, and professional.",
+									"author": "Tom & Lisa R.",
+									"role": "Homeowners",
+									"company": "Gilbert, AZ",
+									"rating": 5
+								},
+								{
+									"quote": "They replaced the flat roof on our office building. Zero leaks in two years, and they finished a day ahead of schedule. We've already referred them to three other business owners.",
+									"author": "David M.",
+									"role": "Business Owner",
+									"company": "Chandler, AZ",
+									"rating": 5
+								}
+							]
+						},
+						{
+							"_type": "business.stats",
+							"_key": "stats",
+							"stats": [
+								{ "value": "25+", "label": "Years in Business" },
+								{ "value": "5,000+", "label": "Roofs Completed" },
+								{ "value": "4.8", "label": "Google Rating" },
+								{ "value": "24/7", "label": "Storm Response" }
+							]
+						},
+						{
+							"_type": "business.cta",
+							"_key": "cta",
+							"headline": "Need a roof inspection?",
+							"description": "Call now or book online for a free 21-point roof inspection. We'll give you an honest assessment and a written report — no pressure, no obligation.",
+							"buttonLabel": "Schedule Free Inspection",
+							"buttonUrl": "/contact",
+							"style": "banner"
+						}
+					]
+				}
+			},
+			{
+				"id": "about",
+				"slug": "about",
+				"status": "published",
+				"data": {
+					"title": "About Apex Roofing Co.",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Apex Roofing Co. was founded in 2001 by Ray Castillo, a lifelong Mesa resident who spent 10 years working for one of the Valley's largest roofing companies before deciding homeowners deserved a better experience — fair pricing, clear communication, and crews that show up when they say they will."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our story" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "What started as a two-man crew working out of a single truck has grown into a full-service roofing company with 18 team members, a dedicated office staff, and a reputation built on over 5,000 completed roofs. We've maintained a 4.8-star rating on Google because we treat every roof like it's our own home."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "How we work" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every project starts with a thorough inspection. We climb on the roof, take photos, and deliver a written report explaining exactly what we found. If work is needed, you get a detailed estimate before we pick up a tool. We don't use high-pressure sales tactics and we never recommend work that isn't necessary. When the job is done, we do a final walk-through with you and don't consider it finished until you're satisfied."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Built for Arizona" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Arizona roofs take a beating — 115-degree summers, monsoon hail, UV degradation year-round. We use materials rated for desert conditions and installation methods that account for thermal expansion, wind uplift, and the unique challenges of the Sonoran Desert climate. Our crews are trained specifically for the roofing systems most common in the Valley: concrete tile, asphalt shingle, foam, and flat/low-slope commercial systems."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "contact",
+				"slug": "contact",
+				"status": "published",
+				"data": {
+					"title": "Contact Us",
+					"content": [
+						{
+							"_type": "business.hero",
+							"_key": "contact-hero",
+							"headline": "Get in touch",
+							"subheadline": "Request a free estimate, schedule an inspection, or ask a question. We respond within 1 business hour during working hours.",
+							"style": "centered"
+						},
+						{
+							"_type": "business.contact-info",
+							"_key": "contact-details",
+							"phone": "(480) 555-8900",
+							"email": "info@apexroofingco.com",
+							"address": "1847 E Main St, Mesa, AZ 85203",
+							"social": [
+								{ "platform": "facebook", "url": "https://facebook.com/apexroofingco" },
+								{ "platform": "instagram", "url": "https://instagram.com/apexroofingco" },
+								{ "platform": "google", "url": "https://g.page/apexroofingco" }
+							]
+						},
+						{
+							"_type": "business.hours",
+							"_key": "hours",
+							"headline": "Business Hours",
+							"hours": [
+								{ "day": "Monday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Tuesday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Wednesday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Thursday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Friday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Saturday", "open": "8:00 AM", "close": "12:00 PM" },
+								{ "day": "Sunday", "closed": true }
+							]
+						},
+						{
+							"_type": "business.map",
+							"_key": "map",
+							"address": "1847 E Main St, Mesa, AZ 85203",
+							"lat": 33.4152,
+							"lng": -111.8315,
+							"zoom": 14,
+							"markerTitle": "Apex Roofing Co.",
+							"height": "400px"
+						}
+					]
+				}
+			}
+		],
+		"posts": [
+			{
+				"id": "post-1",
+				"slug": "how-to-spot-storm-damage-on-your-roof",
+				"status": "published",
+				"data": {
+					"title": "How to Spot Storm Damage on Your Roof",
+					"excerpt": "Arizona monsoons can do serious damage to your roof without you ever knowing. Here's what to look for after a storm — and when to call a professional.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=1200&h=800&fit=crop",
+							"alt": "Damaged roof shingles after a storm",
+							"filename": "storm-damage-roof.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every monsoon season, we get dozens of calls from homeowners who had no idea their roof was damaged until they noticed a water stain on the ceiling. By then, the damage has usually spread beyond the roof itself. Here's how to spot storm damage early, before a small problem becomes an expensive one."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "1. Check for missing or displaced shingles" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Walk around your property after a storm and look up. Missing shingles are obvious, but also look for shingles that have lifted, curled, or shifted out of position. High winds can break the seal on shingles without ripping them off entirely, leaving your underlayment exposed to the next rain."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "2. Look for granule loss" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Check your gutters and downspout discharge areas for an accumulation of dark, sandy granules. Some granule loss is normal over time, but a sudden increase after a hailstorm means the protective coating on your shingles has been compromised. Without those granules, UV exposure will break down the shingle much faster."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "3. Inspect for cracked or broken tile" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "If you have a tile roof, look for cracked, chipped, or broken tiles. Hail and wind-blown debris are the usual culprits. Even a single cracked tile can let water into the underlayment. Don't walk on tile roofs yourself — concrete and clay tiles are fragile and you can cause more damage. Use binoculars from the ground or call a professional."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "4. Check flashing and vents" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Metal flashing around chimneys, vents, and skylights can be bent or pulled away from the roof surface during high winds. These are the most common leak points on any roof. If you see gaps or bent metal, water is getting in — even if you haven't noticed it inside yet."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "5. Look inside your attic" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Grab a flashlight and check your attic after any major storm. Look for daylight coming through the roof boards, water stains on the underside of the decking, or damp insulation. Catching a leak in the attic can save you from drywall damage, mold growth, and a much bigger repair bill down the road."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "If you spot any of these signs — or if you just want peace of mind after a bad storm — give us a call. We offer free post-storm inspections and can document everything your insurance company needs to process a claim."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["tips"],
+					"tag": ["storm-damage", "roofing"]
+				}
+			},
+			{
+				"id": "post-2",
+				"slug": "tile-vs-shingle-which-roof-is-right-for-arizona",
+				"status": "published",
+				"data": {
+					"title": "Tile vs Shingle: Which Roof Is Right for Arizona?",
+					"excerpt": "Both tile and shingle roofs are common in the Valley, but they perform very differently in our climate. Here's an honest comparison to help you choose.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+							"alt": "Arizona home with clay tile roof against blue sky",
+							"filename": "tile-vs-shingle.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "When it's time for a new roof in Arizona, the first decision most homeowners face is tile or shingle. Both are solid options, but they differ in cost, lifespan, maintenance, and how well they handle our extreme heat. Here's a straightforward comparison based on what we see in the field every day."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Concrete and clay tile" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Tile roofs are the most popular choice in the Valley for good reason. They last 40-50 years with proper maintenance, handle UV exposure better than any other material, and the air gap between the tile and the underlayment provides natural insulation. Concrete tile is more affordable, while clay tile offers a traditional Southwest aesthetic. The downside: tile is heavy (your structure needs to support 900-1,100 lbs per square), individual tiles can crack from hail or foot traffic, and a full tile reroof typically costs $15,000-$25,000 for an average home."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Asphalt shingle" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Shingle roofs are more affordable upfront — a full reroof typically runs $8,000-$14,000 — and they're lighter, faster to install, and easier to repair. Modern architectural shingles look great and come in dozens of colors. The trade-off is lifespan: in Arizona's intense heat, even high-quality shingles typically last 15-20 years compared to 25-30 in milder climates. UV degradation and thermal cycling take a toll. If you plan to sell in the next 10-15 years, shingles can be a smart, cost-effective choice."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our recommendation" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "There's no universally right answer — it depends on your budget, how long you plan to stay in the home, and what's already on your roof. If you're replacing an existing tile roof, staying with tile usually makes the most sense because your structure is already engineered for the weight. If you're on a tighter budget or plan to move within 15 years, a quality shingle roof is a perfectly good investment. We're happy to walk you through the options during a free consultation."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["tips"],
+					"tag": ["roofing", "energy-savings"]
+				}
+			},
+			{
+				"id": "post-3",
+				"slug": "5-signs-you-need-a-roof-replacement",
+				"status": "published",
+				"data": {
+					"title": "5 Signs You Need a Roof Replacement",
+					"excerpt": "Repairs can only take you so far. Here are five clear signals that it's time to stop patching and start planning for a new roof.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop",
+							"alt": "Close-up of worn and aging roof shingles",
+							"filename": "roof-replacement-signs.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "No roof lasts forever, and in Arizona's harsh climate, roofs age faster than the national average. Knowing when to stop repairing and invest in a replacement can save you money and prevent interior damage. Here are five signs we look for during inspections."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "1. Your roof is past its expected lifespan" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Asphalt shingles in Arizona typically last 15-20 years. Tile roofs last 40-50 years, but the underlayment beneath the tile needs replacement every 20-30 years. If your roof is approaching these milestones, it's time for a professional inspection to assess how much life is left."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "2. You're seeing recurring leaks" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "One leak is a repair. Multiple leaks or the same area leaking repeatedly means the underlying system is failing. When the underlayment, decking, or flashing has deteriorated to the point of repeated failure, patching is just buying time — and not much of it."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "3. Widespread shingle deterioration" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "If shingles across your roof are curling, cracking, losing granules, or becoming brittle, the damage is systemic — not something you can fix by replacing a few shingles here and there. When more than 30% of your shingles show signs of wear, replacement is more cost-effective than ongoing repairs."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "4. Sagging or uneven roof lines" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A sagging roof line is a structural concern that goes beyond surface materials. It usually means the decking or rafters have been compromised by moisture damage. This won't get better on its own and needs to be addressed before it becomes a safety issue."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "5. Your energy bills are climbing" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A failing roof lets conditioned air escape and heat radiate into your attic. If your energy bills have been creeping up despite no change in usage, your roof's insulating value may have degraded. A new roof with modern underlayment and proper ventilation can cut cooling costs by 15-25% in Arizona summers."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "If any of these sound familiar, schedule a free inspection with us. We'll give you an honest assessment and walk you through your options — including financing if needed. No pressure, just straight answers."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["tips"],
+					"tag": ["roofing", "maintenance"]
+				}
+			}
+		],
+		"services": [
+			{
+				"id": "roof-repair",
+				"slug": "roof-repair",
+				"status": "published",
+				"data": {
+					"title": "Roof Repair",
+					"icon": "wrench",
+					"summary": "Leaks, missing shingles, cracked tile, damaged flashing — we fix it all. Fast, reliable repairs backed by our workmanship warranty.",
+					"price_from": "$250 minor repair",
+					"cta_label": "Schedule a Repair",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1635424710928-0544e8512eae?w=1200&h=800&fit=crop",
+							"alt": "Roofer repairing shingles on a residential roof",
+							"filename": "roof-repair.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Not every roof problem requires a full replacement. Many issues — leaks, damaged flashing, cracked tiles, missing shingles — can be repaired quickly and affordably if caught early. Our repair crews carry the most common materials on their trucks so we can often complete the fix in a single visit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What we repair" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Roof leaks and water intrusion, missing or damaged shingles, cracked or broken concrete and clay tiles, damaged or corroded flashing, pipe boot and vent seal failures, ridge cap repair, gutter repair and reattachment, flat roof patching and recoating, and emergency tarp installation for storm damage."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "maintenance"]
+				}
+			},
+			{
+				"id": "roof-replacement",
+				"slug": "roof-replacement",
+				"status": "published",
+				"data": {
+					"title": "Roof Replacement",
+					"icon": "house",
+					"summary": "Full tear-off and reroof for homes and small commercial buildings. Tile, shingle, flat, and foam systems installed by experienced crews.",
+					"price_from": "$8,000 full reroof",
+					"cta_label": "Get a Free Estimate",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1632759145351-1d592919f522?w=1200&h=800&fit=crop",
+							"alt": "New roof installation on a residential home",
+							"filename": "roof-replacement.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "When repairs are no longer enough, a full roof replacement protects your home for decades. We handle the entire process — tear-off of the old roof, inspection and repair of the decking, installation of new underlayment and materials, and final cleanup. Most residential reroofs are completed in 1-3 days."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Systems we install" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Concrete and clay tile (flat, S-tile, barrel), architectural asphalt shingles (Owens Corning, GAF, CertainTeed), spray polyurethane foam (SPF) with elastomeric coating, TPO and modified bitumen for flat roofs, and standing seam metal roofing. We'll help you choose the right material for your home, budget, and how long you plan to stay."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential"]
+				}
+			},
+			{
+				"id": "storm-damage",
+				"slug": "storm-damage",
+				"status": "published",
+				"data": {
+					"title": "Storm Damage Restoration",
+					"icon": "cloud-lightning",
+					"summary": "24/7 emergency tarping and full storm damage restoration. We handle the insurance paperwork so you can focus on your family.",
+					"price_from": "Free inspection",
+					"cta_label": "Report Storm Damage",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1527482797697-8795b05a13fe?w=1200&h=800&fit=crop",
+							"alt": "Storm clouds over residential neighborhood",
+							"filename": "storm-damage.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Arizona monsoons bring high winds, hail, and driving rain that can damage even well-maintained roofs. When a storm hits, our emergency crews are available 24/7 to tarp exposed areas and prevent further damage. We then handle the full restoration process, including detailed documentation for your insurance claim."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our storm damage process" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Emergency tarping within hours of your call. Free comprehensive damage inspection with photos and measurements. Detailed scope-of-work report formatted for insurance adjusters. Direct communication with your insurance company throughout the claim process. Full repair or replacement once the claim is approved. Final walk-through and warranty documentation."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["emergency", "residential"]
+				}
+			},
+			{
+				"id": "commercial-roofing",
+				"slug": "commercial-roofing",
+				"status": "published",
+				"data": {
+					"title": "Commercial Roofing",
+					"icon": "buildings",
+					"summary": "Flat roof, TPO, modified bitumen, foam, and metal systems for offices, retail, warehouses, and HOA communities.",
+					"price_from": "Free consultation",
+					"cta_label": "Request Commercial Quote",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop",
+							"alt": "Commercial building with flat roof system",
+							"filename": "commercial-roofing.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Commercial roofing is a different discipline than residential. Flat and low-slope systems, larger surface areas, and the need to minimize business disruption all require specialized experience. We've been installing and maintaining commercial roofs across the East Valley for over two decades."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Commercial systems we install" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "TPO (thermoplastic polyolefin) single-ply membrane, modified bitumen torch-down and self-adhered systems, spray polyurethane foam with silicone coating, standing seam and corrugated metal, built-up roofing (BUR), and cool roof coatings for existing systems. We also offer preventive maintenance contracts to extend the life of your commercial roof and catch problems before they cause leaks."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["commercial"]
+				}
+			},
+			{
+				"id": "roof-inspections",
+				"slug": "roof-inspections",
+				"status": "published",
+				"data": {
+					"title": "Roof Inspections",
+					"icon": "magnifying-glass",
+					"summary": "Comprehensive 21-point inspections for homeowners, home buyers, real estate agents, and property managers. Written report with photos included.",
+					"price_from": "Free for homeowners",
+					"cta_label": "Schedule Inspection",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=800&fit=crop",
+							"alt": "Roofing professional inspecting a residential roof",
+							"filename": "roof-inspections.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Your roof is the most important protective system on your home, but most homeowners have no idea what condition it's in. Our 21-point inspection covers every component of your roofing system and delivers a clear, written report with photos so you know exactly where you stand."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What we inspect" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Shingle or tile condition and remaining lifespan, underlayment integrity, flashing around chimneys, vents, and skylights, pipe boots and penetration seals, ridge caps and hip tiles, gutters and drainage, fascia and soffit condition, attic ventilation, signs of moisture or mold in the attic, and overall structural assessment. We provide the report within 24 hours and walk you through our findings — no pressure, no hard sell."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["maintenance", "residential"]
+				}
+			}
+		],
+		"team": [
+			{
+				"id": "team-1",
+				"slug": "ray-castillo",
+				"status": "published",
+				"data": {
+					"name": "Ray Castillo",
+					"role": "Owner & General Manager",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face",
+							"alt": "Ray Castillo",
+							"filename": "ray-castillo.jpg"
+						}
+					},
+					"bio": "Born and raised in Mesa with over 30 years in the roofing industry. Ray founded Apex in 2001 after a decade working for large Valley roofing companies. He's on the roof at least twice a week doing inspections because he believes the owner should know every job firsthand. Licensed ROC contractor and certified Owens Corning Preferred Installer.",
+					"email": "ray@apexroofingco.com"
+				}
+			},
+			{
+				"id": "team-2",
+				"slug": "sarah-nguyen",
+				"status": "published",
+				"data": {
+					"name": "Sarah Nguyen",
+					"role": "Project Manager",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
+							"alt": "Sarah Nguyen",
+							"filename": "sarah-nguyen.jpg"
+						}
+					},
+					"bio": "Sarah coordinates every project from initial inspection through final walk-through. She handles scheduling, material ordering, insurance paperwork, and client communication. If you call the office, she's the one making sure your job stays on track. 7 years with Apex.",
+					"email": "sarah@apexroofingco.com"
+				}
+			},
+			{
+				"id": "team-3",
+				"slug": "carlos-medina",
+				"status": "published",
+				"data": {
+					"name": "Carlos Medina",
+					"role": "Lead Installer & Foreman",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+							"alt": "Carlos Medina",
+							"filename": "carlos-medina.jpg"
+						}
+					},
+					"bio": "Carlos has been installing roofs in the Arizona heat for 18 years and leads our most experienced crew. He specializes in concrete tile and complex roof geometries. His crews consistently finish on schedule and pass inspection on the first visit. OSHA-30 certified and bilingual (English/Spanish).",
+					"email": "carlos@apexroofingco.com"
+				}
+			}
+		],
+		"testimonials": [
+			{
+				"id": "testimonial-1",
+				"slug": "jennifer-k",
+				"status": "published",
+				"data": {
+					"author": "Jennifer K.",
+					"role": "Homeowner",
+					"company": "Mesa, AZ",
+					"quote": "After a monsoon ripped off half our ridge caps, Apex had a crew out the next morning. They tarped it immediately and completed the full repair within the week. They handled everything with our insurance company and we didn't pay a dime out of pocket beyond our deductible. Couldn't ask for more.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-2",
+				"slug": "tom-lisa-r",
+				"status": "published",
+				"data": {
+					"author": "Tom & Lisa R.",
+					"role": "Homeowners",
+					"company": "Gilbert, AZ",
+					"quote": "We got three bids for a full tile reroof on our 2,400 sq ft home. Apex wasn't the cheapest, but they were the most thorough — Ray came out personally, walked the roof, and showed us photos of exactly what needed to be done. The crew finished in two days and left the yard cleaner than they found it.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-3",
+				"slug": "david-m",
+				"status": "published",
+				"data": {
+					"author": "David M.",
+					"role": "Business Owner",
+					"company": "Chandler, AZ",
+					"quote": "They replaced the flat roof on our 4,000 sq ft office building with a TPO system. Zero leaks in two years, and they finished a day ahead of schedule. They worked around our business hours so we never had to close. We've already referred them to three other business owners.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-4",
+				"slug": "maria-s",
+				"status": "published",
+				"data": {
+					"author": "Maria S.",
+					"role": "Homeowner",
+					"company": "Tempe, AZ",
+					"quote": "I was worried about the cost of a full reroof, but Sarah walked me through the financing options and made it manageable. The crew replaced our 20-year-old shingles with new architectural shingles in just one day. Our energy bill dropped noticeably the first month. Great experience from start to finish.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-5",
+				"slug": "brian-w",
+				"status": "published",
+				"data": {
+					"author": "Brian W.",
+					"role": "Property Manager",
+					"company": "Mesa, AZ",
+					"quote": "We manage 45 rental properties in the East Valley and Apex handles all of our roofing needs. They're responsive, fairly priced, and their repair work holds up. When we need an emergency tarp during monsoon season, they're usually there within a few hours. Reliable is the word I'd use.",
+					"rating": 5,
+					"featured": false
+				}
+			}
+		],
+		"projects": [
+			{
+				"id": "residential-reroof",
+				"slug": "mesa-tile-reroof",
+				"status": "published",
+				"data": {
+					"title": "Mesa Ranch Home Tile Reroof",
+					"client": "The Rodriguez Family",
+					"year": "2025",
+					"summary": "Complete tear-off and reroof of a 2,800 sq ft ranch home — removed 30-year-old concrete tile, replaced damaged decking, and installed new Eagle Roofing lightweight tile.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=900&fit=crop",
+							"alt": "Southwest ranch home with new tile roof",
+							"filename": "mesa-tile-reroof.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The Rodriguez family's 1993 ranch home still had its original concrete tile roof. While the tiles themselves had held up reasonably well, the underlayment had deteriorated and several areas were leaking during heavy rain. We did a full tear-off, replaced 12 sheets of water-damaged decking, installed new synthetic underlayment rated for Arizona heat, and finished with Eagle Roofing's lightweight concrete tile in Desert Tan."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Scope" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Full tear-off of 28 squares of concrete tile. Replaced 12 sheets of damaged OSB decking. Installed Boral TileSeal HT synthetic underlayment. Set new Eagle lightweight concrete flat tile with new flashing at all penetrations. Replaced all pipe boots and vent seals. Installed new galvanized drip edge. Project completed in 3 days, passed Maricopa County inspection on first visit."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["residential"]
+				}
+			},
+			{
+				"id": "commercial-flat-roof",
+				"slug": "chandler-office-tpo",
+				"status": "published",
+				"data": {
+					"title": "Chandler Office Park TPO Roof",
+					"client": "Chandler Professional Plaza",
+					"year": "2025",
+					"summary": "Installed a 60-mil TPO single-ply membrane system on a 6,200 sq ft multi-tenant office building — replaced a failing modified bitumen roof with a 20-year warranted system.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=900&fit=crop",
+							"alt": "Modern commercial office building exterior",
+							"filename": "chandler-office-tpo.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The property manager at Chandler Professional Plaza was dealing with recurring leaks in three tenant spaces. The existing modified bitumen roof was 18 years old and had been patched multiple times. We removed the old system down to the deck, installed new polyiso insulation board for improved R-value, and applied a fully adhered 60-mil TPO membrane in Energy Star-rated white."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Result" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Zero leaks since installation. The white TPO membrane and added insulation reduced the building's cooling costs by 22% in the first summer. The 20-year manufacturer warranty gives the property manager peace of mind for the long term. All work was completed over two weekends to minimize disruption to tenants."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["commercial"]
+				}
+			},
+			{
+				"id": "storm-restoration",
+				"slug": "gilbert-storm-restoration",
+				"status": "published",
+				"data": {
+					"title": "Gilbert Hail Damage Restoration",
+					"client": "The Patel Family",
+					"year": "2024",
+					"summary": "Full roof replacement after severe hail damage — managed the entire insurance claim process and installed a new impact-resistant shingle system.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=1200&h=900&fit=crop",
+							"alt": "Residential home with new roof after storm restoration",
+							"filename": "gilbert-storm-restoration.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A July monsoon with golf-ball-sized hail hit the Patels' Gilbert neighborhood hard. Their 12-year-old shingle roof sustained damage across more than 60% of its surface. We responded within 4 hours of their call, tarped the most exposed areas, and began the insurance documentation process the next day."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Insurance and restoration" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We prepared a detailed scope of work with 47 photos and measurements that matched the insurance adjuster's format. The claim was approved within 10 days. We replaced the roof with Owens Corning Duration STORM impact-resistant shingles, which qualify for an insurance premium discount in Arizona. The Patels' out-of-pocket cost was limited to their $1,000 deductible, and their new roof carries a 50-year limited lifetime warranty."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["residential", "restoration"]
+				}
+			}
+		],
+		"faqs": [
+			{
+				"id": "faq-1",
+				"slug": "roof-replacement-cost",
+				"status": "published",
+				"data": {
+					"question": "How much does a roof replacement cost?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "For a typical Arizona home (1,800-2,500 sq ft), a shingle reroof runs $8,000-$14,000 and a tile reroof runs $15,000-$25,000. The final cost depends on roof size, pitch and complexity, material choice, the condition of the existing decking, and the number of penetrations (vents, skylights, etc.). We provide free written estimates so you know the exact cost before any work begins."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["pricing"] }
+			},
+			{
+				"id": "faq-2",
+				"slug": "how-long-does-reroof-take",
+				"status": "published",
+				"data": {
+					"question": "How long does a roof replacement take?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Most residential reroofs are completed in 1-3 days, depending on the size and complexity of the roof and the material being installed. Tile roofs take longer than shingle roofs. Commercial projects vary based on size but we typically plan for 3-7 days. We provide a clear timeline before the project starts and keep you updated throughout."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["process"] }
+			},
+			{
+				"id": "faq-3",
+				"slug": "insurance-claims",
+				"status": "published",
+				"data": {
+					"question": "Do you help with insurance claims?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes — we handle storm damage insurance claims regularly and know exactly what adjusters need to approve a claim. We provide a detailed inspection report with photos, measurements, and a scope of work formatted to match insurance requirements. We'll meet with your adjuster on-site if needed and communicate directly with your insurance company throughout the process. There's no extra charge for this service."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["insurance"] }
+			},
+			{
+				"id": "faq-4",
+				"slug": "best-roofing-material-arizona",
+				"status": "published",
+				"data": {
+					"question": "What's the best roofing material for Arizona?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Concrete tile is the most popular choice in Arizona because it handles UV exposure and heat extremely well and lasts 40-50 years. Architectural shingles are a more affordable option that lasts 15-20 years in our climate. For flat roofs, TPO membrane and spray foam are both excellent choices. The right material depends on your budget, how long you plan to stay in the home, and your roof's structure. We'll walk you through the pros and cons of each during your free consultation."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			},
+			{
+				"id": "faq-5",
+				"slug": "warranty-coverage",
+				"status": "published",
+				"data": {
+					"question": "What warranty do you offer?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every roof we install comes with a 10-year workmanship warranty covering our labor and installation. This is in addition to the manufacturer's material warranty, which ranges from 25 years to lifetime depending on the product. Repairs carry a minimum 2-year workmanship warranty. If anything we installed fails within the warranty period, we fix it at no cost."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			},
+			{
+				"id": "faq-6",
+				"slug": "how-often-inspect-roof",
+				"status": "published",
+				"data": {
+					"question": "How often should I have my roof inspected?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We recommend a professional inspection every 2-3 years for roofs under 15 years old, and annually for older roofs. You should also schedule an inspection after any major storm with hail or high winds. In Arizona, UV degradation and thermal cycling cause gradual wear that's easy to miss from the ground. A $0 inspection can catch a $300 repair before it becomes a $15,000 replacement."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			},
+			{
+				"id": "faq-7",
+				"slug": "do-i-need-a-permit",
+				"status": "published",
+				"data": {
+					"question": "Do I need a permit for a new roof?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes — Maricopa County and most Valley municipalities require a building permit for roof replacements. We handle the entire permitting process as part of every reroof project, including the application, fees, and scheduling the final inspection. Permit costs are included in our estimates. Never hire a roofer who suggests skipping the permit — it can void your warranty and create problems when you sell."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["process"] }
+			},
+			{
+				"id": "faq-8",
+				"slug": "emergency-tarp-service",
+				"status": "published",
+				"data": {
+					"question": "Can you tarp my roof in an emergency?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes — we offer 24/7 emergency tarping during monsoon season and after any storm event. Our goal is to have a crew at your property within 2-4 hours of your call to prevent further water intrusion. Emergency tarping costs vary based on the size of the affected area but typically range from $300-$800. If the damage leads to a full repair or replacement, the tarping cost is applied toward the total project."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["insurance"] }
+			}
+		]
+	}
+}
