@@ -283,28 +283,13 @@ const pageCtx = createPublicPageContext({
 					--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 				}
 
-				@media (prefers-color-scheme: dark) {
-					:root:not(.light) {
-						--color-bg: #1a1a1a;
-						--color-text: #f1f5f9;
-						--color-muted: #94a3b8;
-						--color-border: #334155;
-						--color-surface: #262626;
-						--color-primary: #ff8c61;
-						--color-primary-dark: #ff6b35;
-						--color-primary-light: #ffb899;
-					}
-				}
-
+				/* Dark mode only activates with explicit .dark class — no system preference */
 				:root.dark {
 					--color-bg: #1a1a1a;
 					--color-text: #f1f5f9;
 					--color-muted: #94a3b8;
 					--color-border: #334155;
 					--color-surface: #262626;
-					--color-primary: #ff8c61;
-					--color-primary-dark: #ff6b35;
-					--color-primary-light: #ffb899;
 				}
 
 				html { scroll-behavior: smooth; }
