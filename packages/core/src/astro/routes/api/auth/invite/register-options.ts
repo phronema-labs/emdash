@@ -17,6 +17,7 @@ import { ulid } from "ulidx";
 
 import { apiError, apiSuccess, handleError } from "#api/error.js";
 import { isParseError, parseBody } from "#api/parse.js";
+import { getPublicOrigin } from "#api/public-url.js";
 import { inviteRegisterOptionsBody } from "#api/schemas.js";
 import { createChallengeStore } from "#auth/challenge-store.js";
 import { getPasskeyConfig } from "#auth/passkey-config.js";
@@ -41,7 +42,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
 		const url = new URL(request.url);
 		const options = new OptionsRepository(emdash.db);
 		const siteName = (await options.get<string>("emdash:site_title")) ?? undefined;
-		const passkeyConfig = getPasskeyConfig(url, siteName);
+		const siteUrl = getPublicOrigin(url, emdash?.config);
+		const passkeyConfig = getPasskeyConfig(url, siteName, siteUrl);
 
 		// Generate registration options with a temporary user identity
 		const challengeStore = createChallengeStore(emdash.db);
