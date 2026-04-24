@@ -1,0 +1,119 @@
+---
+---
+
+<div class="top-bar">
+	<div class="top-bar-inner">
+		<div class="top-bar-left">
+			<a href="tel:5125557200" class="top-bar-phone">
+				<i class="ph ph-phone" /> (512) 555-7200
+			</a>
+			<span class="top-bar-sep" aria-hidden="true">·</span>
+			<span class="top-bar-info"><i class="ph ph-clock" /> Mon–Fri 7AM–5PM &bull; Sat 8AM–1PM</span>
+			<span class="top-bar-sep top-bar-sep-area" aria-hidden="true">·</span>
+			<span class="top-bar-info top-bar-area"><i class="ph ph-map-pin" /> Austin &amp; surrounding areas</span>
+		</div>
+		<div class="top-bar-right">
+			<a href="/contact" class="top-bar-cta">
+				Free Consultation
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+	.top-bar {
+		background: var(--color-primary, #1a3a2a);
+		color: rgba(255, 255, 255, 0.55);
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.72rem;
+		letter-spacing: 0.05em;
+	}
+
+	.top-bar-inner {
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		padding: 0.55rem var(--site-gutter);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.top-bar-left {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.top-bar-phone {
+		color: rgba(255,255,255,0.85);
+		font-weight: 500;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		white-space: nowrap;
+		transition: color 0.2s ease;
+	}
+
+	.top-bar-phone i {
+		color: var(--color-sage, #8fae7e);
+		font-size: 13px;
+	}
+
+	.top-bar-phone:hover {
+		color: white;
+	}
+
+	.top-bar-sep {
+		opacity: 0.25;
+		margin: 0 0.4rem;
+	}
+
+	.top-bar-info {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.top-bar-info i {
+		font-size: 12px;
+		color: var(--color-sage, #8fae7e);
+	}
+
+	.top-bar-right {
+		flex-shrink: 0;
+	}
+
+	.top-bar-cta {
+		background: transparent;
+		border: 1px solid rgba(255,255,255,0.2);
+		color: rgba(255,255,255,0.7);
+		font-size: 0.68rem;
+		font-weight: 500;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		padding: 0.3rem 0.9rem;
+		border-radius: 999px;
+		white-space: nowrap;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		transition: all 0.2s ease;
+	}
+
+	.top-bar-cta:hover {
+		background: rgba(255,255,255,0.08);
+		border-color: rgba(255,255,255,0.4);
+		color: white;
+	}
+
+	@media (max-width: 768px) {
+		.top-bar-info,
+		.top-bar-sep { display: none; }
+	}
+
+	@media (max-width: 480px) {
+		.top-bar-right { display: none; }
+	}
+</style>

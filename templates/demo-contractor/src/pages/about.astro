@@ -1,0 +1,758 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const { entries: teamMembers } = await getEmDashCollection("team", { status: "published" });
+
+const hardcodedTeam = [
+	{
+		name: "Marcus Ironside",
+		role: "Founder & General Contractor",
+		bio: "Marcus founded Ironclad Builders in 2008 after 12 years in commercial construction. Licensed in Colorado, he oversees project planning, client relationships, and final quality sign-off on every build.",
+		photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face",
+	},
+	{
+		name: "Dave Kowalski",
+		role: "Lead Foreman",
+		bio: "With 20 years of hands-on trade experience, Dave runs daily site operations. He coordinates subcontractors, enforces safety standards, and makes sure every detail meets our spec before we move to the next phase.",
+		photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+	},
+	{
+		name: "Rachel Nguyen",
+		role: "Project Manager",
+		bio: "Rachel keeps every build on schedule and on budget. She manages client communication, permit coordination, and material procurement. Her background in construction management means nothing falls through the cracks.",
+		photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
+	},
+];
+
+const displayTeam = teamMembers.length > 0 ? teamMembers.map((m) => ({
+	name: m.data.name,
+	role: m.data.role,
+	bio: m.data.bio,
+	photo: typeof m.data.photo === "string" ? m.data.photo : (m.data.photo as any)?.url,
+})) : hardcodedTeam;
+
+const values = [
+	{
+		num: "01",
+		label: "Craftsmanship",
+		desc: "Every nail, every joint, every finish is held to a standard we'd stake our name on. We don't cut corners to hit a deadline.",
+		icon: "ph-hammer",
+	},
+	{
+		num: "02",
+		label: "Transparency",
+		desc: "You get a detailed line-item estimate before we break ground. No vague allowances, no hidden markups, no change-order games.",
+		icon: "ph-eye",
+	},
+	{
+		num: "03",
+		label: "Reliability",
+		desc: "When we say Tuesday, we're there on Tuesday. If something changes, you hear it from us first, not from a surprise on the job site.",
+		icon: "ph-calendar-check",
+	},
+	{
+		num: "04",
+		label: "Accountability",
+		desc: "We stand behind our work with a 5-year workmanship warranty. If it fails, we fix it. That's not a slogan, it's in the contract.",
+		icon: "ph-shield-check",
+	},
+];
+
+const steps = [
+	{
+		num: "01",
+		label: "Free Consultation",
+		desc: "We walk the space with you, listen to your vision, and ask the hard questions about timeline and budget. No sales pressure, just honest information.",
+	},
+	{
+		num: "02",
+		label: "Design & Estimate",
+		desc: "Our team produces a detailed scope document, material selections, and a fixed-price contract. You review, revise, and approve before we touch anything.",
+	},
+	{
+		num: "03",
+		label: "Build Phase",
+		desc: "Your dedicated project manager coordinates every trade on schedule. You get weekly progress updates and direct access to our team throughout.",
+	},
+	{
+		num: "04",
+		label: "Final Walkthrough",
+		desc: "We do a detailed punch-list together. Nothing is considered done until you sign off. Then your 5-year warranty clock starts.",
+	},
+];
+---
+
+<Base title="About Us" description="Ironclad Builders has been Denver's most trusted general contractor since 2008. Learn our story, values, and how we work.">
+	<PageHero
+		title="Built on Trust Since 2008"
+		subtitle="Denver-based general contractor. 800+ projects completed. Fixed-price contracts. No surprises."
+		image="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&h=600&fit=crop"
+	/>
+
+	{/* ===== ORIGIN STORY ===== */}
+	<section class="story-section">
+		<div class="container story-grid">
+			<div class="story-copy" data-reveal>
+				<span class="label-tag">// Our Story</span>
+				<h2>HOW IRONCLAD STARTED</h2>
+				<p>
+					Marcus Ironside spent a decade working commercial construction in Denver, watching homeowners get burned by contractors who overpromised, underdelivered, and vanished when problems showed up. In 2008, he started Ironclad Builders with one core belief: residential construction should be held to the same accountability standard as commercial work.
+				</p>
+				<p>
+					That means real contracts with real line items. Real schedules with real consequences. And a warranty you can actually call on.
+				</p>
+				<p>
+					Sixteen years later, we've completed over 800 projects across the Denver metro. Our crew is in-house, not subcontracted from a Craigslist pool. Our estimates are fixed-price, not "subject to conditions." And our 4.9-star average across 285 reviews is the result of doing the work right the first time.
+				</p>
+				<div class="story-stats" data-reveal data-delay="2">
+					<div class="stat-pill">
+						<span class="stat-num">2008</span>
+						<span class="stat-label">Year Founded</span>
+					</div>
+					<div class="stat-pill">
+						<span class="stat-num">800+</span>
+						<span class="stat-label">Projects Completed</span>
+					</div>
+					<div class="stat-pill stat-pill--accent">
+						<span class="stat-num">4.9</span>
+						<span class="stat-label">Star Average</span>
+					</div>
+				</div>
+			</div>
+			<div class="story-image" data-reveal data-delay="1">
+				<img
+					src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=700&h=900&fit=crop"
+					alt="Ironclad team on site"
+					loading="lazy"
+				/>
+				<div class="story-badge">
+					<i class="ph ph-seal-check"></i>
+					<div>
+						<strong>Licensed &amp; Bonded</strong>
+						<span>Colorado CGC License #B-42918</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== VALUES ===== */}
+	<section class="values-section">
+		<div class="values-cut-top"></div>
+		<div class="values-body">
+			<div class="container">
+				<div class="values-head" data-reveal>
+					<span class="label-tag">// What Drives Us</span>
+					<h2>OUR VALUES</h2>
+				</div>
+				<div class="values-grid">
+					{values.map((v, i) => (
+						<div class="value-card" data-reveal data-delay={String(i + 1)}>
+							<div class="value-top">
+								<span class="value-num">{v.num}</span>
+								<i class={`ph ${v.icon} value-icon`}></i>
+							</div>
+							<h3 class="value-label">{v.label}</h3>
+							<p class="value-desc">{v.desc}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+		<div class="values-cut-bottom"></div>
+	</section>
+
+	{/* ===== PROCESS ===== */}
+	<section class="process-section">
+		<div class="container">
+			<div class="process-head" data-reveal>
+				<span class="label-tag">// How We Work</span>
+				<h2>THE IRONCLAD PROCESS</h2>
+				<p class="process-intro">Four phases. One team. No handoffs to strangers.</p>
+			</div>
+			<div class="process-steps">
+				{steps.map((step, i) => (
+					<div class="process-step" data-reveal data-delay={String(i + 1)}>
+						<div class="step-num">{step.num}</div>
+						<div class="step-connector"></div>
+						<div class="step-content">
+							<h4>{step.label}</h4>
+							<p>{step.desc}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* ===== TEAM ===== */}
+	<section class="team-section">
+		<div class="team-cut-top"></div>
+		<div class="team-body">
+			<div class="container">
+				<div class="team-head" data-reveal>
+					<span class="label-tag">// The People</span>
+					<h2>WHO BUILDS YOUR PROJECT</h2>
+					<p class="team-intro">In-house crew. No rotating subcontractors. The same faces from day one through final walkthrough.</p>
+				</div>
+				<div class="team-grid">
+					{displayTeam.map((member, i) => (
+						<div class="team-card" data-reveal data-delay={String(i + 1)}>
+							<div class="team-photo-wrap">
+								{member.photo && (
+									<img src={member.photo} alt={member.name} class="team-photo" loading="lazy" />
+								)}
+								<div class="team-photo-accent"></div>
+							</div>
+							<div class="team-info">
+								<h3 class="team-name">{member.name}</h3>
+								{member.role && <span class="team-role">{member.role}</span>}
+								{member.bio && <p class="team-bio">{member.bio}</p>}
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== CTA STRIP ===== */}
+	<section class="about-cta">
+		<div class="container about-cta-inner">
+			<div data-reveal>
+				<span class="label-tag label-tag--light">// Start Your Project</span>
+				<h2>READY TO BUILD?</h2>
+				<p>Schedule a free in-home consultation and get a fixed-price estimate within 5 business days.</p>
+			</div>
+			<div class="about-cta-actions" data-reveal data-delay="2">
+				<a href="/contact" class="btn btn-dark">Request a Free Estimate</a>
+				<a href="tel:7205554100" class="btn-phone-link">
+					<i class="ph ph-phone-call"></i>
+					(720) 555-4100
+				</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== LABELS ===== */
+	.label-tag {
+		font-family: "DM Mono", monospace;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+	}
+
+	.label-tag--light {
+		color: rgba(255,107,0,0.85);
+	}
+
+	/* ===== STORY SECTION ===== */
+	.story-section {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+	}
+
+	.story-grid {
+		display: grid;
+		grid-template-columns: 1.1fr 0.9fr;
+		gap: var(--space-3xl);
+		align-items: start;
+	}
+
+	.story-copy h2 {
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		color: #111;
+		margin: var(--space-md) 0 var(--space-xl);
+	}
+
+	.story-copy p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		line-height: 1.7;
+		color: var(--color-muted);
+		margin-bottom: var(--space-lg);
+	}
+
+	.story-stats {
+		display: flex;
+		gap: 2px;
+		margin-top: var(--space-2xl);
+	}
+
+	.stat-pill {
+		flex: 1;
+		background: #111;
+		padding: 1.25rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		border-left: 3px solid rgba(255,107,0,0.25);
+	}
+
+	.stat-pill--accent {
+		background: var(--color-primary);
+		border-left-color: transparent;
+	}
+
+	.stat-num {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2.25rem;
+		line-height: 1;
+		color: white;
+		letter-spacing: 0.02em;
+	}
+
+	.stat-label {
+		font-family: "DM Sans", sans-serif;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.5);
+	}
+
+	.story-image {
+		position: relative;
+	}
+
+	.story-image img {
+		width: 100%;
+		display: block;
+		object-fit: cover;
+		filter: brightness(0.92) saturate(0.9);
+	}
+
+	.story-badge {
+		position: absolute;
+		bottom: var(--space-xl);
+		left: var(--space-xl);
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		background: var(--color-primary);
+		color: white;
+		padding: 0.875rem 1.25rem;
+		border-radius: 2px;
+	}
+
+	.story-badge i {
+		font-size: 24px;
+		flex-shrink: 0;
+	}
+
+	.story-badge strong {
+		display: block;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		letter-spacing: 0.04em;
+	}
+
+	.story-badge span {
+		display: block;
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		opacity: 0.8;
+		letter-spacing: 0.06em;
+	}
+
+	/* ===== VALUES SECTION ===== */
+	.values-section {
+		position: relative;
+		background: #111;
+	}
+
+	.values-cut-top {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+
+	.values-cut-bottom {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 100%, 0 100%);
+	}
+
+	.values-body {
+		background: #111;
+		padding: var(--space-3xl) 0;
+	}
+
+	.values-head {
+		margin-bottom: var(--space-2xl);
+	}
+
+	.values-head h2 {
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		color: white;
+		margin-top: var(--space-md);
+	}
+
+	.values-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2px;
+	}
+
+	.value-card {
+		background: rgba(255,255,255,0.03);
+		border: 1px solid rgba(255,255,255,0.06);
+		padding: 2rem 1.75rem;
+		transition: background 0.2s ease, border-color 0.2s ease;
+	}
+
+	.value-card:hover {
+		background: rgba(255,107,0,0.06);
+		border-color: rgba(255,107,0,0.2);
+	}
+
+	.value-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1.5rem;
+	}
+
+	.value-num {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2.5rem;
+		line-height: 1;
+		color: var(--color-primary);
+		opacity: 0.35;
+	}
+
+	.value-icon {
+		font-size: 24px;
+		color: var(--color-primary);
+	}
+
+	.value-label {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 1.75rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: white;
+		margin-bottom: 0.875rem;
+	}
+
+	.value-desc {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		line-height: 1.7;
+		color: rgba(255,255,255,0.5);
+	}
+
+	/* ===== PROCESS SECTION ===== */
+	.process-section {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+	}
+
+	.process-head {
+		margin-bottom: var(--space-3xl);
+	}
+
+	.process-head h2 {
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		color: #111;
+		margin: var(--space-md) 0 var(--space-md);
+	}
+
+	.process-intro {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+	}
+
+	.process-steps {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+		position: relative;
+	}
+
+	/* Connecting line between steps */
+	.process-steps::before {
+		content: "";
+		position: absolute;
+		top: 2.5rem;
+		left: 2.5rem;
+		right: 2.5rem;
+		height: 2px;
+		background: linear-gradient(to right, var(--color-primary) 0%, rgba(255,107,0,0.15) 100%);
+		z-index: 0;
+	}
+
+	.process-step {
+		position: relative;
+		z-index: 1;
+		padding: 0 2rem 0 0;
+	}
+
+	.process-step:last-child {
+		padding-right: 0;
+	}
+
+	.step-num {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 3rem;
+		line-height: 1;
+		color: white;
+		background: #111;
+		border: 3px solid var(--color-primary);
+		width: 4.5rem;
+		height: 4.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		letter-spacing: 0.04em;
+		margin-bottom: var(--space-xl);
+		flex-shrink: 0;
+	}
+
+	.step-connector { display: none; }
+
+	.step-content h4 {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: #111;
+		margin-bottom: var(--space-md);
+	}
+
+	.step-content p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		line-height: 1.7;
+		color: var(--color-muted);
+	}
+
+	/* ===== TEAM SECTION ===== */
+	.team-section {
+		position: relative;
+		background: #111;
+	}
+
+	.team-cut-top {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+
+	.team-body {
+		background: #111;
+		padding: var(--space-3xl) 0 var(--space-4xl);
+	}
+
+	.team-head {
+		margin-bottom: var(--space-3xl);
+	}
+
+	.team-head h2 {
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		color: white;
+		margin: var(--space-md) 0 var(--space-md);
+	}
+
+	.team-intro {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		color: rgba(255,255,255,0.5);
+		max-width: 560px;
+	}
+
+	.team-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2px;
+	}
+
+	.team-card {
+		background: rgba(255,255,255,0.03);
+		border: 1px solid rgba(255,255,255,0.06);
+		overflow: hidden;
+		transition: border-color 0.2s ease;
+	}
+
+	.team-card:hover {
+		border-color: rgba(255,107,0,0.25);
+	}
+
+	.team-photo-wrap {
+		position: relative;
+		aspect-ratio: 4/3;
+		overflow: hidden;
+	}
+
+	.team-photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		filter: grayscale(30%) brightness(0.88);
+		transition: filter 0.4s ease, transform 0.4s ease;
+	}
+
+	.team-card:hover .team-photo {
+		filter: grayscale(0%) brightness(0.95);
+		transform: scale(1.03);
+	}
+
+	.team-photo-accent {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background: var(--color-primary);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.3s ease;
+	}
+
+	.team-card:hover .team-photo-accent {
+		transform: scaleX(1);
+	}
+
+	.team-info {
+		padding: 1.5rem 1.75rem;
+	}
+
+	.team-name {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 1.75rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: white;
+		margin-bottom: 0.375rem;
+	}
+
+	.team-role {
+		display: block;
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		margin-bottom: 1rem;
+	}
+
+	.team-bio {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		line-height: 1.65;
+		color: rgba(255,255,255,0.45);
+	}
+
+	/* ===== ABOUT CTA ===== */
+	.about-cta {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.about-cta-inner {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: var(--space-3xl);
+		align-items: center;
+	}
+
+	.about-cta h2 {
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		line-height: 0.95;
+		color: #111;
+		margin: var(--space-md) 0 var(--space-md);
+	}
+
+	.about-cta p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		max-width: 480px;
+	}
+
+	.about-cta-actions {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+		align-items: flex-start;
+		flex-shrink: 0;
+	}
+
+	.btn-phone-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: var(--color-muted);
+		transition: color 0.15s ease;
+	}
+
+	.btn-phone-link i { color: var(--color-primary); }
+
+	.btn-phone-link:hover { color: #111; }
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 1100px) {
+		.values-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.process-steps {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.process-steps::before {
+			display: none;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.story-grid {
+			grid-template-columns: 1fr;
+		}
+		.story-image {
+			order: -1;
+		}
+		.team-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.about-cta-inner {
+			grid-template-columns: 1fr;
+			gap: var(--space-xl);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.values-grid {
+			grid-template-columns: 1fr;
+		}
+		.process-steps {
+			grid-template-columns: 1fr;
+		}
+		.team-grid {
+			grid-template-columns: 1fr;
+		}
+		.story-stats {
+			flex-direction: column;
+		}
+	}
+</style>

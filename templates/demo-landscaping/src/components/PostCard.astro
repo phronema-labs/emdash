@@ -1,0 +1,144 @@
+---
+import { Image } from "emdash/ui";
+
+interface Props {
+	title: string;
+	excerpt?: string;
+	featuredImage?: any;
+	href: string;
+	date?: string;
+}
+
+const { title, excerpt, featuredImage, href, date } = Astro.props;
+
+const formattedDate = date
+	? new Date(date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+	: null;
+---
+
+<a href={href} class="post-card">
+	{featuredImage && (
+		<div class="post-image">
+			<Image image={featuredImage} />
+		</div>
+	)}
+	<div class="post-info">
+		{formattedDate && <time class="post-date">{formattedDate}</time>}
+		<h3>{title}</h3>
+		{excerpt && <p class="post-excerpt">{excerpt}</p>}
+		<span class="post-link">
+			Read Article
+			<span class="post-link-arrow"><i class="ph ph-arrow-right" /></span>
+		</span>
+	</div>
+</a>
+
+<style>
+	.post-card {
+		display: flex;
+		flex-direction: column;
+		border-radius: 24px;
+		overflow: hidden;
+		background: white;
+		border: 1.5px solid var(--color-border-light, #ede8df);
+		transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		text-decoration: none;
+		color: var(--color-text, #1e2d1a);
+	}
+
+	.post-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 20px 48px rgba(26, 58, 42, 0.12);
+	}
+
+	.post-image {
+		aspect-ratio: 16/10;
+		overflow: hidden;
+	}
+
+	.post-image :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.post-card:hover .post-image :global(img) {
+		transform: scale(1.05);
+	}
+
+	.post-info {
+		padding: 1.75rem;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.post-date {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.72rem;
+		font-weight: 500;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		color: var(--color-accent, #c4704b);
+		margin-bottom: 0.75rem;
+	}
+
+	.post-info h3 {
+		font-family: var(--font-display, "Cormorant Garamond", serif);
+		font-size: 1.5rem;
+		font-weight: 400;
+		color: var(--color-primary, #1a3a2a);
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+	}
+
+	.post-excerpt {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.9rem;
+		color: var(--color-muted, #7a8c72);
+		line-height: 1.7;
+		margin-top: 0.75rem;
+		flex: 1;
+	}
+
+	.post-link {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 1.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--color-border-light, #ede8df);
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+		color: var(--color-text-light, #4a5e42);
+		transition: color 0.2s ease;
+	}
+
+	.post-card:hover .post-link {
+		color: var(--color-primary, #1a3a2a);
+	}
+
+	.post-link-arrow {
+		width: 26px;
+		height: 26px;
+		border-radius: 50%;
+		border: 1.5px solid currentColor;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		transition: background 0.25s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		flex-shrink: 0;
+	}
+
+	.post-card:hover .post-link-arrow {
+		background: var(--color-primary, #1a3a2a);
+		border-color: var(--color-primary, #1a3a2a);
+		color: white;
+		transform: translateX(3px);
+	}
+</style>

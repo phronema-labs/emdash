@@ -20,10 +20,10 @@ const { title, subtitle, image } = Astro.props;
 	.page-hero {
 		position: relative;
 		background: center/cover no-repeat;
-		padding: var(--space-4xl) var(--site-gutter);
+		padding: var(--space-3xl) var(--site-gutter);
 		color: white;
 		text-align: center;
-		min-height: 200px;
+		min-height: 180px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -32,7 +32,10 @@ const { title, subtitle, image } = Astro.props;
 	.page-hero-overlay {
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(135deg, rgba(26, 35, 50, 0.88) 0%, rgba(30, 107, 184, 0.7) 100%);
+		background:
+			linear-gradient(135deg, var(--color-dark-section, #1a2332) 0%, transparent 100%),
+			color-mix(in srgb, var(--color-primary) 65%, transparent);
+		opacity: 0.9;
 	}
 
 	.page-hero-inner {
@@ -41,7 +44,7 @@ const { title, subtitle, image } = Astro.props;
 	}
 
 	.page-hero h1 {
-		font-size: var(--font-size-4xl);
+		font-size: var(--font-size-3xl);
 		font-weight: 800;
 	}
 

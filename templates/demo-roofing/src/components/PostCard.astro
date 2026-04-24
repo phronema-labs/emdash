@@ -23,10 +23,16 @@ const formattedDate = date
 		</div>
 	)}
 	<div class="post-info">
-		{formattedDate && <time class="post-date">{formattedDate}</time>}
+		{formattedDate && (
+			<time class="post-date">
+				<i class="ph ph-calendar-blank"></i> {formattedDate}
+			</time>
+		)}
 		<h3>{title}</h3>
 		{excerpt && <p class="post-excerpt">{excerpt}</p>}
-		<span class="post-link">Read More &rarr;</span>
+		<span class="post-link">
+			Read More <i class="ph ph-arrow-right"></i>
+		</span>
 	</div>
 </a>
 
@@ -34,17 +40,19 @@ const formattedDate = date
 	.post-card {
 		display: flex;
 		flex-direction: column;
-		border-radius: var(--radius-lg);
+		border-radius: var(--radius-md);
 		overflow: hidden;
-		border: 1px solid var(--color-border);
-		transition: transform var(--transition-base), box-shadow var(--transition-base);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		transition: transform var(--ease-base), border-color var(--ease-base), box-shadow var(--ease-base);
 		text-decoration: none;
 		color: var(--color-text);
+		background: #1a1a1a;
 	}
 
 	.post-card:hover {
-		transform: translateY(-4px);
-		box-shadow: var(--shadow-lg);
+		transform: translateY(-6px);
+		border-color: rgba(220, 38, 38, 0.3);
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 	}
 
 	.post-image {
@@ -56,38 +64,61 @@ const formattedDate = date
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition: transform var(--transition-slow);
+		transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.post-card:hover .post-image :global(img) {
-		transform: scale(1.03);
+		transform: scale(1.05);
 	}
 
 	.post-info {
-		padding: var(--spacing-lg);
+		padding: 1.5rem;
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 	}
 
 	.post-date {
-		font-size: var(--font-size-xs);
-		color: var(--color-muted);
-		margin-bottom: var(--spacing-sm);
+		font-family: var(--font-headline);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin-bottom: 0.6rem;
+	}
+
+	.post-info h3 {
+		font-family: var(--font-headline);
+		font-size: 1.4rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		color: white;
+		line-height: 1.1;
 	}
 
 	.post-excerpt {
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
-		line-height: 1.5;
-		margin-top: var(--spacing-sm);
+		font-family: var(--font-body);
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.45);
+		line-height: 1.7;
+		margin-top: 0.6rem;
 		flex: 1;
 	}
 
 	.post-link {
-		margin-top: var(--spacing-md);
+		margin-top: 1.25rem;
+		font-family: var(--font-headline);
+		font-size: 0.8rem;
+		font-weight: 800;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
 		color: var(--color-primary);
-		font-weight: 600;
-		font-size: var(--font-size-sm);
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
 	}
 </style>

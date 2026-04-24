@@ -1,0 +1,163 @@
+---
+interface Props {
+	title: string;
+	summary?: string;
+	icon?: string;
+	priceFrom?: string;
+	href: string;
+	ctaLabel?: string;
+}
+
+const { title, summary, icon, priceFrom, href, ctaLabel } = Astro.props;
+
+const ICON_MAP: Record<string, string> = {
+	code: "ph-code",
+	"paint-brush": "ph-paint-brush",
+	"chart-line-up": "ph-chart-line-up",
+	globe: "ph-globe",
+	devices: "ph-devices",
+	"shield-check": "ph-shield-check",
+	hammer: "ph-hammer",
+	wrench: "ph-wrench",
+	"house-line": "ph-house-line",
+	"cooking-pot": "ph-cooking-pot",
+	bathtub: "ph-bathtub",
+};
+---
+
+<a href={href} class="service-card">
+	<div class="service-card-inner">
+		<div class="service-top">
+			{icon && (
+				<div class="service-icon">
+					<i class={`ph ${ICON_MAP[icon] || `ph-${icon}`}`} />
+				</div>
+			)}
+			{priceFrom && (
+				<span class="service-price">From {priceFrom}</span>
+			)}
+		</div>
+		<h3 class="service-title">{title}</h3>
+		{summary && <p class="service-summary">{summary}</p>}
+		<span class="service-cta">
+			{ctaLabel || "Learn More"}
+			<i class="ph ph-arrow-right service-arrow"></i>
+		</span>
+	</div>
+	<div class="service-card-accent"></div>
+</a>
+
+<style>
+	.service-card {
+		display: block;
+		position: relative;
+		text-decoration: none;
+		color: white;
+		background: #1a1a1a;
+		border: 1px solid rgba(255,255,255,0.06);
+		overflow: hidden;
+		transition: transform 0.2s ease, border-color 0.2s ease;
+	}
+
+	.service-card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(255,107,0,0.3);
+	}
+
+	/* Bottom accent bar that slides up on hover */
+	.service-card-accent {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: var(--color-primary, #ff6b00);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.3s ease;
+	}
+
+	.service-card:hover .service-card-accent {
+		transform: scaleX(1);
+	}
+
+	.service-card-inner {
+		padding: 2rem 1.75rem;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.service-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1.25rem;
+	}
+
+	.service-icon {
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 24px;
+		color: var(--color-primary, #ff6b00);
+		background: rgba(255,107,0,0.1);
+		border: 1px solid rgba(255,107,0,0.2);
+		flex-shrink: 0;
+	}
+
+	.service-price {
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-accent, #f5c518);
+		background: rgba(245,197,24,0.1);
+		border: 1px solid rgba(245,197,24,0.2);
+		padding: 3px 8px;
+		align-self: flex-start;
+	}
+
+	.service-title {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 1.75rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: white;
+		margin-bottom: 0.75rem;
+	}
+
+	.service-summary {
+		font-family: "DM Sans", sans-serif;
+		font-size: 0.875rem;
+		line-height: 1.65;
+		color: rgba(255,255,255,0.5);
+		flex: 1;
+		margin-bottom: 1.5rem;
+	}
+
+	.service-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-family: "DM Sans", sans-serif;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-primary, #ff6b00);
+		margin-top: auto;
+	}
+
+	.service-arrow {
+		transition: transform 0.2s ease;
+	}
+
+	.service-card:hover .service-arrow {
+		transform: translateX(4px);
+	}
+</style>

@@ -1,0 +1,70 @@
+---
+const brands = [
+	"Rheem", "Carrier", "Trane", "Kohler", "Moen",
+	"Delta", "Rinnai", "Bradford White", "Lennox", "Goodman"
+];
+---
+
+<section class="brand-strip">
+	<div class="container">
+		<p class="brand-label">We service &amp; install all major brands</p>
+		<div class="brand-logos">
+			{brands.map((brand) => (
+				<span class="brand-name">{brand}</span>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.brand-strip {
+		padding: var(--space-xl) var(--site-gutter);
+		background: white;
+		border-top: 1.5px solid var(--color-border);
+		border-bottom: 1.5px solid var(--color-border);
+	}
+
+	.brand-label {
+		text-align: center;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-muted);
+		margin-bottom: var(--spacing-lg);
+		font-weight: 600;
+	}
+
+	.brand-logos {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--spacing-md) var(--spacing-3xl);
+		align-items: center;
+	}
+
+	.brand-name {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-base);
+		font-weight: 800;
+		color: var(--color-text);
+		opacity: 0.18;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		transition: opacity var(--transition-fast);
+	}
+
+	.brand-name:hover {
+		opacity: 0.45;
+	}
+
+	@media (max-width: 600px) {
+		.brand-logos {
+			gap: var(--spacing-sm) var(--spacing-xl);
+		}
+
+		.brand-name {
+			font-size: var(--font-size-sm);
+		}
+	}
+</style>

@@ -1,5 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none">
-  <path d="M8 38L24 10L40 38" stroke="#1e6bb8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M14 30H34" stroke="#ff6b35" stroke-width="3" stroke-linecap="round"/>
-  <text x="52" y="33" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="22" fill="#1f1f1f">Summit Home</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" fill="none">
+  <!-- Scales of justice icon mark -->
+  <line x1="24" y1="8" x2="24" y2="42" stroke="#1a2744" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="10" y1="8" x2="38" y2="8" stroke="#1a2744" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M10 8L6 20 C6 22 8 23 10 23 L20 23 C22 23 24 22 24 20 L20 8Z" fill="#b8860b" fill-opacity="0.18" stroke="#b8860b" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M38 8L34 20 C34 22 36 23 38 23 L28 23 C26 23 24 22 24 20 L28 8Z" fill="#b8860b" fill-opacity="0.18" stroke="#b8860b" stroke-width="1.5" stroke-linejoin="round"/>
+  <line x1="24" y1="42" x2="16" y2="42" stroke="#1a2744" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="24" y1="42" x2="32" y2="42" stroke="#1a2744" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="50" y="33" font-family="Georgia, 'Times New Roman', serif" font-weight="400" font-size="20" fill="#1a2744">Caldwell &amp; Associates</text>
 </svg>

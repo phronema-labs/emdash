@@ -8,8 +8,8 @@
 	},
 
 	"settings": {
-		"title": "Summit Home Services",
-		"tagline": "Trusted plumbing, HVAC & electrical — since 2009"
+		"title": "Caldwell & Associates",
+		"tagline": "Trusted counsel for business and family"
 	},
 
 	"collections": [
@@ -286,15 +286,15 @@
 	"taxonomies": [
 		{
 			"name": "service_category",
-			"label": "Service Categories",
-			"labelSingular": "Service Category",
+			"label": "Practice Areas",
+			"labelSingular": "Practice Area",
 			"hierarchical": true,
 			"collections": ["services"],
 			"terms": [
-				{ "slug": "plumbing", "label": "Plumbing" },
-				{ "slug": "hvac", "label": "HVAC" },
-				{ "slug": "electrical", "label": "Electrical" },
-				{ "slug": "emergency", "label": "Emergency" }
+				{ "slug": "business-law", "label": "Business Law" },
+				{ "slug": "estate-planning", "label": "Estate Planning" },
+				{ "slug": "family-law", "label": "Family Law" },
+				{ "slug": "litigation", "label": "Litigation" }
 			]
 		},
 		{
@@ -304,9 +304,9 @@
 			"hierarchical": true,
 			"collections": ["posts"],
 			"terms": [
-				{ "slug": "tips", "label": "Tips & Advice" },
-				{ "slug": "seasonal", "label": "Seasonal" },
-				{ "slug": "news", "label": "Company News" }
+				{ "slug": "legal-insights", "label": "Legal Insights" },
+				{ "slug": "firm-news", "label": "Firm News" },
+				{ "slug": "client-resources", "label": "Client Resources" }
 			]
 		},
 		{
@@ -316,10 +316,10 @@
 			"hierarchical": false,
 			"collections": ["posts"],
 			"terms": [
-				{ "slug": "plumbing", "label": "Plumbing" },
-				{ "slug": "hvac", "label": "HVAC" },
-				{ "slug": "energy-savings", "label": "Energy Savings" },
-				{ "slug": "maintenance", "label": "Maintenance" }
+				{ "slug": "business-law", "label": "Business Law" },
+				{ "slug": "estate-planning", "label": "Estate Planning" },
+				{ "slug": "family-law", "label": "Family Law" },
+				{ "slug": "contracts", "label": "Contracts" }
 			]
 		},
 		{
@@ -330,21 +330,21 @@
 			"collections": ["faqs"],
 			"terms": [
 				{ "slug": "general", "label": "General" },
-				{ "slug": "pricing", "label": "Pricing & Payment" },
-				{ "slug": "scheduling", "label": "Scheduling" },
-				{ "slug": "emergency", "label": "Emergency Service" }
+				{ "slug": "fees", "label": "Fees & Billing" },
+				{ "slug": "process", "label": "Our Process" },
+				{ "slug": "consultations", "label": "Consultations" }
 			]
 		},
 		{
 			"name": "project_category",
-			"label": "Project Categories",
-			"labelSingular": "Project Category",
+			"label": "Matter Categories",
+			"labelSingular": "Matter Category",
 			"hierarchical": false,
 			"collections": ["projects"],
 			"terms": [
-				{ "slug": "residential", "label": "Residential" },
-				{ "slug": "commercial", "label": "Commercial" },
-				{ "slug": "renovation", "label": "Renovation" }
+				{ "slug": "business", "label": "Business" },
+				{ "slug": "estate", "label": "Estate & Trust" },
+				{ "slug": "litigation", "label": "Litigation" }
 			]
 		}
 	],
@@ -355,10 +355,10 @@
 			"label": "Primary Navigation",
 			"items": [
 				{ "type": "custom", "label": "Home", "url": "/" },
-				{ "type": "custom", "label": "Services", "url": "/services" },
-				{ "type": "custom", "label": "Our Work", "url": "/work" },
+				{ "type": "custom", "label": "Practice Areas", "url": "/services" },
+				{ "type": "custom", "label": "Notable Matters", "url": "/work" },
 				{ "type": "custom", "label": "About", "url": "/about" },
-				{ "type": "custom", "label": "Blog", "url": "/blog" },
+				{ "type": "custom", "label": "Insights", "url": "/blog" },
 				{ "type": "custom", "label": "Contact", "url": "/contact" }
 			]
 		},
@@ -392,7 +392,7 @@
 				{
 					"type": "component",
 					"componentId": "core:recent-posts",
-					"title": "Recent Posts",
+					"title": "Recent Insights",
 					"settings": { "count": 5, "showDate": true }
 				}
 			]
@@ -404,7 +404,7 @@
 			"widgets": [
 				{
 					"type": "content",
-					"title": "About Us",
+					"title": "About the Firm",
 					"content": [
 						{
 							"_type": "block",
@@ -412,7 +412,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Summit Home Services has been keeping homes comfortable and running smoothly since 2009. Licensed, bonded, and insured."
+									"text": "Caldwell & Associates has served individuals and businesses across the region since 2001. Our attorneys bring decades of combined experience to every client engagement."
 								}
 							]
 						}
@@ -426,7 +426,7 @@
 							"_type": "block",
 							"style": "normal",
 							"children": [
-								{ "_type": "span", "text": "Serving the greater metro area including Springfield, Riverside, Oakdale, Fairview, and surrounding communities within 30 miles." }
+								{ "_type": "span", "text": "Serving clients throughout the greater metro area and surrounding counties. Consultations available in-person, by phone, or via video conference." }
 							]
 						}
 					]
@@ -447,75 +447,75 @@
 						{
 							"_type": "business.hero",
 							"_key": "hero",
-							"headline": "Your home deserves the best care",
-							"subheadline": "Licensed plumbing, HVAC, and electrical services for homeowners and businesses. Same-day appointments available. Satisfaction guaranteed.",
-							"primaryCta": { "label": "Schedule Service", "url": "/contact" },
+							"headline": "Counsel you can count on",
+							"subheadline": "Business law, estate planning, and family law for individuals and companies who need experienced, straightforward legal guidance. Consultations available this week.",
+							"primaryCta": { "label": "Schedule a Consultation", "url": "/contact" },
 							"secondaryCta": { "label": "Call (555) 234-5678", "url": "tel:5552345678" },
-							"image": { "url": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop", "alt": "Professional technician servicing home equipment" },
+							"image": { "url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=600&fit=crop", "alt": "Attorney reviewing documents in a modern office" },
 							"style": "split"
 						},
 						{
 							"_type": "business.features",
 							"_key": "features",
-							"headline": "Why homeowners trust us",
-							"subheadline": "Over 15 years of keeping homes comfortable, safe, and running smoothly.",
+							"headline": "Why clients choose Caldwell & Associates",
+							"subheadline": "More than 20 years of practice. Straightforward counsel. Fees that respect your budget.",
 							"features": [
 								{
-									"icon": "clock",
-									"title": "Same-Day Service",
-									"description": "Call before noon and we'll be there today. No waiting around for a service window — we respect your time."
+									"icon": "scales",
+									"title": "20+ Years of Practice",
+									"description": "Our partners have handled hundreds of complex matters. You get seasoned judgment, not a learning curve."
 								},
 								{
 									"icon": "shield-check",
-									"title": "Licensed & Insured",
-									"description": "Every technician is licensed, background-checked, and insured. Your home is in safe hands."
+									"title": "Transparent Billing",
+									"description": "Flat fees where possible, hourly rates that are disclosed upfront. No bill surprises. No nickel-and-diming."
 								},
 								{
-									"icon": "currency-dollar",
-									"title": "Upfront Pricing",
-									"description": "You'll know the price before we start. No surprises, no hidden fees, no hourly billing games."
+									"icon": "handshake",
+									"title": "Direct Partner Access",
+									"description": "Your matter is handled by a named partner, not handed off to a junior associate. You deserve experienced counsel."
 								},
 								{
 									"icon": "star",
-									"title": "5-Star Rated",
-									"description": "Over 500 five-star reviews on Google. Our reputation is built on doing the job right the first time."
+									"title": "Peer-Recognized Excellence",
+									"description": "AV Preeminent rated by Martindale-Hubbell. Recognized by Best Lawyers in America for business and estate law."
 								},
 								{
-									"icon": "wrench",
-									"title": "All Major Brands",
-									"description": "We service and install all major brands — Carrier, Trane, Rheem, Kohler, Moen, and more."
+									"icon": "clock",
+									"title": "Responsive Communication",
+									"description": "We return calls and emails within one business day. You will always know where your matter stands."
 								},
 								{
 									"icon": "seal-check",
-									"title": "Warranty on All Work",
-									"description": "Every repair and installation comes with our satisfaction guarantee and minimum 1-year warranty."
+									"title": "Results-Focused Representation",
+									"description": "We measure success by your outcome, not billable hours. Our reputation depends on the results we achieve for clients."
 								}
 							]
 						},
 						{
 							"_type": "business.testimonials",
 							"_key": "testimonials",
-							"headline": "What our customers say",
+							"headline": "What our clients say",
 							"testimonials": [
 								{
-									"quote": "Our AC died on the hottest day of the year. Summit had a tech here within 2 hours and had it running by dinner. Lifesavers.",
-									"author": "Karen M.",
-									"role": "Homeowner",
-									"company": "Springfield",
+									"quote": "Caldwell & Associates handled our business acquisition from letter of intent through closing. Every detail was managed with precision. We would not have closed on those terms without them.",
+									"author": "Margaret H.",
+									"role": "CEO",
+									"company": "Ardent Manufacturing Co.",
 									"rating": 5
 								},
 								{
-									"quote": "Finally found a plumber I can trust. Fair prices, shows up on time, cleans up after the job. I won't call anyone else.",
-									"author": "Robert T.",
-									"role": "Homeowner",
-									"company": "Riverside",
+									"quote": "After my divorce I needed an attorney who would actually listen. The team here gave me honest advice, protected my interests, and kept the process as civil as possible for our children's sake.",
+									"author": "Thomas R.",
+									"role": "Client",
+									"company": "Family Law Matter",
 									"rating": 5
 								},
 								{
-									"quote": "They rewired our entire 1960s kitchen. Professional crew, clean work, and they walked us through every step. Highly recommend.",
-									"author": "Linda & Steve P.",
-									"role": "Homeowners",
-									"company": "Oakdale",
+									"quote": "We worked with the firm to structure our family trust and update our estate documents. Everything was explained clearly and completed efficiently. I have complete confidence in their guidance.",
+									"author": "Eleanor & James D.",
+									"role": "Clients",
+									"company": "Estate Planning Matter",
 									"rating": 5
 								}
 							]
@@ -524,18 +524,18 @@
 							"_type": "business.stats",
 							"_key": "stats",
 							"stats": [
-								{ "value": "15+", "label": "Years in Business" },
-								{ "value": "10,000+", "label": "Jobs Completed" },
-								{ "value": "4.9", "label": "Google Rating" },
-								{ "value": "24/7", "label": "Emergency Service" }
+								{ "value": "20+", "label": "Years in Practice" },
+								{ "value": "1,200+", "label": "Matters Handled" },
+								{ "value": "AV", "label": "Martindale-Hubbell Rating" },
+								{ "value": "98%", "label": "Client Retention Rate" }
 							]
 						},
 						{
 							"_type": "business.cta",
 							"_key": "cta",
-							"headline": "Need service today?",
-							"description": "Call now or book online. We offer same-day appointments and 24/7 emergency service.",
-							"buttonLabel": "Schedule Service",
+							"headline": "Ready to move forward?",
+							"description": "Schedule a consultation today. We offer in-person, phone, and video meetings to fit your schedule.",
+							"buttonLabel": "Schedule a Consultation",
 							"buttonUrl": "/contact",
 							"style": "banner"
 						}
@@ -547,7 +547,7 @@
 				"slug": "about",
 				"status": "published",
 				"data": {
-					"title": "About Summit Home Services",
+					"title": "About Caldwell & Associates",
 					"content": [
 						{
 							"_type": "block",
@@ -555,7 +555,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Summit Home Services was founded in 2009 by Mike Reeves, a third-generation tradesman who believed homeowners deserved better from their service providers — honest pricing, reliable scheduling, and work you can stand behind."
+									"text": "Caldwell & Associates was founded in 2001 by Jonathan Caldwell, a former federal clerk who believed that high-quality legal counsel should be accessible to growing businesses and families alike — not just to Fortune 500 companies with unlimited legal budgets."
 								}
 							]
 						},
@@ -570,7 +570,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "What started as a one-truck plumbing operation has grown into a full-service home services company with 12 technicians, a dedicated dispatch team, and a fleet of fully stocked service vehicles. We've completed over 10,000 jobs across the metro area and maintained a 4.9-star rating on Google."
+									"text": "What began as a solo practice focused on business formation has grown into a full-service firm with six attorneys, a dedicated paralegal team, and deep expertise across business law, estate planning, family law, real estate, and commercial litigation. We have handled over 1,200 matters and maintained a 98% client retention rate across more than two decades."
 								}
 							]
 						},
@@ -585,7 +585,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Every job starts with a thorough inspection and a written estimate. We explain what needs to be done, why, and what it will cost — before we pick up a tool. We clean up after ourselves, and we don't consider the job done until you're satisfied. It's not complicated, but you'd be surprised how many companies skip these basics."
+									"text": "Every engagement starts with a thorough consultation. We listen before we advise. We explain your options in plain language, give you our honest assessment of risks and likely outcomes, and let you make an informed decision about how to proceed. You will always have a direct line to your attorney — not a voicemail box."
 								}
 							]
 						},
@@ -600,7 +600,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "We're licensed, bonded, and insured in the state. Every technician passes a background check and completes ongoing training. We carry $2M in liability coverage because your home matters to us as much as it does to you."
+									"text": "We are members of the State Bar and the American Bar Association. Our attorneys maintain active professional development and hold leadership roles in the local business community. We carry full professional liability coverage and adhere to the highest standards of legal ethics."
 								}
 							]
 						}
@@ -617,44 +617,43 @@
 						{
 							"_type": "business.hero",
 							"_key": "contact-hero",
-							"headline": "Get in touch",
-							"subheadline": "Request a quote, schedule service, or ask a question. We respond within 1 business hour during working hours.",
+							"headline": "Schedule a consultation",
+							"subheadline": "Tell us about your matter and we will be in touch within one business day to confirm your appointment.",
 							"style": "centered"
 						},
 						{
 							"_type": "business.contact-info",
 							"_key": "contact-details",
 							"phone": "(555) 234-5678",
-							"email": "service@summithomeservices.com",
-							"address": "482 Industrial Parkway, Suite 5, Springfield, ST 62704",
+							"email": "contact@caldwellandassociates.com",
+							"address": "1200 Commerce Tower, Suite 1800, Springfield, ST 62704",
 							"social": [
-								{ "platform": "facebook", "url": "https://facebook.com/summithomeservices" },
-								{ "platform": "instagram", "url": "https://instagram.com/summithomeservices" },
-								{ "platform": "google", "url": "https://g.page/summithomeservices" }
+								{ "platform": "linkedin", "url": "https://linkedin.com/company/caldwellandassociates" },
+								{ "platform": "facebook", "url": "https://facebook.com/caldwellandassociates" }
 							]
 						},
 						{
 							"_type": "business.hours",
 							"_key": "hours",
-							"headline": "Business Hours",
+							"headline": "Office Hours",
 							"hours": [
-								{ "day": "Monday", "open": "7:00 AM", "close": "6:00 PM" },
-								{ "day": "Tuesday", "open": "7:00 AM", "close": "6:00 PM" },
-								{ "day": "Wednesday", "open": "7:00 AM", "close": "6:00 PM" },
-								{ "day": "Thursday", "open": "7:00 AM", "close": "6:00 PM" },
-								{ "day": "Friday", "open": "7:00 AM", "close": "6:00 PM" },
-								{ "day": "Saturday", "open": "8:00 AM", "close": "2:00 PM" },
+								{ "day": "Monday", "open": "8:30 AM", "close": "5:30 PM" },
+								{ "day": "Tuesday", "open": "8:30 AM", "close": "5:30 PM" },
+								{ "day": "Wednesday", "open": "8:30 AM", "close": "5:30 PM" },
+								{ "day": "Thursday", "open": "8:30 AM", "close": "5:30 PM" },
+								{ "day": "Friday", "open": "8:30 AM", "close": "5:00 PM" },
+								{ "day": "Saturday", "closed": true },
 								{ "day": "Sunday", "closed": true }
 							]
 						},
 						{
 							"_type": "business.map",
 							"_key": "map",
-							"address": "482 Industrial Parkway, Springfield, ST 62704",
+							"address": "1200 Commerce Tower, Springfield, ST 62704",
 							"lat": 39.7817,
 							"lng": -89.6501,
 							"zoom": 14,
-							"markerTitle": "Summit Home Services",
+							"markerTitle": "Caldwell & Associates",
 							"height": "400px"
 						}
 					]
@@ -664,16 +663,16 @@
 		"posts": [
 			{
 				"id": "post-1",
-				"slug": "when-to-replace-your-water-heater",
+				"slug": "what-every-small-business-owner-should-know-about-contracts",
 				"status": "published",
 				"data": {
-					"title": "5 Signs It's Time to Replace Your Water Heater",
-					"excerpt": "Most water heaters last 8-12 years. Here's how to tell if yours is on its way out — before it floods your basement.",
+					"title": "What Every Small Business Owner Should Know Before Signing a Contract",
+					"excerpt": "Most business disputes start with a poorly written contract. Here are the provisions every business owner should understand before putting pen to paper.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&h=800&fit=crop",
-							"alt": "Plumber working on pipes under a sink",
-							"filename": "water-heater.jpg"
+							"url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop",
+							"alt": "Attorney reviewing contract documents at desk",
+							"filename": "business-contracts.jpg"
 						}
 					},
 					"content": [
@@ -683,14 +682,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Your water heater works hard every day — showers, dishes, laundry. Most homeowners don't think about it until something goes wrong. Here are five warning signs that your water heater is telling you it's time for a replacement."
+									"text": "Every year, business owners sign contracts they do not fully understand — and some of those contracts come back to haunt them. The good news is that most problematic provisions are predictable and can be negotiated before you sign. Here are the things we review with every business client before they execute a significant agreement."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "1. It's over 10 years old" }]
+							"children": [{ "_type": "span", "text": "1. Dispute resolution and governing law" }]
 						},
 						{
 							"_type": "block",
@@ -698,14 +697,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Tank water heaters typically last 8-12 years. Check the serial number on yours — the first two digits are usually the year it was manufactured. If it's approaching or past 10, start planning for a replacement before it fails unexpectedly."
+									"text": "Many contracts require disputes to be resolved through arbitration, often in a different state. This can make it expensive to pursue a valid claim or defend yourself against one. Always check which state's law governs the contract and where disputes must be resolved — and negotiate if those terms don't work for your business."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "2. Rusty or discolored water" }]
+							"children": [{ "_type": "span", "text": "2. Limitation of liability clauses" }]
 						},
 						{
 							"_type": "block",
@@ -713,14 +712,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "If rusty water only comes from the hot side, your tank is likely corroding from the inside. This can't be repaired. Once corrosion starts, a leak isn't far behind."
+									"text": "Contracts often cap the damages one party can recover from the other — sometimes at a fraction of the contract value. If you are relying on a vendor or contractor for something critical to your business, a liability cap could leave you without meaningful recourse if they fail to perform."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "3. Strange noises" }]
+							"children": [{ "_type": "span", "text": "3. Automatic renewal provisions" }]
 						},
 						{
 							"_type": "block",
@@ -728,37 +727,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Popping, cracking, or rumbling sounds mean sediment has hardened at the bottom of the tank. This makes the heater work harder, increases your energy bill, and accelerates wear. Flushing the tank annually can prevent this, but once the noise starts, the damage is often done."
-								}
-							]
-						},
-						{
-							"_type": "block",
-							"style": "h2",
-							"children": [{ "_type": "span", "text": "4. Water pooling around the base" }]
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Any moisture around your water heater is a red flag. Small leaks become big leaks fast. If you see water, call a plumber the same day — a 50-gallon tank failure can cause serious water damage."
-								}
-							]
-						},
-						{
-							"_type": "block",
-							"style": "h2",
-							"children": [{ "_type": "span", "text": "5. You're running out of hot water faster" }]
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "If your morning showers are getting shorter because the hot water runs out, sediment buildup is reducing your tank's effective capacity. At this point, you're paying to heat water you can't even use."
+									"text": "Service agreements frequently auto-renew for one-year terms if you do not provide written notice 60 or 90 days before the end of the current term. We have seen clients trapped in expensive contracts because they missed a cancellation window by a week. Put renewal dates on your calendar the day you sign."
 								}
 							]
 						},
@@ -768,29 +737,29 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "If you're seeing any of these signs, give us a call. We'll inspect your current unit and walk you through your options — traditional tank, tankless, or hybrid. Free estimates, no pressure."
+									"text": "Have a significant contract to review? We offer flat-fee contract review for most standard business agreements. Contact us for a quote."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"category": ["tips"],
-					"tag": ["plumbing", "maintenance"]
+					"category": ["legal-insights"],
+					"tag": ["business-law", "contracts"]
 				}
 			},
 			{
 				"id": "post-2",
-				"slug": "prepare-your-hvac-for-summer",
+				"slug": "estate-planning-documents-everyone-needs",
 				"status": "published",
 				"data": {
-					"title": "6 Ways to Prepare Your AC for Summer (Before It's 95 Degrees)",
-					"excerpt": "Don't wait until the first heat wave to find out your AC isn't working. A little spring maintenance goes a long way.",
+					"title": "The 4 Estate Planning Documents Every Adult Should Have",
+					"excerpt": "A will is just the beginning. Here are the four documents that ensure your wishes are followed and your loved ones are protected — regardless of your age or net worth.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1200&h=800&fit=crop",
-							"alt": "Outdoor air conditioning units beside a house",
-							"filename": "hvac-summer.jpg"
+							"url": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=800&fit=crop",
+							"alt": "Family reviewing documents together at a table",
+							"filename": "estate-planning.jpg"
 						}
 					},
 					"content": [
@@ -800,14 +769,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Every year we get a flood of emergency calls on the first really hot day of summer. Most of those breakdowns could have been prevented with 30 minutes of spring maintenance. Here's what you can do right now to avoid being stuck in a 90-degree house."
+									"text": "Estate planning is not just for the wealthy or the elderly. If you own property, have children, or care about who makes decisions on your behalf if you become incapacitated, you need these four documents in place. Most clients are surprised by how straightforward the process is."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "1. Change your air filter" }]
+							"children": [{ "_type": "span", "text": "1. A last will and testament" }]
 						},
 						{
 							"_type": "block",
@@ -815,14 +784,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "This is the simplest and most impactful thing you can do. A dirty filter restricts airflow, makes your system work harder, and can freeze your evaporator coil. Change it every 1-3 months, or monthly if you have pets."
+									"text": "A will directs how your assets are distributed and, if you have minor children, names a guardian. Without one, the state decides both — according to a formula that may not reflect your wishes. A properly drafted will also names an executor who can act quickly to settle your estate."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "2. Clear debris from your outdoor unit" }]
+							"children": [{ "_type": "span", "text": "2. A durable financial power of attorney" }]
 						},
 						{
 							"_type": "block",
@@ -830,14 +799,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Your condenser needs good airflow to work properly. Clear away leaves, grass clippings, and any vegetation within 2 feet of the unit. Gently hose off the fins to remove dust and pollen buildup."
+									"text": "This document authorizes someone you trust to manage your financial affairs if you are unable to do so. Without it, your family may need to go to court to obtain guardianship — a process that can take months and cost thousands of dollars, all while your bills go unpaid."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "3. Test it before you need it" }]
+							"children": [{ "_type": "span", "text": "3. A healthcare proxy (medical power of attorney)" }]
 						},
 						{
 							"_type": "block",
@@ -845,7 +814,22 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Turn your AC on now, while it's still cool out. Set it 5 degrees below room temperature and let it run for 15 minutes. Check that cold air is coming from the vents and the outdoor unit is running. Better to discover a problem now than on a 100-degree Saturday."
+									"text": "This names someone to make medical decisions on your behalf if you cannot make them yourself. Without it, medical providers may be unable to share information with your family, and disputes can arise about your care."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "4. An advance healthcare directive (living will)" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A living will documents your wishes regarding end-of-life care. It relieves your loved ones of an agonizing decision during an already difficult time and ensures your wishes are honored."
 								}
 							]
 						},
@@ -855,29 +839,29 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Want a professional tune-up? Our spring AC checkup is $89 and includes a 21-point inspection, refrigerant check, and coil cleaning. Schedule yours before the rush."
+									"text": "We offer a flat-fee estate planning package that includes all four documents, a trust consultation, and a one-year review. Contact us to schedule your estate planning consultation."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"category": ["seasonal"],
-					"tag": ["hvac", "maintenance"]
+					"category": ["client-resources"],
+					"tag": ["estate-planning"]
 				}
 			},
 			{
 				"id": "post-3",
-				"slug": "save-money-on-energy-bills",
+				"slug": "choosing-the-right-business-structure",
 				"status": "published",
 				"data": {
-					"title": "7 Simple Ways to Lower Your Energy Bill This Month",
-					"excerpt": "You don't need to spend thousands on upgrades. These practical tips can cut your energy bill by 10-25% starting today.",
+					"title": "LLC, S-Corp, or C-Corp? Choosing the Right Business Structure",
+					"excerpt": "The entity type you choose affects your taxes, liability exposure, and ability to raise capital. Here is how to think through the decision.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop",
-							"alt": "Smart thermostat on a wall showing temperature",
-							"filename": "energy-savings.jpg"
+							"url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop",
+							"alt": "Business professionals in a meeting reviewing documents",
+							"filename": "business-structure.jpg"
 						}
 					},
 					"content": [
@@ -887,14 +871,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Heating and cooling account for almost half of the average home's energy costs. The good news is that some of the most effective ways to save money don't require any tools or a service call."
+									"text": "One of the first decisions every new business owner faces is how to structure their entity. The right answer depends on your tax situation, your liability exposure, whether you plan to bring in investors, and how you want the business to be governed. Here is a plain-English breakdown of the most common structures."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "1. Set your thermostat and leave it" }]
+							"children": [{ "_type": "span", "text": "Sole proprietorship" }]
 						},
 						{
 							"_type": "block",
@@ -902,14 +886,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Every degree you raise your thermostat in summer (or lower in winter) saves about 3% on your bill. Set it to 78 in summer and 68 in winter. A programmable or smart thermostat makes this automatic — set it back when you're sleeping or away."
+									"text": "The simplest structure — no formation required. But there is no liability protection: your personal assets are exposed if the business is sued or cannot pay its debts. For anything beyond the most modest side activity, a sole proprietorship is rarely the right choice."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "2. Seal air leaks around windows and doors" }]
+							"children": [{ "_type": "span", "text": "LLC (Limited Liability Company)" }]
 						},
 						{
 							"_type": "block",
@@ -917,7 +901,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "A $5 tube of caulk and $10 worth of weatherstripping can save you hundreds per year. Check around windows, doors, and where pipes enter your home. If you can feel a draft, you're paying to heat or cool the outside."
+									"text": "The LLC is the workhorse structure for most small and mid-sized businesses. It provides liability protection, flexible governance, and pass-through taxation. An LLC can be taxed as a sole proprietorship, partnership, S-corp, or C-corp depending on your elections — which gives you flexibility as the business grows."
 								}
 							]
 						},
@@ -927,35 +911,35 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Want a professional energy audit? We offer a full home energy assessment that identifies exactly where you're losing money. The assessment is free when combined with any service call."
+									"text": "Thinking about forming a new entity or restructuring an existing one? Schedule a business formation consultation and we will help you choose the structure that fits your goals."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"category": ["tips"],
-					"tag": ["energy-savings", "hvac"]
+					"category": ["legal-insights"],
+					"tag": ["business-law"]
 				}
 			}
 		],
 		"services": [
 			{
-				"id": "plumbing",
-				"slug": "plumbing",
+				"id": "business-law",
+				"slug": "business-law",
 				"status": "published",
 				"data": {
-					"title": "Plumbing Services",
-					"icon": "drop",
-					"summary": "From leaky faucets to full repiping. Licensed plumbers available same-day for repairs, installations, and emergencies.",
-					"price_from": "$89 service call",
-					"cta_label": "Schedule a Plumber",
+					"title": "Business Law",
+					"icon": "briefcase",
+					"summary": "Entity formation, contracts, commercial transactions, and ongoing counsel for growing businesses. We help you build on a solid legal foundation.",
+					"price_from": "Flat-fee consultations available",
+					"cta_label": "Schedule a Business Consultation",
 					"cta_url": "/contact",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=1200&h=800&fit=crop",
-							"alt": "Plumber working under a kitchen sink",
-							"filename": "plumbing.jpg"
+							"url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop",
+							"alt": "Business attorneys reviewing corporate documents",
+							"filename": "business-law.jpg"
 						}
 					},
 					"content": [
@@ -965,14 +949,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Whether it's a dripping faucet, a clogged drain, or a complete bathroom remodel, our licensed plumbers handle it all. We stock our trucks with parts for the most common repairs so we can often fix the problem in a single visit."
+									"text": "Whether you are starting a new venture, acquiring a business, or navigating a complex commercial dispute, our business law attorneys provide clear, practical counsel that protects your interests and supports your goals."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "What we do" }]
+							"children": [{ "_type": "span", "text": "What we handle" }]
 						},
 						{
 							"_type": "block",
@@ -980,32 +964,32 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Drain cleaning and unclogging, faucet and fixture repair/installation, water heater repair and replacement (tank and tankless), toilet repair and installation, garbage disposal installation, pipe repair and repiping, sump pump installation, water line repair, gas line repair, and sewer line inspection and repair."
+									"text": "Business formation (LLC, corporation, partnership), operating agreements and bylaws, contract drafting and review, business acquisitions and sales, partnership disputes, non-compete and confidentiality agreements, commercial lease review, shareholder agreements, and ongoing general counsel services."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"service_category": ["plumbing"]
+					"service_category": ["business-law"]
 				}
 			},
 			{
-				"id": "hvac",
-				"slug": "hvac",
+				"id": "estate-planning",
+				"slug": "estate-planning",
 				"status": "published",
 				"data": {
-					"title": "Heating & Air Conditioning",
-					"icon": "thermometer",
-					"summary": "Keep your home comfortable year-round. AC and furnace repair, installation, and seasonal maintenance.",
-					"price_from": "$89 diagnostic",
-					"cta_label": "Schedule HVAC Service",
+					"title": "Estate Planning & Trusts",
+					"icon": "file-text",
+					"summary": "Wills, trusts, powers of attorney, and healthcare directives. We help you protect your family and transfer your legacy on your terms.",
+					"price_from": "Flat-fee packages from $1,200",
+					"cta_label": "Schedule an Estate Planning Consultation",
 					"cta_url": "/contact",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=1200&h=800&fit=crop",
-							"alt": "HVAC technician inspecting an air conditioning unit",
-							"filename": "hvac.jpg"
+							"url": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=800&fit=crop",
+							"alt": "Family reviewing estate planning documents",
+							"filename": "estate-planning.jpg"
 						}
 					},
 					"content": [
@@ -1015,14 +999,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "A well-maintained HVAC system keeps your family comfortable and your energy bills under control. We service all major brands and offer seasonal maintenance plans that catch small problems before they become expensive emergencies."
+									"text": "A well-structured estate plan protects your assets, minimizes taxes, and ensures your wishes are carried out. We work with individuals and families at every stage of life to build plans that grow with them."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "What we do" }]
+							"children": [{ "_type": "span", "text": "What we handle" }]
 						},
 						{
 							"_type": "block",
@@ -1030,32 +1014,32 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "AC repair and installation, furnace repair and installation, heat pump systems, ductwork repair and sealing, thermostat installation (including smart thermostats), indoor air quality solutions, seasonal tune-ups, and emergency 24/7 repair."
+									"text": "Last will and testament, revocable living trusts, irrevocable trusts, durable financial power of attorney, healthcare proxy and advance directive, guardianship designations for minor children, trust administration, probate proceedings, and estate plan reviews and updates."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"service_category": ["hvac"]
+					"service_category": ["estate-planning"]
 				}
 			},
 			{
-				"id": "electrical",
-				"slug": "electrical",
+				"id": "family-law",
+				"slug": "family-law",
 				"status": "published",
 				"data": {
-					"title": "Electrical Services",
-					"icon": "lightning",
-					"summary": "Safe, code-compliant electrical work. Panel upgrades, rewiring, lighting, outlets, and EV charger installation.",
-					"price_from": "$99 service call",
-					"cta_label": "Schedule an Electrician",
+					"title": "Family Law",
+					"icon": "users",
+					"summary": "Divorce, custody, support, and adoption handled with discretion and resolve. We protect your interests and your family's wellbeing.",
+					"price_from": "Initial consultation $250",
+					"cta_label": "Schedule a Family Law Consultation",
 					"cta_url": "/contact",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1200&h=800&fit=crop",
-							"alt": "Electrician working on a circuit breaker panel",
-							"filename": "electrical.jpg"
+							"url": "https://images.unsplash.com/photo-1491013516836-7db643ee125a?w=1200&h=800&fit=crop",
+							"alt": "Attorney consulting with clients in a private office",
+							"filename": "family-law.jpg"
 						}
 					},
 					"content": [
@@ -1065,14 +1049,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Electrical work isn't something to DIY. Our licensed electricians handle everything from adding an outlet to upgrading your entire panel — safely, to code, and with a warranty on all work."
+									"text": "Family legal matters are among the most personal and emotionally charged situations our clients face. Our attorneys approach every family law matter with discretion, empathy, and a clear focus on protecting your long-term interests."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "What we do" }]
+							"children": [{ "_type": "span", "text": "What we handle" }]
 						},
 						{
 							"_type": "block",
@@ -1080,27 +1064,27 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Electrical panel upgrades, whole-home rewiring, outlet and switch installation, lighting installation (recessed, under-cabinet, landscape), ceiling fan installation, EV charger installation, generator installation, surge protection, code violation correction, and safety inspections."
+									"text": "Divorce and legal separation, property division, child custody and parenting plans, child support and modification, spousal maintenance, prenuptial and postnuptial agreements, adoption, guardianship, domestic partnership dissolution, and post-decree modifications."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"service_category": ["electrical"]
+					"service_category": ["family-law"]
 				}
 			},
 			{
-				"id": "emergency",
-				"slug": "emergency-services",
+				"id": "litigation",
+				"slug": "litigation",
 				"status": "published",
 				"data": {
-					"title": "24/7 Emergency Service",
-					"icon": "siren",
-					"summary": "Burst pipe at 2 AM? Furnace out in January? We're here 24/7 for plumbing, HVAC, and electrical emergencies.",
-					"price_from": "$149 after-hours",
-					"cta_label": "Call Now: (555) 234-5678",
-					"cta_url": "tel:5552345678",
+					"title": "Commercial Litigation",
+					"icon": "scales",
+					"summary": "When negotiation fails, we fight. Our litigators handle contract disputes, business torts, and civil matters in state and federal courts.",
+					"price_from": "Case evaluation consultation available",
+					"cta_label": "Discuss Your Dispute",
+					"cta_url": "/contact",
 					"content": [
 						{
 							"_type": "block",
@@ -1108,14 +1092,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Emergencies don't wait for business hours, and neither do we. Our on-call technicians are available 24 hours a day, 7 days a week, 365 days a year. We aim to be at your door within 60 minutes for true emergencies."
+									"text": "Litigation is a last resort, but when it is necessary, you need attorneys who are prepared to go the distance. Our litigators have tried cases in state and federal courts and consistently achieve favorable outcomes for our clients."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "What counts as an emergency?" }]
+							"children": [{ "_type": "span", "text": "What we handle" }]
 						},
 						{
 							"_type": "block",
@@ -1123,34 +1107,34 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Burst or frozen pipes, sewer backups, no heat in winter, gas leaks (call 911 first, then us), flooding from appliance failure, complete loss of power to part of your home, and any situation that poses an immediate safety risk."
+									"text": "Contract and breach of contract disputes, business tort claims, partnership and shareholder disputes, non-compete enforcement and defense, employment disputes, real estate litigation, collections and creditor rights, and alternative dispute resolution including mediation and arbitration."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"service_category": ["emergency"]
+					"service_category": ["litigation"]
 				}
 			}
 		],
 		"team": [
 			{
 				"id": "team-1",
-				"slug": "mike-reeves",
+				"slug": "jonathan-caldwell",
 				"status": "published",
 				"data": {
-					"name": "Mike Reeves",
-					"role": "Owner & Master Plumber",
+					"name": "Jonathan Caldwell",
+					"role": "Managing Partner",
 					"photo": {
 						"$media": {
 							"url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face",
-							"alt": "Mike Reeves",
-							"filename": "mike-reeves.jpg"
+							"alt": "Jonathan Caldwell",
+							"filename": "jonathan-caldwell.jpg"
 						}
 					},
-					"bio": "Third-generation tradesman with 25+ years in the field. Founded Summit in 2009 because he believed homeowners deserved honest pricing and reliable service. Still does at least one service call a week because he loves the work.",
-					"email": "mike@summithomeservices.com"
+					"bio": "Former federal law clerk with 25+ years of practice across business law and commercial litigation. Founded the firm in 2001 with a conviction that growing businesses deserve the same quality of counsel as large corporations. Named to Best Lawyers in America for eight consecutive years.",
+					"email": "jcaldwell@caldwellandassociates.com"
 				}
 			},
 			{
@@ -1159,7 +1143,7 @@
 				"status": "published",
 				"data": {
 					"name": "Diana Chen",
-					"role": "Operations Manager",
+					"role": "Partner, Estate Planning & Trusts",
 					"photo": {
 						"$media": {
 							"url": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
@@ -1167,8 +1151,8 @@
 							"filename": "diana-chen.jpg"
 						}
 					},
-					"bio": "Keeps the schedule running, the trucks stocked, and the team on track. If you call the office, Diana's probably the friendly voice on the other end. 8 years with Summit.",
-					"email": "diana@summithomeservices.com"
+					"bio": "Certified specialist in estate planning and trust administration. Diana joined the firm in 2008 after a decade at a large regional firm. She has guided hundreds of families through complex estate matters with care and precision. LL.M. in Taxation from Georgetown.",
+					"email": "dchen@caldwellandassociates.com"
 				}
 			},
 			{
@@ -1177,7 +1161,7 @@
 				"status": "published",
 				"data": {
 					"name": "Marcus Johnson",
-					"role": "Lead HVAC Technician",
+					"role": "Partner, Business Law",
 					"photo": {
 						"$media": {
 							"url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
@@ -1185,8 +1169,8 @@
 							"filename": "marcus-johnson.jpg"
 						}
 					},
-					"bio": "EPA-certified with 12 years of experience in residential and commercial HVAC. Specializes in high-efficiency system installations and can diagnose a compressor problem by sound alone.",
-					"email": "marcus@summithomeservices.com"
+					"bio": "Twelve years of practice in M&A, entity structuring, and commercial contracts. Marcus has represented buyers and sellers in transactions ranging from small business acquisitions to multi-state corporate restructurings. Former in-house counsel at a regional manufacturing group.",
+					"email": "mjohnson@caldwellandassociates.com"
 				}
 			},
 			{
@@ -1195,7 +1179,7 @@
 				"status": "published",
 				"data": {
 					"name": "Jenny Alvarez",
-					"role": "Licensed Electrician",
+					"role": "Associate, Family Law",
 					"photo": {
 						"$media": {
 							"url": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face",
@@ -1203,73 +1187,73 @@
 							"filename": "jenny-alvarez.jpg"
 						}
 					},
-					"bio": "Journeyman electrician with a focus on panel upgrades and whole-home rewiring. Known for keeping the cleanest work sites on the team. 6 years with Summit.",
-					"email": "jenny@summithomeservices.com"
+					"bio": "Jenny focuses on family law and domestic relations, with particular expertise in high-asset divorce and complex custody disputes. Known for her calm, strategic approach and her commitment to protecting clients' long-term interests. Six years at the firm.",
+					"email": "jalvarez@caldwellandassociates.com"
 				}
 			}
 		],
 		"testimonials": [
 			{
 				"id": "testimonial-1",
-				"slug": "karen-m",
+				"slug": "margaret-h",
 				"status": "published",
 				"data": {
-					"author": "Karen M.",
-					"role": "Homeowner",
-					"company": "Springfield",
-					"quote": "Our AC died on the hottest day of the year. Summit had a tech here within 2 hours and had it running by dinner. They even called the next day to make sure everything was still working. Lifesavers.",
+					"author": "Margaret H.",
+					"role": "CEO",
+					"company": "Ardent Manufacturing Co.",
+					"quote": "Caldwell & Associates handled our business acquisition from letter of intent through closing. Every detail was managed with precision and every deadline was met. We closed on better terms than we expected. I would not use another firm for transactions of this significance.",
 					"rating": 5,
 					"featured": true
 				}
 			},
 			{
 				"id": "testimonial-2",
-				"slug": "robert-t",
+				"slug": "thomas-r",
 				"status": "published",
 				"data": {
-					"author": "Robert T.",
-					"role": "Homeowner",
-					"company": "Riverside",
-					"quote": "Finally found a plumber I can trust. Fair prices, shows up on time, cleans up after the job. They replaced our water heater and the whole thing took 3 hours. I won't call anyone else.",
+					"author": "Thomas R.",
+					"role": "Client",
+					"company": "Family Law Matter",
+					"quote": "After my divorce I needed an attorney who would actually listen and give me straight answers. The team here did both. They protected my interests, kept the process as civil as possible for our children, and resolved everything in half the time I expected. I am deeply grateful.",
 					"rating": 5,
 					"featured": true
 				}
 			},
 			{
 				"id": "testimonial-3",
-				"slug": "linda-steve-p",
+				"slug": "eleanor-james-d",
 				"status": "published",
 				"data": {
-					"author": "Linda & Steve P.",
-					"role": "Homeowners",
-					"company": "Oakdale",
-					"quote": "They rewired our entire 1960s kitchen as part of a renovation. Professional crew, clean work, passed inspection on the first try. They walked us through every step and even helped us understand our panel capacity for future projects.",
+					"author": "Eleanor & James D.",
+					"role": "Clients",
+					"company": "Estate Planning Matter",
+					"quote": "We worked with Diana Chen to restructure our family trust and update our estate documents after a major life change. Everything was explained in plain English, completed on schedule, and exactly what we needed. We have complete confidence in this firm.",
 					"rating": 5,
 					"featured": true
 				}
 			},
 			{
 				"id": "testimonial-4",
-				"slug": "david-h",
+				"slug": "raymond-k",
 				"status": "published",
 				"data": {
-					"author": "David H.",
-					"role": "Property Manager",
-					"company": "Fairview Properties",
-					"quote": "We use Summit for all 12 of our rental properties. They're responsive, reasonably priced, and the tenants always have good things to say about the technicians. That matters a lot in property management.",
+					"author": "Raymond K.",
+					"role": "Managing Partner",
+					"company": "Kessler Group LLC",
+					"quote": "We use Caldwell & Associates as our outside general counsel across three operating companies. They are responsive, practical, and genuinely understand our business. That combination is rarer than it should be.",
 					"rating": 5,
 					"featured": false
 				}
 			},
 			{
 				"id": "testimonial-5",
-				"slug": "maria-g",
+				"slug": "patricia-l",
 				"status": "published",
 				"data": {
-					"author": "Maria G.",
-					"role": "Homeowner",
-					"company": "Springfield",
-					"quote": "Our furnace quit on Christmas Eve. Mike himself came out at 9 PM and had it running by 10:30. Didn't even charge the holiday rate. You don't find companies like this anymore.",
+					"author": "Patricia L.",
+					"role": "Client",
+					"company": "Commercial Dispute",
+					"quote": "Jonathan Caldwell took our contract dispute through mediation and achieved a settlement that exceeded our expectations. He is the kind of attorney who tells you what you need to hear, not what you want to hear. That honesty is what won our case.",
 					"rating": 5,
 					"featured": true
 				}
@@ -1277,19 +1261,19 @@
 		],
 		"projects": [
 			{
-				"id": "kitchen-remodel-plumbing",
-				"slug": "elmwood-kitchen-remodel",
+				"id": "meridian-acquisition",
+				"slug": "meridian-acquisition",
 				"status": "published",
 				"data": {
-					"title": "Elmwood Kitchen Remodel",
-					"client": "The Patterson Family",
+					"title": "Meridian Industrial Acquisition",
+					"client": "Confidential — Regional Manufacturing",
 					"year": "2025",
-					"summary": "Complete plumbing rough-in and finish work for a full kitchen renovation — relocated water lines, new gas line for range, and garbage disposal install.",
+					"summary": "Represented the buyer in a $4.2M acquisition of a regional industrial supplier — from LOI through due diligence, financing, and closing.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=900&fit=crop",
-							"alt": "Modern kitchen with white cabinets and farmhouse sink",
-							"filename": "kitchen-remodel.jpg"
+							"url": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=900&fit=crop",
+							"alt": "Modern corporate boardroom with city view",
+							"filename": "acquisition.jpg"
 						}
 					},
 					"content": [
@@ -1299,14 +1283,14 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "The Pattersons were gutting their 1970s kitchen and needed all plumbing relocated to accommodate a new island with a prep sink. We worked closely with their general contractor to rough in new supply and drain lines, install a gas line for their range, and finish with a farmhouse sink and commercial-style faucet."
+									"text": "Our client had identified a strategic acquisition target and needed legal counsel to move quickly without sacrificing diligence. We managed the full transaction: negotiating the purchase agreement, coordinating with the lender's counsel, conducting due diligence across corporate records, contracts, and regulatory filings, and closing within 90 days of the signed LOI."
 								}
 							]
 						},
 						{
 							"_type": "block",
 							"style": "h2",
-							"children": [{ "_type": "span", "text": "Scope" }]
+							"children": [{ "_type": "span", "text": "Outcome" }]
 						},
 						{
 							"_type": "block",
@@ -1314,30 +1298,30 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Relocated main sink supply and drain. Ran new copper supply lines to island. Installed gas line for 6-burner range. Set farmhouse sink and commercial pull-down faucet. Installed garbage disposal and dishwasher connection. All work passed inspection on the first visit."
+									"text": "Transaction closed on schedule with favorable indemnification terms negotiated by our team. Two post-closing issues identified in due diligence were resolved through purchase price adjustments before closing, saving our client a potential six-figure exposure."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"project_category": ["residential", "renovation"]
+					"project_category": ["business"]
 				}
 			},
 			{
-				"id": "hvac-commercial",
-				"slug": "riverside-dental-hvac",
+				"id": "whitmore-estate",
+				"slug": "whitmore-estate",
 				"status": "published",
 				"data": {
-					"title": "Riverside Dental Office HVAC",
-					"client": "Riverside Family Dentistry",
+					"title": "Whitmore Family Estate Restructure",
+					"client": "Confidential — Estate Planning",
 					"year": "2025",
-					"summary": "Designed and installed a zoned HVAC system for a 3,200 sq ft dental office — 4 zones for exam rooms, lobby, and back office.",
+					"summary": "Restructured a multi-generational family estate including revocable trust, family LLC, and charitable remainder trust to minimize estate tax exposure.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=900&fit=crop",
-							"alt": "Modern commercial office interior",
-							"filename": "dental-office.jpg"
+							"url": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=900&fit=crop",
+							"alt": "Estate planning documents and family heirlooms",
+							"filename": "estate.jpg"
 						}
 					},
 					"content": [
@@ -1347,7 +1331,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Dr. Rivera was opening a new dental practice and needed a system that could keep exam rooms cool (dental equipment generates a lot of heat) while maintaining a comfortable temperature in the waiting area. We designed a 4-zone system with independent thermostats so each area is dialed in."
+									"text": "A family with significant real property holdings and investment assets sought to restructure their estate in anticipation of generational transfer. Working closely with their CPA, we designed a plan that transferred assets to a family LLC, established a revocable living trust as the primary vehicle, and created a charitable remainder trust to provide income while reducing taxable estate value."
 								}
 							]
 						},
@@ -1362,30 +1346,30 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "The high-efficiency heat pump system with variable speed blower keeps operating costs low while giving each zone precise temperature control. Energy costs came in 30% below Dr. Rivera's budget projections for the first year."
+									"text": "The restructured plan reduced estimated estate tax exposure by approximately 38% while preserving family control over operating assets and establishing a charitable legacy aligned with the family's values."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"project_category": ["commercial"]
+					"project_category": ["estate"]
 				}
 			},
 			{
-				"id": "whole-home-rewire",
-				"slug": "oakdale-whole-home-rewire",
+				"id": "hartley-dispute",
+				"slug": "hartley-dispute",
 				"status": "published",
 				"data": {
-					"title": "1950s Whole-Home Rewire",
-					"client": "The Chen Family",
+					"title": "Hartley Construction — Contract Dispute",
+					"client": "Confidential — Commercial Litigation",
 					"year": "2024",
-					"summary": "Complete electrical rewire of a 2,100 sq ft 1950s ranch — replaced knob-and-tube wiring, upgraded to 200A panel, and added 40 new circuits.",
+					"summary": "Represented a regional contractor in a $1.8M dispute over a commercial build-out contract. Resolved through mediation in under six months.",
 					"featured_image": {
 						"$media": {
-							"url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=900&fit=crop",
-							"alt": "Electrical panel with neatly organized wiring",
-							"filename": "rewire-project.jpg"
+							"url": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=900&fit=crop",
+							"alt": "Attorney reviewing case files in courtroom",
+							"filename": "litigation.jpg"
 						}
 					},
 					"content": [
@@ -1395,24 +1379,39 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "The Chens bought a beautiful mid-century ranch but the electrical hadn't been touched since it was built. The original knob-and-tube wiring was a fire hazard, and the 60-amp panel couldn't support modern appliances. We did a full rewire without tearing out walls, upgraded to a 200A panel, and added circuits for a home office, EV charger, and workshop."
+									"text": "Our client, a general contractor, was accused of defective work and breach of contract by a commercial building owner seeking $1.8M in damages. After reviewing the project record, we identified significant evidence that the defects were attributable to design errors and owner-directed changes. We filed counterclaims for unpaid contract balance and extras."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Outcome" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The matter was resolved in mediation. The owner's claims were dismissed in full and our client recovered a substantial portion of the unpaid contract balance. Total resolution time: five months from engagement to settlement."
 								}
 							]
 						}
 					]
 				},
 				"taxonomies": {
-					"project_category": ["residential", "renovation"]
+					"project_category": ["litigation"]
 				}
 			}
 		],
 		"faqs": [
 			{
 				"id": "faq-1",
-				"slug": "service-call-cost",
+				"slug": "initial-consultation",
 				"status": "published",
 				"data": {
-					"question": "How much does a service call cost?",
+					"question": "How does the initial consultation work?",
 					"answer": [
 						{
 							"_type": "block",
@@ -1420,20 +1419,20 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Our standard service call fee is $89 for plumbing and HVAC, $99 for electrical. This covers the trip to your home and a full diagnostic. If you proceed with the repair, the service call fee is applied toward the total cost of the job. After-hours and emergency calls are $149."
+									"text": "We offer a 30-minute initial consultation by phone or video, or in person at our office. During the consultation, we will listen to your matter, ask clarifying questions, give you our honest assessment, and explain how we would approach the representation. There is no obligation to retain us after the consultation."
 								}
 							]
 						}
 					]
 				},
-				"taxonomies": { "faq_category": ["pricing"] }
+				"taxonomies": { "faq_category": ["consultations"] }
 			},
 			{
 				"id": "faq-2",
-				"slug": "emergency-response-time",
+				"slug": "how-are-fees-structured",
 				"status": "published",
 				"data": {
-					"question": "How fast can you get here for an emergency?",
+					"question": "How are your fees structured?",
 					"answer": [
 						{
 							"_type": "block",
@@ -1441,20 +1440,20 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "For true emergencies (burst pipes, no heat in winter, gas leaks, flooding), we aim to have a technician at your door within 60 minutes. For urgent but non-emergency issues, we typically offer same-day service if you call before noon."
+									"text": "We offer flat fees for transactional work (estate planning packages, business formation, contract review) and hourly rates for litigation and complex matters. Our hourly rates are disclosed upfront, and we provide written fee agreements before beginning any engagement. We do not bill in 6-minute increments for every email."
 								}
 							]
 						}
 					]
 				},
-				"taxonomies": { "faq_category": ["emergency"] }
+				"taxonomies": { "faq_category": ["fees"] }
 			},
 			{
 				"id": "faq-3",
 				"slug": "service-area",
 				"status": "published",
 				"data": {
-					"question": "What areas do you serve?",
+					"question": "Which clients and courts do you serve?",
 					"answer": [
 						{
 							"_type": "block",
@@ -1462,7 +1461,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "We serve Springfield and the surrounding communities within 30 miles, including Riverside, Oakdale, Fairview, Cedar Hills, and Lakeview. If you're not sure whether you're in our service area, give us a call and we'll let you know."
+									"text": "We serve clients throughout the greater metro area and surrounding counties. Our attorneys are admitted in state and federal courts in this jurisdiction. We also handle matters in neighboring states through co-counsel arrangements when needed. Consultations are available in-person, by phone, or via video conference."
 								}
 							]
 						}
@@ -1472,10 +1471,10 @@
 			},
 			{
 				"id": "faq-4",
-				"slug": "payment-options",
+				"slug": "how-long-will-my-matter-take",
 				"status": "published",
 				"data": {
-					"question": "What payment methods do you accept?",
+					"question": "How long will my matter take?",
 					"answer": [
 						{
 							"_type": "block",
@@ -1483,20 +1482,20 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "We accept cash, check, and all major credit cards. For larger projects ($1,000+), we also offer financing through GreenSky with approved credit — 0% interest for 12 months on qualifying purchases. Payment is due upon completion of work."
+									"text": "Timelines vary considerably by matter type. A standard estate plan is typically completed within three to four weeks. A straightforward business acquisition takes 60 to 90 days. Contested litigation depends on court scheduling and opposing counsel, but we will give you a realistic timeline at the outset and update you whenever it changes."
 								}
 							]
 						}
 					]
 				},
-				"taxonomies": { "faq_category": ["pricing"] }
+				"taxonomies": { "faq_category": ["process"] }
 			},
 			{
 				"id": "faq-5",
-				"slug": "estimates-free",
+				"slug": "do-you-offer-payment-plans",
 				"status": "published",
 				"data": {
-					"question": "Do you offer free estimates?",
+					"question": "Do you offer payment plans?",
 					"answer": [
 						{
 							"_type": "block",
@@ -1504,20 +1503,20 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Yes — for larger projects like system replacements, repiping, panel upgrades, or remodeling work, we provide free written estimates. For repair work, the $89-99 service call covers the diagnostic and you'll receive an upfront quote before any work begins."
+									"text": "For flat-fee matters, we can often structure payments in installments. For hourly matters, we require an initial retainer and bill monthly against it. We accept all major credit cards, check, and ACH transfer. We are happy to discuss what structure works for your situation."
 								}
 							]
 						}
 					]
 				},
-				"taxonomies": { "faq_category": ["pricing"] }
+				"taxonomies": { "faq_category": ["fees"] }
 			},
 			{
 				"id": "faq-6",
-				"slug": "licensed-insured",
+				"slug": "are-you-licensed",
 				"status": "published",
 				"data": {
-					"question": "Are you licensed and insured?",
+					"question": "Are your attorneys licensed and in good standing?",
 					"answer": [
 						{
 							"_type": "block",
@@ -1525,7 +1524,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Yes. Summit Home Services is fully licensed, bonded, and insured. We carry $2 million in general liability coverage. All plumbers, HVAC technicians, and electricians hold active state licenses and are background-checked. We're happy to provide license numbers and proof of insurance upon request."
+									"text": "Yes. All attorneys at Caldwell & Associates are licensed members of the State Bar in good standing. Our firm carries professional liability (malpractice) insurance and adheres to the Rules of Professional Conduct. You can verify attorney licensure through the State Bar's public directory."
 								}
 							]
 						}
@@ -1538,7 +1537,7 @@
 				"slug": "how-to-schedule",
 				"status": "published",
 				"data": {
-					"question": "How do I schedule an appointment?",
+					"question": "How do I schedule a consultation?",
 					"answer": [
 						{
 							"_type": "block",
@@ -1546,20 +1545,20 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "You can call us at (555) 234-5678, fill out the contact form on our website, or send us a text at the same number. Our office is staffed Monday through Friday 7 AM to 6 PM and Saturday 8 AM to 2 PM. For after-hours emergencies, our answering service will dispatch a technician."
+									"text": "You can call us at (555) 234-5678, use the contact form on our website, or email us directly. Our office is staffed Monday through Friday, 8:30 AM to 5:30 PM. We will respond within one business day to confirm your appointment."
 								}
 							]
 						}
 					]
 				},
-				"taxonomies": { "faq_category": ["scheduling"] }
+				"taxonomies": { "faq_category": ["consultations"] }
 			},
 			{
 				"id": "faq-8",
-				"slug": "warranty",
+				"slug": "attorney-client-privilege",
 				"status": "published",
 				"data": {
-					"question": "Do you warranty your work?",
+					"question": "Is what I tell you confidential?",
 					"answer": [
 						{
 							"_type": "block",
@@ -1567,7 +1566,7 @@
 							"children": [
 								{
 									"_type": "span",
-									"text": "Every repair comes with a minimum 90-day warranty on labor. New equipment installations carry the manufacturer's warranty (typically 5-10 years on parts) plus our own 2-year labor warranty. If something we installed or repaired fails within the warranty period, we'll make it right at no charge."
+									"text": "Yes. Attorney-client privilege protects communications between you and our attorneys from disclosure to third parties. This applies from the moment of your initial consultation. We cannot be compelled to reveal what you tell us in confidence, and we take that obligation seriously."
 								}
 							]
 						}

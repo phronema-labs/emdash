@@ -1,0 +1,12 @@
+/* Phronema Labs - Business Theme
+   Trust-forward palette: Blue primary, orange accent */
+:root {
+	--color-primary: #1e6bb8;
+	--color-primary-dark: #155a9c;
+	--color-primary-light: #dbeafe;
+	--color-accent: #ff6b35;
+	--color-accent-light: #fff3ed;
+	--color-surface: #f7f9fc;
+	--color-surface-warm: #fef8f4;
+	--color-dark-section: #1a2332;
+}

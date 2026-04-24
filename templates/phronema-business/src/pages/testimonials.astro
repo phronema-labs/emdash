@@ -2,38 +2,128 @@
 import { getEmDashCollection } from "emdash";
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
+import GoogleReviews from "../components/GoogleReviews.astro";
 
 const { entries: testimonials, cacheHint } = await getEmDashCollection("testimonials", { status: "published" });
 if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const fallbackTestimonials = [
+	{
+		quote: "Margaret handled our business acquisition with an expertise and attention to detail I've rarely encountered. She caught issues in the purchase agreement that our CPA had missed entirely and negotiated terms that saved us a significant amount. I would not take another major transaction to anyone else.",
+		author: "Robert H.",
+		role: "Business Owner",
+		company: "",
+		rating: 5,
+		practice: "Business Law",
+	},
+	{
+		quote: "Going through a divorce is never easy, but James made the process as dignified and efficient as it could have been. He was always reachable, he never padded his time, and he helped me reach a custody arrangement that genuinely works for my children. His calm in difficult moments made a real difference.",
+		author: "Sarah M.",
+		role: "Family Law Client",
+		company: "",
+		rating: 5,
+		practice: "Family Law",
+	},
+	{
+		quote: "I came to Caldwell & Associates to put together a complete estate plan after years of putting it off. Priya walked me through every option patiently and without pressure — trusts, powers of attorney, healthcare directives — and helped me make decisions I actually understood. The whole process took three weeks and I left feeling genuinely at peace.",
+		author: "Thomas W.",
+		role: "Estate Planning Client",
+		company: "",
+		rating: 5,
+		practice: "Estate Planning",
+	},
+	{
+		quote: "When a former partner tried to walk away with our client list and trade secrets, James filed for an injunction immediately and had it granted within 48 hours. The case never made it to trial — the other side settled on our terms. That kind of decisive action is exactly what you need in a crisis.",
+		author: "Linda K.",
+		role: "Managing Partner",
+		company: "K&L Design Group",
+		rating: 5,
+		practice: "Litigation",
+	},
+	{
+		quote: "We've used Caldwell & Associates for three commercial leases, a franchise agreement, and two employment matters over the past six years. Every single engagement has been handled with professionalism, clear communication, and consistent billing. They are our firm's outside counsel and we wouldn't change that.",
+		author: "David R.",
+		role: "COO",
+		company: "Meridian Hospitality LLC",
+		rating: 5,
+		practice: "Business Law",
+	},
+	{
+		quote: "I was referred to Margaret by a trusted colleague after a contract dispute with a major vendor. She reviewed the situation honestly — including the parts that weren't in my favor — and helped me understand my realistic options. We resolved it without litigation, quickly and fairly. She didn't just tell me what I wanted to hear.",
+		author: "Anita C.",
+		role: "Founder & CEO",
+		company: "",
+		rating: 5,
+		practice: "Commercial Contracts",
+	},
+];
+
+const displayTestimonials = testimonials.length > 0 ? testimonials : null;
 ---
 
-<Base title="Testimonials" description="See what our customers have to say about Summit Home Services.">
+<Base title="Client Testimonials" description="Hear from the clients Caldwell & Associates has had the privilege of serving — in business law, estate planning, family law, and litigation.">
 	<PageHero
-		title="What Our Customers Say"
-		subtitle="Don't just take our word for it — hear from real homeowners."
-		image="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&h=500&fit=crop"
+		title="Client Testimonials"
+		subtitle="Don't take our word for it — hear from the clients we have had the privilege of serving."
+		image="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=500&fit=crop"
 	/>
 
-	<section class="container section">
+	{/* ===== REVIEW SUMMARY BAR ===== */}
+	<section class="reviews-bar">
+		<div class="container reviews-bar-inner">
+			<div class="reviews-summary">
+				<GoogleReviews rating={4.9} reviewCount={217} style="badge" />
+				<p>217 verified reviews across Google, Avvo, and Martindale-Hubbell</p>
+			</div>
+			<div class="reviews-platforms">
+				<div class="platform-badge">
+					<i class="ph ph-star-fill"></i>
+					<div>
+						<strong>4.9 / 5.0</strong>
+						<span>Google Reviews</span>
+					</div>
+				</div>
+				<div class="platform-badge">
+					<i class="ph ph-seal-check"></i>
+					<div>
+						<strong>AV Preeminent</strong>
+						<span>Martindale-Hubbell</span>
+					</div>
+				</div>
+				<div class="platform-badge">
+					<i class="ph ph-scales"></i>
+					<div>
+						<strong>10.0 / 10</strong>
+						<span>Avvo Rating</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-		{testimonials.length > 0 ? (
-			<div class="testimonials-grid">
-				{testimonials.map((t) => (
+	{/* ===== TESTIMONIALS GRID ===== */}
+	<section class="section container">
+		{displayTestimonials ? (
+			<div class="testimonials-grid reveal-stagger">
+				{displayTestimonials.map((t) => (
 					<div class="testimonial-card">
 						{t.data.rating && (
 							<div class="rating" aria-label={`${t.data.rating} out of 5 stars`}>
 								{Array.from({ length: 5 }).map((_, i) => (
-									<i class={`ph ${i < (t.data.rating as number) ? "ph-star-fill" : "ph-star"}`} />
+									<i class={`ph ${i < (t.data.rating as number) ? "ph-star-fill" : "ph-star"}`}></i>
 								))}
 							</div>
 						)}
 						<blockquote>"{t.data.quote}"</blockquote>
 						<div class="author">
+							<div class="author-avatar" aria-hidden="true">
+								{t.data.author.charAt(0)}
+							</div>
 							<div>
 								<strong>{t.data.author}</strong>
 								{(t.data.role || t.data.company) && (
 									<span class="role">
-										{t.data.role}{t.data.role && t.data.company && " at "}{t.data.company}
+										{t.data.role}{t.data.role && t.data.company && " — "}{t.data.company}
 									</span>
 								)}
 							</div>
@@ -42,62 +132,405 @@ if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
 				))}
 			</div>
 		) : (
-			<p style="text-align: center; color: var(--color-muted);">
-				No testimonials yet. <a href="/_emdash/admin">Add testimonials</a> in the admin panel.
-			</p>
+			<div>
+				<div class="section-header reveal">
+					<span class="eyebrow">What Clients Say</span>
+					<h2>Real experiences, <em>real outcomes</em></h2>
+					<p>A selection of feedback from clients we have served across our practice areas. Names and details are shared with permission.</p>
+				</div>
+				<div class="testimonials-masonry reveal-stagger">
+					{fallbackTestimonials.map((t) => (
+						<div class="testimonial-card">
+							<div class="card-top">
+								<div class="rating" aria-label={`${t.rating} out of 5 stars`}>
+									{Array.from({ length: 5 }).map((_, i) => (
+										<i class={`ph ${i < t.rating ? "ph-star-fill" : "ph-star"}`}></i>
+									))}
+								</div>
+								<span class="practice-tag">{t.practice}</span>
+							</div>
+							<blockquote>"{t.quote}"</blockquote>
+							<div class="author">
+								<div class="author-avatar" aria-hidden="true">
+									{t.author.charAt(0)}
+								</div>
+								<div>
+									<strong>{t.author}</strong>
+									{(t.role || t.company) && (
+										<span class="role">
+											{t.role}{t.role && t.company && " — "}{t.company}
+										</span>
+									)}
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
 		)}
 	</section>
+
+	{/* ===== TRUST STATEMENT ===== */}
+	<section class="section trust-section">
+		<div class="container trust-inner">
+			<div class="trust-content reveal">
+				<span class="eyebrow">Our Commitment</span>
+				<h2>Client relationships built on <em>trust</em></h2>
+				<p>The testimonials on this page represent a fraction of the clients we've had the privilege of serving. We are proud of our reputation, and we take every new matter as an opportunity to earn it again.</p>
+				<p>If you have worked with us and would like to share your experience, we welcome your review on Google or Avvo.</p>
+				<div class="trust-actions">
+					<a href="https://search.google.com/local/writereview?placeid=ChIJ" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+						<i class="ph ph-google-logo"></i> Leave a Google Review
+					</a>
+				</div>
+			</div>
+			<div class="trust-stats reveal-stagger">
+				<div class="trust-stat">
+					<span class="trust-stat-num">98%</span>
+					<span class="trust-stat-label">Client retention rate</span>
+				</div>
+				<div class="trust-stat">
+					<span class="trust-stat-num">217+</span>
+					<span class="trust-stat-label">Verified 5-star reviews</span>
+				</div>
+				<div class="trust-stat">
+					<span class="trust-stat-num">20+</span>
+					<span class="trust-stat-label">Years serving clients</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== BOTTOM CTA ===== */}
+	<section class="section cta-section">
+		<div class="container" style="text-align: center; position: relative; z-index: 1;">
+			<span class="eyebrow" style="color: rgba(255,255,255,0.5);">Join Our Clients</span>
+			<h2 style="margin-top: 0.5rem; color: white;">Ready to experience the <em>Caldwell difference?</em></h2>
+			<p style="color: rgba(255,255,255,0.7); font-family: var(--font-body); font-size: var(--font-size-lg); max-width: 480px; margin-inline: auto; margin-top: var(--spacing-md); line-height: 1.7;">Schedule a confidential consultation with one of our attorneys. Free initial consultations for most matters.</p>
+			<div class="cta-actions" style="margin-top: var(--spacing-xl); display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+				<a href="/contact" class="btn btn-accent-solid btn-lg">Schedule a Consultation</a>
+				<a href="tel:5552345678" class="btn btn-outline-light btn-lg">
+					<i class="ph ph-phone"></i> (555) 234-5678
+				</a>
+			</div>
+		</div>
+	</section>
+
 </Base>
 
 <style>
+	/* ===== Reviews bar ===== */
+	.reviews-bar {
+		background: var(--color-surface);
+		border-bottom: 1px solid var(--color-border);
+		padding-block: var(--space-xl);
+	}
+
+	.reviews-bar-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-xl);
+		flex-wrap: wrap;
+	}
+
+	.reviews-summary p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		margin-top: var(--spacing-sm);
+	}
+
+	.reviews-platforms {
+		display: flex;
+		gap: var(--spacing-2xl);
+	}
+
+	.platform-badge {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+	}
+
+	.platform-badge i {
+		font-size: 24px;
+		color: var(--color-accent);
+	}
+
+	.platform-badge strong {
+		font-family: var(--font-display);
+		font-size: var(--font-size-md);
+		font-weight: 400;
+		display: block;
+		line-height: 1;
+	}
+
+	.platform-badge span {
+		font-family: var(--font-body);
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		display: block;
+		margin-top: 2px;
+	}
+
+	/* ===== Section header ===== */
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--space-3xl);
+	}
+
+	.section-header h2 {
+		font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+		margin-top: var(--space-sm);
+	}
+
+	.section-header h2 em {
+		font-style: italic;
+		color: var(--color-accent);
+	}
+
+	.section-header p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		margin-top: var(--spacing-md);
+		max-width: 540px;
+		margin-inline: auto;
+		line-height: 1.7;
+	}
+
+	/* ===== Testimonial cards ===== */
 	.testimonials-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: var(--spacing-xl);
-		max-width: 900px;
-		margin: 0 auto;
+	}
+
+	.testimonials-masonry {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-xl);
 	}
 
 	.testimonial-card {
-		padding: var(--spacing-xl);
-		background: var(--color-surface);
+		background: white;
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-lg);
+		padding: var(--spacing-2xl);
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-md);
+		gap: var(--spacing-lg);
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+	}
+
+	.testimonial-card::before {
+		content: "\201C";
+		position: absolute;
+		top: -10px;
+		right: 20px;
+		font-family: var(--font-display);
+		font-size: 120px;
+		color: var(--color-primary-light);
+		line-height: 1;
+		pointer-events: none;
+		user-select: none;
+	}
+
+	.testimonial-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-xl);
+	}
+
+	.card-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.rating {
 		display: flex;
 		gap: 2px;
-		color: #f59e0b;
-		font-size: 18px;
+		color: var(--color-accent);
+		font-size: 16px;
+	}
+
+	.practice-tag {
+		font-family: var(--font-body);
+		font-size: 10px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-primary);
+		background: var(--color-primary-light);
+		padding: 3px 10px;
+		border-radius: var(--radius-full);
 	}
 
 	blockquote {
-		font-size: var(--font-size-md);
-		line-height: 1.6;
+		font-family: var(--font-display);
+		font-size: var(--font-size-lg);
+		font-style: italic;
+		line-height: 1.65;
+		color: var(--color-text);
 		flex: 1;
+		position: relative;
+		z-index: 1;
 	}
 
 	.author {
-		padding-top: var(--spacing-md);
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+		padding-top: var(--spacing-lg);
 		border-top: 1px solid var(--color-border);
 	}
 
+	.author-avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-display);
+		font-size: var(--font-size-lg);
+		flex-shrink: 0;
+	}
+
 	.author strong {
-		display: block;
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
+		font-weight: 700;
+		display: block;
 	}
 
 	.role {
-		display: block;
+		font-family: var(--font-body);
 		font-size: var(--font-size-xs);
 		color: var(--color-muted);
+		display: block;
+		margin-top: 1px;
+	}
+
+	/* ===== Trust section ===== */
+	.trust-section {
+		background: var(--color-surface);
+	}
+
+	.trust-inner {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: var(--space-4xl);
+		align-items: center;
+	}
+
+	.trust-content h2 {
+		font-size: clamp(1.7rem, 3vw, 2.5rem);
+		margin-top: var(--space-sm);
+		margin-bottom: var(--space-lg);
+	}
+
+	.trust-content h2 em {
+		font-style: italic;
+		color: var(--color-accent);
+	}
+
+	.trust-content p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		line-height: 1.75;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.trust-actions {
+		margin-top: var(--spacing-xl);
+	}
+
+	.trust-stats {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-xl);
+		flex-shrink: 0;
+	}
+
+	.trust-stat {
+		text-align: right;
+	}
+
+	.trust-stat-num {
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 3.5vw, 2.75rem);
+		color: var(--color-primary);
+		display: block;
+		letter-spacing: -0.02em;
+	}
+
+	.trust-stat-label {
+		font-family: var(--font-body);
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-muted);
+	}
+
+	/* ===== CTA section ===== */
+	.cta-section {
+		background:
+			radial-gradient(ellipse at 20% 60%, color-mix(in srgb, var(--color-accent) 20%, transparent), transparent 50%),
+			radial-gradient(ellipse at 80% 30%, color-mix(in srgb, var(--color-primary) 30%, transparent), transparent 60%),
+			linear-gradient(140deg, var(--color-primary-dark) 0%, color-mix(in srgb, var(--color-primary) 80%, #000) 100%);
+	}
+
+	.btn-accent-solid {
+		background: var(--color-accent);
+		color: white;
+		border: 2px solid var(--color-accent);
+		text-decoration: none;
+		transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.btn-accent-solid:hover {
+		background: color-mix(in srgb, var(--color-accent) 85%, #000);
+		border-color: color-mix(in srgb, var(--color-accent) 85%, #000);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 28px color-mix(in srgb, var(--color-accent) 40%, transparent);
+	}
+
+	.btn-outline-light {
+		color: white;
+		border: 2px solid rgba(255,255,255,0.35);
+		background: transparent;
+		text-decoration: none;
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	.btn-outline-light:hover {
+		background: rgba(255,255,255,0.1);
+		border-color: rgba(255,255,255,0.6);
+		transform: translateY(-2px);
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 1000px) {
+		.testimonials-masonry { grid-template-columns: repeat(2, 1fr); }
+	}
+
+	@media (max-width: 800px) {
+		.reviews-bar-inner { flex-direction: column; align-items: flex-start; }
+		.reviews-platforms { flex-wrap: wrap; gap: var(--spacing-lg); }
+		.trust-inner { grid-template-columns: 1fr; }
+		.trust-stats { flex-direction: row; flex-wrap: wrap; gap: var(--spacing-xl); }
+		.trust-stat { text-align: left; }
 	}
 
 	@media (max-width: 700px) {
 		.testimonials-grid { grid-template-columns: 1fr; }
+		.testimonials-masonry { grid-template-columns: 1fr; }
 	}
 </style>

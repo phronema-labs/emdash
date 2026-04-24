@@ -1,0 +1,106 @@
+---
+interface Props {
+	title: string;
+	subtitle?: string;
+	image: string;
+}
+
+const { title, subtitle, image } = Astro.props;
+---
+
+<section class="page-hero" style={`background-image: url('${image}');`}>
+	<div class="page-hero-overlay"></div>
+	<div class="page-hero-dots"></div>
+	<div class="container page-hero-inner">
+		<div class="page-hero-breadcrumb">
+			<a href="/">Home</a>
+			<i class="ph ph-caret-right" />
+			<span>{title}</span>
+		</div>
+		<h1>{title}</h1>
+		{subtitle && <p>{subtitle}</p>}
+	</div>
+</section>
+
+<style>
+	.page-hero {
+		position: relative;
+		background: center/cover no-repeat;
+		padding: var(--space-4xl) var(--site-gutter);
+		color: white;
+		text-align: left;
+		min-height: 240px;
+		display: flex;
+		align-items: flex-end;
+		background-color: var(--color-primary-dark);
+	}
+
+	.page-hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, rgba(10, 15, 30, 0.6) 0%, rgba(10, 15, 30, 0.92) 100%);
+	}
+
+	.page-hero-dots {
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+		background-size: 24px 24px;
+	}
+
+	.page-hero-inner {
+		position: relative;
+		z-index: 1;
+	}
+
+	.page-hero-breadcrumb {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		color: rgba(255,255,255,0.45);
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.page-hero-breadcrumb a {
+		color: rgba(255,255,255,0.45);
+		text-decoration: none;
+		transition: color var(--transition-fast);
+	}
+
+	.page-hero-breadcrumb a:hover {
+		color: rgba(255,255,255,0.8);
+	}
+
+	.page-hero-breadcrumb i {
+		font-size: 10px;
+		opacity: 0.4;
+	}
+
+	.page-hero h1 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-4xl);
+		font-weight: 800;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		color: white;
+	}
+
+	.page-hero p {
+		color: rgba(255, 255, 255, 0.7);
+		font-size: var(--font-size-lg);
+		margin-top: var(--spacing-sm);
+		max-width: 600px;
+		line-height: 1.6;
+	}
+
+	@media (max-width: 768px) {
+		.page-hero h1 {
+			font-size: var(--font-size-3xl);
+		}
+	}
+</style>

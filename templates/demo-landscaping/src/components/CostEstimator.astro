@@ -1,0 +1,322 @@
+---
+---
+
+<section class="estimator-section section" id="estimator">
+	<div class="container">
+		<div class="estimator-layout">
+			<div class="estimator-text fade-in">
+				<span class="estimator-eyebrow">Project Planning</span>
+				<h2>Estimate your garden project</h2>
+				<p>Select your project details for an instant ballpark. For a precise proposal, <a href="/contact" class="estimator-link">schedule a free consultation</a> and we'll visit your property.</p>
+				<div class="estimator-note">
+					<i class="ph ph-info"></i>
+					All estimates are rough ranges. Final pricing provided after an on-site assessment at no obligation.
+				</div>
+			</div>
+
+			<div class="estimator-form-wrap fade-in fade-in-delay-2" data-estimator>
+				<div class="estimator-step">
+					<label class="step-label">1. What are you looking for?</label>
+					<div class="option-grid" data-field="service">
+						<button class="option-btn" data-value="lawn_care">
+							<i class="ph ph-plant" />
+							<span>Lawn Care</span>
+						</button>
+						<button class="option-btn" data-value="hardscaping">
+							<i class="ph ph-wall" />
+							<span>Hardscaping</span>
+						</button>
+						<button class="option-btn" data-value="landscape_design">
+							<i class="ph ph-tree-evergreen" />
+							<span>Landscape Design</span>
+						</button>
+					</div>
+				</div>
+
+				<div class="estimator-step">
+					<label class="step-label">2. Type of project?</label>
+					<div class="option-grid" data-field="type">
+						<button class="option-btn" data-value="install">
+							<i class="ph ph-plus-circle" />
+							<span>New Install</span>
+						</button>
+						<button class="option-btn" data-value="renovation">
+							<i class="ph ph-arrows-clockwise" />
+							<span>Renovation</span>
+						</button>
+						<button class="option-btn" data-value="maintenance">
+							<i class="ph ph-clipboard-text" />
+							<span>Maintenance</span>
+						</button>
+					</div>
+				</div>
+
+				<div class="estimator-step">
+					<label class="step-label">3. Property size?</label>
+					<div class="option-grid" data-field="size">
+						<button class="option-btn" data-value="small">
+							<i class="ph ph-house-simple" />
+							<span>Under 5,000 sqft</span>
+						</button>
+						<button class="option-btn" data-value="medium">
+							<i class="ph ph-house" />
+							<span>5,000–15,000 sqft</span>
+						</button>
+						<button class="option-btn" data-value="large">
+							<i class="ph ph-warehouse" />
+							<span>15,000+ sqft</span>
+						</button>
+					</div>
+				</div>
+
+				<div class="estimator-result" data-result style="display: none;">
+					<div class="result-card">
+						<span class="result-label">Estimated Investment</span>
+						<span class="result-price" data-price></span>
+						<a href="/contact" class="btn btn-primary btn-lg">Schedule Free Consultation</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	document.querySelectorAll<HTMLElement>("[data-estimator]").forEach((form) => {
+		const state: Record<string, string> = {};
+		const result = form.querySelector<HTMLElement>("[data-result]")!;
+		const priceEl = form.querySelector<HTMLElement>("[data-price]")!;
+
+		const PRICES: Record<string, Record<string, Record<string, string>>> = {
+			lawn_care: {
+				install: { small: "$800 – $2,500", medium: "$2,500 – $5,000", large: "$5,000 – $12,000" },
+				renovation: { small: "$500 – $1,800", medium: "$1,800 – $4,000", large: "$4,000 – $8,000" },
+				maintenance: { small: "$75 – $150/mo", medium: "$150 – $300/mo", large: "$300 – $600/mo" },
+			},
+			hardscaping: {
+				install: { small: "$3,000 – $8,000", medium: "$8,000 – $20,000", large: "$20,000 – $50,000" },
+				renovation: { small: "$2,000 – $6,000", medium: "$6,000 – $15,000", large: "$15,000 – $35,000" },
+				maintenance: { small: "$200 – $500/yr", medium: "$500 – $1,200/yr", large: "$1,200 – $3,000/yr" },
+			},
+			landscape_design: {
+				install: { small: "$2,500 – $7,000", medium: "$7,000 – $18,000", large: "$18,000 – $45,000" },
+				renovation: { small: "$1,500 – $5,000", medium: "$5,000 – $12,000", large: "$12,000 – $30,000" },
+				maintenance: { small: "$100 – $250/mo", medium: "$250 – $500/mo", large: "$500 – $1,000/mo" },
+			},
+		};
+
+		form.querySelectorAll<HTMLElement>(".option-btn").forEach((btn) => {
+			btn.addEventListener("click", () => {
+				const field = btn.closest("[data-field]")?.getAttribute("data-field");
+				if (!field) return;
+
+				btn.closest(".option-grid")?.querySelectorAll(".option-btn").forEach((b) => b.classList.remove("active"));
+				btn.classList.add("active");
+				state[field] = btn.dataset.value!;
+
+				if (state.service && state.type && state.size) {
+					const price = PRICES[state.service]?.[state.type]?.[state.size] ?? "Call for quote";
+					priceEl.textContent = price;
+					result.style.display = "block";
+					result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+				}
+			});
+		});
+	});
+</script>
+
+<style>
+	.estimator-section {
+		background: white;
+	}
+
+	.estimator-layout {
+		display: grid;
+		grid-template-columns: 1fr 1.6fr;
+		gap: var(--space-4xl);
+		align-items: start;
+	}
+
+	.estimator-eyebrow {
+		display: inline-block;
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--color-accent, #c4704b);
+		margin-bottom: 1rem;
+	}
+
+	.estimator-text h2 {
+		font-family: var(--font-display, "Cormorant Garamond", serif);
+		font-size: clamp(2rem, 3.5vw, 3rem);
+		font-weight: 400;
+		color: var(--color-primary, #1a3a2a);
+		line-height: 1.2;
+		margin-bottom: 1.25rem;
+	}
+
+	.estimator-text p {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 1rem;
+		color: var(--color-text-light, #4a5e42);
+		line-height: 1.75;
+	}
+
+	.estimator-link {
+		color: var(--color-accent, #c4704b);
+		text-decoration: underline;
+		text-decoration-color: transparent;
+		transition: text-decoration-color 0.2s ease;
+	}
+
+	.estimator-link:hover {
+		text-decoration-color: var(--color-accent, #c4704b);
+	}
+
+	.estimator-note {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		margin-top: 1.75rem;
+		padding: 1rem 1.25rem;
+		background: var(--color-surface, #f5f0e8);
+		border-radius: 12px;
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.8rem;
+		color: var(--color-muted, #7a8c72);
+		line-height: 1.6;
+	}
+
+	.estimator-note i {
+		font-size: 16px;
+		color: var(--color-sage, #8fae7e);
+		flex-shrink: 0;
+		margin-top: 1px;
+	}
+
+	.estimator-form-wrap {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.estimator-step {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.step-label {
+		display: block;
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.78rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-text-light, #4a5e42);
+		margin-bottom: 0.75rem;
+	}
+
+	.option-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.75rem;
+	}
+
+	.option-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 1.25rem 0.75rem;
+		background: var(--color-surface, #f5f0e8);
+		border: 1.5px solid transparent;
+		border-radius: 16px;
+		cursor: pointer;
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.78rem;
+		font-weight: 500;
+		color: var(--color-text, #1e2d1a);
+		transition: all 0.25s ease;
+	}
+
+	.option-btn i {
+		font-size: 24px;
+		color: var(--color-sage, #8fae7e);
+		transition: color 0.2s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.option-btn:hover {
+		border-color: var(--color-sage, #8fae7e);
+		background: var(--color-sage-light, #edf3e8);
+	}
+
+	.option-btn:hover i {
+		transform: scale(1.15);
+	}
+
+	.option-btn.active {
+		border-color: var(--color-primary, #1a3a2a);
+		background: var(--color-primary, #1a3a2a);
+		color: white;
+	}
+
+	.option-btn.active i {
+		color: var(--color-sage, #8fae7e);
+	}
+
+	.result-card {
+		text-align: center;
+		padding: 2.5rem 2rem;
+		background: linear-gradient(135deg, var(--color-primary, #1a3a2a) 0%, #0f2318 100%);
+		border-radius: 24px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.25rem;
+		animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		box-shadow: 0 20px 48px rgba(26, 58, 42, 0.2);
+	}
+
+	@keyframes fadeSlideUp {
+		from { opacity: 0; transform: translateY(16px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.result-label {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: rgba(255,255,255,0.5);
+	}
+
+	.result-price {
+		font-family: var(--font-display, "Cormorant Garamond", serif);
+		font-size: 3rem;
+		font-weight: 400;
+		color: white;
+		line-height: 1;
+	}
+
+	@media (max-width: 1024px) {
+		.estimator-layout {
+			grid-template-columns: 1fr;
+			gap: var(--space-2xl);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.option-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.option-btn {
+			flex-direction: row;
+			justify-content: flex-start;
+			padding: 1rem 1.25rem;
+		}
+	}
+</style>

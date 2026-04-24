@@ -1,0 +1,795 @@
+---
+import Base from "../layouts/Base.astro";
+
+let formSuccess = false;
+let formError = "";
+
+if (Astro.request.method === "POST") {
+	const formData = await Astro.request.formData();
+	const name = formData.get("name")?.toString().trim();
+	const phone = formData.get("phone")?.toString().trim();
+	const message = formData.get("message")?.toString().trim();
+
+	if (!name || !phone || !message) {
+		formError = "Please fill in your name, phone number, and message.";
+	} else {
+		formSuccess = true;
+	}
+}
+---
+
+<Base title="Contact Us" description="Call or schedule service with Summit Home Services — Springfield's trusted plumbing, HVAC, and electrical team.">
+
+	{/* ===== Giant phone hero ===== */}
+	<section class="phone-hero">
+		<div class="container phone-hero-inner">
+			<div class="avail-badge">
+				<span class="avail-dot"></span>
+				<span>Available Now — We Answer Every Call</span>
+			</div>
+			<p class="phone-hero-label">
+				<i class="ph ph-phone-call" /> Call us 24/7 for emergencies, or anytime during business hours
+			</p>
+			<a href="tel:5552345678" class="phone-hero-number">(555) 234-5678</a>
+			<div class="phone-hero-badges">
+				<div class="phone-badge">
+					<i class="ph ph-shield-check" />
+					<span>Licensed &amp; Insured</span>
+				</div>
+				<div class="phone-badge">
+					<i class="ph ph-clock" />
+					<span>Same-Day If Called Before Noon</span>
+				</div>
+				<div class="phone-badge">
+					<i class="ph ph-seal-check" />
+					<span>1-Year Labor Warranty</span>
+				</div>
+				<div class="phone-badge">
+					<i class="ph ph-currency-dollar" />
+					<span>Upfront Flat-Rate Pricing</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== Two-column: form + info ===== */}
+	<section class="section contact-section">
+		<div class="container contact-grid">
+
+			{/* LEFT: Form */}
+			<div class="contact-form-col">
+				<div class="form-card">
+					<div class="form-card-header">
+						<i class="ph ph-calendar-check" />
+						<div>
+							<h2>Schedule Service</h2>
+							<span>Free estimate · No obligation</span>
+						</div>
+					</div>
+
+					{formSuccess ? (
+						<div class="form-success">
+							<i class="ph ph-check-circle" />
+							<h3>Request received!</h3>
+							<p>We'll call you back within one business hour. For faster service, call us directly at <a href="tel:5552345678">(555) 234-5678</a>.</p>
+						</div>
+					) : (
+						<form method="POST" class="contact-form">
+							{formError && <p class="form-error"><i class="ph ph-warning" /> {formError}</p>}
+
+							<div class="form-row">
+								<div class="form-group">
+									<label for="name">Your Name *</label>
+									<input type="text" id="name" name="name" required placeholder="John Smith" autocomplete="name" />
+								</div>
+								<div class="form-group">
+									<label for="phone">Phone Number *</label>
+									<input type="tel" id="phone" name="phone" required placeholder="(555) 000-0000" autocomplete="tel" />
+								</div>
+							</div>
+
+							<div class="form-row">
+								<div class="form-group">
+									<label for="service">Service Needed</label>
+									<select id="service" name="service">
+										<option value="">Select a service...</option>
+										<option value="plumbing">Plumbing Repair or Installation</option>
+										<option value="hvac-repair">HVAC Repair</option>
+										<option value="hvac-install">HVAC Installation</option>
+										<option value="electrical">Electrical Work</option>
+										<option value="water-heater">Water Heater</option>
+										<option value="drain-cleaning">Drain Cleaning</option>
+										<option value="emergency">Emergency Service</option>
+										<option value="other">Other / Not Sure</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="urgency">Urgency Level</label>
+									<select id="urgency" name="urgency">
+										<option value="">Select urgency...</option>
+										<option value="emergency">Emergency — I need help now</option>
+										<option value="today">Today if possible</option>
+										<option value="this-week">This week</option>
+										<option value="flexible">I'm flexible</option>
+										<option value="estimate">Just need an estimate</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="message">Describe the Problem *</label>
+								<textarea id="message" name="message" rows="5" required placeholder="Tell us what's happening, how long it's been going on, and anything you've already tried..."></textarea>
+							</div>
+
+							<button type="submit" class="form-submit">
+								<i class="ph ph-paper-plane-tilt" />
+								Send My Request
+							</button>
+
+							<p class="form-note">
+								<i class="ph ph-clock" />
+								We respond within 1 business hour. For immediate help, call <a href="tel:5552345678">(555) 234-5678</a>.
+							</p>
+						</form>
+					)}
+				</div>
+			</div>
+
+			{/* RIGHT: Contact info */}
+			<div class="contact-info-col">
+
+				{/* Quick emergency box */}
+				<div class="emergency-box">
+					<div class="emergency-box-top">
+						<span class="avail-dot"></span>
+						<strong>Emergency? Call now.</strong>
+					</div>
+					<a href="tel:5552345678" class="emergency-box-phone">(555) 234-5678</a>
+					<p>24/7 emergency line — a licensed technician answers every call.</p>
+				</div>
+
+				{/* Contact details */}
+				<div class="info-items">
+					<div class="info-item">
+						<div class="info-icon"><i class="ph ph-phone" /></div>
+						<div class="info-body">
+							<h3>Phone</h3>
+							<a href="tel:5552345678">(555) 234-5678</a>
+							<span>24/7 for emergencies · Business hours for scheduling</span>
+						</div>
+					</div>
+					<div class="info-item">
+						<div class="info-icon"><i class="ph ph-envelope" /></div>
+						<div class="info-body">
+							<h3>Email</h3>
+							<a href="mailto:service@summithomeservices.com">service@summithomeservices.com</a>
+							<span>We respond within 1 business hour</span>
+						</div>
+					</div>
+					<div class="info-item">
+						<div class="info-icon"><i class="ph ph-map-pin" /></div>
+						<div class="info-body">
+							<h3>Location</h3>
+							<p>482 Industrial Parkway, Suite 5</p>
+							<span>Springfield, IL 62704</span>
+						</div>
+					</div>
+				</div>
+
+				{/* Hours */}
+				<div class="hours-card">
+					<h3><i class="ph ph-clock" /> Business Hours</h3>
+					<table class="hours-table">
+						<tbody>
+							<tr><td>Monday – Friday</td><td>7:00 AM – 6:00 PM</td></tr>
+							<tr><td>Saturday</td><td>8:00 AM – 2:00 PM</td></tr>
+							<tr><td>Sunday</td><td class="closed">Closed</td></tr>
+							<tr class="emerg-row">
+								<td><i class="ph ph-warning-circle" /> Emergency</td>
+								<td>24 / 7</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				{/* Service area */}
+				<div class="area-card">
+					<h3><i class="ph ph-map-trifold" /> Service Area</h3>
+					<p>Springfield, Chatham, Sherman, Rochester, Riverton, Williamsville, Auburn, and surrounding Sangamon County communities.</p>
+				</div>
+
+				{/* Social */}
+				<div class="social-row">
+					<a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" /></a>
+					<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" /></a>
+					<a href="https://g.page" target="_blank" rel="noopener noreferrer" aria-label="Google Reviews"><i class="ph ph-google-logo" /></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== Map ===== */}
+	<section class="map-section">
+		<iframe
+			src="https://www.openstreetmap.org/export/embed.html?bbox=-89.67%2C39.77%2C-89.63%2C39.80&layer=mapnik&marker=39.7817%2C-89.6501"
+			width="100%"
+			height="380"
+			style="border: 0; display: block;"
+			loading="lazy"
+			title="Summit Home Services — 482 Industrial Parkway, Springfield"
+		></iframe>
+		<div class="map-overlay">
+			<div class="container">
+				<div class="map-badge">
+					<i class="ph ph-map-pin" />
+					<div>
+						<strong>Summit Home Services</strong>
+						<span>482 Industrial Parkway, Suite 5 — Springfield, IL 62704</span>
+					</div>
+					<a href="tel:5552345678" class="map-badge-phone">(555) 234-5678</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</Base>
+
+<style>
+	/* ===== Phone hero ===== */
+	.phone-hero {
+		background: linear-gradient(135deg, #0a0f1e 0%, #0d1a3a 60%, #001a5e 100%);
+		padding: var(--spacing-4xl) 0;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.phone-hero::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+		background-size: 28px 28px;
+	}
+
+	.phone-hero-inner {
+		position: relative;
+		z-index: 1;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-lg);
+	}
+
+	.avail-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #4ade80;
+	}
+
+	.avail-dot {
+		display: block;
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: #22c55e;
+		animation: pulse-ring 2s infinite;
+		flex-shrink: 0;
+	}
+
+	.phone-hero-label {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		color: rgba(255,255,255,0.45);
+	}
+
+	.phone-hero-label i {
+		color: var(--color-accent);
+	}
+
+	.phone-hero-number {
+		display: block;
+		font-family: var(--font-headline);
+		font-size: clamp(3rem, 8vw, 6rem);
+		font-weight: 900;
+		letter-spacing: -0.04em;
+		color: white;
+		line-height: 1;
+		transition: color var(--transition-fast);
+	}
+
+	.phone-hero-number:hover {
+		color: var(--color-accent);
+	}
+
+	.phone-hero-badges {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--spacing-lg);
+		margin-top: var(--spacing-sm);
+	}
+
+	.phone-badge {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		color: rgba(255,255,255,0.7);
+	}
+
+	.phone-badge i {
+		color: var(--color-accent);
+		font-size: 15px;
+	}
+
+	/* ===== Contact section ===== */
+	.contact-section {
+		background: var(--color-surface);
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 380px;
+		gap: var(--spacing-3xl);
+		align-items: start;
+	}
+
+	/* Form card */
+	.form-card {
+		background: white;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+
+	.form-card-header {
+		background: var(--color-primary);
+		color: white;
+		padding: var(--spacing-lg) var(--spacing-xl);
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+		font-size: 1.5rem;
+	}
+
+	.form-card-header i {
+		font-size: 1.75rem;
+		opacity: 0.85;
+	}
+
+	.form-card-header div {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.form-card-header h2 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-lg);
+		font-weight: 700;
+		color: white;
+		line-height: 1;
+	}
+
+	.form-card-header span {
+		font-size: var(--font-size-xs);
+		opacity: 0.7;
+	}
+
+	.contact-form {
+		padding: var(--spacing-xl);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--spacing-md);
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.form-group label {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-muted);
+	}
+
+	.form-group input,
+	.form-group textarea,
+	.form-group select {
+		padding: 0.625rem 0.875rem;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius);
+		font-family: var(--font-body);
+		font-size: var(--font-size-base);
+		color: var(--color-text);
+		background: white;
+		transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+		-webkit-appearance: none;
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus,
+	.form-group select:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.12);
+	}
+
+	.form-group select {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b82a0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 12px center;
+		padding-right: 2rem;
+		cursor: pointer;
+	}
+
+	.form-submit {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		width: 100%;
+		padding: 0.875rem;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: white;
+		background: var(--color-accent);
+		border: none;
+		border-radius: var(--radius);
+		cursor: pointer;
+		transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+		margin-top: var(--spacing-sm);
+	}
+
+	.form-submit:hover {
+		background: var(--color-accent-dark);
+		box-shadow: 0 6px 20px rgba(232, 148, 10, 0.4);
+		transform: translateY(-1px);
+	}
+
+	.form-note {
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 5px;
+		flex-wrap: wrap;
+	}
+
+	.form-note i { color: var(--color-primary); }
+	.form-note a { color: var(--color-primary); font-weight: 600; }
+
+	.form-error {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: var(--spacing-md);
+		background: #fef2f2;
+		color: #dc2626;
+		border-radius: var(--radius);
+		font-size: var(--font-size-sm);
+		border: 1px solid #fca5a5;
+	}
+
+	.form-success {
+		padding: var(--spacing-3xl) var(--spacing-xl);
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-md);
+	}
+
+	.form-success i { font-size: 48px; color: #22c55e; }
+
+	.form-success h3 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xl);
+		font-weight: 700;
+	}
+
+	.form-success p {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+		line-height: 1.6;
+		max-width: 340px;
+	}
+
+	.form-success a { color: var(--color-primary); font-weight: 600; }
+
+	/* Info column */
+	.contact-info-col {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-lg);
+	}
+
+	/* Emergency box */
+	.emergency-box {
+		background: var(--color-primary);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-xl);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+	}
+
+	.emergency-box-top {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		color: rgba(255,255,255,0.85);
+	}
+
+	.emergency-box-phone {
+		display: block;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-3xl);
+		font-weight: 900;
+		color: white;
+		letter-spacing: -0.03em;
+		line-height: 1;
+		transition: color var(--transition-fast);
+	}
+
+	.emergency-box-phone:hover { color: var(--color-accent); }
+
+	.emergency-box p {
+		font-size: var(--font-size-sm);
+		color: rgba(255,255,255,0.6);
+		line-height: 1.5;
+	}
+
+	/* Info items */
+	.info-items {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+	}
+
+	.info-item {
+		display: flex;
+		gap: var(--spacing-md);
+		align-items: flex-start;
+	}
+
+	.info-icon {
+		width: 40px;
+		height: 40px;
+		border-radius: var(--radius);
+		background: var(--color-primary-light);
+		color: var(--color-primary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 18px;
+		flex-shrink: 0;
+	}
+
+	.info-body h3 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		margin-bottom: 2px;
+	}
+
+	.info-body a, .info-body p {
+		font-size: var(--font-size-sm);
+		color: var(--color-text);
+		display: block;
+	}
+
+	.info-body a:hover { color: var(--color-primary); }
+
+	.info-body span {
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		display: block;
+		margin-top: 1px;
+	}
+
+	/* Hours */
+	.hours-card {
+		background: white;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-lg);
+	}
+
+	.hours-card h3 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.hours-card h3 i { color: var(--color-primary); }
+
+	.hours-table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	.hours-table td {
+		padding: 5px 0;
+		font-size: var(--font-size-sm);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.hours-table td:last-child {
+		text-align: right;
+		color: var(--color-muted);
+	}
+
+	.hours-table tr:last-child td { border-bottom: none; }
+
+	.closed { font-style: italic; }
+
+	.emerg-row td {
+		padding-top: var(--spacing-sm) !important;
+		font-family: var(--font-headline);
+		font-weight: 700;
+		color: var(--color-primary) !important;
+	}
+
+	.emerg-row i {
+		color: var(--color-accent);
+		margin-right: 4px;
+	}
+
+	/* Area card */
+	.area-card {
+		background: var(--color-surface);
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-lg);
+	}
+
+	.area-card h3 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.area-card h3 i { color: var(--color-primary); }
+	.area-card p { font-size: var(--font-size-sm); color: var(--color-muted); line-height: 1.6; }
+
+	/* Social */
+	.social-row {
+		display: flex;
+		gap: var(--spacing-sm);
+	}
+
+	.social-row a {
+		width: 44px;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius);
+		font-size: 22px;
+		color: var(--color-muted);
+		transition: all var(--transition-fast);
+	}
+
+	.social-row a:hover {
+		background: var(--color-primary);
+		color: white;
+		border-color: var(--color-primary);
+	}
+
+	/* Map */
+	.map-section {
+		position: relative;
+	}
+
+	.map-overlay {
+		position: absolute;
+		bottom: var(--spacing-lg);
+		left: 0;
+		right: 0;
+		pointer-events: none;
+	}
+
+	.map-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--spacing-md);
+		background: white;
+		padding: var(--spacing-md) var(--spacing-lg);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-xl);
+		pointer-events: auto;
+		margin-left: var(--spacing-xl);
+		border: 1.5px solid var(--color-border);
+	}
+
+	.map-badge > i {
+		font-size: 28px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.map-badge strong {
+		display: block;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+	}
+
+	.map-badge span {
+		display: block;
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+	}
+
+	.map-badge-phone {
+		display: inline-flex;
+		align-items: center;
+		padding: 6px 14px;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		background: var(--color-primary);
+		color: white;
+		border-radius: var(--radius);
+		transition: background var(--transition-fast);
+		white-space: nowrap;
+		margin-left: var(--spacing-sm);
+	}
+
+	.map-badge-phone:hover { background: var(--color-primary-dark); }
+
+	/* Responsive */
+	@media (max-width: 960px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.form-row { grid-template-columns: 1fr; }
+		.phone-hero-badges { flex-direction: column; align-items: center; }
+		.map-badge { flex-direction: column; text-align: center; margin-left: var(--spacing-lg); }
+	}
+</style>

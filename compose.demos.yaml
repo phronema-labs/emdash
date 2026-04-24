@@ -1,0 +1,106 @@
+services:
+  caldwell:
+    build:
+      context: .
+      dockerfile: Dockerfile.phronema-business
+    volumes:
+      - caldwell-data:/app/data
+      - caldwell-uploads:/app/uploads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.caldwell.rule=Host(`caldwell.phronemalabs.com`)"
+      - "traefik.http.routers.caldwell.entrypoints=https"
+      - "traefik.http.routers.caldwell.tls=true"
+      - "traefik.http.routers.caldwell.tls.certresolver=letsencrypt"
+      - "traefik.http.services.caldwell.loadbalancer.server.port=4321"
+    networks:
+      - coolify
+
+  ironclad:
+    build:
+      context: .
+      dockerfile: Dockerfile.demo-contractor
+    volumes:
+      - ironclad-data:/app/data
+      - ironclad-uploads:/app/uploads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ironclad.rule=Host(`ironclad.phronemalabs.com`)"
+      - "traefik.http.routers.ironclad.entrypoints=https"
+      - "traefik.http.routers.ironclad.tls=true"
+      - "traefik.http.routers.ironclad.tls.certresolver=letsencrypt"
+      - "traefik.http.services.ironclad.loadbalancer.server.port=4321"
+    networks:
+      - coolify
+
+  greenfield:
+    build:
+      context: .
+      dockerfile: Dockerfile.demo-landscaping
+    volumes:
+      - greenfield-data:/app/data
+      - greenfield-uploads:/app/uploads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.greenfield.rule=Host(`greenfield.phronemalabs.com`)"
+      - "traefik.http.routers.greenfield.entrypoints=https"
+      - "traefik.http.routers.greenfield.tls=true"
+      - "traefik.http.routers.greenfield.tls.certresolver=letsencrypt"
+      - "traefik.http.services.greenfield.loadbalancer.server.port=4321"
+    networks:
+      - coolify
+
+  summit:
+    build:
+      context: .
+      dockerfile: Dockerfile.demo-plumbing
+    volumes:
+      - summit-data:/app/data
+      - summit-uploads:/app/uploads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.summit.rule=Host(`summit.phronemalabs.com`)"
+      - "traefik.http.routers.summit.entrypoints=https"
+      - "traefik.http.routers.summit.tls=true"
+      - "traefik.http.routers.summit.tls.certresolver=letsencrypt"
+      - "traefik.http.services.summit.loadbalancer.server.port=4321"
+    networks:
+      - coolify
+
+  apex:
+    build:
+      context: .
+      dockerfile: Dockerfile.demo-roofing
+    volumes:
+      - apex-data:/app/data
+      - apex-uploads:/app/uploads
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.apex.rule=Host(`apex.phronemalabs.com`)"
+      - "traefik.http.routers.apex.entrypoints=https"
+      - "traefik.http.routers.apex.tls=true"
+      - "traefik.http.routers.apex.tls.certresolver=letsencrypt"
+      - "traefik.http.services.apex.loadbalancer.server.port=4321"
+    networks:
+      - coolify
+
+volumes:
+  caldwell-data:
+  caldwell-uploads:
+  ironclad-data:
+  ironclad-uploads:
+  greenfield-data:
+  greenfield-uploads:
+  summit-data:
+  summit-uploads:
+  apex-data:
+  apex-uploads:
+
+networks:
+  coolify:
+    external: true

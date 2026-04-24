@@ -1,0 +1,133 @@
+---
+---
+
+<div class="top-bar">
+	<div class="top-bar-inner">
+		<div class="top-bar-left">
+			<a href="tel:5552345678" class="top-bar-phone">
+				<i class="ph ph-phone" /> (555) 234-5678
+			</a>
+			<span class="top-bar-sep">|</span>
+			<span class="top-bar-info"><i class="ph ph-clock" /> Mon–Fri 7AM–6PM &bull; Sat 8AM–2PM</span>
+			<span class="top-bar-sep top-bar-sep-area">|</span>
+			<span class="top-bar-info top-bar-area"><i class="ph ph-map-pin" /> Springfield &amp; 30mi radius</span>
+		</div>
+		<div class="top-bar-right">
+			<span class="top-bar-avail-dot"></span>
+			<a href="tel:5552345678" class="top-bar-emergency">
+				<i class="ph ph-siren" /> 24/7 Emergency Line
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+	.top-bar {
+		background: var(--color-dark-section, #0a0f1e);
+		color: rgba(255, 255, 255, 0.55);
+		font-size: 12px;
+		font-family: var(--font-headline, 'Outfit', sans-serif);
+	}
+
+	.top-bar-inner {
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		padding: 6px var(--site-gutter);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.top-bar-left {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.top-bar-phone {
+		color: white;
+		font-weight: 700;
+		font-size: 13px;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		white-space: nowrap;
+		letter-spacing: 0.01em;
+	}
+
+	.top-bar-phone i {
+		color: var(--color-accent, #e8940a);
+		font-size: 13px;
+	}
+
+	.top-bar-phone:hover {
+		color: var(--color-accent, #e8940a);
+	}
+
+	.top-bar-sep {
+		opacity: 0.2;
+		margin: 0 8px;
+	}
+
+	.top-bar-info {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.01em;
+	}
+
+	.top-bar-info i {
+		font-size: 12px;
+		color: var(--color-accent, #e8940a);
+	}
+
+	.top-bar-right {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.top-bar-avail-dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: #22c55e;
+		animation: pulse-ring 2s infinite;
+		flex-shrink: 0;
+	}
+
+	.top-bar-emergency {
+		background: var(--color-accent, #e8940a);
+		color: white;
+		font-weight: 700;
+		font-size: 10px;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		padding: 4px 10px;
+		border-radius: 3px;
+		white-space: nowrap;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		transition: background var(--transition-fast, 120ms ease);
+	}
+
+	.top-bar-emergency i {
+		font-size: 11px;
+	}
+
+	.top-bar-emergency:hover {
+		background: var(--color-accent-dark, #c47a08);
+	}
+
+	@media (max-width: 768px) {
+		.top-bar-info,
+		.top-bar-sep,
+		.top-bar-avail-dot { display: none; }
+	}
+</style>

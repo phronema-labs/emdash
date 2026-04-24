@@ -1,0 +1,134 @@
+---
+import { Image } from "emdash/ui";
+
+interface Props {
+	title: string;
+	summary?: string;
+	featuredImage: any;
+	client?: string;
+	year?: string;
+	href: string;
+}
+
+const { title, summary, featuredImage, client, year, href } = Astro.props;
+---
+
+<a href={href} class="project-card">
+	{featuredImage && (
+		<div class="project-image">
+			<Image image={featuredImage} />
+		</div>
+	)}
+	<div class="project-info">
+		<div class="project-meta-row">
+			{client && <span class="project-client">{client}</span>}
+			{year && <span class="project-year">{year}</span>}
+		</div>
+		<h3>{title}</h3>
+		{summary && <p class="project-summary">{summary}</p>}
+		<span class="project-arrow">
+			View Project <i class="ph ph-arrow-right"></i>
+		</span>
+	</div>
+</a>
+
+<style>
+	.project-card {
+		display: block;
+		overflow: hidden;
+		border-bottom: 3px solid transparent;
+		text-decoration: none;
+		color: var(--color-text, #141414);
+		background: #111;
+		transition: border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	.project-card:hover {
+		border-bottom-color: var(--color-primary, #ff6b00);
+		transform: translateY(-4px);
+	}
+
+	.project-image {
+		aspect-ratio: 4/3;
+		overflow: hidden;
+		background: #1a1a1a;
+	}
+
+	.project-image :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease, filter 0.4s ease;
+		filter: brightness(0.8) saturate(0.7);
+	}
+
+	.project-card:hover .project-image :global(img) {
+		transform: scale(1.05);
+		filter: brightness(0.65) saturate(0.5);
+	}
+
+	.project-info {
+		padding: 1.25rem 1.5rem 1.5rem;
+		background: #141414;
+	}
+
+	.project-meta-row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 6px;
+	}
+
+	.project-client {
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-primary, #ff6b00);
+	}
+
+	.project-year {
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		color: rgba(255,255,255,0.3);
+	}
+
+	.project-info h3 {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 1.5rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: white;
+		margin-bottom: 6px;
+	}
+
+	.project-summary {
+		font-family: "DM Sans", sans-serif;
+		font-size: 0.8125rem;
+		color: rgba(255,255,255,0.4);
+		line-height: 1.55;
+		margin-bottom: 1rem;
+	}
+
+	.project-arrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-family: "DM Sans", sans-serif;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-primary, #ff6b00);
+	}
+
+	.project-arrow i {
+		transition: transform 0.2s ease;
+	}
+
+	.project-card:hover .project-arrow i {
+		transform: translateX(4px);
+	}
+</style>

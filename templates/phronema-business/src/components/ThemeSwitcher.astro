@@ -1,0 +1,497 @@
+---
+/**
+ * Floating theme switcher for demo purposes.
+ * Swaps CSS custom properties on :root to preview different client brandings.
+ */
+
+const themes = [
+	{
+		id: "caldwell",
+		label: "Caldwell & Associates",
+		industry: "Law Firm",
+		primary: "#1a2744",
+		primaryDark: "#0f1929",
+		primaryLight: "#d4daea",
+		accent: "#b8860b",
+		accentLight: "#f5e9c8",
+		dark: "#0f1929",
+		surface: "#f4f5f7",
+		surfaceWarm: "#faf8f3",
+	},
+	{
+		id: "evergreen",
+		label: "Evergreen Landscapes",
+		industry: "Landscaping",
+		primary: "#0f8a2c",
+		primaryDark: "#046b1d",
+		primaryLight: "#d0ffd9",
+		accent: "#e68a00",
+		accentLight: "#fff6e0",
+		dark: "#0a1f0f",
+		surface: "#edfbf0",
+		surfaceWarm: "#fff8e8",
+	},
+	{
+		id: "atlas",
+		label: "Atlas Roofing Co.",
+		industry: "Roofing",
+		primary: "#cc3300",
+		primaryDark: "#a12800",
+		primaryLight: "#ffe0d6",
+		accent: "#e08600",
+		accentLight: "#fff4d6",
+		dark: "#1c0c04",
+		surface: "#fff5f0",
+		surfaceWarm: "#fff6ea",
+	},
+	{
+		id: "pinnacle",
+		label: "Pinnacle Electric",
+		industry: "Electrical",
+		primary: "#6d00e6",
+		primaryDark: "#5500b8",
+		primaryLight: "#e8d6ff",
+		accent: "#e6003a",
+		accentLight: "#ffe0e8",
+		dark: "#110028",
+		surface: "#f5edff",
+		surfaceWarm: "#fff0f4",
+	},
+	{
+		id: "coastal",
+		label: "Coastal Builders",
+		industry: "General Contractor",
+		primary: "#007a8c",
+		primaryDark: "#005c6b",
+		primaryLight: "#ccf5fa",
+		accent: "#ee6600",
+		accentLight: "#fff2e0",
+		dark: "#041820",
+		surface: "#eef9fa",
+		surfaceWarm: "#fff5ea",
+	},
+	{
+		id: "ironclad",
+		label: "Ironclad Security",
+		industry: "Security Systems",
+		primary: "#111827",
+		primaryDark: "#030712",
+		primaryLight: "#d4d8e0",
+		accent: "#e00000",
+		accentLight: "#ffe0e0",
+		dark: "#030712",
+		surface: "#f3f4f6",
+		surfaceWarm: "#fff0f0",
+	},
+];
+---
+
+<div class="theme-switcher-fab" data-theme-fab>
+	<button class="fab-btn" aria-label="Change theme colors" data-theme-toggle>
+		<i class="ph ph-palette"></i>
+	</button>
+	<div class="fab-panel" data-theme-panel>
+		<div class="fab-panel-header">
+			<span class="fab-panel-title">Brand Themes</span>
+			<span class="fab-panel-sub">Preview different client looks</span>
+		</div>
+		<div class="fab-themes">
+			{themes.map((t) => (
+				<button
+					class="fab-theme-btn"
+					data-theme-id={t.id}
+					data-primary={t.primary}
+					data-primary-dark={t.primaryDark}
+					data-primary-light={t.primaryLight}
+					data-accent={t.accent}
+					data-accent-light={t.accentLight}
+					data-dark={t.dark}
+					data-surface={t.surface}
+					data-surface-warm={t.surfaceWarm}
+				>
+					<span class="fab-swatch">
+						<span class="swatch-primary" style={`background:${t.primary}`}></span>
+						<span class="swatch-accent" style={`background:${t.accent}`}></span>
+					</span>
+					<span class="fab-theme-info">
+						<strong>{t.label}</strong>
+						<span>{t.industry}</span>
+					</span>
+				</button>
+			))}
+		</div>
+		<div class="fab-custom">
+			<span class="fab-custom-label">Custom Colors</span>
+			<div class="fab-custom-row">
+				<label>
+					<span>Primary</span>
+					<input type="color" value="#1a2744" data-custom="primary" />
+				</label>
+				<label>
+					<span>Accent</span>
+					<input type="color" value="#b8860b" data-custom="accent" />
+				</label>
+				<label>
+					<span>Dark</span>
+					<input type="color" value="#0f1929" data-custom="dark" />
+				</label>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	const fab = document.querySelector("[data-theme-fab]")!;
+	const toggleBtn = fab.querySelector("[data-theme-toggle]")!;
+	const panel = fab.querySelector<HTMLElement>("[data-theme-panel]")!;
+	const themeButtons = fab.querySelectorAll<HTMLButtonElement>("[data-theme-id]");
+	const customInputs = fab.querySelectorAll<HTMLInputElement>("[data-custom]");
+	const root = document.documentElement;
+
+	// Toggle panel
+	toggleBtn.addEventListener("click", () => {
+		const open = panel.classList.toggle("open");
+		toggleBtn.setAttribute("aria-expanded", String(open));
+	});
+
+	// Close on outside click
+	document.addEventListener("click", (e) => {
+		if (!fab.contains(e.target as Node)) {
+			panel.classList.remove("open");
+			toggleBtn.setAttribute("aria-expanded", "false");
+		}
+	});
+
+	// Lighten a hex color
+	function lighten(hex: string, amount: number): string {
+		const num = parseInt(hex.replace("#", ""), 16);
+		const r = Math.min(255, ((num >> 16) & 0xff) + Math.round(255 * amount));
+		const g = Math.min(255, ((num >> 8) & 0xff) + Math.round(255 * amount));
+		const b = Math.min(255, (num & 0xff) + Math.round(255 * amount));
+		return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
+	}
+
+	function darken(hex: string, amount: number): string {
+		const num = parseInt(hex.replace("#", ""), 16);
+		const r = Math.max(0, ((num >> 16) & 0xff) - Math.round(255 * amount));
+		const g = Math.max(0, ((num >> 8) & 0xff) - Math.round(255 * amount));
+		const b = Math.max(0, (num & 0xff) - Math.round(255 * amount));
+		return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
+	}
+
+	function applyTheme(vars: Record<string, string>) {
+		for (const [key, val] of Object.entries(vars)) {
+			root.style.setProperty(key, val);
+		}
+	}
+
+	// Preset themes
+	themeButtons.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			// Mark active
+			themeButtons.forEach((b) => b.classList.remove("active"));
+			btn.classList.add("active");
+
+			applyTheme({
+				"--brand-primary": btn.dataset.primary!,
+				"--brand-primary-dark": btn.dataset.primaryDark!,
+				"--brand-primary-light": btn.dataset.primaryLight!,
+				"--brand-accent": btn.dataset.accent!,
+				"--brand-accent-light": btn.dataset.accentLight!,
+				"--brand-dark": btn.dataset.dark!,
+				"--brand-surface": btn.dataset.surface!,
+				"--brand-surface-warm": btn.dataset.surfaceWarm!,
+			});
+
+			// Sync custom color inputs
+			(fab.querySelector('[data-custom="primary"]') as HTMLInputElement).value = btn.dataset.primary!;
+			(fab.querySelector('[data-custom="accent"]') as HTMLInputElement).value = btn.dataset.accent!;
+			(fab.querySelector('[data-custom="dark"]') as HTMLInputElement).value = btn.dataset.dark!;
+		});
+	});
+
+	// Custom color pickers
+	customInputs.forEach((input) => {
+		input.addEventListener("input", () => {
+			// Remove active from presets
+			themeButtons.forEach((b) => b.classList.remove("active"));
+
+			const field = input.dataset.custom!;
+			const val = input.value;
+
+			if (field === "primary") {
+				applyTheme({
+					"--brand-primary": val,
+					"--brand-primary-dark": darken(val, 0.12),
+					"--brand-primary-light": lighten(val, 0.65),
+				});
+			} else if (field === "accent") {
+				applyTheme({
+					"--brand-accent": val,
+					"--brand-accent-light": lighten(val, 0.7),
+				});
+			} else if (field === "dark") {
+				applyTheme({
+					"--brand-dark": val,
+				});
+			}
+		});
+	});
+
+	// Mark initial theme (Caldwell & Associates is the default)
+	const defaultTheme = Array.from(themeButtons).find((b) => b.dataset.themeId === "caldwell");
+	(defaultTheme ?? themeButtons[0])?.classList.add("active");
+</script>
+
+<style>
+	.theme-switcher-fab {
+		position: fixed;
+		bottom: 24px;
+		left: 24px;
+		z-index: 9000;
+	}
+
+	.fab-btn {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		border: none;
+		background: var(--color-dark-section, #1a2332);
+		color: white;
+		font-size: 22px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 4px 16px rgba(0,0,0,0.2), 0 0 0 2px rgba(255,255,255,0.1);
+		transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.fab-btn::before {
+		content: "";
+		position: absolute;
+		inset: -2px;
+		border-radius: 50%;
+		background: conic-gradient(
+			from 0deg,
+			#ff6b35,
+			#f43f5e,
+			#7c3aed,
+			#1e6bb8,
+			#2d7a3a,
+			#e5a528,
+			#ff6b35
+		);
+		z-index: -1;
+		animation: spin 6s linear infinite;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.fab-btn:hover::before {
+		opacity: 1;
+	}
+
+	.fab-btn:hover {
+		transform: scale(1.08);
+	}
+
+	@keyframes spin {
+		to { transform: rotate(360deg); }
+	}
+
+	/* Panel */
+	.fab-panel {
+		position: absolute;
+		bottom: 60px;
+		left: 0;
+		width: 320px;
+		background: white;
+		border-radius: 16px;
+		box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(8px) scale(0.96);
+		transform-origin: bottom left;
+		transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.25s;
+		overflow: hidden;
+	}
+
+	.fab-panel.open {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0) scale(1);
+	}
+
+	.fab-panel-header {
+		padding: 16px 18px 12px;
+		border-bottom: 1px solid var(--color-border, #e2e8f0);
+	}
+
+	.fab-panel-title {
+		display: block;
+		font-size: 14px;
+		font-weight: 700;
+		color: var(--color-text, #1f1f1f);
+	}
+
+	.fab-panel-sub {
+		display: block;
+		font-size: 12px;
+		color: var(--color-muted, #64748b);
+		margin-top: 1px;
+	}
+
+	/* Theme list */
+	.fab-themes {
+		padding: 8px;
+		max-height: 280px;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.fab-theme-btn {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		width: 100%;
+		padding: 10px;
+		border: 2px solid transparent;
+		border-radius: 10px;
+		background: transparent;
+		cursor: pointer;
+		font-family: inherit;
+		text-align: left;
+		transition: background 0.15s ease, border-color 0.15s ease;
+	}
+
+	.fab-theme-btn:hover {
+		background: var(--color-surface, #f8fafc);
+	}
+
+	.fab-theme-btn.active {
+		border-color: var(--brand-primary, #1e6bb8);
+		background: var(--color-surface, #f8fafc);
+	}
+
+	.fab-swatch {
+		display: flex;
+		width: 36px;
+		height: 36px;
+		border-radius: 8px;
+		overflow: hidden;
+		flex-shrink: 0;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+	}
+
+	.swatch-primary {
+		flex: 1;
+	}
+
+	.swatch-accent {
+		flex: 1;
+	}
+
+	.fab-theme-info {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+	}
+
+	.fab-theme-info strong {
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--color-text, #1f1f1f);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.fab-theme-info span {
+		font-size: 11px;
+		color: var(--color-muted, #64748b);
+	}
+
+	/* Custom colors */
+	.fab-custom {
+		padding: 12px 18px 16px;
+		border-top: 1px solid var(--color-border, #e2e8f0);
+	}
+
+	.fab-custom-label {
+		display: block;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-muted, #64748b);
+		margin-bottom: 10px;
+	}
+
+	.fab-custom-row {
+		display: flex;
+		gap: 12px;
+	}
+
+	.fab-custom-row label {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 4px;
+		flex: 1;
+	}
+
+	.fab-custom-row label span {
+		font-size: 11px;
+		color: var(--color-muted, #64748b);
+	}
+
+	.fab-custom-row input[type="color"] {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 100%;
+		height: 32px;
+		border: 2px solid var(--color-border, #e2e8f0);
+		border-radius: 6px;
+		cursor: pointer;
+		padding: 2px;
+		background: white;
+		transition: border-color 0.15s ease;
+	}
+
+	.fab-custom-row input[type="color"]:hover {
+		border-color: var(--color-muted, #94a3b8);
+	}
+
+	.fab-custom-row input[type="color"]::-webkit-color-swatch-wrapper {
+		padding: 0;
+	}
+
+	.fab-custom-row input[type="color"]::-webkit-color-swatch {
+		border: none;
+		border-radius: 3px;
+	}
+
+	/* Mobile */
+	@media (max-width: 640px) {
+		.theme-switcher-fab {
+			bottom: 16px;
+			left: 16px;
+		}
+
+		.fab-btn {
+			width: 42px;
+			height: 42px;
+			font-size: 20px;
+		}
+
+		.fab-panel {
+			width: 290px;
+			bottom: 54px;
+		}
+	}
+</style>

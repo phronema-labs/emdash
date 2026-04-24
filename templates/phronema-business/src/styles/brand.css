@@ -7,29 +7,25 @@
    ========================================================== */
 
 :root {
-	/* PRIMARY — main brand color (buttons, links, icons, accents)
-	   Pick the client's main brand color */
-	--brand-primary: #1e6bb8;
-	--brand-primary-dark: #155a9c;
-	--brand-primary-light: #dbeafe;
+	/* PRIMARY -- main brand color (buttons, links, icons, accents) */
+	--brand-primary: #1a2744;
+	--brand-primary-dark: #0f1929;
+	--brand-primary-light: #d4daea;
 
-	/* ACCENT — call-to-action color (CTA buttons, emergency badge, "Get a Quote")
-	   Should contrast with primary. Orange works for most service businesses */
-	--brand-accent: #ff6b35;
-	--brand-accent-light: #fff3ed;
+	/* ACCENT -- call-to-action color (CTA buttons, "Schedule Consultation") */
+	--brand-accent: #b8860b;
+	--brand-accent-light: #f5e9c8;
 
-	/* DARK — dark sections (top bar, footer, stats bar, dark hero overlay)
-	   Usually a very dark navy/charcoal */
-	--brand-dark: #1a2332;
+	/* DARK -- dark sections (top bar, footer, stats bar, dark hero overlay) */
+	--brand-dark: #0f1929;
 
-	/* SURFACE — subtle background for alternating sections
-	   Light gray or very faint tint of the primary color */
-	--brand-surface: #f7f9fc;
-	--brand-surface-warm: #fef8f4;
+	/* SURFACE -- subtle background for alternating sections */
+	--brand-surface: #f4f5f7;
+	--brand-surface-warm: #faf8f3;
 }
 
 /* ==========================================================
-   DO NOT EDIT BELOW — these map brand values to the site
+   DO NOT EDIT BELOW -- these map brand values to the site
    ========================================================== */
 
 :root {
@@ -41,4 +37,23 @@
 	--color-dark-section: var(--brand-dark);
 	--color-surface: var(--brand-surface);
 	--color-surface-warm: var(--brand-surface-warm);
+
+	/* Gradient helpers (auto-generated from brand colors) */
+	--gradient-primary: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+	--gradient-accent: linear-gradient(135deg, var(--brand-accent) 0%, color-mix(in srgb, var(--brand-accent) 80%, #000) 100%);
+	--gradient-hero: linear-gradient(135deg, var(--brand-dark) 0%, color-mix(in srgb, var(--brand-primary) 60%, #000) 100%);
+	--gradient-mesh: radial-gradient(ellipse at 20% 50%, color-mix(in srgb, var(--brand-primary) 8%, transparent), transparent 60%),
+	                 radial-gradient(ellipse at 80% 20%, color-mix(in srgb, var(--brand-accent) 6%, transparent), transparent 50%);
+
+	/* Premium shadow palette */
+	--shadow-colored-sm: 0 2px 8px color-mix(in srgb, var(--brand-primary) 15%, transparent);
+	--shadow-colored-md: 0 6px 24px color-mix(in srgb, var(--brand-primary) 18%, transparent);
+	--shadow-colored-lg: 0 16px 48px color-mix(in srgb, var(--brand-primary) 22%, transparent);
+	--shadow-accent:     0 6px 24px color-mix(in srgb, var(--brand-accent) 30%, transparent);
+
+	/* Surface treatments */
+	--surface-elevated: rgba(255, 255, 255, 0.7);
+	--surface-frosted: rgba(255, 255, 255, 0.85);
+	--border-subtle: rgba(0, 0, 0, 0.07);
+	--border-brand: color-mix(in srgb, var(--brand-primary) 20%, transparent);
 }

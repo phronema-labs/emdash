@@ -1,0 +1,764 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+let formSuccess = false;
+let formError = "";
+
+if (Astro.request.method === "POST") {
+	const formData = await Astro.request.formData();
+	const name = formData.get("name")?.toString().trim();
+	const phone = formData.get("phone")?.toString().trim();
+	const email = formData.get("email")?.toString().trim();
+	const projectType = formData.get("project_type")?.toString().trim();
+	const budget = formData.get("budget")?.toString().trim();
+	const message = formData.get("message")?.toString().trim();
+
+	if (!name || !phone || !message) {
+		formError = "Please fill in all required fields.";
+	} else {
+		formSuccess = true;
+	}
+}
+---
+
+<Base title="Contact Us" description="Request a free consultation with Ironclad Builders. We respond within 24 hours.">
+	<PageHero
+		title="Let's Talk About Your Project"
+		subtitle="Free in-home consultations. Fixed-price estimates within 5 business days. No obligation."
+		image="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&h=600&fit=crop"
+	/>
+
+	{/* ===== TRUST BAR ===== */}
+	<div class="trust-bar">
+		<div class="container trust-bar-inner">
+			<div class="trust-item">
+				<i class="ph ph-clock"></i>
+				<span>Response within 24 hours</span>
+			</div>
+			<div class="trust-divider"></div>
+			<div class="trust-item">
+				<i class="ph ph-calendar-check"></i>
+				<span>Free in-home consultation</span>
+			</div>
+			<div class="trust-divider"></div>
+			<div class="trust-item">
+				<i class="ph ph-file-text"></i>
+				<span>Fixed-price estimate, no surprises</span>
+			</div>
+			<div class="trust-divider"></div>
+			<div class="trust-item">
+				<i class="ph ph-shield-check"></i>
+				<span>Licensed, bonded &amp; insured</span>
+			</div>
+		</div>
+	</div>
+
+	{/* ===== MAIN CONTACT AREA ===== */}
+	<section class="contact-main">
+		<div class="container contact-grid">
+
+			{/* LEFT: Info + details */}
+			<div class="contact-left">
+				<div class="info-block" data-reveal>
+					<span class="label-tag">// Reach Us</span>
+					<h2>GET IN TOUCH</h2>
+
+					<div class="info-items">
+						<a href="tel:7205554100" class="info-item">
+							<div class="info-icon">
+								<i class="ph ph-phone-call"></i>
+							</div>
+							<div class="info-text">
+								<span class="info-label">Call or Text</span>
+								<strong>(720) 555-4100</strong>
+								<span class="info-sub">Mon–Fri 7am–5pm, emergencies any time</span>
+							</div>
+						</a>
+						<a href="mailto:info@ironcladbuilders.com" class="info-item">
+							<div class="info-icon">
+								<i class="ph ph-envelope"></i>
+							</div>
+							<div class="info-text">
+								<span class="info-label">Email</span>
+								<strong>info@ironcladbuilders.com</strong>
+								<span class="info-sub">Response within 1 business hour</span>
+							</div>
+						</a>
+						<div class="info-item">
+							<div class="info-icon">
+								<i class="ph ph-map-pin"></i>
+							</div>
+							<div class="info-text">
+								<span class="info-label">Office</span>
+								<strong>2750 S Colorado Blvd, Suite 200</strong>
+								<span class="info-sub">Denver, CO 80222</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="hours-block" data-reveal data-delay="1">
+					<h4><i class="ph ph-clock"></i> Office Hours</h4>
+					<div class="hours-rows">
+						<div class="hours-row">
+							<span>Monday – Friday</span>
+							<span class="hours-time">7:00 AM – 5:00 PM</span>
+						</div>
+						<div class="hours-row">
+							<span>Saturday</span>
+							<span class="hours-time">By Appointment</span>
+						</div>
+						<div class="hours-row">
+							<span>Sunday</span>
+							<span class="hours-time hours-closed">Closed</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="credentials-block" data-reveal data-delay="2">
+					<div class="cred-row">
+						<i class="ph ph-seal-check"></i>
+						<span>Colorado CGC License #B-42918</span>
+					</div>
+					<div class="cred-row">
+						<i class="ph ph-shield-check"></i>
+						<span>$2M General Liability Coverage</span>
+					</div>
+					<div class="cred-row">
+						<i class="ph ph-certificate"></i>
+						<span>BBB A+ Accredited Since 2010</span>
+					</div>
+					<div class="cred-row">
+						<i class="ph ph-star-fill"></i>
+						<span>4.9 Stars — 285 Google Reviews</span>
+					</div>
+				</div>
+
+				<div class="social-block" data-reveal data-delay="3">
+					<a href="https://facebook.com/ironcladbuilders" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-link">
+						<i class="ph ph-facebook-logo"></i>
+					</a>
+					<a href="https://instagram.com/ironcladbuilders" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-link">
+						<i class="ph ph-instagram-logo"></i>
+					</a>
+					<a href="https://g.page/ironcladbuilders" target="_blank" rel="noopener noreferrer" aria-label="Google" class="social-link">
+						<i class="ph ph-google-logo"></i>
+					</a>
+				</div>
+			</div>
+
+			{/* RIGHT: Form */}
+			<div class="contact-right" data-reveal data-delay="1">
+				<div class="form-card">
+					<div class="form-card-header">
+						<span class="label-tag">// Request a Consultation</span>
+						<h3>FREE ESTIMATE</h3>
+						<p>Tell us about your project and we'll schedule a free in-home consultation within 2 business days.</p>
+					</div>
+
+					{formSuccess ? (
+						<div class="form-success">
+							<div class="success-icon">
+								<i class="ph ph-check-bold"></i>
+							</div>
+							<h3>REQUEST RECEIVED</h3>
+							<p>We've got your information and will contact you within 24 hours to schedule your free in-home consultation.</p>
+							<a href="/" class="btn btn-primary" style="margin-top: var(--space-xl);">Back to Home</a>
+						</div>
+					) : (
+						<form method="POST" class="contact-form">
+							{formError && (
+								<div class="form-error">
+									<i class="ph ph-warning"></i>
+									{formError}
+								</div>
+							)}
+
+							<div class="form-row">
+								<div class="form-group">
+									<label for="name">Full Name *</label>
+									<input type="text" id="name" name="name" required placeholder="Your full name" />
+								</div>
+								<div class="form-group">
+									<label for="phone">Phone Number *</label>
+									<input type="tel" id="phone" name="phone" required placeholder="(720) 555-0000" />
+								</div>
+							</div>
+
+							<div class="form-row">
+								<div class="form-group">
+									<label for="email">Email Address</label>
+									<input type="email" id="email" name="email" placeholder="you@example.com" />
+								</div>
+								<div class="form-group">
+									<label for="project_type">Project Type</label>
+									<select id="project_type" name="project_type">
+										<option value="">Select a project type...</option>
+										<option value="kitchen">Kitchen Remodel</option>
+										<option value="bathroom">Bathroom Remodel</option>
+										<option value="addition">Home Addition / ADU</option>
+										<option value="whole-home">Whole-Home Renovation</option>
+										<option value="new-construction">New Construction</option>
+										<option value="commercial">Commercial Build-Out</option>
+										<option value="other">Other / Not Sure Yet</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="budget">Estimated Budget Range</label>
+								<select id="budget" name="budget">
+									<option value="">Select a budget range...</option>
+									<option value="under-25k">Under $25,000</option>
+									<option value="25k-75k">$25,000 – $75,000</option>
+									<option value="75k-150k">$75,000 – $150,000</option>
+									<option value="150k-300k">$150,000 – $300,000</option>
+									<option value="300k-500k">$300,000 – $500,000</option>
+									<option value="over-500k">Over $500,000</option>
+									<option value="not-sure">Not sure yet</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="message">Tell Us About Your Project *</label>
+								<textarea id="message" name="message" rows="5" required placeholder="Describe what you're looking to build or remodel. Include any details about timeline, must-haves, or concerns..."></textarea>
+							</div>
+
+							<button type="submit" class="btn btn-primary btn-submit">
+								<i class="ph ph-calendar-check"></i>
+								Request a Free Consultation
+							</button>
+
+							<p class="form-note">
+								No spam. No sales calls. Just an honest conversation about your project.
+							</p>
+						</form>
+					)}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== MAP ===== */}
+	<section class="map-section">
+		<div class="map-cut-top"></div>
+		<div class="map-body">
+			<iframe
+				src="https://www.openstreetmap.org/export/embed.html?bbox=-105.02%2C39.72%2C-104.96%2C39.76&layer=mapnik&marker=39.7392%2C-104.9903"
+				width="100%"
+				height="420"
+				style="border: 0; display: block; filter: grayscale(40%) brightness(0.85);"
+				loading="lazy"
+				title="Ironclad Builders Office Location"
+			></iframe>
+			<div class="map-overlay">
+				<div class="container">
+					<div class="map-badge">
+						<i class="ph ph-map-pin"></i>
+						<div>
+							<strong>Ironclad Builders</strong>
+							<span>2750 S Colorado Blvd, Suite 200, Denver CO 80222</span>
+						</div>
+						<a href="https://maps.google.com/?q=2750+S+Colorado+Blvd+Denver+CO" target="_blank" rel="noopener noreferrer" class="map-directions">
+							Get Directions <i class="ph ph-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== LABELS ===== */
+	.label-tag {
+		font-family: "DM Mono", monospace;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+	}
+
+	/* ===== TRUST BAR ===== */
+	.trust-bar {
+		background: #111;
+		padding: 1.25rem 0;
+	}
+
+	.trust-bar-inner {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0;
+		flex-wrap: wrap;
+	}
+
+	.trust-item {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: rgba(255,255,255,0.7);
+		padding: 0.5rem 2rem;
+	}
+
+	.trust-item i {
+		font-size: 16px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.trust-divider {
+		width: 1px;
+		height: 20px;
+		background: rgba(255,255,255,0.15);
+	}
+
+	/* ===== CONTACT MAIN ===== */
+	.contact-main {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.4fr;
+		gap: var(--space-3xl);
+		align-items: start;
+	}
+
+	/* ===== LEFT SIDE ===== */
+	.contact-left {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xl);
+	}
+
+	.info-block h2 {
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		line-height: 0.95;
+		color: #111;
+		margin: var(--space-md) 0 var(--space-xl);
+	}
+
+	.info-items {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-lg);
+	}
+
+	.info-item {
+		display: flex;
+		gap: var(--space-md);
+		align-items: flex-start;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.info-icon {
+		width: 48px;
+		height: 48px;
+		background: #111;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 20px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+		border-left: 3px solid var(--color-primary);
+		transition: background 0.2s ease;
+	}
+
+	a.info-item:hover .info-icon {
+		background: var(--color-primary);
+		color: white;
+	}
+
+	.info-text {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+	}
+
+	.info-label {
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+	}
+
+	.info-text strong {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: #111;
+		display: block;
+	}
+
+	.info-sub {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+	}
+
+	/* Hours */
+	.hours-block {
+		background: #111;
+		padding: 1.5rem;
+		border-left: 3px solid rgba(255,107,0,0.3);
+	}
+
+	.hours-block h4 {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.45);
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-bottom: var(--space-md);
+	}
+
+	.hours-block h4 i { color: var(--color-primary); }
+
+	.hours-rows {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.hours-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.6rem 0;
+		border-bottom: 1px solid rgba(255,255,255,0.06);
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		color: rgba(255,255,255,0.6);
+	}
+
+	.hours-row:last-child {
+		border-bottom: none;
+	}
+
+	.hours-time {
+		color: rgba(255,255,255,0.85);
+		font-weight: 600;
+	}
+
+	.hours-closed {
+		color: rgba(255,255,255,0.3) !important;
+		font-style: italic;
+	}
+
+	/* Credentials */
+	.credentials-block {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.cred-row {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+	}
+
+	.cred-row i {
+		font-size: 16px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	/* Social */
+	.social-block {
+		display: flex;
+		gap: 8px;
+	}
+
+	.social-link {
+		width: 44px;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #111;
+		border: 1px solid rgba(0,0,0,0.1);
+		font-size: 20px;
+		color: var(--color-muted);
+		border-radius: 2px;
+		transition: all 0.15s ease;
+	}
+
+	.social-link:hover {
+		background: var(--color-primary);
+		color: white;
+		border-color: var(--color-primary);
+	}
+
+	/* ===== RIGHT SIDE — FORM ===== */
+	.form-card {
+		background: #111;
+		padding: 2.5rem;
+		border: 1px solid rgba(255,255,255,0.06);
+	}
+
+	.form-card-header {
+		margin-bottom: var(--space-xl);
+		border-bottom: 1px solid rgba(255,255,255,0.08);
+		padding-bottom: var(--space-xl);
+	}
+
+	.form-card-header h3 {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2.5rem;
+		line-height: 0.95;
+		color: white;
+		margin: var(--space-md) 0 var(--space-md);
+	}
+
+	.form-card-header p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		color: rgba(255,255,255,0.5);
+		line-height: 1.65;
+	}
+
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-md);
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.form-group label {
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.45);
+	}
+
+	.form-group input,
+	.form-group textarea,
+	.form-group select {
+		padding: 12px 14px;
+		border: 1px solid rgba(255,255,255,0.1);
+		background: rgba(255,255,255,0.04);
+		color: white;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-base);
+		border-radius: 2px;
+		transition: border-color 0.15s ease, background 0.15s ease;
+		outline: none;
+	}
+
+	.form-group select option {
+		background: #222;
+		color: white;
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus,
+	.form-group select:focus {
+		border-color: var(--color-primary);
+		background: rgba(255,107,0,0.04);
+	}
+
+	.form-group input::placeholder,
+	.form-group textarea::placeholder {
+		color: rgba(255,255,255,0.2);
+	}
+
+	.form-error {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 16px;
+		background: rgba(220,38,38,0.1);
+		border: 1px solid rgba(220,38,38,0.3);
+		color: #fca5a5;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		border-radius: 2px;
+	}
+
+	.btn-submit {
+		width: 100%;
+		justify-content: center;
+		padding: 1.125rem 2rem;
+		margin-top: var(--space-md);
+		font-size: var(--font-size-base);
+	}
+
+	.form-note {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-xs);
+		color: rgba(255,255,255,0.25);
+		text-align: center;
+	}
+
+	.form-success {
+		text-align: center;
+		padding: var(--space-2xl) 0;
+	}
+
+	.success-icon {
+		width: 72px;
+		height: 72px;
+		background: var(--color-primary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 32px;
+		color: white;
+		margin: 0 auto var(--space-xl);
+		border-radius: 2px;
+	}
+
+	.form-success h3 {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2.5rem;
+		color: white;
+		letter-spacing: 0.04em;
+		margin-bottom: var(--space-md);
+	}
+
+	.form-success p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		color: rgba(255,255,255,0.55);
+		line-height: 1.65;
+		max-width: 420px;
+		margin: 0 auto;
+	}
+
+	/* ===== MAP ===== */
+	.map-section {
+		position: relative;
+		background: #111;
+	}
+
+	.map-cut-top {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+
+	.map-body {
+		position: relative;
+		background: #111;
+	}
+
+	.map-overlay {
+		position: absolute;
+		bottom: var(--space-xl);
+		left: 0;
+		right: 0;
+		pointer-events: none;
+	}
+
+	.map-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-md);
+		background: #111;
+		padding: 1.125rem 1.5rem;
+		border-left: 3px solid var(--color-primary);
+		pointer-events: auto;
+		margin-left: var(--site-gutter, 3rem);
+	}
+
+	.map-badge i {
+		font-size: 24px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.map-badge strong {
+		display: block;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		color: white;
+	}
+
+	.map-badge span {
+		display: block;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-xs);
+		color: rgba(255,255,255,0.5);
+	}
+
+	.map-directions {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-family: "DM Sans", sans-serif;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		white-space: nowrap;
+		margin-left: var(--space-md);
+		transition: gap 0.15s ease;
+	}
+
+	.map-directions:hover {
+		gap: 10px;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 900px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+		}
+		.trust-bar-inner {
+			gap: var(--space-md);
+		}
+		.trust-divider {
+			display: none;
+		}
+		.trust-item {
+			padding: 0.25rem 1rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.form-row {
+			grid-template-columns: 1fr;
+		}
+		.form-card {
+			padding: 1.5rem;
+		}
+		.trust-bar-inner {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>

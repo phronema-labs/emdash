@@ -1,0 +1,651 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import GoogleReviews from "../components/GoogleReviews.astro";
+
+const { entries: testimonials, cacheHint } = await getEmDashCollection("testimonials", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const hardcodedTestimonials = [
+	{
+		quote: "Marcus and his crew completely transformed our 1970s kitchen into something that looks like it belongs in a magazine. On time, on budget, and the attention to detail was unreal. When the inspector came through, he said it was one of the cleanest rough-ins he'd seen in years.",
+		author: "Tom & Brenda Callahan",
+		role: "Homeowners",
+		company: "Park Hill, Denver",
+		rating: 5,
+		project: "Kitchen Remodel",
+		year: "2023",
+	},
+	{
+		quote: "We'd been burned by two other contractors before Ironclad. They gave us a real fixed-price contract, showed up every day they said they would, and finished our master bath addition 3 days ahead of schedule. I didn't think that was possible in this industry.",
+		author: "Derek Figueroa",
+		role: "Homeowner",
+		company: "Wash Park, Denver",
+		rating: 5,
+		project: "Master Bath Addition",
+		year: "2023",
+	},
+	{
+		quote: "We hired Ironclad for a full ADU conversion on our detached garage. The permit process alone would have been a nightmare without them. They handled everything with the city, managed the structural engineer, and kept us in the loop every step. Worth every dollar.",
+		author: "Patricia Holloway",
+		role: "Property Owner",
+		company: "Berkeley, Denver",
+		rating: 5,
+		project: "Garage ADU Conversion",
+		year: "2024",
+	},
+	{
+		quote: "My wife and I were nervous about doing a whole-home renovation while living in the house. Dave (the foreman) made it work. The crew was professional, cleaned up every day, and didn't leave us without a working bathroom for even one night. Seriously impressive operation.",
+		author: "James & Leila Okonkwo",
+		role: "Homeowners",
+		company: "Highlands, Denver",
+		rating: 5,
+		project: "Whole-Home Renovation",
+		year: "2024",
+	},
+	{
+		quote: "Ironclad built out our second restaurant location from a raw shell. Commercial build-out is complicated and the timeline was tight. They hit every milestone, the health department inspection was passed on the first try, and we opened on schedule. I've referred them to three other business owners since.",
+		author: "Nadia Reyes",
+		role: "Owner",
+		company: "Señorita's Kitchen, RiNo Denver",
+		rating: 5,
+		project: "Commercial Build-Out",
+		year: "2023",
+	},
+	{
+		quote: "We were quoted $180k by another contractor with a vague T&M contract. Ironclad came in at $162k fixed price with a detailed scope that actually told us what we were getting. When we found rotted floor joists behind a wall, they showed us exactly what needed to happen and we agreed on a fair change order. No games.",
+		author: "Greg & Carla Whitmore",
+		role: "Homeowners",
+		company: "Congress Park, Denver",
+		rating: 5,
+		project: "Full First-Floor Renovation",
+		year: "2024",
+	},
+];
+
+const displayTestimonials = testimonials.length > 0
+	? testimonials.map((t) => ({
+		quote: t.data.quote,
+		author: t.data.author,
+		role: t.data.role,
+		company: t.data.company,
+		rating: t.data.rating as number | undefined,
+		project: undefined as string | undefined,
+		year: undefined as string | undefined,
+	}))
+	: hardcodedTestimonials;
+
+// Featured (first) and the rest
+const featured = displayTestimonials[0];
+const rest = displayTestimonials.slice(1);
+
+function stars(n: number | undefined) {
+	return Array.from({ length: 5 }, (_, i) => i < (n ?? 5));
+}
+---
+
+<Base title="Client Testimonials" description="Read what Denver homeowners and business owners say about working with Ironclad Builders.">
+	<PageHero
+		title="What Our Clients Say"
+		subtitle="4.9 stars across 285 reviews. Real people, real projects, real results."
+		image="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&h=600&fit=crop"
+	/>
+
+	{/* ===== REVIEW SUMMARY BAR ===== */}
+	<div class="review-bar">
+		<div class="container review-bar-inner">
+			<GoogleReviews rating={4.9} reviewCount={285} style="badge" />
+			<div class="review-bar-divider"></div>
+			<div class="review-bar-stats">
+				<div class="review-stat">
+					<span class="review-stat-num">285</span>
+					<span class="review-stat-label">Verified Reviews</span>
+				</div>
+				<div class="review-stat">
+					<span class="review-stat-num">4.9</span>
+					<span class="review-stat-label">Average Rating</span>
+				</div>
+				<div class="review-stat">
+					<span class="review-stat-num">98%</span>
+					<span class="review-stat-label">Would Recommend</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{/* ===== FEATURED TESTIMONIAL ===== */}
+	<section class="featured-section">
+		<div class="container" data-reveal>
+			<div class="featured-card">
+				<div class="featured-quote-mark">"</div>
+				<div class="featured-content">
+					<div class="featured-stars">
+						{stars(featured.rating).map((filled) => (
+							<i class={`ph ${filled ? "ph-star-fill" : "ph-star"}`}></i>
+						))}
+					</div>
+					<blockquote class="featured-text">
+						{featured.quote}
+					</blockquote>
+					<div class="featured-author">
+						<div class="featured-author-info">
+							<strong>{featured.author}</strong>
+							{(featured.role || featured.company) && (
+								<span>
+									{featured.role}
+									{featured.role && featured.company && " — "}
+									{featured.company}
+								</span>
+							)}
+						</div>
+						{featured.project && (
+							<div class="featured-project-tag">
+								<i class="ph ph-hammer"></i>
+								{featured.project}
+								{featured.year && <span class="feat-year">{featured.year}</span>}
+							</div>
+						)}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== TESTIMONIALS GRID ===== */}
+	<section class="testimonials-section">
+		<div class="testimonials-cut-top"></div>
+		<div class="testimonials-dark-body">
+			<div class="container">
+				<div class="testimonials-head" data-reveal>
+					<span class="label-tag">// More Reviews</span>
+					<h2>BUILT ON TRUST</h2>
+				</div>
+				<div class="testimonials-grid">
+					{rest.map((t, i) => (
+						<div class="testimonial-card" data-reveal data-delay={String((i % 3) + 1)}>
+							<div class="tc-top">
+								<div class="tc-stars">
+									{stars(t.rating).map((filled) => (
+										<i class={`ph ${filled ? "ph-star-fill" : "ph-star"}`}></i>
+									))}
+								</div>
+								{t.project && (
+									<span class="tc-project">{t.project}</span>
+								)}
+							</div>
+							<blockquote class="tc-quote">"{t.quote}"</blockquote>
+							<div class="tc-author">
+								<div class="tc-author-dot"></div>
+								<div>
+									<strong>{t.author}</strong>
+									{(t.role || t.company) && (
+										<span class="tc-role">
+											{t.role}
+											{t.role && t.company && " — "}
+											{t.company}
+										</span>
+									)}
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== BADGE STRIP ===== */}
+	<section class="badge-section">
+		<div class="badge-cut-top"></div>
+		<div class="container badge-grid">
+			<div class="badge-item" data-reveal>
+				<i class="ph ph-google-logo badge-icon"></i>
+				<div>
+					<strong>4.9 Stars on Google</strong>
+					<span>285 verified reviews</span>
+				</div>
+			</div>
+			<div class="badge-divider"></div>
+			<div class="badge-item" data-reveal data-delay="1">
+				<i class="ph ph-certificate badge-icon"></i>
+				<div>
+					<strong>BBB A+ Accredited</strong>
+					<span>Accredited since 2010</span>
+				</div>
+			</div>
+			<div class="badge-divider"></div>
+			<div class="badge-item" data-reveal data-delay="2">
+				<i class="ph ph-trophy badge-icon"></i>
+				<div>
+					<strong>Houzz Best of Design</strong>
+					<span>2021, 2022, 2023</span>
+				</div>
+			</div>
+			<div class="badge-divider"></div>
+			<div class="badge-item" data-reveal data-delay="3">
+				<i class="ph ph-star-four badge-icon"></i>
+				<div>
+					<strong>Angi Super Service</strong>
+					<span>6 consecutive years</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== CTA ===== */}
+	<section class="testimonials-cta">
+		<div class="container testimonials-cta-inner">
+			<div data-reveal>
+				<span class="label-tag">// Your Project, Next</span>
+				<h2>READY TO BUILD?</h2>
+				<p>Free in-home consultation. Fixed-price estimate within 5 business days. Join 800+ satisfied clients.</p>
+			</div>
+			<div class="cta-actions" data-reveal data-delay="2">
+				<a href="/contact" class="btn btn-primary">Request a Free Estimate</a>
+				<a href="/work" class="btn btn-secondary">See Our Work</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== LABELS ===== */
+	.label-tag {
+		font-family: "DM Mono", monospace;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+	}
+
+	/* ===== REVIEW BAR ===== */
+	.review-bar {
+		background: #111;
+		padding: 1.5rem 0;
+	}
+
+	.review-bar-inner {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2xl);
+		flex-wrap: wrap;
+	}
+
+	.review-bar-divider {
+		width: 1px;
+		height: 40px;
+		background: rgba(255,255,255,0.1);
+	}
+
+	.review-bar-stats {
+		display: flex;
+		gap: var(--space-2xl);
+	}
+
+	.review-stat {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.review-stat-num {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2rem;
+		line-height: 1;
+		color: white;
+		letter-spacing: 0.02em;
+	}
+
+	.review-stat-label {
+		font-family: "DM Sans", sans-serif;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.4);
+	}
+
+	/* ===== FEATURED ===== */
+	.featured-section {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+	}
+
+	.featured-card {
+		position: relative;
+		background: #111;
+		padding: var(--space-3xl);
+		overflow: hidden;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: var(--space-2xl);
+		align-items: start;
+		border-left: 4px solid var(--color-primary);
+	}
+
+	.featured-quote-mark {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 8rem;
+		line-height: 0.8;
+		color: var(--color-primary);
+		opacity: 0.25;
+		flex-shrink: 0;
+		user-select: none;
+		pointer-events: none;
+	}
+
+	.featured-stars {
+		display: flex;
+		gap: 3px;
+		color: var(--color-accent);
+		font-size: 20px;
+		margin-bottom: var(--space-lg);
+	}
+
+	.featured-text {
+		font-family: "DM Sans", sans-serif;
+		font-size: clamp(1.125rem, 2vw, 1.375rem);
+		line-height: 1.75;
+		color: rgba(255,255,255,0.8);
+		font-style: italic;
+		margin-bottom: var(--space-xl);
+	}
+
+	.featured-author {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-lg);
+		flex-wrap: wrap;
+		padding-top: var(--space-lg);
+		border-top: 1px solid rgba(255,255,255,0.1);
+	}
+
+	.featured-author-info strong {
+		display: block;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: white;
+		margin-bottom: 3px;
+	}
+
+	.featured-author-info span {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		color: rgba(255,255,255,0.45);
+	}
+
+	.featured-project-tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		background: rgba(255,107,0,0.1);
+		border: 1px solid rgba(255,107,0,0.2);
+		padding: 0.5rem 0.875rem;
+	}
+
+	.feat-year {
+		opacity: 0.5;
+		margin-left: 4px;
+	}
+
+	/* ===== DARK TESTIMONIALS GRID ===== */
+	.testimonials-section {
+		position: relative;
+		background: #111;
+	}
+
+	.testimonials-cut-top {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+
+	.testimonials-dark-body {
+		background: #111;
+		padding: var(--space-3xl) 0 var(--space-4xl);
+	}
+
+	.testimonials-head {
+		margin-bottom: var(--space-2xl);
+	}
+
+	.testimonials-head h2 {
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		color: white;
+		margin-top: var(--space-md);
+	}
+
+	.testimonials-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2px;
+	}
+
+	.testimonial-card {
+		background: rgba(255,255,255,0.03);
+		border: 1px solid rgba(255,255,255,0.06);
+		padding: 2rem 1.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-lg);
+		transition: border-color 0.2s ease, background 0.2s ease;
+	}
+
+	.testimonial-card:hover {
+		background: rgba(255,107,0,0.04);
+		border-color: rgba(255,107,0,0.2);
+	}
+
+	.tc-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-md);
+	}
+
+	.tc-stars {
+		display: flex;
+		gap: 2px;
+		color: var(--color-accent);
+		font-size: 16px;
+	}
+
+	.tc-project {
+		font-family: "DM Mono", monospace;
+		font-size: 9px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		opacity: 0.7;
+	}
+
+	.tc-quote {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		line-height: 1.75;
+		color: rgba(255,255,255,0.6);
+		font-style: italic;
+		flex: 1;
+	}
+
+	.tc-author {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--space-md);
+		padding-top: var(--space-lg);
+		border-top: 1px solid rgba(255,255,255,0.07);
+	}
+
+	.tc-author-dot {
+		width: 10px;
+		height: 10px;
+		background: var(--color-primary);
+		flex-shrink: 0;
+		margin-top: 5px;
+	}
+
+	.tc-author strong {
+		display: block;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		color: rgba(255,255,255,0.85);
+	}
+
+	.tc-role {
+		display: block;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-xs);
+		color: rgba(255,255,255,0.35);
+		margin-top: 2px;
+	}
+
+	/* ===== BADGE SECTION ===== */
+	.badge-section {
+		background: var(--color-bg);
+		padding-bottom: var(--space-4xl);
+	}
+
+	.badge-cut-top {
+		height: 60px;
+		background: #111;
+		clip-path: polygon(0 0, 100% 100%, 0 100%);
+		margin-bottom: var(--space-3xl);
+	}
+
+	.badge-grid {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2xl);
+		flex-wrap: wrap;
+	}
+
+	.badge-item {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+		flex: 1;
+		min-width: 180px;
+	}
+
+	.badge-icon {
+		font-size: 36px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.badge-item strong {
+		display: block;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: #111;
+	}
+
+	.badge-item span {
+		display: block;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+	}
+
+	.badge-divider {
+		width: 1px;
+		height: 48px;
+		background: var(--color-border);
+		flex-shrink: 0;
+	}
+
+	/* ===== CTA ===== */
+	.testimonials-cta {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.testimonials-cta-inner {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: var(--space-3xl);
+		align-items: center;
+	}
+
+	.testimonials-cta-inner h2 {
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		line-height: 0.95;
+		color: #111;
+		margin: var(--space-md) 0 var(--space-md);
+	}
+
+	.testimonials-cta-inner p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		max-width: 480px;
+	}
+
+	.cta-actions {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+		flex-shrink: 0;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 1100px) {
+		.testimonials-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 900px) {
+		.featured-card {
+			grid-template-columns: 1fr;
+		}
+		.featured-quote-mark {
+			display: none;
+		}
+		.review-bar-inner {
+			gap: var(--space-lg);
+		}
+		.review-bar-divider {
+			display: none;
+		}
+		.badge-divider {
+			display: none;
+		}
+		.testimonials-cta-inner {
+			grid-template-columns: 1fr;
+		}
+		.cta-actions {
+			flex-direction: row;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.testimonials-grid {
+			grid-template-columns: 1fr;
+		}
+		.featured-author {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.badge-grid {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--space-xl);
+		}
+	}
+</style>

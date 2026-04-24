@@ -1,54 +1,57 @@
 /* ==========================================================
-   Phronema Labs — Shared Site Rules
-   Used across all client sites. Controls layout grid,
-   container widths, spacing rhythm, and base element styles.
+   Apex Roofing Co. — Dramatic Dark Site Rules
+   Full-bleed layout, oversized type scale, bold spacing.
    ========================================================== */
 
 :root {
 	/* Layout grid */
-	--site-max-width: 1200px;
-	--site-gutter: 2rem; /* 32px — breathing room on all sides */
-	--site-gutter-mobile: 1.25rem; /* 20px — tighter on small screens */
+	--site-max-width: 1280px;
+	--site-gutter: 2.5rem;
+	--site-gutter-mobile: 1.25rem;
 
-	/* Spacing scale */
+	/* Spacing scale — generous breathing room */
 	--space-xs: 0.25rem;
 	--space-sm: 0.5rem;
 	--space-md: 1rem;
 	--space-lg: 1.5rem;
 	--space-xl: 2rem;
 	--space-2xl: 3rem;
-	--space-3xl: 4rem;
-	--space-4xl: 6rem;
-	--space-5xl: 8rem;
+	--space-3xl: 5rem;
+	--space-4xl: 7rem;
+	--space-5xl: 10rem;
 
-	/* Typography scale — bigger headings for service industry */
+	/* Type scale — DRAMATIC. Headings are huge. */
 	--text-xs: 0.75rem;
 	--text-sm: 0.875rem;
 	--text-base: 1.0625rem;
-	--text-md: 1.0625rem;
-	--text-lg: 1.1875rem;
-	--text-xl: 1.375rem;
-	--text-2xl: 1.75rem;
-	--text-3xl: 2.5rem;
-	--text-4xl: 3.25rem;
-	--text-5xl: 4.25rem;
+	--text-md: 1.125rem;
+	--text-lg: 1.25rem;
+	--text-xl: 1.5rem;
+	--text-2xl: 2rem;
+	--text-3xl: 3rem;
+	--text-4xl: 4.5rem;
+	--text-5xl: 6rem;
+	--text-6xl: 8rem;
+	--text-7xl: 10rem;
 
-	/* Radii */
-	--radius-sm: 6px;
-	--radius-md: 10px;
-	--radius-lg: 16px;
+	/* Radii — tight, geometric */
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 12px;
 	--radius-full: 9999px;
 
 	/* Transitions */
 	--ease-fast: 150ms ease;
-	--ease-base: 200ms ease;
-	--ease-slow: 300ms ease;
+	--ease-base: 250ms ease;
+	--ease-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 
-	/* Shadows */
-	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-	--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+	/* Dramatic shadows */
+	--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+	--shadow-md: 0 8px 16px rgba(0, 0, 0, 0.5);
+	--shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
+	--shadow-xl: 0 40px 80px rgba(0, 0, 0, 0.7);
+	--shadow-glow-red: 0 0 40px rgba(220, 38, 38, 0.3);
+	--shadow-glow-amber: 0 0 40px rgba(245, 158, 11, 0.25);
 }
 
 /* ---- Container ---- */
@@ -58,9 +61,9 @@
 	padding-inline: var(--site-gutter);
 }
 
-/* ---- Section ---- */
+/* ---- Section — full bleed, dramatic padding ---- */
 .section {
-	padding-block: var(--space-5xl);
+	padding-block: var(--space-4xl);
 	padding-inline: var(--site-gutter);
 }
 
@@ -68,5 +71,9 @@
 @media (max-width: 768px) {
 	:root {
 		--site-gutter: var(--site-gutter-mobile);
+		--space-4xl: 4rem;
+		--space-5xl: 6rem;
+		--text-5xl: 3.5rem;
+		--text-6xl: 4.5rem;
 	}
 }

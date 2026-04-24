@@ -1,0 +1,749 @@
+---
+import Base from "../layouts/Base.astro";
+
+let formSuccess = false;
+let formError = "";
+
+if (Astro.request.method === "POST") {
+	const formData = await Astro.request.formData();
+	const name = formData.get("name")?.toString().trim();
+	const email = formData.get("email")?.toString().trim();
+	const message = formData.get("message")?.toString().trim();
+
+	if (!name || !email || !message) {
+		formError = "Please fill in all required fields.";
+	} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+		formError = "Please enter a valid email address.";
+	} else {
+		formSuccess = true;
+	}
+}
+---
+
+<Base title="Contact" description="Schedule a design consultation with Greenfield Landscaping. We serve Austin, TX and the surrounding Hill Country.">
+
+	{/* ===== Hero — editorial, no full-bleed image ===== */}
+	<section class="contact-hero">
+		<div class="container contact-hero-inner">
+			<div class="contact-hero-text fade-in">
+				<span class="eyebrow">Get in Touch</span>
+				<h1>Schedule a Design<br /><em>Consultation</em></h1>
+				<p>The first conversation is complimentary. Tell us about your property and your vision, and we'll set up a site visit at your convenience.</p>
+			</div>
+			<div class="contact-hero-aside fade-in fade-in-delay-2">
+				<div class="contact-info-card">
+					<div class="contact-info-item">
+						<div class="contact-info-icon">
+							<i class="ph ph-phone"></i>
+						</div>
+						<div>
+							<p class="info-label">Call Us</p>
+							<a href="tel:5125557200" class="info-value">(512) 555-7200</a>
+							<p class="info-sub">Mon–Fri 7AM–5PM, Sat 8AM–1PM</p>
+						</div>
+					</div>
+					<div class="contact-info-item">
+						<div class="contact-info-icon">
+							<i class="ph ph-envelope"></i>
+						</div>
+						<div>
+							<p class="info-label">Email</p>
+							<a href="mailto:hello@greenfieldlandscaping.com" class="info-value">hello@greenfieldlandscaping.com</a>
+							<p class="info-sub">We respond within one business day</p>
+						</div>
+					</div>
+					<div class="contact-info-item">
+						<div class="contact-info-icon">
+							<i class="ph ph-map-pin"></i>
+						</div>
+						<div>
+							<p class="info-label">Studio</p>
+							<p class="info-value">3120 Ranch Road 620 S</p>
+							<p class="info-sub">Austin, TX 78738</p>
+						</div>
+					</div>
+					<div class="contact-social">
+						<a href="https://instagram.com/greenfieldlandscaping" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+							<i class="ph ph-instagram-logo"></i>
+						</a>
+						<a href="https://facebook.com/greenfieldlandscaping" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+							<i class="ph ph-facebook-logo"></i>
+						</a>
+						<a href="https://g.page/greenfieldlandscaping" target="_blank" rel="noopener noreferrer" aria-label="Google Business">
+							<i class="ph ph-google-logo"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== Form ===== */}
+	<section class="contact-form-section">
+		<div class="container contact-form-inner">
+			<div class="form-side fade-in">
+				<h2>Tell us about your project</h2>
+				<p class="form-lead">The more detail you can share, the better we can prepare for our first conversation. Nothing is too small or too ambitious.</p>
+
+				{formSuccess ? (
+					<div class="form-success">
+						<div class="success-icon">
+							<i class="ph ph-leaf"></i>
+						</div>
+						<h3>Thank you for reaching out.</h3>
+						<p>We've received your inquiry and will be in touch within one business day to schedule your complimentary consultation.</p>
+						<p class="success-note">In the meantime, take a look at our <a href="/work">portfolio</a> to see what we've been working on.</p>
+					</div>
+				) : (
+					<form method="POST" class="contact-form">
+						{formError && <p class="form-error"><i class="ph ph-warning"></i> {formError}</p>}
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="name">Full Name <span class="required">*</span></label>
+								<input type="text" id="name" name="name" required placeholder="Your name" />
+							</div>
+							<div class="form-group">
+								<label for="email">Email Address <span class="required">*</span></label>
+								<input type="email" id="email" name="email" required placeholder="you@example.com" />
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="phone">Phone Number</label>
+								<input type="tel" id="phone" name="phone" placeholder="(512) 000-0000" />
+							</div>
+							<div class="form-group">
+								<label for="project_type">Type of Project</label>
+								<select id="project_type" name="project_type">
+									<option value="">Select a category...</option>
+									<option value="landscape-design">Landscape Design</option>
+									<option value="installation">Full Installation</option>
+									<option value="hardscaping">Hardscaping</option>
+									<option value="irrigation">Irrigation System</option>
+									<option value="maintenance">Ongoing Maintenance</option>
+									<option value="consultation">Design Consultation Only</option>
+									<option value="not-sure">I'm Not Sure Yet</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="property_size">Approximate Property Size</label>
+								<select id="property_size" name="property_size">
+									<option value="">Select a range...</option>
+									<option value="under-quarter">Under 1/4 acre</option>
+									<option value="quarter-to-half">1/4 to 1/2 acre</option>
+									<option value="half-to-one">1/2 to 1 acre</option>
+									<option value="one-to-three">1 to 3 acres</option>
+									<option value="over-three">More than 3 acres</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="timeline">Ideal Start Date</label>
+								<select id="timeline" name="timeline">
+									<option value="">When are you thinking?</option>
+									<option value="asap">As soon as possible</option>
+									<option value="1-3-months">Within 1 to 3 months</option>
+									<option value="3-6-months">3 to 6 months out</option>
+									<option value="6-plus">6 months or more</option>
+									<option value="exploring">Still exploring options</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="message">Tell us about your vision <span class="required">*</span></label>
+							<textarea id="message" name="message" rows="6" required placeholder="Describe your property, your goals for the space, any specific challenges or features you're hoping to address. The more detail you share, the more prepared we'll be for our first visit."></textarea>
+						</div>
+
+						<div class="form-group form-group-checkbox">
+							<label class="checkbox-label">
+								<input type="checkbox" name="newsletter" value="yes" />
+								<span>Receive our seasonal garden journal — planting guides, project features, and care tips for Central Texas landscapes.</span>
+							</label>
+						</div>
+
+						<button type="submit" class="btn btn-primary btn-lg form-submit">
+							Request a Consultation
+							<i class="ph ph-paper-plane-tilt"></i>
+						</button>
+					</form>
+				)}
+			</div>
+
+			<div class="form-aside fade-in fade-in-delay-2">
+				<div class="what-to-expect">
+					<h3>What happens next</h3>
+					<ol class="expect-list">
+						<li>
+							<span class="expect-num">01</span>
+							<div>
+								<strong>We'll be in touch within one business day</strong>
+								<p>A member of our team will reach out to confirm your inquiry and ask any clarifying questions before scheduling.</p>
+							</div>
+						</li>
+						<li>
+							<span class="expect-num">02</span>
+							<div>
+								<strong>Site visit at your convenience</strong>
+								<p>We'll walk your property together for 45 to 60 minutes. This is our chance to see the land and hear about your vision — and your chance to see if we're the right fit.</p>
+							</div>
+						</li>
+						<li>
+							<span class="expect-num">03</span>
+							<div>
+								<strong>A written proposal with no pressure</strong>
+								<p>After the visit, we'll send a project scope and fee proposal within five business days. Take your time with it. Good decisions are never rushed.</p>
+							</div>
+						</li>
+					</ol>
+				</div>
+
+				<div class="hours-card">
+					<h4>Studio Hours</h4>
+					<ul class="hours-list">
+						<li><span>Monday to Friday</span><span>7:00 AM to 5:00 PM</span></li>
+						<li><span>Saturday</span><span>8:00 AM to 1:00 PM</span></li>
+						<li class="closed"><span>Sunday</span><span>Closed</span></li>
+					</ul>
+					<p class="hours-note">For urgent matters outside business hours, call our main line and leave a voicemail — we monitor it through the weekend.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== Map ===== */}
+	<section class="map-section">
+		<div class="map-wrap">
+			<iframe
+				src="https://www.openstreetmap.org/export/embed.html?bbox=-97.78%2C30.24%2C-97.72%2C30.28&layer=mapnik&marker=30.2672%2C-97.7431"
+				width="100%"
+				height="420"
+				style="border: 0; display: block;"
+				loading="lazy"
+				title="Greenfield Landscaping Studio — Austin, TX"
+			></iframe>
+			<div class="map-badge-wrap">
+				<div class="map-badge">
+					<div class="map-badge-icon">
+						<i class="ph ph-map-pin-fill"></i>
+					</div>
+					<div>
+						<strong>Greenfield Landscaping</strong>
+						<span>3120 Ranch Road 620 S, Austin, TX 78738</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.eyebrow {
+		display: inline-block;
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--color-accent);
+		margin-bottom: 1rem;
+	}
+
+	/* ===== Hero ===== */
+	.contact-hero {
+		background: var(--color-surface);
+		padding: var(--space-5xl) 0 var(--space-4xl);
+		border-bottom: 1px solid var(--color-border-light);
+	}
+
+	.contact-hero-inner {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-4xl);
+		align-items: center;
+	}
+
+	.contact-hero-text h1 {
+		color: var(--color-primary);
+		font-size: clamp(2.4rem, 4.5vw, 4rem);
+		font-weight: 300;
+		line-height: 1.1;
+		margin-bottom: 1.5rem;
+	}
+
+	.contact-hero-text h1 em {
+		font-style: italic;
+		color: var(--color-accent);
+	}
+
+	.contact-hero-text p {
+		font-size: 1.0625rem;
+		color: var(--color-text-light);
+		line-height: 1.8;
+		max-width: 440px;
+	}
+
+	/* Info card */
+	.contact-info-card {
+		background: var(--color-bg);
+		border-radius: var(--radius-lg);
+		padding: 2.5rem;
+		border: 1px solid var(--color-border-light);
+		box-shadow: var(--shadow-md);
+		display: flex;
+		flex-direction: column;
+		gap: 1.75rem;
+	}
+
+	.contact-info-item {
+		display: flex;
+		gap: 1.25rem;
+		align-items: flex-start;
+	}
+
+	.contact-info-icon {
+		width: 44px;
+		height: 44px;
+		border-radius: var(--radius-md);
+		background: var(--color-sage-light);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 20px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.info-label {
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-muted);
+		margin-bottom: 0.25rem;
+	}
+
+	.info-value {
+		font-size: 1rem;
+		color: var(--color-primary);
+		font-weight: 500;
+		display: block;
+		text-decoration: none;
+		transition: color var(--ease-fast);
+	}
+
+	a.info-value:hover {
+		color: var(--color-accent);
+	}
+
+	.info-sub {
+		font-size: 0.825rem;
+		color: var(--color-muted);
+		margin-top: 0.2rem;
+	}
+
+	.contact-social {
+		display: flex;
+		gap: 0.75rem;
+		padding-top: 0.5rem;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.contact-social a {
+		width: 40px;
+		height: 40px;
+		border-radius: var(--radius-full);
+		border: 1.5px solid var(--color-border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 18px;
+		color: var(--color-muted);
+		transition: all var(--ease-fast);
+	}
+
+	.contact-social a:hover {
+		background: var(--color-primary);
+		border-color: var(--color-primary);
+		color: white;
+	}
+
+	/* ===== Form Section ===== */
+	.contact-form-section {
+		padding: var(--space-5xl) 0;
+	}
+
+	.contact-form-inner {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: var(--space-4xl);
+		align-items: start;
+	}
+
+	.form-side h2 {
+		color: var(--color-primary);
+		font-size: clamp(1.8rem, 3vw, 2.75rem);
+		margin-bottom: 0.75rem;
+	}
+
+	.form-lead {
+		font-size: 1rem;
+		color: var(--color-text-light);
+		line-height: 1.75;
+		margin-bottom: 2.5rem;
+		max-width: 480px;
+	}
+
+	/* Form */
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.25rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	.form-group label {
+		font-family: var(--font-body);
+		font-size: 0.78rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		color: var(--color-text);
+	}
+
+	.required {
+		color: var(--color-accent);
+	}
+
+	.form-group input,
+	.form-group textarea,
+	.form-group select {
+		padding: 0.8rem 1rem;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-md);
+		font-family: var(--font-body);
+		font-size: 0.9375rem;
+		background: var(--color-bg);
+		color: var(--color-text);
+		transition: border-color var(--ease-fast), box-shadow var(--ease-fast);
+		width: 100%;
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus,
+	.form-group select:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 0 0 3px rgba(26, 58, 42, 0.08);
+	}
+
+	.form-group input::placeholder,
+	.form-group textarea::placeholder {
+		color: var(--color-muted);
+		opacity: 0.6;
+	}
+
+	textarea {
+		resize: vertical;
+		min-height: 140px;
+	}
+
+	.form-group-checkbox {
+		margin-top: 0.25rem;
+	}
+
+	.checkbox-label {
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+		cursor: pointer;
+		font-size: 0.875rem;
+		color: var(--color-text-light);
+		line-height: 1.6;
+		font-family: var(--font-body);
+		font-weight: 400;
+		text-transform: none;
+		letter-spacing: 0;
+	}
+
+	.checkbox-label input[type="checkbox"] {
+		width: auto;
+		margin-top: 0.1rem;
+		accent-color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.form-submit {
+		width: 100%;
+		margin-top: 0.5rem;
+	}
+
+	.form-error {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.875rem 1rem;
+		background: #fef2f2;
+		color: #dc2626;
+		border-radius: var(--radius-md);
+		font-size: 0.875rem;
+		border: 1px solid #fecaca;
+	}
+
+	/* Success state */
+	.form-success {
+		padding: var(--space-3xl) var(--space-xl);
+		background: var(--color-surface);
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border-light);
+		text-align: center;
+	}
+
+	.success-icon {
+		width: 72px;
+		height: 72px;
+		background: var(--color-sage-light);
+		border-radius: var(--radius-full);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 32px;
+		color: var(--color-primary);
+		margin: 0 auto 1.5rem;
+	}
+
+	.form-success h3 {
+		color: var(--color-primary);
+		font-size: 1.8rem;
+		margin-bottom: 1rem;
+	}
+
+	.form-success p {
+		color: var(--color-text-light);
+		line-height: 1.75;
+		max-width: 440px;
+		margin: 0 auto 0.75rem;
+	}
+
+	.success-note {
+		font-size: 0.875rem;
+		color: var(--color-muted);
+	}
+
+	.success-note a {
+		color: var(--color-accent);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	/* ===== Aside ===== */
+	.form-aside {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		position: sticky;
+		top: 120px;
+	}
+
+	.what-to-expect {
+		background: var(--color-surface);
+		border-radius: var(--radius-lg);
+		padding: 2.25rem;
+		border: 1px solid var(--color-border-light);
+	}
+
+	.what-to-expect h3 {
+		color: var(--color-primary);
+		font-size: 1.5rem;
+		margin-bottom: 1.75rem;
+	}
+
+	.expect-list {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.75rem;
+	}
+
+	.expect-list li {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+	}
+
+	.expect-num {
+		font-family: var(--font-display);
+		font-size: 1.25rem;
+		color: var(--color-accent);
+		font-style: italic;
+		flex-shrink: 0;
+		width: 28px;
+		margin-top: 2px;
+	}
+
+	.expect-list strong {
+		display: block;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--color-primary);
+		margin-bottom: 0.35rem;
+	}
+
+	.expect-list p {
+		font-size: 0.875rem;
+		color: var(--color-text-light);
+		line-height: 1.7;
+	}
+
+	.hours-card {
+		background: var(--color-primary);
+		border-radius: var(--radius-lg);
+		padding: 2rem;
+		color: white;
+	}
+
+	.hours-card h4 {
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: rgba(255,255,255,0.5);
+		margin-bottom: 1.25rem;
+	}
+
+	.hours-list {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.hours-list li {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.875rem;
+		color: rgba(255,255,255,0.75);
+		padding-bottom: 0.6rem;
+		border-bottom: 1px solid rgba(255,255,255,0.08);
+	}
+
+	.hours-list li.closed {
+		color: rgba(255,255,255,0.35);
+		font-style: italic;
+	}
+
+	.hours-note {
+		font-size: 0.8rem;
+		color: rgba(255,255,255,0.45);
+		line-height: 1.6;
+		margin-top: 1.25rem;
+	}
+
+	/* ===== Map ===== */
+	.map-section {
+		position: relative;
+	}
+
+	.map-wrap {
+		position: relative;
+	}
+
+	.map-badge-wrap {
+		position: absolute;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		pointer-events: none;
+	}
+
+	.map-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 1rem;
+		background: var(--color-bg);
+		padding: 1rem 1.5rem;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-lg);
+		pointer-events: auto;
+		white-space: nowrap;
+	}
+
+	.map-badge-icon {
+		width: 40px;
+		height: 40px;
+		background: var(--color-primary);
+		border-radius: var(--radius-md);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 20px;
+		color: white;
+		flex-shrink: 0;
+	}
+
+	.map-badge strong {
+		display: block;
+		font-size: 0.875rem;
+		color: var(--color-primary);
+	}
+
+	.map-badge span {
+		display: block;
+		font-size: 0.78rem;
+		color: var(--color-muted);
+		margin-top: 0.15rem;
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 1024px) {
+		.contact-form-inner {
+			grid-template-columns: 1fr;
+		}
+
+		.form-aside {
+			position: static;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.contact-hero-inner {
+			grid-template-columns: 1fr;
+			gap: var(--space-2xl);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.form-row {
+			grid-template-columns: 1fr;
+		}
+
+		.map-badge-wrap {
+			left: var(--site-gutter);
+			right: var(--site-gutter);
+			transform: none;
+		}
+
+		.map-badge {
+			white-space: normal;
+		}
+	}
+</style>

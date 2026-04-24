@@ -4,6 +4,7 @@ import { EmDashHead } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import { Font } from "astro:assets";
 import TopBar from "../components/TopBar.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher.astro";
 import "../styles/site.css";
 import "../styles/brand.css";
 
@@ -15,9 +16,9 @@ interface Props {
 
 const { title, description, image } = Astro.props;
 const settings = await getSiteSettings();
-const siteTitle = settings?.title || "Acme Services";
+const siteTitle = settings?.title || "Caldwell & Associates";
 const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
-const siteDescription = settings?.tagline || "Professional solutions for growing businesses";
+const siteDescription = settings?.tagline || "Trusted counsel for business and family";
 const siteLogo = (settings?.logo as any)?.url ? settings.logo as { mediaId: string; alt?: string; url: string } : null;
 const siteFavicon = (settings?.favicon as any)?.url ?? null;
 
@@ -44,14 +45,19 @@ const pageCtx = createPublicPageContext({
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{fullTitle}</title>
-		{siteFavicon && <link rel="icon" href={siteFavicon} />}
+		<link rel="icon" href={siteFavicon || "/favicon.svg"} type="image/svg+xml" />
 		<EmDashHead page={pageCtx} />
 		<Font cssVariable="--font-sans" preload />
+		<!-- Premium font stack: Instrument Serif for display, DM Sans for body -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
 		<link href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/regular/style.css" rel="stylesheet" />
 		<link href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/fill/style.css" rel="stylesheet" />
 		<!-- Light mode only -->
 	</head>
 	<body>
+		<a href="#main-content" class="skip-link">Skip to content</a>
 		<TopBar />
 		<header class="site-header">
 			<nav class="nav">
@@ -70,12 +76,12 @@ const pageCtx = createPublicPageContext({
 					))}
 				</div>
 				<div class="nav-actions">
-					<a href="/contact" class="nav-cta">Get a Quote</a>
+					<a href="/contact" class="nav-cta">Schedule Consultation</a>
 				</div>
 			</nav>
 		</header>
 
-		<main>
+		<main id="main-content">
 			<slot />
 		</main>
 
@@ -90,41 +96,40 @@ const pageCtx = createPublicPageContext({
 								: <img src="/logo.svg" alt={siteTitle} class="footer-logo-img" />
 							}
 						</span>
-						<p class="footer-tagline">{settings?.tagline || "Trusted plumbing, HVAC & electrical"}</p>
+						<p class="footer-tagline">{settings?.tagline || "Trusted counsel for business and family"}</p>
 						<div class="footer-social">
+							<a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="ph ph-linkedin-logo" /></a>
 							<a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" /></a>
-							<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" /></a>
-							<a href="https://google.com" target="_blank" rel="noopener noreferrer" aria-label="Google"><i class="ph ph-google-logo" /></a>
 						</div>
 					</div>
 
-					{/* Services column */}
+					{/* Practice Areas column */}
 					<div class="footer-col">
-						<h4>Services</h4>
-						<a href="/services/plumbing">Plumbing</a>
-						<a href="/services/hvac">Heating & AC</a>
-						<a href="/services/electrical">Electrical</a>
-						<a href="/services/emergency-services">Emergency Service</a>
-						<a href="/services">All Services</a>
+						<h4>Practice Areas</h4>
+						<a href="/services/business-law">Business Law</a>
+						<a href="/services/estate-planning">Estate Planning</a>
+						<a href="/services/family-law">Family Law</a>
+						<a href="/services/litigation">Litigation</a>
+						<a href="/services">All Practice Areas</a>
 					</div>
 
-					{/* Company column */}
+					{/* Firm column */}
 					<div class="footer-col">
-						<h4>Company</h4>
+						<h4>The Firm</h4>
 						<a href="/about">About Us</a>
-						<a href="/work">Our Work</a>
-						<a href="/blog">Blog</a>
-						<a href="/testimonials">Testimonials</a>
+						<a href="/work">Notable Matters</a>
+						<a href="/blog">Insights</a>
+						<a href="/testimonials">Client Testimonials</a>
 						<a href="/faq">FAQ</a>
 					</div>
 
 					{/* Contact column */}
 					<div class="footer-col footer-contact">
-						<h4>Contact Us</h4>
+						<h4>Contact</h4>
 						<a href="tel:5552345678"><i class="ph ph-phone" /> (555) 234-5678</a>
-						<a href="mailto:service@summithomeservices.com"><i class="ph ph-envelope" /> service@summithomeservices.com</a>
-						<p><i class="ph ph-map-pin" /> 482 Industrial Pkwy, Suite 5<br />Springfield, ST 62704</p>
-						<p class="footer-hours"><i class="ph ph-clock" /> Mon–Fri 7AM–6PM · Sat 8AM–2PM</p>
+						<a href="mailto:contact@caldwellandassociates.com"><i class="ph ph-envelope" /> contact@caldwellandassociates.com</a>
+						<p><i class="ph ph-map-pin" /> 1200 Commerce Tower, Suite 1800<br />Springfield, ST 62704</p>
+						<p class="footer-hours"><i class="ph ph-clock" /> Mon–Fri 8:30AM–5:30PM</p>
 					</div>
 				</div>
 			</div>
@@ -140,15 +145,16 @@ const pageCtx = createPublicPageContext({
 					</div>
 					<p class="footer-powered">
 						Built by <a href="https://phronemalabs.com" class="phronema-link">
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:-2px;margin-right:2px;">
-								<path d="M12 2L2 7l10 5 10-5-10-5z" fill="#FF6B35"/>
-								<path d="M2 17l10 5 10-5" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-								<path d="M2 12l10 5 10-5" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<svg width="14" height="14" viewBox="0 0 64 64" fill="none" style="display:inline-block;vertical-align:-2px;margin-right:3px;">
+								<circle cx="27" cy="36" r="16" stroke="#C9963A" stroke-width="5.5"/>
+								<circle cx="50" cy="12" r="5" fill="#C9963A"/>
 							</svg>Phronema Labs</a>
 					</p>
 				</div>
 			</div>
 		</footer>
+
+		<ThemeSwitcher />
 
 		<script>
 			// Mobile nav toggle
@@ -159,6 +165,23 @@ const pageCtx = createPublicPageContext({
 				toggle.setAttribute("aria-expanded", String(!expanded));
 				links?.classList.toggle("nav-open");
 			});
+
+			// Scroll-triggered reveal animations
+			const revealEls = document.querySelectorAll(".reveal, .reveal-stagger");
+			if (revealEls.length > 0) {
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add("visible");
+								observer.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+				);
+				revealEls.forEach((el) => observer.observe(el));
+			}
 		</script>
 
 		<style is:global>
@@ -185,18 +208,20 @@ const pageCtx = createPublicPageContext({
 					--color-success: #22c55e;
 					--color-warning: #f59e0b;
 
-					--font-mono: ui-monospace, "SF Mono", monospace;
-					--font-size-xs: 0.8125rem;
-					--font-size-sm: 0.9375rem;
-					--font-size-base: 1.0625rem;
-					--font-size-md: 1.0625rem;
-					--font-size-lg: 1.1875rem;
-					--font-size-xl: 1.375rem;
-					--font-size-2xl: 1.75rem;
-					--font-size-3xl: 2.5rem;
-					--font-size-4xl: 3.25rem;
-					--font-size-5xl: 4.25rem;
-					--font-size-6xl: 5rem;
+					--font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+				--font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+				--font-mono: ui-monospace, "SF Mono", monospace;
+					--font-size-xs: 0.75rem;
+					--font-size-sm: 0.875rem;
+					--font-size-base: 1rem;
+					--font-size-md: 1rem;
+					--font-size-lg: 1.125rem;
+					--font-size-xl: 1.25rem;
+					--font-size-2xl: 1.5rem;
+					--font-size-3xl: 2rem;
+					--font-size-4xl: 2.75rem;
+					--font-size-5xl: 3.5rem;
+					--font-size-6xl: 4.25rem;
 
 					--spacing-xs: 0.25rem;
 					--spacing-sm: 0.5rem;
@@ -205,8 +230,8 @@ const pageCtx = createPublicPageContext({
 					--spacing-xl: 2rem;
 					--spacing-2xl: 3rem;
 					--spacing-3xl: 4rem;
-					--spacing-4xl: 6rem;
-					--spacing-5xl: 8rem;
+					--spacing-4xl: 5rem;
+					--spacing-5xl: 6rem;
 
 					--max-width: 720px;
 					--wide-width: 1200px;
@@ -226,45 +251,168 @@ const pageCtx = createPublicPageContext({
 				}
 
 
-				html { scroll-behavior: smooth; font-size: 125%; }
+				html { scroll-behavior: smooth; }
 
 				body {
-					font-family: var(--font-sans);
+					font-family: var(--font-body), var(--font-sans, system-ui);
 					font-size: var(--font-size-base);
 					line-height: 1.6;
 					color: var(--color-text);
 					background: var(--color-bg);
 					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
 					min-height: 100vh;
+				}
+
+				/* Subtle noise/grain texture overlay on the whole body */
+				body::before {
+					content: "";
+					position: fixed;
+					inset: 0;
+					pointer-events: none;
+					z-index: 9999;
+					opacity: 0.022;
+					background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+					background-size: 180px 180px;
 				}
 
 				a { color: currentColor; text-decoration: none; }
 				img { max-width: 100%; height: auto; display: block; }
 
-				h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+				:focus-visible {
+					outline: 2px solid var(--color-primary);
+					outline-offset: 2px;
+				}
+
+				@media (prefers-reduced-motion: reduce) {
+					*, *::before, *::after {
+						animation-duration: 0.01ms !important;
+						animation-iteration-count: 1 !important;
+						transition-duration: 0.01ms !important;
+						scroll-behavior: auto !important;
+					}
+				}
+
+				.skip-link {
+					position: absolute;
+					top: -100%;
+					left: var(--site-gutter);
+					background: var(--color-primary);
+					color: white;
+					padding: var(--spacing-sm) var(--spacing-md);
+					border-radius: var(--radius-sm);
+					font-size: var(--font-size-sm);
+					font-weight: 600;
+					z-index: 9999;
+				}
+
+				.skip-link:focus {
+					top: var(--spacing-sm);
+				}
+
+				h1, h2, h3, h4, h5, h6 {
+					font-family: var(--font-display);
+					font-weight: 400;
+					line-height: 1.15;
+					letter-spacing: -0.01em;
+				}
 				h1 { font-size: var(--font-size-5xl); }
 				h2 { font-size: var(--font-size-3xl); }
 				h3 { font-size: var(--font-size-2xl); }
-				h4 { font-size: var(--font-size-xl); }
+				h4 { font-size: var(--font-size-xl); font-family: var(--font-body), var(--font-sans); font-weight: 600; }
 
 				/* container + section rules now in site.css */
+
+				/* Shimmer keyframes */
+				@keyframes shimmer {
+					0% { background-position: -200% center; }
+					100% { background-position: 200% center; }
+				}
+
+				@keyframes fadeInUp {
+					from { opacity: 0; transform: translateY(20px); }
+					to { opacity: 1; transform: translateY(0); }
+				}
+
+				@keyframes pulse-glow {
+					0%, 100% { box-shadow: 0 4px 16px color-mix(in srgb, var(--color-accent, #e00000) 40%, transparent); }
+					50% { box-shadow: 0 4px 24px color-mix(in srgb, var(--color-accent, #e00000) 25%, transparent); }
+				}
+
+				/* Scroll-triggered reveal */
+				.reveal {
+					opacity: 0;
+					transform: translateY(28px);
+					filter: blur(2px);
+					transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+				}
+
+				.reveal.visible {
+					opacity: 1;
+					transform: translateY(0);
+					filter: blur(0);
+				}
+
+				/* Staggered children */
+				.reveal-stagger > * {
+					opacity: 0;
+					transform: translateY(20px);
+					transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+				}
+
+				.reveal-stagger.visible > * {
+					opacity: 1;
+					transform: translateY(0);
+				}
+
+				.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0ms; }
+				.reveal-stagger.visible > *:nth-child(2) { transition-delay: 90ms; }
+				.reveal-stagger.visible > *:nth-child(3) { transition-delay: 180ms; }
+				.reveal-stagger.visible > *:nth-child(4) { transition-delay: 270ms; }
+				.reveal-stagger.visible > *:nth-child(5) { transition-delay: 360ms; }
+				.reveal-stagger.visible > *:nth-child(6) { transition-delay: 450ms; }
 
 				.btn {
 					display: inline-flex;
 					align-items: center;
 					justify-content: center;
 					gap: var(--spacing-sm);
-					padding: var(--spacing-sm) var(--spacing-lg);
-					font-family: inherit;
+					padding: 0.625rem var(--spacing-lg);
+					font-family: var(--font-body), var(--font-sans);
 					font-size: var(--font-size-sm);
 					font-weight: 600;
+					letter-spacing: 0.01em;
 					border-radius: var(--radius);
 					cursor: pointer;
-					transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+					transition: background 0.25s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
+					position: relative;
+					overflow: hidden;
+					text-decoration: none;
 				}
 
-				.btn:hover { transform: translateY(-1px); }
-				.btn:active { transform: translateY(0); }
+				.btn::after {
+					content: "";
+					position: absolute;
+					inset: 0;
+					background: linear-gradient(
+						110deg,
+						transparent 25%,
+						rgba(255, 255, 255, 0.15) 40%,
+						rgba(255, 255, 255, 0.15) 45%,
+						transparent 60%
+					);
+					background-size: 200% 100%;
+					opacity: 0;
+					transition: opacity 0.3s ease;
+				}
+
+				.btn:hover::after {
+					opacity: 1;
+					animation: shimmer 0.8s ease-out forwards;
+				}
+
+				.btn:hover { transform: translateY(-2px); }
+				.btn:active { transform: translateY(0) scale(0.98); }
 
 				.btn-primary {
 					color: white;
@@ -274,23 +422,25 @@ const pageCtx = createPublicPageContext({
 
 				.btn-primary:hover {
 					background: var(--color-primary-dark);
-					box-shadow: var(--shadow-lg);
+					box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 				}
 
 				.btn-secondary {
 					color: var(--color-text);
 					background: transparent;
-					border: 1px solid var(--color-border);
+					border: 1.5px solid var(--color-border);
 				}
 
 				.btn-secondary:hover {
 					background: var(--color-surface);
 					border-color: var(--color-muted);
+					box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 				}
 
 				.btn-lg {
-					padding: var(--spacing-md) var(--spacing-xl);
+					padding: 0.875rem var(--spacing-xl);
 					font-size: var(--font-size-base);
+					letter-spacing: 0.02em;
 				}
 			}
 		</style>
@@ -300,8 +450,22 @@ const pageCtx = createPublicPageContext({
 				position: sticky;
 				top: 0;
 				z-index: 100;
-				background: var(--color-bg);
-				border-bottom: 1px solid var(--color-border);
+				background: rgba(255, 255, 255, 0.96);
+				backdrop-filter: blur(20px) saturate(180%);
+				-webkit-backdrop-filter: blur(20px) saturate(180%);
+				border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+				box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 4px 24px rgba(0, 0, 0, 0.04);
+			}
+
+			/* Thin brand accent line along top of header */
+			.site-header::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
 			}
 
 			.nav {
@@ -344,13 +508,29 @@ const pageCtx = createPublicPageContext({
 			}
 
 			.nav-links a {
+				font-family: var(--font-body), var(--font-sans);
 				font-size: var(--font-size-sm);
 				font-weight: 500;
+				letter-spacing: 0.01em;
 				color: var(--color-muted);
 				transition: color var(--transition-fast);
+				position: relative;
+			}
+
+			.nav-links a::after {
+				content: "";
+				position: absolute;
+				bottom: -4px;
+				left: 0;
+				width: 0;
+				height: 2px;
+				background: var(--color-primary);
+				border-radius: 1px;
+				transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 			}
 
 			.nav-links a:hover { color: var(--color-text); }
+			.nav-links a:hover::after { width: 100%; }
 
 			.nav-actions {
 				display: flex;
@@ -359,18 +539,44 @@ const pageCtx = createPublicPageContext({
 			}
 
 			.nav-cta {
-				padding: var(--spacing-sm) var(--spacing-md);
+				padding: 0.5rem 1.125rem;
+				font-family: var(--font-body), var(--font-sans);
 				font-size: var(--font-size-sm);
 				font-weight: 600;
+				letter-spacing: 0.02em;
 				color: white;
-				background: var(--color-accent, #ff6b35);
+				background: var(--color-accent, #e00000);
 				border-radius: var(--radius-sm);
-				transition: background var(--transition-fast), transform var(--transition-fast);
+				transition: background 0.25s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.nav-cta::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: linear-gradient(
+					110deg,
+					transparent 20%,
+					rgba(255, 255, 255, 0.2) 40%,
+					rgba(255, 255, 255, 0.2) 45%,
+					transparent 65%
+				);
+				background-size: 200% 100%;
+				opacity: 0;
+				transition: opacity 0.3s ease;
 			}
 
 			.nav-cta:hover {
-				background: #e55a2b;
-				transform: translateY(-1px);
+				background: color-mix(in srgb, var(--color-accent, #e00000) 85%, #000);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 16px color-mix(in srgb, var(--color-accent, #e00000) 35%, transparent);
+			}
+
+			.nav-cta:hover::before {
+				opacity: 1;
+				animation: shimmer 0.7s ease-out forwards;
 			}
 
 			main { min-height: calc(100vh - 200px); }
@@ -403,9 +609,11 @@ const pageCtx = createPublicPageContext({
 			}
 
 			.footer-tagline {
-				font-size: var(--font-size-sm);
-				color: rgba(255, 255, 255, 0.5);
-				line-height: 1.6;
+				font-family: var(--font-display);
+				font-size: var(--font-size-md);
+				font-style: italic;
+				color: rgba(255, 255, 255, 0.45);
+				line-height: 1.65;
 			}
 
 			.footer-social {
@@ -424,21 +632,24 @@ const pageCtx = createPublicPageContext({
 				border-radius: var(--radius-sm);
 				color: rgba(255, 255, 255, 0.5);
 				font-size: 18px;
-				transition: all var(--transition-fast);
+				transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 			}
 
 			.footer-social a:hover {
 				background: var(--color-primary);
 				border-color: var(--color-primary);
 				color: white;
+				transform: translateY(-2px) scale(1.08);
+				box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 			}
 
 			.footer-col h4 {
-				font-size: var(--font-size-sm);
+				font-family: var(--font-body), var(--font-sans);
+				font-size: 10px;
 				font-weight: 700;
 				text-transform: uppercase;
-				letter-spacing: 0.05em;
-				color: white;
+				letter-spacing: 0.12em;
+				color: rgba(255, 255, 255, 0.4);
 				margin-bottom: var(--spacing-lg);
 			}
 

@@ -1,0 +1,667 @@
+---
+import { getMenu, getSiteSettings } from "emdash";
+import { EmDashHead } from "emdash/ui";
+import { createPublicPageContext } from "emdash/page";
+import TopBar from "../components/TopBar.astro";
+import "../styles/site.css";
+import "../styles/brand.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+}
+
+const { title, description, image } = Astro.props;
+const settings = await getSiteSettings();
+const siteTitle = settings?.title || "Summit Home Services";
+const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
+const siteDescription = settings?.tagline || "Licensed plumbing, HVAC & electrical you can count on";
+const siteLogo = (settings?.logo as any)?.url ? settings.logo as { mediaId: string; alt?: string; url: string } : null;
+const siteFavicon = (settings?.favicon as any)?.url ?? null;
+
+const menu = await getMenu("primary");
+const footerMenu = await getMenu("footer");
+
+const pageCtx = createPublicPageContext({
+	Astro,
+	kind: "custom",
+	pageType: "website",
+	title: fullTitle,
+	pageTitle: title ?? siteTitle,
+	description: description || siteDescription,
+	canonical: Astro.url.href,
+	image,
+	seo: { ogImage: image },
+	siteName: siteTitle,
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{fullTitle}</title>
+		<link rel="icon" href={siteFavicon || "/favicon.svg"} type="image/svg+xml" />
+		<EmDashHead page={pageCtx} />
+		<!-- Outfit (headlines) + IBM Plex Sans (body) — no Inter -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+		<link href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/regular/style.css" rel="stylesheet" />
+		<link href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/fill/style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<TopBar />
+		<header class="site-header">
+			<nav class="nav">
+				<a href="/" class="site-logo">
+					{siteLogo
+						? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="site-logo-img" />
+						: <img src="/logo.svg" alt={siteTitle} class="site-logo-img" />
+					}
+				</a>
+
+				<div class="nav-links">
+					{menu?.items.map((item) => (
+						<a href={item.url} target={item.target}>{item.label}</a>
+					))}
+				</div>
+
+				<div class="nav-actions">
+					<a href="tel:5552345678" class="nav-phone">
+						<i class="ph ph-phone-call" />
+						<span>(555) 234-5678</span>
+					</a>
+					<a href="/contact" class="nav-cta">Get a Quote</a>
+				</div>
+
+				<button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+					<i class="ph ph-list"></i>
+				</button>
+			</nav>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer class="site-footer">
+			<div class="footer-top">
+				<div class="container footer-grid">
+					{/* Brand column */}
+					<div class="footer-brand">
+						<span class="footer-logo">
+							{siteLogo
+								? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="footer-logo-img" />
+								: <img src="/logo.svg" alt={siteTitle} class="footer-logo-img" />
+							}
+						</span>
+						<p class="footer-tagline">{settings?.tagline || "Licensed plumbing, HVAC & electrical services."}</p>
+						<div class="footer-avail">
+							<span class="avail-dot"></span>
+							<span>Available now — 24/7 emergency service</span>
+						</div>
+						<a href="tel:5552345678" class="footer-phone-big">(555) 234-5678</a>
+						<div class="footer-social">
+							<a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" /></a>
+							<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" /></a>
+							<a href="https://google.com" target="_blank" rel="noopener noreferrer" aria-label="Google"><i class="ph ph-google-logo" /></a>
+						</div>
+					</div>
+
+					{/* Services column */}
+					<div class="footer-col">
+						<h4>Services</h4>
+						<a href="/services/plumbing">Plumbing</a>
+						<a href="/services/hvac">Heating &amp; AC</a>
+						<a href="/services/electrical">Electrical</a>
+						<a href="/services/emergency-services">Emergency Service</a>
+						<a href="/services">All Services</a>
+					</div>
+
+					{/* Company column */}
+					<div class="footer-col">
+						<h4>Company</h4>
+						<a href="/about">About Us</a>
+						<a href="/work">Our Work</a>
+						<a href="/blog">Blog</a>
+						<a href="/testimonials">Testimonials</a>
+						<a href="/faq">FAQ</a>
+					</div>
+
+					{/* Contact column */}
+					<div class="footer-col footer-contact">
+						<h4>Contact</h4>
+						<a href="tel:5552345678"><i class="ph ph-phone" /> (555) 234-5678</a>
+						<a href="mailto:service@summithomeservices.com"><i class="ph ph-envelope" /> service@summithomeservices.com</a>
+						<p><i class="ph ph-map-pin" /> 482 Industrial Pkwy, Suite 5<br />Springfield, ST 62704</p>
+						<p class="footer-hours"><i class="ph ph-clock" /> Mon–Fri 7AM–6PM · Sat 8AM–2PM</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<div class="container footer-bottom-inner">
+					<p>&copy; {new Date().getFullYear()} {siteTitle}. All rights reserved.</p>
+					<div class="footer-bottom-links">
+						{footerMenu?.items.map((item) => (
+							<a href={item.url}>{item.label}</a>
+						))}
+						<a href="/_emdash/admin" class="admin-link"><i class="ph ph-lock-simple" /> Client Login</a>
+					</div>
+					<p class="footer-powered">
+						Built by <a href="https://phronemalabs.com" class="phronema-link">
+							<svg width="14" height="14" viewBox="0 0 64 64" fill="none" style="display:inline-block;vertical-align:-2px;margin-right:3px;">
+								<circle cx="27" cy="36" r="16" stroke="#C9963A" stroke-width="5.5"/>
+								<circle cx="50" cy="12" r="5" fill="#C9963A"/>
+							</svg>Phronema Labs</a>
+					</p>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// Mobile nav toggle
+			const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+			const links = document.querySelector<HTMLElement>(".nav-links");
+			toggle?.addEventListener("click", () => {
+				const expanded = toggle.getAttribute("aria-expanded") === "true";
+				toggle.setAttribute("aria-expanded", String(!expanded));
+				links?.classList.toggle("nav-open");
+			});
+		</script>
+
+		<style is:global>
+			@layer base;
+
+			@layer base {
+				*, *::before, *::after {
+					box-sizing: border-box;
+					margin: 0;
+					padding: 0;
+				}
+
+				:root {
+					--color-bg: #ffffff;
+					--color-text: #0d1526;
+					--color-muted: #6b82a0;
+					--color-border: #d1dce8;
+					--color-surface: #f0f4f9;
+					--color-primary: #0052cc;
+					--color-primary-dark: #003d99;
+					--color-primary-light: #dbeafe;
+					--color-accent: #e8940a;
+					--color-accent-dark: #c47a08;
+					--color-accent-light: #fef3c7;
+					--color-success: #16a34a;
+					--color-warning: #e8940a;
+					--color-available: #16a34a;
+
+					--font-headline: 'Outfit', system-ui, sans-serif;
+					--font-body: 'IBM Plex Sans', system-ui, sans-serif;
+					--font-mono: ui-monospace, 'SF Mono', monospace;
+
+					--font-size-xs: 0.6875rem;
+					--font-size-sm: 0.8125rem;
+					--font-size-base: 0.9375rem;
+					--font-size-md: 0.9375rem;
+					--font-size-lg: 1.0625rem;
+					--font-size-xl: 1.25rem;
+					--font-size-2xl: 1.625rem;
+					--font-size-3xl: 2.125rem;
+					--font-size-4xl: 2.75rem;
+					--font-size-5xl: 3.75rem;
+
+					--spacing-xs: 0.25rem;
+					--spacing-sm: 0.5rem;
+					--spacing-md: 0.875rem;
+					--spacing-lg: 1.25rem;
+					--spacing-xl: 1.75rem;
+					--spacing-2xl: 2.5rem;
+					--spacing-3xl: 3.25rem;
+					--spacing-4xl: 4.5rem;
+					--spacing-5xl: 6rem;
+
+					--max-width: 700px;
+					--wide-width: 1240px;
+					--radius-sm: 4px;
+					--radius: 6px;
+					--radius-lg: 10px;
+					--radius-full: 9999px;
+
+					--transition-fast: 120ms ease;
+					--transition-base: 180ms ease;
+					--transition-slow: 250ms ease;
+
+					--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+					--shadow: 0 2px 6px rgba(0, 52, 128, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+					--shadow-lg: 0 6px 16px rgba(0, 52, 128, 0.12);
+					--shadow-xl: 0 16px 32px rgba(0, 52, 128, 0.14);
+				}
+
+				html { scroll-behavior: smooth; font-size: 100%; }
+
+				body {
+					font-family: var(--font-body);
+					font-size: var(--font-size-base);
+					line-height: 1.6;
+					color: var(--color-text);
+					background: var(--color-bg);
+					-webkit-font-smoothing: antialiased;
+					min-height: 100vh;
+				}
+
+				a { color: currentColor; text-decoration: none; }
+				img { max-width: 100%; height: auto; display: block; }
+
+				h1, h2, h3, h4, h5, h6 {
+					font-family: var(--font-headline);
+					font-weight: 700;
+					line-height: 1.15;
+					letter-spacing: -0.025em;
+					color: var(--color-text);
+				}
+
+				h1 { font-size: var(--font-size-5xl); }
+				h2 { font-size: var(--font-size-3xl); }
+				h3 { font-size: var(--font-size-2xl); }
+				h4 { font-size: var(--font-size-xl); }
+
+				.btn {
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					gap: 0.4rem;
+					padding: 0.55rem 1.25rem;
+					font-family: var(--font-headline);
+					font-size: var(--font-size-sm);
+					font-weight: 600;
+					border-radius: var(--radius);
+					cursor: pointer;
+					border: none;
+					transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+					letter-spacing: 0.01em;
+				}
+
+				.btn:hover { transform: translateY(-1px); }
+				.btn:active { transform: translateY(0); }
+
+				.btn-primary {
+					color: white;
+					background: var(--color-primary);
+				}
+
+				.btn-primary:hover {
+					background: var(--color-primary-dark);
+					box-shadow: var(--shadow-lg);
+				}
+
+				.btn-secondary {
+					color: var(--color-text);
+					background: transparent;
+					border: 1.5px solid var(--color-border);
+				}
+
+				.btn-secondary:hover {
+					background: var(--color-surface);
+					border-color: var(--color-primary);
+					color: var(--color-primary);
+				}
+
+				.btn-accent {
+					color: white;
+					background: var(--color-accent);
+				}
+
+				.btn-accent:hover {
+					background: var(--color-accent-dark);
+					box-shadow: 0 4px 14px rgba(232, 148, 10, 0.4);
+				}
+
+				.btn-lg {
+					padding: 0.75rem 1.75rem;
+					font-size: var(--font-size-base);
+				}
+
+				/* Availability pulse animation */
+				@keyframes pulse-ring {
+					0% { transform: scale(0.95); box-shadow: 0 0 0 0 var(--color-available-pulse, rgba(22, 163, 74, 0.3)); }
+					70% { transform: scale(1); box-shadow: 0 0 0 8px transparent; }
+					100% { transform: scale(0.95); box-shadow: 0 0 0 0 transparent; }
+				}
+
+				/* Counter animation */
+				@keyframes count-up {
+					from { opacity: 0; transform: translateY(8px); }
+					to { opacity: 1; transform: translateY(0); }
+				}
+
+				@keyframes slide-in-left {
+					from { opacity: 0; transform: translateX(-20px); }
+					to { opacity: 1; transform: translateX(0); }
+				}
+			}
+		</style>
+
+		<style>
+			.site-header {
+				position: sticky;
+				top: 0;
+				z-index: 100;
+				background: white;
+				border-bottom: 1.5px solid var(--color-border);
+				box-shadow: 0 1px 4px rgba(0, 52, 128, 0.06);
+			}
+
+			.nav {
+				max-width: var(--site-max-width);
+				margin: 0 auto;
+				padding: 0.625rem var(--site-gutter);
+				display: flex;
+				align-items: center;
+				gap: var(--spacing-xl);
+			}
+
+			.site-logo {
+				font-family: var(--font-headline);
+				font-size: var(--font-size-xl);
+				font-weight: 800;
+				letter-spacing: -0.03em;
+				color: var(--color-primary);
+				flex-shrink: 0;
+			}
+
+			.site-logo-img {
+				height: 40px;
+				width: auto;
+				display: block;
+			}
+
+			.nav-toggle {
+				display: none;
+				background: none;
+				border: none;
+				font-size: 22px;
+				cursor: pointer;
+				color: var(--color-text);
+				margin-left: auto;
+				padding: 4px;
+			}
+
+			.nav-links {
+				display: flex;
+				gap: var(--spacing-xl);
+				margin-left: auto;
+			}
+
+			.nav-links a {
+				font-family: var(--font-headline);
+				font-size: var(--font-size-sm);
+				font-weight: 500;
+				color: var(--color-muted);
+				transition: color var(--transition-fast);
+				letter-spacing: 0.01em;
+			}
+
+			.nav-links a:hover { color: var(--color-primary); }
+
+			.nav-actions {
+				display: flex;
+				align-items: center;
+				gap: var(--spacing-md);
+				flex-shrink: 0;
+			}
+
+			.nav-phone {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				font-family: var(--font-headline);
+				font-size: var(--font-size-sm);
+				font-weight: 700;
+				color: var(--color-primary);
+				transition: color var(--transition-fast);
+				border: 1.5px solid var(--color-primary-light);
+				padding: 5px 12px;
+				border-radius: var(--radius);
+				background: var(--color-primary-light);
+			}
+
+			.nav-phone:hover {
+				background: var(--color-primary);
+				border-color: var(--color-primary);
+				color: white;
+			}
+
+			.nav-cta {
+				padding: 0.5rem 1.125rem;
+				font-family: var(--font-headline);
+				font-size: var(--font-size-sm);
+				font-weight: 700;
+				color: white;
+				background: var(--color-accent);
+				border-radius: var(--radius);
+				transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+				letter-spacing: 0.01em;
+			}
+
+			.nav-cta:hover {
+				background: var(--color-accent-dark);
+				transform: translateY(-1px);
+				box-shadow: 0 4px 12px rgba(232, 148, 10, 0.35);
+			}
+
+			main { min-height: calc(100vh - 200px); }
+
+			/* ===== Footer ===== */
+			.site-footer {
+				background: var(--color-dark-section, #0a0f1e);
+				color: rgba(255, 255, 255, 0.8);
+			}
+
+			.footer-top {
+				padding: var(--spacing-4xl) 0 var(--spacing-3xl);
+			}
+
+			.footer-grid {
+				display: grid;
+				grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+				gap: var(--spacing-3xl);
+			}
+
+			.footer-brand {
+				display: flex;
+				flex-direction: column;
+				gap: var(--spacing-md);
+			}
+
+			.footer-logo-img {
+				height: 30px;
+				width: auto;
+				filter: brightness(0) invert(1);
+				opacity: 0.9;
+			}
+
+			.footer-tagline {
+				font-size: var(--font-size-sm);
+				color: rgba(255, 255, 255, 0.45);
+				line-height: 1.6;
+			}
+
+			.footer-avail {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-size: var(--font-size-xs);
+				font-weight: 600;
+				color: #4ade80;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				margin-top: 2px;
+			}
+
+			.avail-dot {
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: #22c55e;
+				animation: pulse-ring 2s infinite;
+				flex-shrink: 0;
+			}
+
+			.footer-phone-big {
+				font-family: var(--font-headline);
+				font-size: var(--font-size-2xl);
+				font-weight: 800;
+				color: white;
+				letter-spacing: -0.02em;
+				transition: color var(--transition-fast);
+			}
+
+			.footer-phone-big:hover { color: var(--color-accent); }
+
+			.footer-social {
+				display: flex;
+				gap: var(--spacing-sm);
+				margin-top: var(--spacing-sm);
+			}
+
+			.footer-social a {
+				width: 32px;
+				height: 32px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				border-radius: var(--radius-sm);
+				color: rgba(255, 255, 255, 0.45);
+				font-size: 16px;
+				transition: all var(--transition-fast);
+			}
+
+			.footer-social a:hover {
+				background: var(--color-primary);
+				border-color: var(--color-primary);
+				color: white;
+			}
+
+			.footer-col h4 {
+				font-family: var(--font-headline);
+				font-size: var(--font-size-xs);
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: rgba(255, 255, 255, 0.9);
+				margin-bottom: var(--spacing-lg);
+				padding-bottom: var(--spacing-sm);
+				border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+			}
+
+			.footer-col a,
+			.footer-col p {
+				display: flex;
+				align-items: flex-start;
+				gap: var(--spacing-xs);
+				font-size: var(--font-size-sm);
+				color: rgba(255, 255, 255, 0.45);
+				padding: 3px 0;
+				transition: color var(--transition-fast);
+				text-decoration: none;
+				line-height: 1.5;
+			}
+
+			.footer-col a:hover { color: white; }
+
+			.footer-col i {
+				font-size: 14px;
+				color: var(--color-accent);
+				flex-shrink: 0;
+				margin-top: 2px;
+			}
+
+			.footer-hours {
+				margin-top: var(--spacing-sm);
+				font-size: var(--font-size-xs) !important;
+			}
+
+			.footer-bottom {
+				border-top: 1px solid rgba(255, 255, 255, 0.07);
+			}
+
+			.footer-bottom-inner {
+				padding: var(--spacing-lg) 0;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: var(--spacing-md);
+				font-size: var(--font-size-xs);
+				color: rgba(255, 255, 255, 0.3);
+			}
+
+			.footer-bottom-links {
+				display: flex;
+				gap: var(--spacing-lg);
+			}
+
+			.footer-bottom-links a {
+				color: rgba(255, 255, 255, 0.3);
+				text-decoration: none;
+				transition: color var(--transition-fast);
+			}
+
+			.footer-bottom-links a:hover { color: rgba(255, 255, 255, 0.65); }
+
+			.admin-link {
+				display: flex;
+				align-items: center;
+				gap: 4px;
+			}
+
+			.footer-powered a { color: rgba(255, 255, 255, 0.4); }
+
+			.phronema-link {
+				font-weight: 600;
+				color: #FF6B35 !important;
+				transition: opacity var(--transition-fast);
+			}
+
+			.phronema-link:hover { opacity: 0.8; }
+
+			@media (max-width: 900px) {
+				.nav-toggle { display: block; }
+				.nav-actions .nav-phone { display: none; }
+
+				.nav-links {
+					display: none;
+					position: absolute;
+					top: 100%;
+					left: 0;
+					right: 0;
+					background: white;
+					border-bottom: 1.5px solid var(--color-border);
+					flex-direction: column;
+					padding: var(--spacing-md) var(--site-gutter);
+					gap: var(--spacing-sm);
+					z-index: 99;
+					box-shadow: var(--shadow-lg);
+				}
+
+				.nav-links.nav-open { display: flex; }
+				.nav-actions .nav-cta { font-size: var(--font-size-xs); padding: 0.4rem 0.875rem; }
+
+				.footer-grid { grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); }
+				.footer-bottom-inner { flex-direction: column; text-align: center; }
+				.footer-bottom-links { flex-wrap: wrap; justify-content: center; }
+			}
+
+			@media (max-width: 480px) {
+				.footer-grid { grid-template-columns: 1fr; }
+				h1 { font-size: var(--font-size-4xl); }
+				h2 { font-size: var(--font-size-2xl); }
+			}
+		</style>
+	</body>
+</html>

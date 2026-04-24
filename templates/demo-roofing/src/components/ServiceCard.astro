@@ -17,74 +17,150 @@ const ICON_MAP: Record<string, string> = {
 	globe: "ph-globe",
 	devices: "ph-devices",
 	"shield-check": "ph-shield-check",
+	wrench: "ph-wrench",
+	house: "ph-house",
+	lightning: "ph-lightning",
+	"cloud-rain": "ph-cloud-rain",
+	hammer: "ph-hammer",
+	"hard-hat": "ph-hard-hat",
 };
 ---
 
 <a href={href} class="service-card">
-	{icon && (
-		<div class="service-icon">
-			<i class={`ph ${ICON_MAP[icon] || `ph-${icon}`}`} />
-		</div>
-	)}
-	<h3 class="service-title">{title}</h3>
-	{summary && <p class="service-summary">{summary}</p>}
-	{priceFrom && <p class="service-price">From {priceFrom}</p>}
-	<span class="service-link">{ctaLabel || "Learn More"} &rarr;</span>
+	<div class="service-card-inner">
+		{icon && (
+			<div class="service-icon">
+				<i class={`ph ${ICON_MAP[icon] || `ph-${icon}`}`} />
+			</div>
+		)}
+		<h3 class="service-title">{title}</h3>
+		{summary && <p class="service-summary">{summary}</p>}
+		{priceFrom && <p class="service-price">From {priceFrom}</p>}
+		<span class="service-link">
+			{ctaLabel || "Learn More"}
+			<i class="ph ph-arrow-right service-link-arrow"></i>
+		</span>
+	</div>
+	<div class="service-card-bg" aria-hidden="true"></div>
 </a>
 
 <style>
 	.service-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
-		padding: var(--spacing-xl);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-lg);
-		transition: transform var(--transition-base), box-shadow var(--transition-base);
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		border-radius: var(--radius-md);
+		overflow: hidden;
 		text-decoration: none;
 		color: var(--color-text);
+		background: #1a1a1a;
+		transition: transform var(--ease-base), border-color var(--ease-base), box-shadow var(--ease-base);
 	}
 
 	.service-card:hover {
-		transform: translateY(-4px);
-		box-shadow: var(--shadow-lg);
+		transform: translateY(-6px);
+		border-color: rgba(220, 38, 38, 0.35);
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(220, 38, 38, 0.1);
+	}
+
+	/* Diagonal stripe background on hover */
+	.service-card-bg {
+		position: absolute;
+		inset: 0;
+		background: repeating-linear-gradient(
+			-45deg,
+			transparent,
+			transparent 8px,
+			rgba(220, 38, 38, 0.025) 8px,
+			rgba(220, 38, 38, 0.025) 9px
+		);
+		opacity: 0;
+		transition: opacity var(--ease-slow);
+		pointer-events: none;
+	}
+
+	.service-card:hover .service-card-bg {
+		opacity: 1;
+	}
+
+	.service-card-inner {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 2rem;
+		flex: 1;
 	}
 
 	.service-icon {
-		width: 56px;
-		height: 56px;
-		border-radius: var(--radius);
-		background: var(--color-primary-light);
+		width: 52px;
+		height: 52px;
+		border-radius: var(--radius-sm);
+		background: rgba(220, 38, 38, 0.12);
+		border: 1px solid rgba(220, 38, 38, 0.2);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 28px;
-		color: var(--color-primary-dark);
-		margin-bottom: var(--spacing-md);
+		font-size: 1.5rem;
+		color: var(--color-primary);
+		margin-bottom: 1.25rem;
+		transition: all var(--ease-base);
+	}
+
+	.service-card:hover .service-icon {
+		background: rgba(220, 38, 38, 0.2);
+		border-color: rgba(220, 38, 38, 0.4);
+		box-shadow: 0 0 20px rgba(220, 38, 38, 0.2);
 	}
 
 	.service-title {
-		font-size: var(--font-size-xl);
-		font-weight: 700;
-		margin-bottom: var(--spacing-sm);
+		font-family: var(--font-headline);
+		font-size: 1.6rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: white;
+		margin-bottom: 0.75rem;
+		line-height: 1.1;
 	}
 
 	.service-summary {
-		color: var(--color-muted);
-		line-height: 1.6;
+		font-family: var(--font-body);
+		color: rgba(255, 255, 255, 0.5);
+		line-height: 1.7;
+		font-size: 0.95rem;
 		flex: 1;
 	}
 
 	.service-price {
-		color: var(--color-primary);
-		font-weight: 600;
-		margin-top: var(--spacing-md);
+		font-family: var(--font-headline);
+		font-size: 1rem;
+		color: var(--color-accent);
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		margin-top: 1rem;
+		text-transform: uppercase;
 	}
 
 	.service-link {
-		margin-top: var(--spacing-md);
+		margin-top: 1.25rem;
+		font-family: var(--font-headline);
+		font-size: 0.875rem;
+		font-weight: 800;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
 		color: var(--color-primary);
-		font-weight: 600;
-		font-size: var(--font-size-sm);
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.service-link-arrow {
+		transition: transform var(--ease-fast);
+	}
+
+	.service-card:hover .service-link-arrow {
+		transform: translateX(4px);
 	}
 </style>

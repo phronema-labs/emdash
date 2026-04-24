@@ -17,15 +17,18 @@ const { title, summary, featuredImage, client, year, href } = Astro.props;
 	{featuredImage && (
 		<div class="project-image">
 			<Image image={featuredImage} />
+			<div class="project-image-overlay">
+				<span class="project-view">VIEW PROJECT <i class="ph ph-arrow-right"></i></span>
+			</div>
 		</div>
 	)}
 	<div class="project-info">
-		<h3>{title}</h3>
 		{(client || year) && (
 			<p class="project-meta">
 				{client}{client && year && " · "}{year}
 			</p>
 		)}
+		<h3>{title}</h3>
 		{summary && <p class="project-summary">{summary}</p>}
 	</div>
 </a>
@@ -33,49 +36,96 @@ const { title, summary, featuredImage, client, year, href } = Astro.props;
 <style>
 	.project-card {
 		display: block;
-		border-radius: var(--radius-lg);
+		border-radius: var(--radius-md);
 		overflow: hidden;
-		border: 1px solid var(--color-border);
-		transition: transform var(--transition-base), box-shadow var(--transition-base);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		transition: transform var(--ease-base), border-color var(--ease-base), box-shadow var(--ease-base);
 		text-decoration: none;
 		color: var(--color-text);
+		background: #1a1a1a;
 	}
 
 	.project-card:hover {
-		transform: translateY(-4px);
-		box-shadow: var(--shadow-lg);
+		transform: translateY(-6px);
+		border-color: rgba(220, 38, 38, 0.3);
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 	}
 
 	.project-image {
 		aspect-ratio: 4/3;
 		overflow: hidden;
+		position: relative;
 	}
 
 	.project-image :global(img) {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition: transform var(--transition-slow);
+		transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.project-card:hover .project-image :global(img) {
-		transform: scale(1.03);
+		transform: scale(1.06);
+	}
+
+	.project-image-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.5);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transition: opacity var(--ease-base);
+	}
+
+	.project-card:hover .project-image-overlay {
+		opacity: 1;
+	}
+
+	.project-view {
+		font-family: var(--font-headline);
+		font-size: 0.875rem;
+		font-weight: 800;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: white;
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		background: var(--color-primary);
+		padding: 0.6rem 1.25rem;
+		border-radius: var(--radius-sm);
 	}
 
 	.project-info {
-		padding: var(--spacing-lg);
+		padding: 1.5rem;
 	}
 
 	.project-meta {
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
-		margin-top: var(--spacing-xs);
+		font-family: var(--font-headline);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.project-info h3 {
+		font-family: var(--font-headline);
+		font-size: 1.4rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		color: white;
+		line-height: 1.1;
 	}
 
 	.project-summary {
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
-		line-height: 1.5;
-		margin-top: var(--spacing-sm);
+		font-family: var(--font-body);
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.45);
+		line-height: 1.6;
+		margin-top: 0.5rem;
 	}
 </style>

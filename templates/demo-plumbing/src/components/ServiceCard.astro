@@ -1,0 +1,152 @@
+---
+interface Props {
+	title: string;
+	summary?: string;
+	icon?: string;
+	priceFrom?: string;
+	href: string;
+	ctaLabel?: string;
+}
+
+const { title, summary, icon, priceFrom, href, ctaLabel } = Astro.props;
+
+const ICON_MAP: Record<string, string> = {
+	code: "ph-code",
+	"paint-brush": "ph-paint-brush",
+	"chart-line-up": "ph-chart-line-up",
+	globe: "ph-globe",
+	devices: "ph-devices",
+	"shield-check": "ph-shield-check",
+	drop: "ph-drop",
+	thermometer: "ph-thermometer",
+	lightning: "ph-lightning",
+	wrench: "ph-wrench",
+	pipe: "ph-pipe",
+	fire: "ph-fire",
+	snowflake: "ph-snowflake",
+};
+---
+
+<a href={href} class="service-card">
+	<div class="service-card-top">
+		{icon && (
+			<div class="service-icon">
+				<i class={`ph ${ICON_MAP[icon] || `ph-${icon}`}`} />
+			</div>
+		)}
+		{priceFrom && <span class="service-price-badge">From {priceFrom}</span>}
+	</div>
+	<h3 class="service-title">{title}</h3>
+	{summary && <p class="service-summary">{summary}</p>}
+	<span class="service-link">
+		{ctaLabel || "Learn More"}
+		<i class="ph ph-arrow-right" />
+	</span>
+</a>
+
+<style>
+	.service-card {
+		display: flex;
+		flex-direction: column;
+		padding: var(--spacing-xl);
+		background: white;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+		text-decoration: none;
+		color: var(--color-text);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.service-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: var(--color-primary);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform var(--transition-base);
+	}
+
+	.service-card:hover {
+		border-color: var(--color-primary);
+		box-shadow: var(--shadow-lg);
+		transform: translateY(-2px);
+	}
+
+	.service-card:hover::before {
+		transform: scaleX(1);
+	}
+
+	.service-card-top {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.service-icon {
+		width: 48px;
+		height: 48px;
+		border-radius: var(--radius-md);
+		background: var(--color-primary-light);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 24px;
+		color: var(--color-primary);
+		transition: background var(--transition-fast), color var(--transition-fast);
+	}
+
+	.service-card:hover .service-icon {
+		background: var(--color-primary);
+		color: white;
+	}
+
+	.service-price-badge {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		color: var(--color-accent-dark);
+		background: var(--color-accent-light);
+		padding: 3px 8px;
+		border-radius: var(--radius-sm);
+		white-space: nowrap;
+	}
+
+	.service-title {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-lg);
+		font-weight: 700;
+		margin-bottom: var(--spacing-sm);
+		color: var(--color-text);
+		line-height: 1.25;
+	}
+
+	.service-summary {
+		color: var(--color-muted);
+		line-height: 1.6;
+		flex: 1;
+		font-size: var(--font-size-sm);
+	}
+
+	.service-link {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		margin-top: var(--spacing-lg);
+		color: var(--color-primary);
+		font-family: var(--font-headline);
+		font-weight: 700;
+		font-size: var(--font-size-sm);
+		transition: gap var(--transition-fast);
+	}
+
+	.service-card:hover .service-link {
+		gap: 8px;
+	}
+</style>

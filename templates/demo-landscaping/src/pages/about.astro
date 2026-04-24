@@ -1,0 +1,625 @@
+---
+import { getEmDashEntry, getEmDashCollection } from "emdash";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "about");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const { entries: teamMembers } = await getEmDashCollection("team", { status: "published" });
+
+const hardcodedTeam = [
+	{
+		name: "Marcus Greenfield",
+		role: "Principal Designer & Founder",
+		bio: "A native Texan with a degree in landscape architecture from UT Austin, Marcus founded Greenfield Landscaping in 2012 after a decade designing gardens across the Hill Country. His work is shaped by a deep respect for regional ecology and a belief that truly great landscapes are inseparable from their place.",
+		image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face",
+	},
+	{
+		name: "Priya Sundaram",
+		role: "Lead Horticulturist",
+		bio: "Priya holds a master's degree in plant ecology from Texas A&M and brings expert knowledge of Central Texas native plants, soil science, and drought-adapted planting design. She oversees every plant selection and serves as the studio's guide to living with the land rather than against it.",
+		image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
+	},
+	{
+		name: "Daniel Ochoa",
+		role: "Project Manager",
+		bio: "With fifteen years in the field overseeing landscape installations, Daniel is the person who turns design visions into reality on schedule and on budget. His relationships with local craftspeople, nurseries, and trade partners are the backbone of every project we deliver.",
+		image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+	},
+];
+
+const displayTeam = teamMembers.length > 0 ? teamMembers : null;
+---
+
+<Base title="About Us" description="The story behind Greenfield Landscaping — an Austin-based landscape design studio devoted to sustainable, native-led outdoor spaces.">
+	<PageHero
+		title="A studio rooted in place"
+		subtitle="We design landscapes that belong to Central Texas, not landscapes borrowed from somewhere else."
+		image="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&h=600&fit=crop"
+	/>
+
+	{/* ===== STORY ===== */}
+	<section class="section story-section">
+		<div class="container story-grid">
+			<div class="story-text fade-in">
+				<span class="eyebrow">Our Story</span>
+				<h2>Born from a love of the Central Texas landscape</h2>
+				<p>Greenfield Landscaping was founded in Austin in 2012 by Marcus Greenfield, a landscape architect who had spent years watching homeowners struggle to keep up with gardens designed for climates they didn't live in. He wanted something different: landscapes drawn directly from the land they sat on.</p>
+				<p>What started as a one-person practice has grown into a studio of nine — designers, horticulturists, and project managers who share a commitment to working with the ecology of the Hill Country rather than fighting it. We've completed more than 2,500 projects across Austin, the Hill Country, and the surrounding region.</p>
+				<p>Every project still begins the same way it did in 2012: with a long walk through the property, a lot of listening, and a careful study of light, soil, and drainage before a single plant is named.</p>
+			</div>
+			<div class="story-images fade-in fade-in-delay-2">
+				<div class="story-img-stack">
+					<img
+						src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=640&h=820&fit=crop"
+						alt="Landscape design in progress"
+						class="story-img-main"
+						loading="lazy"
+					/>
+					<div class="story-img-float">
+						<img
+							src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=400&h=300&fit=crop"
+							alt="Native plants up close"
+							loading="lazy"
+						/>
+					</div>
+					<div class="story-stat">
+						<span class="stat-number">2,500+</span>
+						<span class="stat-label">Projects Completed</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== PULL QUOTE ===== */}
+	<section class="quote-section">
+		<div class="container">
+			<div class="pull-quote-wrap fade-in">
+				<div class="pull-quote-line"></div>
+				<blockquote class="pull-quote">
+					"The most beautiful garden is not one that was imposed on a place, but one that emerged from it. We don't fight the Texas climate. We learn from it, and design spaces that feel inevitable."
+				</blockquote>
+				<cite class="pull-quote-cite">Marcus Greenfield, Principal Designer</cite>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== PHILOSOPHY ===== */}
+	<section class="section philosophy-section">
+		<div class="container">
+			<div class="philosophy-header fade-in">
+				<span class="eyebrow">How We Work</span>
+				<h2>Design principles we live by</h2>
+			</div>
+			<div class="philosophy-grid">
+				<div class="philosophy-card fade-in fade-in-delay-1">
+					<div class="philosophy-icon">
+						<i class="ph ph-leaf"></i>
+					</div>
+					<h3>Native-First Planting</h3>
+					<p>We prioritize Texas natives and regionally adapted species in every design. These plants evolved here. They know the soil, the heat, and the rhythms of rain in ways imported species never will. The result is a garden that asks less of you and gives more in return.</p>
+				</div>
+				<div class="philosophy-card fade-in fade-in-delay-2">
+					<div class="philosophy-icon">
+						<i class="ph ph-drop"></i>
+					</div>
+					<h3>Water as a Design Element</h3>
+					<p>In Central Texas, water is a gift. We treat it that way. Every design we create begins with a drainage analysis and a thoughtful irrigation strategy — capturing what falls from the sky and directing it purposefully through the landscape rather than off the property.</p>
+				</div>
+				<div class="philosophy-card fade-in fade-in-delay-3">
+					<div class="philosophy-icon">
+						<i class="ph ph-sun"></i>
+					</div>
+					<h3>Living Outdoor Spaces</h3>
+					<p>A garden that no one uses is a missed opportunity. We design for the full arc of outdoor living: morning coffee in dappled shade, evening gatherings around a fire, children's meandering paths through native meadows. Beauty and livability are never in conflict.</p>
+				</div>
+				<div class="philosophy-card fade-in fade-in-delay-1">
+					<div class="philosophy-icon">
+						<i class="ph ph-recycle"></i>
+					</div>
+					<h3>Ecological Stewardship</h3>
+					<p>We think about the pollinators, the birds, the soil microbiome. Our plant selections are chosen not just for visual beauty but for the ecological web they support. A healthy garden is one that feeds something beyond itself.</p>
+				</div>
+				<div class="philosophy-card fade-in fade-in-delay-2">
+					<div class="philosophy-icon">
+						<i class="ph ph-hand-heart"></i>
+					</div>
+					<h3>Craft Over Speed</h3>
+					<p>We take on a deliberate number of projects each year — enough to keep our team engaged and our standards high, not so many that any project suffers. You'll know your designer's name, and they'll know yours.</p>
+				</div>
+				<div class="philosophy-card fade-in fade-in-delay-3">
+					<div class="philosophy-icon">
+						<i class="ph ph-tree"></i>
+					</div>
+					<h3>Landscapes that Mature</h3>
+					<p>The best landscapes don't peak at installation day. We design with time in mind: plants that fill in beautifully, structures that weather with character, bones that carry the garden through every season. We're planting for the next decade, not just next spring.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== TEAM ===== */}
+	<section class="section team-section">
+		<div class="container">
+			<div class="team-header fade-in">
+				<span class="eyebrow">The People</span>
+				<h2>The studio behind the gardens</h2>
+				<p class="team-intro">Every project is touched by many hands. Here are the people at the core of the studio.</p>
+			</div>
+
+			{displayTeam ? (
+				<div class="team-grid">
+					{teamMembers.map((member, i) => (
+						<div class={`team-card fade-in fade-in-delay-${Math.min(i + 1, 3)}`}>
+							{member.data.photo && (
+								<div class="team-photo-wrap">
+									<img
+										src={typeof member.data.photo === "string" ? member.data.photo : (member.data.photo as any)?.url}
+										alt={member.data.name}
+										class="team-photo"
+										loading="lazy"
+									/>
+								</div>
+							)}
+							<div class="team-info">
+								<h3>{member.data.name}</h3>
+								{member.data.role && <p class="team-role">{member.data.role}</p>}
+								{member.data.bio && <p class="team-bio">{member.data.bio}</p>}
+							</div>
+						</div>
+					))}
+				</div>
+			) : (
+				<div class="team-grid">
+					{hardcodedTeam.map((member, i) => (
+						<div class={`team-card fade-in fade-in-delay-${i + 1}`}>
+							<div class="team-photo-wrap">
+								<img
+									src={member.image}
+									alt={member.name}
+									class="team-photo"
+									loading="lazy"
+								/>
+							</div>
+							<div class="team-info">
+								<h3>{member.name}</h3>
+								<p class="team-role">{member.role}</p>
+								<p class="team-bio">{member.bio}</p>
+							</div>
+						</div>
+					))}
+				</div>
+			)}
+		</div>
+	</section>
+
+	{/* ===== CTA ===== */}
+	<section class="about-cta">
+		<div class="about-cta-inner container fade-in">
+			<span class="eyebrow eyebrow-light">Begin here</span>
+			<h2>Ready to design your garden?</h2>
+			<p>A conversation costs nothing. Schedule a complimentary site visit and let's see what your land is asking for.</p>
+			<div class="about-cta-actions">
+				<a href="/contact" class="btn btn-accent btn-lg">Schedule a Consultation</a>
+				<a href="/work" class="btn-outline-light">View Portfolio <i class="ph ph-arrow-right"></i></a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== Shared ===== */
+	.eyebrow {
+		display: inline-block;
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--color-accent);
+		margin-bottom: 1rem;
+	}
+
+	.eyebrow-light {
+		color: rgba(255,255,255,0.5);
+	}
+
+	/* ===== Story ===== */
+	.story-section {
+		padding-bottom: 0;
+	}
+
+	.story-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-4xl);
+		align-items: center;
+	}
+
+	.story-text {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.story-text h2 {
+		color: var(--color-primary);
+		font-size: clamp(2rem, 3.5vw, 3rem);
+	}
+
+	.story-text p {
+		font-size: 1.0625rem;
+		color: var(--color-text-light);
+		line-height: 1.85;
+	}
+
+	.story-images {
+		position: relative;
+	}
+
+	.story-img-stack {
+		position: relative;
+	}
+
+	.story-img-main {
+		width: 82%;
+		height: 520px;
+		object-fit: cover;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-xl);
+		margin-left: auto;
+		display: block;
+	}
+
+	.story-img-float {
+		position: absolute;
+		bottom: -3.5rem;
+		left: 0;
+		width: 46%;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		box-shadow: var(--shadow-lg);
+		border: 4px solid var(--color-bg);
+	}
+
+	.story-img-float img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+
+	.story-stat {
+		position: absolute;
+		top: 2.5rem;
+		left: 0;
+		background: var(--color-primary);
+		color: white;
+		padding: 1.4rem 1.75rem;
+		border-radius: var(--radius-md);
+		text-align: center;
+		box-shadow: var(--shadow-lg);
+	}
+
+	.stat-number {
+		display: block;
+		font-family: var(--font-display);
+		font-size: 2.4rem;
+		font-weight: 300;
+		line-height: 1;
+	}
+
+	.stat-label {
+		display: block;
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.65;
+		margin-top: 0.3rem;
+	}
+
+	/* ===== Pull Quote ===== */
+	.quote-section {
+		background: var(--color-surface);
+		padding: var(--space-5xl) 0;
+		margin-top: var(--space-5xl);
+	}
+
+	.pull-quote-wrap {
+		max-width: 780px;
+		margin: 0 auto;
+		text-align: center;
+		position: relative;
+		padding: 0 2rem;
+	}
+
+	.pull-quote-line {
+		width: 60px;
+		height: 2px;
+		background: var(--color-accent);
+		margin: 0 auto 2.5rem;
+	}
+
+	.pull-quote {
+		font-family: var(--font-display);
+		font-size: clamp(1.4rem, 2.5vw, 2rem);
+		font-weight: 300;
+		font-style: italic;
+		color: var(--color-primary);
+		line-height: 1.5;
+		letter-spacing: -0.01em;
+	}
+
+	.pull-quote-cite {
+		display: block;
+		margin-top: 2rem;
+		font-family: var(--font-body);
+		font-size: 0.78rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--color-muted);
+		font-style: normal;
+	}
+
+	/* ===== Philosophy ===== */
+	.philosophy-section {
+		background: var(--color-bg);
+	}
+
+	.philosophy-header {
+		max-width: 560px;
+		margin-bottom: var(--space-3xl);
+	}
+
+	.philosophy-header h2 {
+		color: var(--color-primary);
+	}
+
+	.philosophy-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+
+	.philosophy-card {
+		padding: 2.5rem 2rem;
+		background: var(--color-surface);
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border-light);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		transition: transform var(--ease-base), box-shadow var(--ease-base);
+	}
+
+	.philosophy-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.philosophy-icon {
+		width: 52px;
+		height: 52px;
+		background: var(--color-sage-light);
+		border-radius: var(--radius-md);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 24px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.philosophy-card h3 {
+		font-size: 1.35rem;
+		color: var(--color-primary);
+		font-weight: 400;
+	}
+
+	.philosophy-card p {
+		font-size: 0.9375rem;
+		color: var(--color-text-light);
+		line-height: 1.8;
+	}
+
+	/* ===== Team ===== */
+	.team-section {
+		background: var(--color-surface);
+	}
+
+	.team-header {
+		max-width: 600px;
+		margin-bottom: var(--space-3xl);
+	}
+
+	.team-header h2 {
+		color: var(--color-primary);
+	}
+
+	.team-intro {
+		font-size: 1.05rem;
+		color: var(--color-text-light);
+		line-height: 1.75;
+		margin-top: 0.75rem;
+	}
+
+	.team-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+
+	.team-card {
+		background: var(--color-bg);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		border: 1px solid var(--color-border-light);
+		box-shadow: var(--shadow-sm);
+		transition: transform var(--ease-base), box-shadow var(--ease-base);
+	}
+
+	.team-card:hover {
+		transform: translateY(-5px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.team-photo-wrap {
+		overflow: hidden;
+		height: 280px;
+	}
+
+	.team-photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+		transition: transform var(--ease-botanical);
+	}
+
+	.team-card:hover .team-photo {
+		transform: scale(1.05);
+	}
+
+	.team-info {
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.team-info h3 {
+		font-size: 1.5rem;
+		color: var(--color-primary);
+		font-weight: 400;
+	}
+
+	.team-role {
+		font-family: var(--font-body);
+		font-size: 0.72rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-accent);
+	}
+
+	.team-bio {
+		font-size: 0.9rem;
+		color: var(--color-text-light);
+		line-height: 1.8;
+		margin-top: 0.5rem;
+	}
+
+	/* ===== CTA ===== */
+	.about-cta {
+		background: var(--color-primary);
+		padding: var(--space-5xl) 0;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.about-cta::before {
+		content: '';
+		position: absolute;
+		top: -30%;
+		right: -10%;
+		width: 600px;
+		height: 600px;
+		background: radial-gradient(circle, rgba(143, 174, 126, 0.1) 0%, transparent 70%);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.about-cta-inner {
+		text-align: center;
+		position: relative;
+		z-index: 1;
+	}
+
+	.about-cta-inner h2 {
+		color: white;
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		font-weight: 300;
+		margin-bottom: 1.25rem;
+	}
+
+	.about-cta-inner p {
+		font-size: 1.05rem;
+		color: rgba(255,255,255,0.65);
+		line-height: 1.75;
+		max-width: 520px;
+		margin: 0 auto 2.5rem;
+	}
+
+	.about-cta-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.btn-outline-light {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: var(--font-body);
+		font-size: 0.78rem;
+		font-weight: 500;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.7);
+		border: 1.5px solid rgba(255,255,255,0.3);
+		padding: 0.9rem 1.75rem;
+		border-radius: var(--radius-full);
+		transition: all var(--ease-base);
+		text-decoration: none;
+	}
+
+	.btn-outline-light:hover {
+		color: white;
+		border-color: rgba(255,255,255,0.7);
+		background: rgba(255,255,255,0.08);
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 1024px) {
+		.philosophy-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.story-img-main {
+			height: 420px;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.story-grid {
+			grid-template-columns: 1fr;
+		}
+		.story-images {
+			order: -1;
+		}
+		.story-img-main {
+			width: 100%;
+			height: 380px;
+		}
+		.team-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 600px) {
+		.philosophy-grid {
+			grid-template-columns: 1fr;
+		}
+		.team-grid {
+			grid-template-columns: 1fr;
+		}
+		.story-img-float,
+		.story-stat {
+			display: none;
+		}
+	}
+</style>

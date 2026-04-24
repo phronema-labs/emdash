@@ -6,11 +6,11 @@
 
 :root {
 	/* Layout grid */
-	--site-max-width: 1200px;
-	--site-gutter: 2rem; /* 32px — breathing room on all sides */
+	--site-max-width: 1240px;
+	--site-gutter: 2.5rem; /* 40px — generous breathing room */
 	--site-gutter-mobile: 1.25rem; /* 20px — tighter on small screens */
 
-	/* Spacing scale */
+	/* Spacing scale — more generous for premium feel */
 	--space-xs: 0.25rem;
 	--space-sm: 0.5rem;
 	--space-md: 1rem;
@@ -18,37 +18,39 @@
 	--space-xl: 2rem;
 	--space-2xl: 3rem;
 	--space-3xl: 4rem;
-	--space-4xl: 6rem;
-	--space-5xl: 8rem;
+	--space-4xl: 6rem;   /* was 5rem — elevated section padding */
+	--space-5xl: 8rem;   /* was 6rem — hero breathing room */
 
-	/* Typography scale — bigger headings for service industry */
+	/* Typography scale */
 	--text-xs: 0.75rem;
 	--text-sm: 0.875rem;
-	--text-base: 1.0625rem;
-	--text-md: 1.0625rem;
-	--text-lg: 1.1875rem;
-	--text-xl: 1.375rem;
-	--text-2xl: 1.75rem;
-	--text-3xl: 2.5rem;
-	--text-4xl: 3.25rem;
-	--text-5xl: 4.25rem;
+	--text-base: 1rem;
+	--text-md: 1rem;
+	--text-lg: 1.125rem;
+	--text-xl: 1.25rem;
+	--text-2xl: 1.5rem;
+	--text-3xl: 2rem;
+	--text-4xl: 2.75rem;
+	--text-5xl: 3.75rem; /* slightly larger for premium display */
 
 	/* Radii */
 	--radius-sm: 6px;
-	--radius-md: 10px;
-	--radius-lg: 16px;
+	--radius-md: 12px;
+	--radius-lg: 20px;
 	--radius-full: 9999px;
 
 	/* Transitions */
 	--ease-fast: 150ms ease;
-	--ease-base: 200ms ease;
-	--ease-slow: 300ms ease;
+	--ease-base: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-slow: 380ms cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
-	/* Shadows */
-	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-	--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+	/* Shadows — layered for depth */
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 4px rgba(0, 0, 0, 0.03);
+	--shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+	--shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.06);
+	--shadow-xl: 0 24px 48px -8px rgba(0, 0, 0, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.06);
+	--shadow-2xl: 0 40px 80px -16px rgba(0, 0, 0, 0.15), 0 16px 32px -10px rgba(0, 0, 0, 0.08);
 }
 
 /* ---- Container ---- */
@@ -60,13 +62,55 @@
 
 /* ---- Section ---- */
 .section {
-	padding-block: var(--space-5xl);
+	padding-block: var(--space-4xl);
 	padding-inline: var(--site-gutter);
+}
+
+/* ---- Premium utility classes ---- */
+
+/* Card with glass/frost treatment */
+.card-glass {
+	background: var(--surface-frosted, rgba(255, 255, 255, 0.85));
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.07));
+	border-radius: var(--radius-lg);
+}
+
+/* Elevated card with premium shadow */
+.card-elevated {
+	background: white;
+	border-radius: var(--radius-lg);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	box-shadow: var(--shadow-md);
+	transition: transform var(--ease-base), box-shadow var(--ease-base);
+}
+
+.card-elevated:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-xl);
+}
+
+/* Eyebrow label style */
+.eyebrow {
+	font-family: var(--font-body, system-ui);
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: var(--color-primary);
+}
+
+/* Mesh gradient background */
+.bg-mesh {
+	background-image: var(--gradient-mesh);
 }
 
 /* ---- Mobile overrides ---- */
 @media (max-width: 768px) {
 	:root {
 		--site-gutter: var(--site-gutter-mobile);
+		--space-4xl: 4.5rem;
+		--space-5xl: 5.5rem;
 	}
 }

@@ -1,0 +1,106 @@
+---
+import { getEmDashEntry, decodeSlug } from "emdash";
+import { PortableText, Image } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+
+const slug = decodeSlug(Astro.params.slug!);
+const { entry, cacheHint } = await getEmDashEntry("posts", slug);
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+if (!entry) return Astro.redirect("/404");
+
+const publishedDate = entry.data.publishedAt
+	? new Date(entry.data.publishedAt).toLocaleDateString("en-US", {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+		})
+	: null;
+---
+
+<Base title={entry.data.title} description={entry.data.excerpt}>
+	<article class="container section">
+		<header class="post-header">
+			<h1>{entry.data.title}</h1>
+			{publishedDate && <time class="post-date">{publishedDate}</time>}
+		</header>
+
+		{entry.data.featured_image && (
+			<div class="post-hero">
+				<Image value={entry.data.featured_image} alt={entry.data.title} />
+			</div>
+		)}
+
+		{entry.data.content && (
+			<div class="prose">
+				<PortableText value={entry.data.content} />
+			</div>
+		)}
+
+		<div style="margin-top: var(--spacing-3xl); padding-top: var(--spacing-xl); border-top: 1px solid var(--color-border);">
+			<a href="/blog" class="btn btn-secondary">&larr; Back to Blog</a>
+		</div>
+	</article>
+</Base>
+
+<style>
+	.post-header {
+		max-width: var(--max-width);
+		margin-bottom: var(--spacing-2xl);
+	}
+
+	.post-date {
+		display: block;
+		margin-top: var(--spacing-sm);
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.post-hero {
+		margin-bottom: var(--spacing-2xl);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+
+	.post-hero :global(img) {
+		width: 100%;
+		max-height: 450px;
+		object-fit: cover;
+	}
+
+	.prose {
+		max-width: var(--max-width);
+	}
+
+	.prose :global(p) {
+		margin-bottom: var(--spacing-md);
+		line-height: 1.7;
+	}
+
+	.prose :global(h2) {
+		margin-top: var(--spacing-2xl);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.prose :global(h3) {
+		margin-top: var(--spacing-xl);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.prose :global(ul), .prose :global(ol) {
+		margin-bottom: var(--spacing-md);
+		padding-left: var(--spacing-xl);
+	}
+
+	.prose :global(li) {
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.prose :global(blockquote) {
+		border-left: 3px solid var(--color-primary);
+		padding-left: var(--spacing-lg);
+		margin: var(--spacing-xl) 0;
+		color: var(--color-muted);
+		font-style: italic;
+	}
+</style>

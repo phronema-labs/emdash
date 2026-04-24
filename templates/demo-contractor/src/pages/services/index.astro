@@ -1,0 +1,522 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../layouts/Base.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const { entries: services, cacheHint } = await getEmDashCollection("services", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const capabilities = [
+	{ icon: "ph-house-line", label: "Residential" },
+	{ icon: "ph-buildings", label: "Commercial" },
+	{ icon: "ph-ruler", label: "Design-Build" },
+	{ icon: "ph-certificate", label: "Licensed & Bonded" },
+	{ icon: "ph-clock-clockwise", label: "On-Schedule" },
+	{ icon: "ph-shield-check", label: "5-Year Warranty" },
+];
+---
+
+<Base title="Services" description="Full-service general contracting in Denver. Kitchen remodels, bathroom renovations, home additions, new construction, and commercial build-outs.">
+	<PageHero
+		title="What We Build"
+		subtitle="From a single bathroom renovation to a complete custom home. Design-build approach, fixed-price contracts."
+		image="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&h=600&fit=crop"
+	/>
+
+	{/* ===== INTRO STRIP ===== */}
+	<section class="services-intro">
+		<div class="container intro-grid">
+			<div class="intro-copy" data-reveal>
+				<span class="label-tag">// Full-Service General Contracting</span>
+				<h2>ONE COMPANY. EVERY PHASE.</h2>
+				<p>
+					Most contractors hand off design to an architect, hand off permits to a runner, and hand off specialty trades to whoever picks up the phone. We don't work that way. Ironclad Builders owns the entire process — concept, design, permitting, construction, and final inspection — under one contract, one project manager, and one warranty.
+				</p>
+			</div>
+			<div class="capability-pills" data-reveal data-delay="2">
+				{capabilities.map((c) => (
+					<div class="cap-pill">
+						<i class={`ph ${c.icon}`}></i>
+						<span>{c.label}</span>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* ===== SERVICES GRID ===== */}
+	<section class="services-block">
+		<div class="services-dark-cut-top"></div>
+		<div class="services-dark-body">
+			<div class="container">
+				<div class="services-block-head" data-reveal>
+					<span class="label-tag">// Available Services</span>
+					<h2>OUR SERVICES</h2>
+				</div>
+
+				{services.length > 0 ? (
+					<div class="services-grid" data-reveal data-delay="2">
+						{services.map((service) => (
+							<ServiceCard
+								title={service.data.title}
+								summary={service.data.summary}
+								icon={service.data.icon}
+								priceFrom={service.data.price_from}
+								href={`/services/${service.slug}`}
+								ctaLabel={service.data.cta_label}
+							/>
+						))}
+					</div>
+				) : (
+					<div class="services-grid" data-reveal data-delay="2">
+						{/* Hardcoded fallback cards */}
+						<a href="/services/kitchen-remodeling" class="service-card-static">
+							<div class="scs-inner">
+								<div class="scs-top">
+									<div class="scs-icon"><i class="ph ph-cooking-pot"></i></div>
+									<span class="scs-price">From $28,000</span>
+								</div>
+								<h3>Kitchen Remodeling</h3>
+								<p>Full gut-and-rebuild kitchen renovations. Cabinet installation, countertops, plumbing, electrical, and appliances — all under one contract.</p>
+								<span class="scs-cta">Learn More <i class="ph ph-arrow-right"></i></span>
+							</div>
+							<div class="scs-accent"></div>
+						</a>
+						<a href="/services/bathroom-remodeling" class="service-card-static">
+							<div class="scs-inner">
+								<div class="scs-top">
+									<div class="scs-icon"><i class="ph ph-bathtub"></i></div>
+									<span class="scs-price">From $14,000</span>
+								</div>
+								<h3>Bathroom Remodeling</h3>
+								<p>Custom tile work, walk-in showers, soaking tubs, double vanities. We build bathrooms that hold up for decades, not years.</p>
+								<span class="scs-cta">Learn More <i class="ph ph-arrow-right"></i></span>
+							</div>
+							<div class="scs-accent"></div>
+						</a>
+						<a href="/services/home-additions" class="service-card-static">
+							<div class="scs-inner">
+								<div class="scs-top">
+									<div class="scs-icon"><i class="ph ph-house-line"></i></div>
+									<span class="scs-price">From $90,000</span>
+								</div>
+								<h3>Additions &amp; ADUs</h3>
+								<p>Master suite additions, garage conversions, accessory dwelling units. We handle permits, engineering, and full build — you don't lift a finger.</p>
+								<span class="scs-cta">Learn More <i class="ph ph-arrow-right"></i></span>
+							</div>
+							<div class="scs-accent"></div>
+						</a>
+						<a href="/services/whole-home-renovation" class="service-card-static">
+							<div class="scs-inner">
+								<div class="scs-top">
+									<div class="scs-icon"><i class="ph ph-hammer"></i></div>
+									<span class="scs-price">From $180,000</span>
+								</div>
+								<h3>Whole-Home Renovation</h3>
+								<p>Top-to-bottom home transformations. We rebuild the bones, modernize systems, and redesign every space while you stay in a furnished rental we help arrange.</p>
+								<span class="scs-cta">Learn More <i class="ph ph-arrow-right"></i></span>
+							</div>
+							<div class="scs-accent"></div>
+						</a>
+						<a href="/services/new-construction" class="service-card-static">
+							<div class="scs-inner">
+								<div class="scs-top">
+									<div class="scs-icon"><i class="ph ph-buildings"></i></div>
+									<span class="scs-price">From $380,000</span>
+								</div>
+								<h3>New Construction</h3>
+								<p>Custom homes built from foundation to finish. We manage the design team, engineer, and every trade. You get a turnkey home on a fixed price.</p>
+								<span class="scs-cta">Learn More <i class="ph ph-arrow-right"></i></span>
+							</div>
+							<div class="scs-accent"></div>
+						</a>
+						<a href="/services/commercial" class="service-card-static">
+							<div class="scs-inner">
+								<div class="scs-top">
+									<div class="scs-icon"><i class="ph ph-storefront"></i></div>
+									<span class="scs-price">Custom Quote</span>
+								</div>
+								<h3>Commercial Build-Out</h3>
+								<p>Office renovations, retail build-outs, restaurant construction. Commercial-grade standards applied to your business space, on time and on budget.</p>
+								<span class="scs-cta">Learn More <i class="ph ph-arrow-right"></i></span>
+							</div>
+							<div class="scs-accent"></div>
+						</a>
+					</div>
+				)}
+			</div>
+		</div>
+		<div class="services-dark-cut-bottom"></div>
+	</section>
+
+	{/* ===== WHY WORK WITH US ===== */}
+	<section class="services-why">
+		<div class="container services-why-grid">
+			<div class="why-image" data-reveal>
+				<img
+					src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&h=600&fit=crop"
+					alt="Ironclad construction quality"
+					loading="lazy"
+				/>
+			</div>
+			<div class="why-content" data-reveal data-delay="1">
+				<span class="label-tag">// The Difference</span>
+				<h2>WHY HIRE IRONCLAD</h2>
+				<div class="why-rows">
+					<div class="why-row">
+						<i class="ph ph-file-text why-row-icon"></i>
+						<div>
+							<h4>Fixed-Price Contracts Only</h4>
+							<p>We quote it. We honor it. No T&amp;M billing, no "scope creep" surcharges, no change-order shakedowns.</p>
+						</div>
+					</div>
+					<div class="why-row">
+						<i class="ph ph-user-gear why-row-icon"></i>
+						<div>
+							<h4>Dedicated Project Manager</h4>
+							<p>One person manages your project from estimate to final walkthrough. You always know who to call.</p>
+						</div>
+					</div>
+					<div class="why-row">
+						<i class="ph ph-shield-check why-row-icon"></i>
+						<div>
+							<h4>5-Year Workmanship Warranty</h4>
+							<p>Industry-leading coverage on all labor. If we built it wrong, we come back and fix it at our cost.</p>
+						</div>
+					</div>
+					<div class="why-row">
+						<i class="ph ph-clock why-row-icon"></i>
+						<div>
+							<h4>On-Schedule Track Record</h4>
+							<p>98% of our projects finish within the contracted window. We pad schedules honestly, not optimistically.</p>
+						</div>
+					</div>
+				</div>
+				<a href="/contact" class="btn btn-primary" style="margin-top: var(--space-xl);">Get a Free Estimate</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== LABELS ===== */
+	.label-tag {
+		font-family: "DM Mono", monospace;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+	}
+
+	/* ===== INTRO ===== */
+	.services-intro {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0 var(--space-3xl);
+	}
+
+	.intro-grid {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: var(--space-3xl);
+		align-items: start;
+	}
+
+	.intro-copy h2 {
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		line-height: 0.95;
+		color: #111;
+		margin: var(--space-md) 0 var(--space-xl);
+	}
+
+	.intro-copy p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		line-height: 1.7;
+		color: var(--color-muted);
+	}
+
+	.capability-pills {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2px;
+		align-self: center;
+	}
+
+	.cap-pill {
+		background: #111;
+		padding: 1rem 1.25rem;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		color: rgba(255,255,255,0.7);
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		border-left: 3px solid rgba(255,107,0,0.3);
+		transition: border-color 0.2s ease, background 0.2s ease;
+	}
+
+	.cap-pill:hover {
+		border-left-color: var(--color-primary);
+		background: #1a1a1a;
+	}
+
+	.cap-pill i {
+		font-size: 18px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	/* ===== SERVICES DARK SECTION ===== */
+	.services-block {
+		position: relative;
+		background: #111;
+	}
+
+	.services-dark-cut-top {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+
+	.services-dark-cut-bottom {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 100%, 0 100%);
+	}
+
+	.services-dark-body {
+		background: #111;
+		padding: var(--space-3xl) 0;
+	}
+
+	.services-block-head {
+		margin-bottom: var(--space-2xl);
+	}
+
+	.services-block-head h2 {
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		color: white;
+		margin-top: var(--space-md);
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2px;
+	}
+
+	/* Static service cards for fallback */
+	.service-card-static {
+		display: block;
+		position: relative;
+		text-decoration: none;
+		color: white;
+		background: #1a1a1a;
+		border: 1px solid rgba(255,255,255,0.06);
+		overflow: hidden;
+		transition: transform 0.2s ease, border-color 0.2s ease;
+	}
+
+	.service-card-static:hover {
+		transform: translateY(-4px);
+		border-color: rgba(255,107,0,0.3);
+	}
+
+	.scs-accent {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: var(--color-primary);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.3s ease;
+	}
+
+	.service-card-static:hover .scs-accent {
+		transform: scaleX(1);
+	}
+
+	.scs-inner {
+		padding: 2rem 1.75rem;
+		display: flex;
+		flex-direction: column;
+		min-height: 280px;
+	}
+
+	.scs-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1.25rem;
+	}
+
+	.scs-icon {
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 24px;
+		color: var(--color-primary);
+		background: rgba(255,107,0,0.1);
+		border: 1px solid rgba(255,107,0,0.2);
+		flex-shrink: 0;
+	}
+
+	.scs-price {
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-accent);
+		background: rgba(245,197,24,0.1);
+		border: 1px solid rgba(245,197,24,0.2);
+		padding: 3px 8px;
+		align-self: flex-start;
+	}
+
+	.scs-inner h3 {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 1.75rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: white;
+		margin-bottom: 0.75rem;
+	}
+
+	.scs-inner p {
+		font-family: "DM Sans", sans-serif;
+		font-size: 0.875rem;
+		line-height: 1.65;
+		color: rgba(255,255,255,0.5);
+		flex: 1;
+		margin-bottom: 1.5rem;
+	}
+
+	.scs-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-family: "DM Sans", sans-serif;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		margin-top: auto;
+		transition: gap 0.2s ease;
+	}
+
+	.service-card-static:hover .scs-cta {
+		gap: 10px;
+	}
+
+	/* ===== WHY SECTION ===== */
+	.services-why {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+	}
+
+	.services-why-grid {
+		display: grid;
+		grid-template-columns: 0.9fr 1.1fr;
+		gap: var(--space-3xl);
+		align-items: center;
+	}
+
+	.why-image img {
+		width: 100%;
+		display: block;
+		object-fit: cover;
+		filter: brightness(0.9) saturate(0.85);
+	}
+
+	.why-content h2 {
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		line-height: 0.95;
+		color: #111;
+		margin: var(--space-md) 0 var(--space-2xl);
+	}
+
+	.why-rows {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-lg);
+	}
+
+	.why-row {
+		display: flex;
+		gap: var(--space-lg);
+		align-items: flex-start;
+		padding-bottom: var(--space-lg);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.why-row:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	.why-row-icon {
+		font-size: 22px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	.why-row h4 {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: #111;
+		margin-bottom: 4px;
+		letter-spacing: 0;
+	}
+
+	.why-row p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		line-height: 1.65;
+		color: var(--color-muted);
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 1100px) {
+		.services-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 900px) {
+		.intro-grid {
+			grid-template-columns: 1fr;
+		}
+		.capability-pills {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		.services-why-grid {
+			grid-template-columns: 1fr;
+		}
+		.why-image {
+			order: -1;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.services-grid {
+			grid-template-columns: 1fr;
+		}
+		.capability-pills {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

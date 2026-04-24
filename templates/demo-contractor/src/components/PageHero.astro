@@ -1,0 +1,108 @@
+---
+interface Props {
+	title: string;
+	subtitle?: string;
+	image: string;
+}
+
+const { title, subtitle, image } = Astro.props;
+---
+
+<section class="page-hero" style={`background-image: url('${image}');`}>
+	<div class="page-hero-overlay"></div>
+	<!-- Diagonal stripes -->
+	<div class="page-hero-stripe"></div>
+	<div class="page-hero-inner container">
+		<div class="page-hero-content">
+			<h1>{title}</h1>
+			{subtitle && <p>{subtitle}</p>}
+		</div>
+	</div>
+	<div class="page-hero-cut"></div>
+</section>
+
+<style>
+	.page-hero {
+		position: relative;
+		background: #111 center/cover no-repeat;
+		padding: 0;
+		color: white;
+		min-height: 320px;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.page-hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to right, rgba(17,17,17,0.92) 40%, rgba(17,17,17,0.6) 100%);
+	}
+
+	/* Diagonal stripe decoration */
+	.page-hero-stripe {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background: repeating-linear-gradient(
+			-45deg,
+			transparent,
+			transparent 40px,
+			rgba(255,107,0,0.03) 40px,
+			rgba(255,107,0,0.03) 42px
+		);
+		pointer-events: none;
+	}
+
+	.page-hero-inner {
+		position: relative;
+		z-index: 2;
+		flex: 1;
+		display: flex;
+		align-items: center;
+		padding-top: var(--space-3xl, 6rem);
+		padding-bottom: var(--space-2xl, 4rem);
+	}
+
+	.page-hero-content {
+		max-width: 700px;
+	}
+
+	.page-hero h1 {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: clamp(3rem, 7vw, 6rem);
+		line-height: 0.9;
+		letter-spacing: 0.02em;
+		color: white;
+	}
+
+	.page-hero p {
+		color: rgba(255,255,255,0.65);
+		font-family: "DM Sans", sans-serif;
+		font-size: 1.125rem;
+		line-height: 1.65;
+		margin-top: 1rem;
+		max-width: 500px;
+	}
+
+	/* Hard diagonal bottom edge */
+	.page-hero-cut {
+		height: 50px;
+		background: var(--color-bg, #faf9f7);
+		clip-path: polygon(0 100%, 100% 0%, 100% 100%);
+		position: relative;
+		z-index: 3;
+	}
+
+	@media (max-width: 768px) {
+		.page-hero h1 {
+			font-size: clamp(2.5rem, 10vw, 4rem);
+		}
+
+		.page-hero-cut {
+			height: 30px;
+		}
+	}
+</style>

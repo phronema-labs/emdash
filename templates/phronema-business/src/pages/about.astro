@@ -8,120 +8,605 @@ const { entry, cacheHint } = await getEmDashEntry("pages", "about");
 if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
 
 const { entries: teamMembers } = await getEmDashCollection("team", { status: "published" });
+
+const fallbackTeam = [
+	{
+		name: "Margaret R. Caldwell",
+		role: "Founding Partner",
+		bio: "Margaret founded the firm in 2001 after more than a decade at a regional firm where she led the business transactions group. She is AV Preeminent rated by Martindale-Hubbell and serves as lead counsel on complex business formations, mergers, and estate matters.",
+		photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop&crop=faces",
+		education: "J.D., University of Michigan Law School",
+	},
+	{
+		name: "James T. Caldwell",
+		role: "Senior Partner — Litigation",
+		bio: "James brings 18 years of trial experience across commercial disputes, family law, and civil litigation. A former Assistant District Attorney, he is known for his courtroom presence and methodical preparation. He is a member of the State Bar Trial Section.",
+		photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=faces",
+		education: "J.D., Duke University School of Law",
+	},
+	{
+		name: "Priya S. Okonkwo",
+		role: "Associate — Estate Planning & Family Law",
+		bio: "Priya joined the firm in 2018 after clerking for the State Court of Appeals. She practices in estate planning, trust administration, and family law, and is known for her attentive, detail-oriented approach to client matters.",
+		photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=500&fit=crop&crop=faces",
+		education: "J.D., Georgetown University Law Center",
+	},
+	{
+		name: "Daniel A. Mercer",
+		role: "Associate — Business Law & Contracts",
+		bio: "Daniel focuses on business formation, contract drafting, and commercial real estate transactions. Before law school, he worked in finance, giving him a uniquely practical perspective on business law matters for entrepreneurs and growing companies.",
+		photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=faces",
+		education: "J.D., Northwestern Pritzker School of Law",
+	},
+];
 ---
 
-<Base title="About Us" description="Learn about our team and how we keep homes running smoothly.">
+<Base title="About Us" description="Learn about Caldwell & Associates — our history, our attorneys, and our approach to delivering experienced, partner-led legal counsel.">
 	<PageHero
-		title="About Summit Home Services"
-		subtitle="Trusted by homeowners since 2009"
-		image="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1600&h=500&fit=crop"
+		title="About Caldwell & Associates"
+		subtitle="Partner-led legal counsel since 2001 — dedicated to the clients we serve."
+		image="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=500&fit=crop"
 	/>
 
-	{entry?.data.content && (
-		<section class="container section">
-			<div class="about-grid">
-				<div class="prose">
-					<PortableText value={entry.data.content} />
-				</div>
-				<div class="about-image">
-					<img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=800&fit=crop" alt="Service technician at work" loading="lazy" />
+	{/* ===== FIRM STORY ===== */}
+	<section class="section container">
+		<div class="story-grid">
+			<div class="story-content">
+				<span class="eyebrow">Our Story</span>
+				<h2>A firm built on <em>relationships</em></h2>
+				{entry?.data.content ? (
+					<div class="prose">
+						<PortableText value={entry.data.content} />
+					</div>
+				) : (
+					<div class="prose">
+						<p>Caldwell &amp; Associates was founded in 2001 by Margaret and James Caldwell with a single conviction: that individuals and businesses deserve the same quality of legal counsel that Fortune 500 companies take for granted.</p>
+						<p>After more than a combined two decades at larger regional firms, the Caldwells saw an opportunity to build something different — a boutique practice where partners remain directly involved in every matter, clients are known by name rather than file number, and billing is straightforward from day one.</p>
+						<p>Over the past two decades, the firm has grown to serve more than 1,200 clients across business law, estate planning, family law, and commercial litigation. We have remained deliberately selective in our client relationships, because the quality of our counsel depends on the depth of our understanding — and that understanding takes time.</p>
+						<p>We are proud to hold an AV Preeminent rating from Martindale-Hubbell, the highest rating available, reflecting both legal ability and professional ethics as assessed by peers and judges.</p>
+					</div>
+				)}
+				<div class="story-stats reveal-stagger">
+					<div class="story-stat">
+						<span class="story-stat-num">20+</span>
+						<span class="story-stat-label">Years in Practice</span>
+					</div>
+					<div class="story-stat">
+						<span class="story-stat-num">1,200+</span>
+						<span class="story-stat-label">Matters Handled</span>
+					</div>
+					<div class="story-stat">
+						<span class="story-stat-num">AV</span>
+						<span class="story-stat-label">Martindale-Hubbell Rated</span>
+					</div>
 				</div>
 			</div>
-		</section>
-	)}
+			<div class="story-image reveal">
+				<img
+					src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=700&h=900&fit=crop"
+					alt="Attorney reviewing documents at a desk"
+					loading="lazy"
+				/>
+				<div class="story-image-badge">
+					<i class="ph ph-scales"></i>
+					<div>
+						<strong>AV Preeminent</strong>
+						<span>Martindale-Hubbell Rated</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-	{teamMembers.length > 0 && (
-		<section class="section" style="background: var(--color-surface);">
-			<div class="container">
-				<h2 style="text-align: center; margin-bottom: var(--spacing-4xl);">Meet the Team</h2>
-				<div class="team-grid">
-					{teamMembers.map((member) => (
-						<div class="team-card">
-							{member.data.photo && (
-								<img src={typeof member.data.photo === "string" ? member.data.photo : (member.data.photo as any)?.url} alt={member.data.name} class="team-photo" loading="lazy" />
+	{/* ===== CORE VALUES ===== */}
+	<section class="section values-section">
+		<div class="container">
+			<div class="section-header reveal">
+				<span class="eyebrow">What We Stand For</span>
+				<h2>Our core <em>values</em></h2>
+				<p>Every decision we make — in the courtroom, at the negotiating table, and in our own firm — flows from these principles.</p>
+			</div>
+			<div class="values-grid reveal-stagger">
+				<div class="value-card">
+					<div class="value-icon"><i class="ph ph-scales"></i></div>
+					<h3>Integrity</h3>
+					<p>We give candid advice even when it isn't what clients hope to hear. Our reputation is built on honesty, and we treat every client's confidence as a trust we take seriously.</p>
+				</div>
+				<div class="value-card">
+					<div class="value-icon"><i class="ph ph-medal"></i></div>
+					<h3>Excellence</h3>
+					<p>We hold ourselves to the standard of the best firms, regardless of matter size. Every document we draft, every argument we make, and every negotiation we lead reflects that commitment.</p>
+				</div>
+				<div class="value-card">
+					<div class="value-icon"><i class="ph ph-handshake"></i></div>
+					<h3>Client-First</h3>
+					<p>Your goals are our goals. We take time to understand what success looks like for you — not just legally, but practically — and we measure our work against that standard.</p>
+				</div>
+				<div class="value-card">
+					<div class="value-icon"><i class="ph ph-eye"></i></div>
+					<h3>Transparency</h3>
+					<p>No surprise billings, no hidden fees, no hand-offs to junior associates without your knowledge. We operate with complete openness about cost, strategy, and realistic outcomes.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== TEAM ===== */}
+	<section class="section container">
+		<div class="section-header reveal">
+			<span class="eyebrow">The Attorneys</span>
+			<h2>Meet the <em>team</em></h2>
+			<p>Experienced attorneys who take your matter personally — because they handle it personally.</p>
+		</div>
+
+		{teamMembers.length > 0 ? (
+			<div class="team-grid reveal-stagger">
+				{teamMembers.map((member) => (
+					<div class="team-card">
+						<div class="team-photo-wrap">
+							{member.data.photo ? (
+								<img
+									src={typeof member.data.photo === "string" ? member.data.photo : (member.data.photo as any)?.url}
+									alt={member.data.name}
+									class="team-photo"
+									loading="lazy"
+								/>
+							) : (
+								<div class="team-photo-placeholder">
+									<i class="ph ph-user"></i>
+								</div>
 							)}
+						</div>
+						<div class="team-info">
 							<h3>{member.data.name}</h3>
 							{member.data.role && <p class="team-role">{member.data.role}</p>}
 							{member.data.bio && <p class="team-bio">{member.data.bio}</p>}
 						</div>
-					))}
-				</div>
+					</div>
+				))}
 			</div>
-		</section>
-	)}
+		) : (
+			<div class="team-grid reveal-stagger">
+				{fallbackTeam.map((member) => (
+					<div class="team-card">
+						<div class="team-photo-wrap">
+							<img
+								src={member.photo}
+								alt={member.name}
+								class="team-photo"
+								loading="lazy"
+							/>
+						</div>
+						<div class="team-info">
+							<h3>{member.name}</h3>
+							<p class="team-role">{member.role}</p>
+							<p class="team-bio">{member.bio}</p>
+							<p class="team-edu"><i class="ph ph-graduation-cap"></i> {member.education}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		)}
+	</section>
+
+	{/* ===== FINAL CTA ===== */}
+	<section class="section about-cta">
+		<div class="container" style="text-align: center; position: relative; z-index: 1;">
+			<span class="eyebrow" style="color: rgba(255,255,255,0.5);">Ready to Get Started?</span>
+			<h2 style="margin-top: 0.5rem;">Schedule a confidential <em>consultation</em></h2>
+			<p>In-person, phone, or video — whatever works for your schedule. We respond within one business day.</p>
+			<div class="about-cta-actions">
+				<a href="/contact" class="btn btn-accent-solid btn-lg">Schedule a Consultation</a>
+				<a href="/services" class="btn btn-outline-light btn-lg">View Practice Areas</a>
+			</div>
+		</div>
+	</section>
 </Base>
 
 <style>
-	.about-grid {
+	/* ===== Story section ===== */
+	.story-grid {
 		display: grid;
-		grid-template-columns: 1.2fr 0.8fr;
-		gap: var(--spacing-3xl);
+		grid-template-columns: 1.25fr 0.75fr;
+		gap: var(--space-4xl);
 		align-items: start;
 	}
 
-	.about-image img {
+	.story-content {
+		padding-top: var(--space-sm);
+	}
+
+	.story-content h2 {
+		font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+		margin-top: var(--space-sm);
+		margin-bottom: var(--space-xl);
+	}
+
+	.story-content h2 em {
+		font-style: italic;
+		color: var(--color-accent);
+	}
+
+	.prose p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-lg);
+		line-height: 1.75;
+		color: var(--color-muted);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.story-stats {
+		display: flex;
+		gap: var(--space-2xl);
+		margin-top: var(--space-2xl);
+		padding-top: var(--space-2xl);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.story-stat {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.story-stat-num {
+		font-family: var(--font-display);
+		font-size: clamp(1.75rem, 3vw, 2.5rem);
+		font-weight: 400;
+		color: var(--color-primary);
+		letter-spacing: -0.02em;
+	}
+
+	.story-stat-label {
+		font-family: var(--font-body);
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-muted);
+	}
+
+	.story-image {
+		position: relative;
+		margin-top: var(--space-xl);
+	}
+
+	.story-image img {
 		width: 100%;
 		border-radius: var(--radius-lg);
-		box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+		box-shadow: var(--shadow-xl);
+		display: block;
 	}
 
-	.prose {
-		max-width: var(--max-width);
+	.story-image-badge {
+		position: absolute;
+		bottom: -20px;
+		left: -20px;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		padding: 14px 18px;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		box-shadow: var(--shadow-lg);
 	}
 
-	.prose :global(p) {
-		margin-bottom: var(--spacing-md);
+	.story-image-badge i {
+		font-size: 28px;
+		color: var(--color-accent);
+	}
+
+	.story-image-badge strong {
+		font-family: var(--font-display);
+		font-size: var(--font-size-md);
+		font-weight: 400;
+		display: block;
+	}
+
+	.story-image-badge span {
+		font-family: var(--font-body);
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		display: block;
+	}
+
+	/* ===== Values ===== */
+	.values-section {
+		background: var(--color-surface);
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--space-3xl);
+	}
+
+	.section-header h2 {
+		font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+		margin-top: var(--space-sm);
+	}
+
+	.section-header h2 em {
+		font-style: italic;
+		color: var(--color-accent);
+	}
+
+	.section-header p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		margin-top: var(--spacing-md);
+		max-width: 540px;
+		margin-inline: auto;
 		line-height: 1.7;
 	}
 
-	.prose :global(h2) {
-		margin-top: var(--spacing-2xl);
-		margin-bottom: var(--spacing-md);
+	.values-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--spacing-lg);
 	}
 
+	.value-card {
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--space-2xl) var(--spacing-xl);
+		text-align: center;
+		transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.value-card::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.value-card:hover {
+		transform: translateY(-5px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.value-card:hover::after {
+		transform: scaleX(1);
+	}
+
+	.value-icon {
+		width: 56px;
+		height: 56px;
+		margin: 0 auto var(--spacing-lg);
+		border-radius: var(--radius-md);
+		background: var(--color-primary-light);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 24px;
+		color: var(--color-primary);
+		transition: background 0.3s ease, color 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	.value-card:hover .value-icon {
+		background: var(--color-primary);
+		color: white;
+		transform: scale(1.12) rotate(-4deg);
+	}
+
+	.value-card h3 {
+		font-size: var(--font-size-xl);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.value-card p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.7;
+	}
+
+	/* ===== Team ===== */
 	.team-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: var(--spacing-xl);
 	}
 
 	.team-card {
-		text-align: center;
-		padding: var(--spacing-xl);
-		background: var(--color-bg);
+		display: grid;
+		grid-template-columns: 160px 1fr;
+		gap: var(--spacing-xl);
+		align-items: start;
+		background: white;
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-lg);
+		padding: var(--spacing-xl);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.team-card:hover {
+		transform: translateY(-3px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.team-photo-wrap {
+		position: relative;
 	}
 
 	.team-photo {
-		width: 120px;
-		height: 120px;
-		border-radius: var(--radius-full);
+		width: 160px;
+		height: 200px;
 		object-fit: cover;
-		margin: 0 auto var(--spacing-md);
+		border-radius: var(--radius-md);
+		display: block;
+	}
+
+	.team-photo-placeholder {
+		width: 160px;
+		height: 200px;
+		border-radius: var(--radius-md);
+		background: var(--color-surface);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 48px;
+		color: var(--color-muted);
+	}
+
+	.team-info {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+	}
+
+	.team-info h3 {
+		font-size: var(--font-size-xl);
+		line-height: 1.2;
 	}
 
 	.team-role {
-		color: var(--color-primary);
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
-		font-weight: 500;
-		margin-top: var(--spacing-xs);
+		font-weight: 600;
+		color: var(--color-accent);
+		letter-spacing: 0.02em;
 	}
 
 	.team-bio {
-		color: var(--color-muted);
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
-		line-height: 1.6;
+		color: var(--color-muted);
+		line-height: 1.7;
+		margin-top: var(--spacing-xs);
+	}
+
+	.team-edu {
+		font-family: var(--font-body);
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-top: var(--spacing-sm);
+		padding-top: var(--spacing-sm);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.team-edu i {
+		color: var(--color-primary);
+		font-size: 14px;
+	}
+
+	/* ===== CTA ===== */
+	.about-cta {
+		background:
+			radial-gradient(ellipse at 20% 60%, color-mix(in srgb, var(--color-accent) 20%, transparent), transparent 50%),
+			radial-gradient(ellipse at 80% 30%, color-mix(in srgb, var(--color-primary) 30%, transparent), transparent 60%),
+			linear-gradient(140deg, var(--color-primary-dark) 0%, color-mix(in srgb, var(--color-primary) 80%, #000) 100%);
+		color: white;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.about-cta h2 {
+		font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+		color: white;
+	}
+
+	.about-cta h2 em {
+		font-style: italic;
+		color: color-mix(in srgb, var(--color-accent) 90%, white);
+	}
+
+	.about-cta p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-lg);
+		color: rgba(255,255,255,0.7);
 		margin-top: var(--spacing-md);
+		max-width: 480px;
+		margin-inline: auto;
+		line-height: 1.7;
+	}
+
+	.about-cta-actions {
+		display: flex;
+		gap: var(--spacing-md);
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-top: var(--spacing-xl);
+	}
+
+	.btn-accent-solid {
+		background: var(--color-accent);
+		color: white;
+		border: 2px solid var(--color-accent);
+		text-decoration: none;
+		transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.btn-accent-solid:hover {
+		background: color-mix(in srgb, var(--color-accent) 85%, #000);
+		border-color: color-mix(in srgb, var(--color-accent) 85%, #000);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 28px color-mix(in srgb, var(--color-accent) 40%, transparent);
+	}
+
+	.btn-outline-light {
+		color: white;
+		border: 2px solid rgba(255,255,255,0.35);
+		background: transparent;
+		text-decoration: none;
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+	}
+
+	.btn-outline-light:hover {
+		background: rgba(255,255,255,0.1);
+		border-color: rgba(255,255,255,0.6);
+		transform: translateY(-2px);
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 1100px) {
+		.values-grid { grid-template-columns: repeat(2, 1fr); }
 	}
 
 	@media (max-width: 900px) {
-		.about-grid { grid-template-columns: 1fr; }
-		.about-image { order: -1; }
-		.team-grid { grid-template-columns: repeat(2, 1fr); }
+		.story-grid {
+			grid-template-columns: 1fr;
+		}
+		.story-image {
+			order: -1;
+			max-width: 480px;
+		}
+		.story-image-badge {
+			bottom: -16px;
+			left: 12px;
+		}
+		.team-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	@media (max-width: 600px) {
-		.team-grid { grid-template-columns: 1fr; }
+		.values-grid { grid-template-columns: 1fr; }
+		.team-card {
+			grid-template-columns: 1fr;
+		}
+		.team-photo,
+		.team-photo-placeholder {
+			width: 100%;
+			height: 240px;
+		}
+		.story-stats {
+			flex-wrap: wrap;
+			gap: var(--spacing-lg);
+		}
 	}
 </style>

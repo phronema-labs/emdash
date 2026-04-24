@@ -1,0 +1,245 @@
+---
+interface Props {
+	testimonials: Array<{
+		quote: string;
+		author: string;
+		role?: string;
+		company?: string;
+		rating?: number;
+	}>;
+}
+
+const { testimonials } = Astro.props;
+---
+
+<div class="carousel" data-carousel>
+	<div class="carousel-track" data-carousel-track>
+		{testimonials.map((t, i) => (
+			<div class="carousel-slide" data-index={i}>
+				<div class="carousel-card">
+					<div class="carousel-quote-mark">&ldquo;</div>
+					{t.rating && (
+						<div class="carousel-stars">
+							{Array.from({ length: 5 }).map((_, si) => (
+								<i class={`ph ${si < (t.rating ?? 0) ? "ph-star-fill" : "ph-star"}`} />
+							))}
+						</div>
+					)}
+					<blockquote>{t.quote}</blockquote>
+					<div class="carousel-author">
+						<div class="carousel-author-dot"></div>
+						<div class="carousel-author-info">
+							<strong>{t.author}</strong>
+							{(t.role || t.company) && (
+								<span>{t.role}{t.role && t.company ? `, ${t.company}` : t.company}</span>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+		))}
+	</div>
+	<div class="carousel-controls">
+		<button class="carousel-btn" data-carousel-prev aria-label="Previous testimonial">
+			<i class="ph ph-caret-left" />
+		</button>
+		<div class="carousel-dots" data-carousel-dots>
+			{testimonials.map((_, i) => (
+				<button class:list={["carousel-dot", { active: i === 0 }]} data-dot={i} aria-label={`Testimonial ${i + 1}`} />
+			))}
+		</div>
+		<button class="carousel-btn" data-carousel-next aria-label="Next testimonial">
+			<i class="ph ph-caret-right" />
+		</button>
+	</div>
+</div>
+
+<script>
+	document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((carousel) => {
+		const track = carousel.querySelector<HTMLElement>("[data-carousel-track]")!;
+		const slides = track.querySelectorAll<HTMLElement>(".carousel-slide");
+		const dots = carousel.querySelectorAll<HTMLElement>("[data-dot]");
+		const prevBtn = carousel.querySelector("[data-carousel-prev]");
+		const nextBtn = carousel.querySelector("[data-carousel-next]");
+		let current = 0;
+		let interval: ReturnType<typeof setInterval>;
+
+		function goTo(index: number) {
+			current = ((index % slides.length) + slides.length) % slides.length;
+			track.style.transform = `translateX(-${current * 100}%)`;
+			dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
+		}
+
+		function startAuto() {
+			interval = setInterval(() => goTo(current + 1), 6000);
+		}
+
+		function resetAuto() {
+			clearInterval(interval);
+			startAuto();
+		}
+
+		prevBtn?.addEventListener("click", () => { goTo(current - 1); resetAuto(); });
+		nextBtn?.addEventListener("click", () => { goTo(current + 1); resetAuto(); });
+		dots.forEach((dot) => {
+			dot.addEventListener("click", () => { goTo(Number(dot.dataset.dot)); resetAuto(); });
+		});
+
+		// Touch/swipe support
+		let startX = 0;
+		track.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+		track.addEventListener("touchend", (e) => {
+			const diff = startX - e.changedTouches[0].clientX;
+			if (Math.abs(diff) > 50) {
+				goTo(diff > 0 ? current + 1 : current - 1);
+				resetAuto();
+			}
+		});
+
+		startAuto();
+	});
+</script>
+
+<style>
+	.carousel {
+		overflow: hidden;
+		position: relative;
+		max-width: 760px;
+		margin: 0 auto;
+	}
+
+	.carousel-track {
+		display: flex;
+		transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.carousel-slide {
+		min-width: 100%;
+		padding: 0 1rem;
+		box-sizing: border-box;
+	}
+
+	.carousel-card {
+		text-align: center;
+		padding: 2.5rem 2rem;
+		position: relative;
+	}
+
+	.carousel-quote-mark {
+		font-family: var(--font-display, "Cormorant Garamond", serif);
+		font-size: 7rem;
+		line-height: 0.6;
+		color: var(--color-sage, #8fae7e);
+		opacity: 0.35;
+		margin-bottom: 1.5rem;
+		display: block;
+	}
+
+	.carousel-stars {
+		display: flex;
+		justify-content: center;
+		gap: 4px;
+		color: #d4a847;
+		font-size: 18px;
+		margin-bottom: 1.5rem;
+	}
+
+	.carousel-card blockquote {
+		font-family: var(--font-display, "Cormorant Garamond", serif);
+		font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+		line-height: 1.6;
+		font-style: italic;
+		font-weight: 300;
+		color: white;
+		max-width: 620px;
+		margin: 0 auto;
+	}
+
+	.carousel-author {
+		margin-top: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+	}
+
+	.carousel-author-dot {
+		width: 32px;
+		height: 1px;
+		background: var(--color-sage, #8fae7e);
+		opacity: 0.5;
+	}
+
+	.carousel-author-info {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		text-align: left;
+	}
+
+	.carousel-author-info strong {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.85rem;
+		font-weight: 500;
+		color: rgba(255,255,255,0.9);
+		letter-spacing: 0.03em;
+	}
+
+	.carousel-author-info span {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.75rem;
+		color: rgba(255,255,255,0.4);
+		letter-spacing: 0.03em;
+	}
+
+	.carousel-controls {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1.5rem;
+		margin-top: 2.5rem;
+	}
+
+	.carousel-btn {
+		background: transparent;
+		border: 1.5px solid rgba(255,255,255,0.2);
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		font-size: 16px;
+		color: rgba(255,255,255,0.5);
+		transition: all 0.25s ease;
+	}
+
+	.carousel-btn:hover {
+		background: rgba(255,255,255,0.1);
+		border-color: rgba(255,255,255,0.5);
+		color: white;
+	}
+
+	.carousel-dots {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+	}
+
+	.carousel-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 999px;
+		border: none;
+		background: rgba(255,255,255,0.25);
+		cursor: pointer;
+		transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		padding: 0;
+	}
+
+	.carousel-dot.active {
+		background: var(--color-sage, #8fae7e);
+		width: 20px;
+	}
+</style>

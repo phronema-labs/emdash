@@ -1,0 +1,996 @@
+---
+import { getEmDashEntry, getEmDashCollection } from "emdash";
+import { PortableText, Image } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import TrustBadges from "../components/TrustBadges.astro";
+import BrandStrip from "../components/BrandStrip.astro";
+import TestimonialCarousel from "../components/TestimonialCarousel.astro";
+import CostEstimator from "../components/CostEstimator.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import GoogleReviews from "../components/GoogleReviews.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "home");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const { entries: services } = await getEmDashCollection("services", { status: "published" });
+const { entries: testimonials } = await getEmDashCollection("testimonials", { status: "published" });
+const { entries: projects } = await getEmDashCollection("projects", { status: "published" });
+
+const testimonialData = testimonials.map((t) => ({
+	quote: t.data.quote,
+	author: t.data.author,
+	role: t.data.role,
+	company: t.data.company,
+	rating: t.data.rating as number | undefined,
+}));
+---
+
+<Base>
+
+	{/* ===== HERO — Full-bleed image with overlapping editorial text card ===== */}
+	<section class="hero-editorial">
+		<div class="hero-image-wrap">
+			<img
+				src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1400&h=1000&fit=crop"
+				alt="Lush garden landscape"
+				class="hero-img"
+				loading="eager"
+			/>
+			<div class="hero-leaf-badge">
+				<i class="ph ph-leaf"></i>
+				Serving Austin Since 2012
+			</div>
+		</div>
+		<div class="hero-text-card">
+			<span class="hero-eyebrow">Landscape Design Studio</span>
+			<h1>Gardens that<br /><em>breathe</em> with<br />the seasons</h1>
+			<p class="hero-desc">Award-winning landscape design, native planting, and outdoor living spaces crafted for the Central Texas climate. Thoughtful. Lasting. Yours.</p>
+			<div class="hero-proof-row">
+				<GoogleReviews rating={4.8} reviewCount={340} style="badge" />
+			</div>
+			<div class="hero-cta-row">
+				<a href="/contact" class="btn btn-primary btn-lg">Begin Your Garden</a>
+				<a href="/work" class="hero-link">View Portfolio <i class="ph ph-arrow-right"></i></a>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== TRUST RIBBON — subtle, elegant ===== */}
+	<TrustBadges />
+
+	{/* ===== ABOUT EDITORIAL — magazine split with pull quote ===== */}
+	<section class="editorial-about section">
+		<div class="about-grid container">
+			<div class="about-text-col fade-in">
+				<span class="section-eyebrow">Our Philosophy</span>
+				<h2>A garden is a collaboration between design and nature</h2>
+				<p class="about-body">We believe the most beautiful landscapes are ones that honor what's already there. Every project begins with a deep listen to the land — its soil, its light, its rhythms — before a single plant is chosen.</p>
+				<div class="about-pull-quote">
+					<blockquote>"We don't fight the climate. We design with it, choosing natives that thrive in Texas heat while creating spaces that feel effortlessly lush."</blockquote>
+					<cite>— Marcus Greenfield, Principal Designer</cite>
+				</div>
+				<a href="/about" class="btn btn-secondary">Our Story</a>
+			</div>
+			<div class="about-image-col fade-in fade-in-delay-2">
+				<div class="about-img-stack">
+					<img
+						src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&h=800&fit=crop"
+						alt="Garden design in progress"
+						class="about-img-main"
+						loading="lazy"
+					/>
+					<div class="about-img-accent">
+						<img
+							src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=400&h=300&fit=crop"
+							alt="Native plants"
+							loading="lazy"
+						/>
+					</div>
+					<div class="about-stat-float">
+						<span class="stat-num">2,500+</span>
+						<span class="stat-lbl">Projects</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== SERVICES — editorial card grid ===== */}
+	{services.length > 0 && (
+		<section class="services-editorial section section-cream">
+			<div class="container">
+				<div class="services-header fade-in">
+					<span class="section-eyebrow">What We Offer</span>
+					<h2>Our services</h2>
+					<p class="services-intro">From initial concept to ongoing care — a complete approach to your outdoor world.</p>
+				</div>
+				<div class="services-editorial-grid">
+					{services.slice(0, 4).map((service, i) => (
+						<div class={`fade-in fade-in-delay-${Math.min(i + 1, 3)}`}>
+							<ServiceCard
+								title={service.data.title}
+								summary={service.data.summary}
+								icon={service.data.icon}
+								priceFrom={service.data.price_from}
+								href={`/services/${service.slug}`}
+								ctaLabel={service.data.cta_label}
+							/>
+						</div>
+					))}
+				</div>
+				<div class="services-footer fade-in">
+					<a href="/services" class="btn btn-secondary">Explore All Services</a>
+				</div>
+			</div>
+		</section>
+	)}
+
+	{/* ===== FEATURED PROJECT — full-bleed magazine moment ===== */}
+	{projects.length > 0 && (
+		<section class="featured-project">
+			<div class="featured-project-inner">
+				<div class="featured-project-img">
+					{projects[0].data.featured_image ? (
+						<Image image={projects[0].data.featured_image} />
+					) : (
+						<img
+							src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop"
+							alt={projects[0].data.title}
+							loading="lazy"
+						/>
+					)}
+				</div>
+				<div class="featured-project-card fade-in">
+					<span class="section-eyebrow">Featured Work</span>
+					<h2>{projects[0].data.title}</h2>
+					<p>{projects[0].data.summary}</p>
+					<a href={`/work/${projects[0].slug}`} class="btn btn-primary">View Project</a>
+				</div>
+			</div>
+		</section>
+	)}
+
+	{/* ===== MORE PROJECTS — asymmetric mosaic ===== */}
+	{projects.length > 1 && (
+		<section class="projects-mosaic section section-cream">
+			<div class="container">
+				<div class="projects-mosaic-header fade-in">
+					<span class="section-eyebrow">Our Portfolio</span>
+					<h2>Recent gardens</h2>
+				</div>
+				<div class="mosaic-grid">
+					{projects.slice(1, 4).map((project, i) => (
+						<a href={`/work/${project.slug}`} class={`mosaic-card fade-in fade-in-delay-${Math.min(i + 1, 3)}`}>
+							<div class="mosaic-img">
+								{project.data.featured_image ? (
+									<Image image={project.data.featured_image} />
+								) : (
+									<img
+										src={[
+											"https://images.unsplash.com/photo-1592150621744-aca64f48394a?w=800&h=600&fit=crop",
+											"https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=600&fit=crop",
+											"https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&h=600&fit=crop"
+										][i] || `https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop`}
+										alt={project.data.title}
+										loading="lazy"
+									/>
+								)}
+								<div class="mosaic-overlay">
+									<span>View Project <i class="ph ph-arrow-up-right"></i></span>
+								</div>
+							</div>
+							<div class="mosaic-info">
+								<h3>{project.data.title}</h3>
+								{project.data.summary && <p>{project.data.summary}</p>}
+							</div>
+						</a>
+					))}
+				</div>
+				<div style="text-align: center; margin-top: var(--space-3xl);" class="fade-in">
+					<a href="/work" class="btn btn-secondary">View All Projects</a>
+				</div>
+			</div>
+		</section>
+	)}
+
+	{/* ===== TESTIMONIALS — botanical backdrop ===== */}
+	{testimonialData.length > 0 && (
+		<section class="testimonials-botanical section">
+			<div class="testimonials-inner">
+				<div class="container">
+					<div class="testimonials-header fade-in">
+						<span class="section-eyebrow light">Kind Words</span>
+						<h2 class="testimonials-title">What our clients say</h2>
+						<div class="testimonials-rating fade-in fade-in-delay-1">
+							<GoogleReviews rating={4.8} reviewCount={340} style="badge" />
+						</div>
+					</div>
+					<div class="fade-in fade-in-delay-2">
+						<TestimonialCarousel testimonials={testimonialData} />
+					</div>
+				</div>
+			</div>
+		</section>
+	)}
+
+	{/* ===== COST ESTIMATOR — warm surface ===== */}
+	<CostEstimator />
+
+	{/* ===== BRANDS ===== */}
+	<BrandStrip />
+
+	{/* ===== FINAL CTA — lush garden call to action ===== */}
+	<section class="cta-botanical">
+		<div class="cta-botanical-img">
+			<img
+				src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1600&h=700&fit=crop"
+				alt="Beautiful garden"
+				loading="lazy"
+			/>
+			<div class="cta-botanical-overlay"></div>
+		</div>
+		<div class="cta-botanical-content fade-in">
+			<span class="section-eyebrow light">Ready to begin?</span>
+			<h2>Let's design your garden together</h2>
+			<p>Schedule a complimentary consultation. We'll visit your property, understand your vision, and craft a plan that fits your land and your life.</p>
+			<div class="cta-botanical-actions">
+				<a href="/contact" class="btn btn-accent btn-lg">Free Consultation</a>
+				<a href="tel:5125557200" class="btn-ghost-light">
+					<i class="ph ph-phone"></i> (512) 555-7200
+				</a>
+			</div>
+		</div>
+	</section>
+
+</Base>
+
+<style>
+	/* ===== Eyebrow / Label ===== */
+	.section-eyebrow {
+		display: inline-block;
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--color-accent);
+		margin-bottom: 1rem;
+	}
+
+	.section-eyebrow.light {
+		color: rgba(255,255,255,0.55);
+	}
+
+	/* ===== Surface variants ===== */
+	.section-cream {
+		background: var(--color-surface);
+	}
+
+	/* ===== HERO ===== */
+	.hero-editorial {
+		position: relative;
+		width: 100%;
+		min-height: 88vh;
+		display: flex;
+		align-items: flex-end;
+		overflow: hidden;
+	}
+
+	.hero-image-wrap {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+	}
+
+	.hero-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 40%;
+		display: block;
+		transition: transform 8s ease-out;
+	}
+
+	.hero-editorial:hover .hero-img {
+		transform: scale(1.03);
+	}
+
+	.hero-leaf-badge {
+		position: absolute;
+		top: 2.5rem;
+		left: 2.5rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		background: rgba(26, 58, 42, 0.85);
+		backdrop-filter: blur(8px);
+		color: rgba(255,255,255,0.85);
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		padding: 0.5rem 1rem;
+		border-radius: var(--radius-full);
+		z-index: 2;
+	}
+
+	.hero-leaf-badge i {
+		color: var(--color-sage, #8fae7e);
+		font-size: 14px;
+	}
+
+	/* The text card overlaps the bottom-right of the image */
+	.hero-text-card {
+		position: relative;
+		z-index: 2;
+		background: var(--color-bg, #faf6ef);
+		max-width: 520px;
+		margin: 0 var(--site-gutter) var(--space-3xl) auto;
+		padding: 3rem 3rem 2.75rem;
+		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+		box-shadow: 0 -8px 48px rgba(26, 58, 42, 0.14), 0 -2px 16px rgba(26, 58, 42, 0.08);
+	}
+
+	/* Decorative left accent line */
+	.hero-text-card::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 15%;
+		height: 70%;
+		width: 3px;
+		background: linear-gradient(to bottom, transparent, var(--color-sage, #8fae7e) 25%, var(--color-sage, #8fae7e) 75%, transparent);
+		border-radius: var(--radius-full);
+	}
+
+	.hero-text-card h1 {
+		color: var(--color-primary);
+		margin-bottom: 1.5rem;
+		margin-top: 0.5rem;
+	}
+
+	.hero-text-card h1 em {
+		font-style: italic;
+		color: var(--color-accent);
+	}
+
+	.hero-eyebrow {
+		display: inline-block;
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--color-accent);
+		margin-bottom: 0.75rem;
+	}
+
+	.hero-desc {
+		font-family: var(--font-body);
+		font-size: 1.05rem;
+		color: var(--color-text-light);
+		line-height: 1.75;
+		margin-bottom: 2rem;
+	}
+
+	.hero-proof-row {
+		margin-bottom: 2rem;
+	}
+
+	.hero-cta-row {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.hero-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: var(--font-body);
+		font-size: 0.8rem;
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-text-light);
+		transition: color var(--transition-fast), gap var(--transition-fast);
+	}
+
+	.hero-link:hover {
+		color: var(--color-accent);
+		gap: 0.65rem;
+	}
+
+	/* ===== ABOUT EDITORIAL ===== */
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-4xl);
+		align-items: center;
+	}
+
+	.about-text-col {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.about-text-col h2 {
+		color: var(--color-primary);
+		max-width: 480px;
+	}
+
+	.about-body {
+		font-size: 1.05rem;
+		color: var(--color-text-light);
+		line-height: 1.8;
+	}
+
+	.about-pull-quote {
+		border-left: 3px solid var(--color-sage, #8fae7e);
+		padding-left: 1.5rem;
+		margin: 1rem 0;
+	}
+
+	.about-pull-quote blockquote {
+		font-family: var(--font-display);
+		font-size: 1.2rem;
+		font-style: italic;
+		color: var(--color-primary);
+		line-height: 1.6;
+		font-weight: 400;
+	}
+
+	.about-pull-quote cite {
+		display: block;
+		margin-top: 0.75rem;
+		font-family: var(--font-body);
+		font-size: 0.8rem;
+		color: var(--color-muted);
+		font-style: normal;
+		letter-spacing: 0.04em;
+	}
+
+	.about-image-col {
+		position: relative;
+	}
+
+	.about-img-stack {
+		position: relative;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.about-img-main {
+		width: 80%;
+		height: 500px;
+		object-fit: cover;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-xl);
+	}
+
+	.about-img-accent {
+		position: absolute;
+		bottom: -3rem;
+		left: 0;
+		width: 48%;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		box-shadow: var(--shadow-lg);
+	}
+
+	.about-img-accent img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+
+	.about-stat-float {
+		position: absolute;
+		top: 2rem;
+		left: 0;
+		background: var(--color-primary);
+		color: white;
+		padding: 1.25rem 1.5rem;
+		border-radius: var(--radius-md);
+		text-align: center;
+		box-shadow: var(--shadow-lg);
+	}
+
+	.stat-num {
+		display: block;
+		font-family: var(--font-display);
+		font-size: 2.2rem;
+		font-weight: 400;
+		line-height: 1;
+	}
+
+	.stat-lbl {
+		display: block;
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.7;
+		margin-top: 0.25rem;
+	}
+
+	/* ===== SERVICES ===== */
+	.services-editorial {
+		padding-bottom: calc(var(--space-5xl) + 3rem);
+	}
+
+	.services-header {
+		max-width: 600px;
+		margin-bottom: var(--space-3xl);
+	}
+
+	.services-header h2 {
+		color: var(--color-primary);
+	}
+
+	.services-intro {
+		font-size: 1.05rem;
+		color: var(--color-text-light);
+		line-height: 1.7;
+		margin-top: 0.75rem;
+	}
+
+	.services-editorial-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+	}
+
+	.services-footer {
+		text-align: center;
+		margin-top: var(--space-2xl);
+	}
+
+	/* ===== FEATURED PROJECT ===== */
+	.featured-project {
+		background: var(--color-surface-alt);
+		overflow: hidden;
+	}
+
+	.featured-project-inner {
+		display: grid;
+		grid-template-columns: 60% 40%;
+		min-height: 70vh;
+		position: relative;
+	}
+
+	.featured-project-img {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.featured-project-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.featured-project:hover .featured-project-img img {
+		transform: scale(1.04);
+	}
+
+	.featured-project-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: var(--space-4xl) var(--space-3xl);
+		background: var(--color-primary);
+		color: white;
+	}
+
+	.featured-project-card .section-eyebrow {
+		color: var(--color-sage, #8fae7e);
+	}
+
+	.featured-project-card h2 {
+		color: white;
+		margin-bottom: 1.25rem;
+		font-size: clamp(1.8rem, 3vw, 2.75rem);
+	}
+
+	.featured-project-card p {
+		font-size: 1.05rem;
+		line-height: 1.75;
+		color: rgba(255,255,255,0.7);
+		margin-bottom: 2rem;
+		max-width: 340px;
+	}
+
+	.featured-project-card .btn-primary {
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+		width: fit-content;
+	}
+
+	.featured-project-card .btn-primary:hover {
+		background: #b05e3a;
+		border-color: #b05e3a;
+	}
+
+	/* ===== PROJECTS MOSAIC ===== */
+	.projects-mosaic-header {
+		margin-bottom: var(--space-3xl);
+	}
+
+	.projects-mosaic-header h2 {
+		color: var(--color-primary);
+	}
+
+	.mosaic-grid {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		grid-template-rows: auto auto;
+		gap: 1.5rem;
+	}
+
+	.mosaic-card:first-child {
+		grid-row: 1 / 3;
+	}
+
+	.mosaic-card {
+		display: block;
+		text-decoration: none;
+		color: var(--color-text);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background: white;
+		box-shadow: var(--shadow-sm);
+		transition: transform var(--transition-base), box-shadow var(--transition-base);
+	}
+
+	.mosaic-card:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.mosaic-img {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.mosaic-card:first-child .mosaic-img {
+		height: 540px;
+	}
+
+	.mosaic-card:not(:first-child) .mosaic-img {
+		height: 250px;
+	}
+
+	.mosaic-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.mosaic-card:hover .mosaic-img img {
+		transform: scale(1.06);
+	}
+
+	.mosaic-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(26, 58, 42, 0.7);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transition: opacity var(--transition-base);
+		backdrop-filter: blur(2px);
+	}
+
+	.mosaic-overlay span {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: var(--font-body);
+		font-size: 0.85rem;
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: white;
+		border: 1.5px solid rgba(255,255,255,0.5);
+		padding: 0.6rem 1.25rem;
+		border-radius: var(--radius-full);
+	}
+
+	.mosaic-card:hover .mosaic-overlay {
+		opacity: 1;
+	}
+
+	.mosaic-info {
+		padding: 1.25rem 1.5rem;
+	}
+
+	.mosaic-info h3 {
+		font-size: 1.3rem;
+		color: var(--color-primary);
+		font-weight: 400;
+		margin-bottom: 0.4rem;
+	}
+
+	.mosaic-info p {
+		font-size: 0.875rem;
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	/* ===== TESTIMONIALS ===== */
+	.testimonials-botanical {
+		background: var(--color-primary);
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Decorative botanical shape */
+	.testimonials-botanical::before {
+		content: '';
+		position: absolute;
+		top: -20%;
+		right: -10%;
+		width: 500px;
+		height: 500px;
+		background: radial-gradient(circle, rgba(143, 174, 126, 0.12) 0%, transparent 70%);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.testimonials-botanical::after {
+		content: '';
+		position: absolute;
+		bottom: -15%;
+		left: -5%;
+		width: 400px;
+		height: 400px;
+		background: radial-gradient(circle, rgba(196, 112, 75, 0.1) 0%, transparent 70%);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.testimonials-inner {
+		position: relative;
+		z-index: 1;
+	}
+
+	.testimonials-header {
+		text-align: center;
+		margin-bottom: var(--space-2xl);
+	}
+
+	.testimonials-title {
+		font-family: var(--font-display);
+		color: white;
+		font-size: clamp(2rem, 4vw, 3.25rem);
+		font-weight: 300;
+		margin-top: 0.5rem;
+	}
+
+	.testimonials-rating {
+		margin-top: 1.5rem;
+		display: flex;
+		justify-content: center;
+	}
+
+	/* ===== CTA BOTANICAL ===== */
+	.cta-botanical {
+		position: relative;
+		overflow: hidden;
+		min-height: 600px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.cta-botanical-img {
+		position: absolute;
+		inset: 0;
+	}
+
+	.cta-botanical-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 60%;
+	}
+
+	.cta-botanical-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg,
+			rgba(15, 35, 24, 0.88) 0%,
+			rgba(26, 58, 42, 0.82) 50%,
+			rgba(15, 35, 24, 0.75) 100%
+		);
+	}
+
+	.cta-botanical-content {
+		position: relative;
+		z-index: 1;
+		text-align: center;
+		color: white;
+		max-width: 640px;
+		padding: var(--space-4xl) var(--site-gutter);
+	}
+
+	.cta-botanical-content h2 {
+		font-family: var(--font-display);
+		font-size: clamp(2.2rem, 4.5vw, 3.75rem);
+		font-weight: 300;
+		color: white;
+		margin-bottom: 1.25rem;
+		line-height: 1.15;
+	}
+
+	.cta-botanical-content p {
+		font-size: 1.05rem;
+		line-height: 1.75;
+		color: rgba(255,255,255,0.72);
+		margin-bottom: 2.5rem;
+	}
+
+	.cta-botanical-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.btn-ghost-light {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: var(--font-body);
+		font-size: 0.8rem;
+		font-weight: 500;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.75);
+		border: 1.5px solid rgba(255,255,255,0.3);
+		padding: 0.85rem 1.75rem;
+		border-radius: var(--radius-full);
+		transition: all var(--transition-base);
+		text-decoration: none;
+	}
+
+	.btn-ghost-light:hover {
+		color: white;
+		border-color: rgba(255,255,255,0.7);
+		background: rgba(255,255,255,0.08);
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 1200px) {
+		.services-editorial-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.about-img-main {
+			height: 420px;
+		}
+
+		.hero-text-card {
+			max-width: 460px;
+			margin-right: var(--site-gutter);
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.hero-text-card {
+			max-width: 420px;
+			padding: 2.5rem 2.25rem 2.25rem;
+		}
+
+		.featured-project-inner {
+			grid-template-columns: 1fr;
+		}
+
+		.featured-project-img {
+			height: 50vh;
+		}
+
+		.featured-project-card {
+			padding: var(--space-3xl) var(--space-2xl);
+		}
+
+		.mosaic-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.mosaic-card:first-child {
+			grid-row: auto;
+		}
+
+		.mosaic-card:first-child .mosaic-img,
+		.mosaic-card:not(:first-child) .mosaic-img {
+			height: 300px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.services-editorial-grid {
+			grid-template-columns: 1fr;
+		}
+
+		/* On mobile: hero becomes a stacked layout — image then card below */
+		.hero-editorial {
+			flex-direction: column;
+			align-items: stretch;
+			min-height: auto;
+		}
+
+		.hero-image-wrap {
+			position: relative;
+			height: 55vw;
+			min-height: 280px;
+			max-height: 480px;
+		}
+
+		.hero-text-card {
+			position: relative;
+			z-index: 2;
+			margin: 0;
+			border-radius: 0;
+			max-width: 100%;
+			padding: 2rem var(--site-gutter, 1.5rem);
+			box-shadow: none;
+			border-top: 3px solid var(--color-sage, #8fae7e);
+		}
+
+		.hero-text-card::before {
+			display: none;
+		}
+
+		.hero-cta-row {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.about-grid {
+			grid-template-columns: 1fr;
+			gap: var(--space-3xl);
+		}
+
+		.about-img-main {
+			width: 100%;
+			height: 380px;
+		}
+
+		.about-img-accent {
+			bottom: -2rem;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.hero-leaf-badge {
+			top: 1rem;
+			left: 1rem;
+		}
+
+		.about-stat-float {
+			display: none;
+		}
+
+		.about-img-accent {
+			display: none;
+		}
+
+		.about-img-main {
+			height: 300px;
+		}
+
+		.cta-botanical-actions {
+			flex-direction: column;
+			gap: 1rem;
+		}
+	}
+</style>

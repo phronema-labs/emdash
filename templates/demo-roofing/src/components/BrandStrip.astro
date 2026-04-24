@@ -1,13 +1,13 @@
 ---
 const brands = [
-	"Carrier", "Trane", "Rheem", "Kohler", "Moen",
-	"Lennox", "Goodman", "Delta", "GE", "Square D"
+	"GAF", "Owens Corning", "CertainTeed", "IKO", "TAMKO",
+	"Atlas", "Malarkey", "Pabco", "Johns Manville", "BP"
 ];
 ---
 
 <section class="brand-strip">
 	<div class="container">
-		<p class="brand-label">We service & install all major brands</p>
+		<p class="brand-label">Certified installer for all major roofing manufacturers</p>
 		<div class="brand-logos">
 			{brands.map((brand) => (
 				<span class="brand-name">{brand}</span>
@@ -18,41 +18,45 @@ const brands = [
 
 <style>
 	.brand-strip {
-		padding: var(--space-2xl) var(--site-gutter);
-		border-bottom: 1px solid var(--color-border);
+		background: #0f0f0f;
+		padding: 2.5rem var(--site-gutter);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 	}
 
 	.brand-label {
 		text-align: center;
-		font-size: var(--font-size-xs);
+		font-family: var(--font-headline);
+		font-size: 0.7rem;
+		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: var(--color-muted);
-		margin-bottom: var(--spacing-lg);
+		letter-spacing: 0.18em;
+		color: rgba(255, 255, 255, 0.3);
+		margin-bottom: 1.5rem;
 	}
 
 	.brand-logos {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		gap: var(--spacing-lg) var(--spacing-2xl);
+		gap: 1rem 3rem;
 	}
 
 	.brand-name {
-		font-size: var(--font-size-lg);
-		font-weight: 700;
-		color: var(--color-muted);
-		opacity: 0.4;
-		letter-spacing: 0.02em;
+		font-family: var(--font-headline);
+		font-size: 1.1rem;
+		font-weight: 800;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.2);
+		transition: color 200ms ease;
+	}
+
+	.brand-name:hover {
+		color: rgba(255, 255, 255, 0.5);
 	}
 
 	@media (max-width: 600px) {
-		.brand-logos {
-			gap: var(--spacing-md) var(--spacing-lg);
-		}
-
-		.brand-name {
-			font-size: var(--font-size-sm);
-		}
+		.brand-logos { gap: 0.75rem 2rem; }
+		.brand-name { font-size: 0.9rem; }
 	}
 </style>

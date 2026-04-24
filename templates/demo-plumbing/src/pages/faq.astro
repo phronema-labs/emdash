@@ -1,0 +1,480 @@
+---
+import { getEmDashCollection } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const { entries: faqs, cacheHint } = await getEmDashCollection("faqs", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const hardcodedFaqs = [
+	{
+		category: "Emergency & Scheduling",
+		items: [
+			{
+				question: "Do you really offer 24/7 emergency service?",
+				answer: "Yes. Our emergency line is staffed around the clock, every day of the year. When you call, a licensed technician answers — not a call center. We target a 60-minute response for true emergencies like burst pipes, no heat in winter, or electrical hazards.",
+			},
+			{
+				question: "How fast can you get to my home?",
+				answer: "For scheduled appointments, call before noon and we can typically have someone there the same day. For emergencies, we aim to arrive within 60 minutes anywhere in Sangamon County. We'll give you an honest arrival window when you call and stick to it.",
+			},
+			{
+				question: "Do you charge extra for after-hours calls?",
+				answer: "For most after-hours and weekend appointments, we don't charge a premium on top of our normal flat rates. True emergency dispatch on nights or holidays may carry a modest after-hours fee, which we'll disclose upfront before sending a technician.",
+			},
+		],
+	},
+	{
+		category: "Pricing & Estimates",
+		items: [
+			{
+				question: "How does your pricing work? Do you charge by the hour?",
+				answer: "We use flat-rate pricing on all jobs. Before we start any work, your technician will assess the situation and give you a written quote. That's the price you pay — we don't add time-and-materials charges after the fact. No surprises.",
+			},
+			{
+				question: "Is the estimate really free?",
+				answer: "Yes. For standard service calls, we don't charge to come out and assess the problem. If the job requires extensive diagnostic work — like locating a hidden leak or tracing an electrical fault — we'll let you know upfront if there's a diagnostic fee, and that fee is applied toward the repair if you proceed.",
+			},
+			{
+				question: "Do you offer financing?",
+				answer: "Yes. We partner with two financing providers for larger jobs like full HVAC replacements, water heater installations, and electrical panel upgrades. Ask your technician or call our office for current plans. Many customers qualify for 12 months same-as-cash.",
+			},
+		],
+	},
+	{
+		category: "Warranties & Quality",
+		items: [
+			{
+				question: "What warranty do you offer on your work?",
+				answer: "All labor is covered by a minimum 1-year warranty. If something we repaired or installed fails within that period due to our workmanship, we come back and fix it at no charge. Parts and equipment also carry manufacturer warranties, which we help you register and manage.",
+			},
+			{
+				question: "What brands do you service and install?",
+				answer: "We're brand-agnostic on repairs — we service all major plumbing, HVAC, and electrical brands regardless of who installed them. For new installations, we work with a curated list of brands we trust: Carrier, Lennox, and Trane for HVAC; A. O. Smith and Rheem for water heaters; and Kohler and Moen for plumbing fixtures. We can discuss specific brand preferences for your project.",
+			},
+		],
+	},
+];
+
+const useFallback = faqs.length === 0;
+---
+
+<Base title="FAQ" description="Frequently asked questions about Summit Home Services — emergency calls, pricing, warranties, and what to expect.">
+	<PageHero
+		title="Frequently Asked Questions"
+		subtitle="Straight answers about how we work, what we charge, and what you can expect."
+		image="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1600&h=500&fit=crop"
+	/>
+
+	{/* Phone bar */}
+	<div class="phone-bar">
+		<div class="container phone-bar-inner">
+			<p class="phone-bar-text">Have a question not answered here? Call us directly.</p>
+			<a href="tel:5552345678" class="phone-bar-number">(555) 234-5678</a>
+		</div>
+	</div>
+
+	<section class="section">
+		<div class="container faq-layout">
+
+			{/* Sidebar nav */}
+			<aside class="faq-sidebar">
+				<div class="sidebar-card">
+					<h3>Categories</h3>
+					<nav class="sidebar-nav">
+						{useFallback ? (
+							hardcodedFaqs.map((group) => (
+								<a href={`#${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
+									{group.category}
+								</a>
+							))
+						) : (
+							<a href="#all-faqs">All Questions</a>
+						)}
+					</nav>
+					<div class="sidebar-cta">
+						<p>Still have questions?</p>
+						<a href="tel:5552345678" class="sidebar-phone">(555) 234-5678</a>
+						<a href="/contact" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: var(--spacing-sm);">
+							<i class="ph ph-calendar-check" /> Schedule Service
+						</a>
+					</div>
+				</div>
+			</aside>
+
+			{/* FAQ content */}
+			<div class="faq-content">
+				{useFallback ? (
+					hardcodedFaqs.map((group) => (
+						<div class="faq-group" id={group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}>
+							<div class="faq-group-header">
+								<span class="section-label">{group.category}</span>
+							</div>
+							<div class="faq-list">
+								{group.items.map((faq) => (
+									<details class="faq-item">
+										<summary>
+											<span>{faq.question}</span>
+											<div class="faq-icon">
+												<i class="ph ph-plus faq-plus" />
+												<i class="ph ph-minus faq-minus" />
+											</div>
+										</summary>
+										<div class="faq-answer">
+											<p>{faq.answer}</p>
+										</div>
+									</details>
+								))}
+							</div>
+						</div>
+					))
+				) : (
+					<div class="faq-group" id="all-faqs">
+						<div class="faq-list">
+							{faqs.map((faq) => (
+								<details class="faq-item">
+									<summary>
+										<span>{faq.data.question}</span>
+										<div class="faq-icon">
+											<i class="ph ph-plus faq-plus" />
+											<i class="ph ph-minus faq-minus" />
+										</div>
+									</summary>
+									<div class="faq-answer">
+										{faq.data.answer ? (
+											<PortableText value={faq.data.answer} />
+										) : (
+											<p>Answer coming soon.</p>
+										)}
+									</div>
+								</details>
+							))}
+						</div>
+					</div>
+				)}
+			</div>
+		</div>
+	</section>
+
+	{/* Bottom CTA */}
+	<section class="bottom-cta">
+		<div class="container bottom-cta-inner">
+			<div>
+				<h2>Didn't find your answer?</h2>
+				<p>Call us and a licensed technician will answer your question directly — no hold music, no call centers.</p>
+			</div>
+			<div class="bottom-cta-actions">
+				<a href="tel:5552345678" class="bottom-phone">
+					<i class="ph ph-phone-call" />
+					(555) 234-5678
+				</a>
+				<a href="/contact" class="btn btn-secondary">Send a Message</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* Phone bar */
+	.phone-bar {
+		background: var(--color-surface);
+		border-bottom: 1.5px solid var(--color-border);
+		padding: var(--spacing-md) 0;
+	}
+
+	.phone-bar-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-lg);
+		flex-wrap: wrap;
+	}
+
+	.phone-bar-text {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+	}
+
+	.phone-bar-number {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xl);
+		font-weight: 900;
+		color: var(--color-primary);
+		letter-spacing: -0.02em;
+		transition: color var(--transition-fast);
+	}
+
+	.phone-bar-number:hover { color: var(--color-primary-dark); }
+
+	/* Layout */
+	.faq-layout {
+		display: grid;
+		grid-template-columns: 240px 1fr;
+		gap: var(--spacing-3xl);
+		align-items: start;
+	}
+
+	/* Sidebar */
+	.faq-sidebar {
+		position: sticky;
+		top: 100px;
+	}
+
+	.sidebar-card {
+		background: white;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+
+	.sidebar-card h3 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--color-muted);
+		padding: var(--spacing-md) var(--spacing-lg);
+		border-bottom: 1.5px solid var(--color-border);
+		background: var(--color-surface);
+	}
+
+	.sidebar-nav {
+		display: flex;
+		flex-direction: column;
+		padding: var(--spacing-sm) 0;
+	}
+
+	.sidebar-nav a {
+		padding: var(--spacing-sm) var(--spacing-lg);
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		color: var(--color-muted);
+		transition: color var(--transition-fast), background var(--transition-fast);
+		border-left: 2px solid transparent;
+	}
+
+	.sidebar-nav a:hover {
+		color: var(--color-primary);
+		background: var(--color-primary-light);
+		border-left-color: var(--color-primary);
+	}
+
+	.sidebar-cta {
+		padding: var(--spacing-lg);
+		border-top: 1.5px solid var(--color-border);
+		background: var(--color-surface);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+	}
+
+	.sidebar-cta p {
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		font-family: var(--font-headline);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.sidebar-phone {
+		display: block;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-2xl);
+		font-weight: 900;
+		color: var(--color-primary);
+		letter-spacing: -0.03em;
+		line-height: 1;
+		transition: color var(--transition-fast);
+	}
+
+	.sidebar-phone:hover { color: var(--color-primary-dark); }
+
+	/* FAQ content */
+	.faq-content {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-3xl);
+	}
+
+	.faq-group {
+		scroll-margin-top: 100px;
+	}
+
+	.faq-group-header {
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.section-label {
+		display: inline-block;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-primary);
+		background: var(--color-primary-light);
+		padding: 3px 10px;
+		border-radius: var(--radius-sm);
+	}
+
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+	}
+
+	/* Accordion */
+	.faq-item {
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		background: white;
+		overflow: hidden;
+		transition: border-color var(--transition-base), box-shadow var(--transition-base);
+	}
+
+	.faq-item:hover,
+	.faq-item[open] {
+		border-color: var(--color-primary);
+		box-shadow: var(--shadow-lg);
+	}
+
+	.faq-item[open] {
+		border-top: 2px solid var(--color-primary);
+	}
+
+	.faq-item summary {
+		padding: var(--spacing-lg) var(--spacing-xl);
+		cursor: pointer;
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--spacing-lg);
+		font-family: var(--font-headline);
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: var(--color-text);
+		user-select: none;
+		transition: background var(--transition-fast);
+	}
+
+	.faq-item summary::-webkit-details-marker { display: none; }
+
+	.faq-item summary:hover {
+		background: var(--color-surface);
+	}
+
+	.faq-item[open] summary {
+		background: var(--color-primary-light);
+		color: var(--color-primary);
+	}
+
+	.faq-icon {
+		width: 28px;
+		height: 28px;
+		border-radius: var(--radius-sm);
+		border: 1.5px solid var(--color-border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		color: var(--color-muted);
+		flex-shrink: 0;
+		transition: all var(--transition-fast);
+	}
+
+	.faq-item[open] .faq-icon {
+		background: var(--color-primary);
+		border-color: var(--color-primary);
+		color: white;
+	}
+
+	.faq-plus { display: block; }
+	.faq-minus { display: none; }
+	.faq-item[open] .faq-plus { display: none; }
+	.faq-item[open] .faq-minus { display: block; }
+
+	.faq-answer {
+		padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
+		border-top: 1px solid var(--color-border);
+		color: var(--color-muted);
+		line-height: 1.75;
+		font-size: var(--font-size-sm);
+	}
+
+	.faq-answer :global(p) {
+		margin-bottom: var(--spacing-sm);
+	}
+
+	/* Bottom CTA */
+	.bottom-cta {
+		background: var(--color-surface);
+		border-top: 1.5px solid var(--color-border);
+		padding: var(--spacing-3xl) var(--site-gutter);
+	}
+
+	.bottom-cta-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-2xl);
+		flex-wrap: wrap;
+	}
+
+	.bottom-cta h2 {
+		font-size: var(--font-size-2xl);
+		font-weight: 800;
+		margin-bottom: var(--spacing-xs);
+		letter-spacing: -0.02em;
+	}
+
+	.bottom-cta p {
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+		max-width: 480px;
+	}
+
+	.bottom-cta-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+		flex-shrink: 0;
+	}
+
+	.bottom-phone {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 0.75rem 1.5rem;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xl);
+		font-weight: 900;
+		letter-spacing: -0.02em;
+		color: white;
+		background: var(--color-primary);
+		border-radius: var(--radius);
+		transition: background var(--transition-fast), box-shadow var(--transition-fast);
+	}
+
+	.bottom-phone:hover {
+		background: var(--color-primary-dark);
+		box-shadow: var(--shadow-lg);
+	}
+
+	/* Responsive */
+	@media (max-width: 900px) {
+		.faq-layout { grid-template-columns: 1fr; }
+		.faq-sidebar { position: static; }
+		.bottom-cta-inner { flex-direction: column; text-align: center; }
+		.bottom-cta-actions { flex-direction: column; width: 100%; }
+		.bottom-phone { width: 100%; justify-content: center; }
+	}
+
+	@media (max-width: 600px) {
+		.phone-bar-inner { flex-direction: column; text-align: center; }
+	}
+</style>

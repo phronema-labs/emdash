@@ -1,0 +1,787 @@
+---
+import { getMenu, getSiteSettings } from "emdash";
+import { EmDashHead } from "emdash/ui";
+import { createPublicPageContext } from "emdash/page";
+import { Font } from "astro:assets";
+import TopBar from "../components/TopBar.astro";
+import "../styles/site.css";
+import "../styles/brand.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+}
+
+const { title, description, image } = Astro.props;
+const settings = await getSiteSettings();
+const siteTitle = settings?.title || "Ironclad Builders";
+const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
+const siteDescription = settings?.tagline || "We build things that last";
+const siteLogo = (settings?.logo as any)?.url ? settings.logo as { mediaId: string; alt?: string; url: string } : null;
+const siteFavicon = (settings?.favicon as any)?.url ?? null;
+
+const menu = await getMenu("primary");
+const footerMenu = await getMenu("footer");
+
+const pageCtx = createPublicPageContext({
+	Astro,
+	kind: "custom",
+	pageType: "website",
+	title: fullTitle,
+	pageTitle: title ?? siteTitle,
+	description: description || siteDescription,
+	canonical: Astro.url.href,
+	image,
+	seo: { ogImage: image },
+	siteName: siteTitle,
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{fullTitle}</title>
+		<link rel="icon" href={siteFavicon || "/favicon.svg"} type="image/svg+xml" />
+		<EmDashHead page={pageCtx} />
+		<Font cssVariable="--font-sans" preload />
+		<!-- Bebas Neue (display/headline) + DM Sans (body) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+		<link href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/regular/style.css" rel="stylesheet" />
+		<link href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/fill/style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<TopBar />
+		<header class="site-header" id="site-header">
+			<nav class="nav">
+				<a href="/" class="site-logo">
+					{siteLogo
+						? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} class="site-logo-img" />
+						: <span class="logo-text">IRONCLAD<span class="logo-accent">.</span></span>
+					}
+				</a>
+				<button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+					<span class="hamburger-line"></span>
+					<span class="hamburger-line"></span>
+					<span class="hamburger-line"></span>
+				</button>
+				<div class="nav-links">
+					{menu?.items.map((item) => (
+						<a href={item.url} target={item.target} class="nav-link">{item.label}</a>
+					))}
+				</div>
+				<div class="nav-actions">
+					<a href="tel:7205554100" class="nav-phone">
+						<i class="ph ph-phone-call"></i>
+						<span>(720) 555-4100</span>
+					</a>
+					<a href="/contact" class="nav-cta">Get a Quote</a>
+				</div>
+			</nav>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer class="site-footer">
+			<!-- Diagonal top edge -->
+			<div class="footer-cut"></div>
+			<div class="footer-body">
+				<div class="container footer-grid">
+					<!-- Brand column -->
+					<div class="footer-brand">
+						<span class="footer-logo-text">IRONCLAD<span class="footer-logo-dot">.</span></span>
+						<p class="footer-tagline">{settings?.tagline || "Built to last. Engineered to perform."}</p>
+						<div class="footer-contact-list">
+							<a href="tel:7205554100" class="footer-contact-item">
+								<i class="ph ph-phone-call"></i>
+								<span>(720) 555-4100</span>
+							</a>
+							<a href="mailto:info@ironcladbuilders.com" class="footer-contact-item">
+								<i class="ph ph-envelope"></i>
+								<span>info@ironcladbuilders.com</span>
+							</a>
+							<p class="footer-contact-item">
+								<i class="ph ph-map-pin"></i>
+								<span>2750 S Colorado Blvd, Denver, CO 80222</span>
+							</p>
+						</div>
+						<div class="footer-social">
+							<a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" /></a>
+							<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" /></a>
+							<a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="ph ph-linkedin-logo" /></a>
+						</div>
+					</div>
+
+					<!-- Services column -->
+					<div class="footer-col">
+						<h4>Services</h4>
+						<a href="/services/kitchen-remodeling">Kitchen Remodeling</a>
+						<a href="/services/bathroom-remodeling">Bathroom Remodeling</a>
+						<a href="/services/additions">Additions & ADUs</a>
+						<a href="/services/whole-home">Whole-Home Renovation</a>
+						<a href="/services/commercial">Commercial Build-Out</a>
+						<a href="/services">All Services</a>
+					</div>
+
+					<!-- Company column -->
+					<div class="footer-col">
+						<h4>Company</h4>
+						<a href="/about">About Us</a>
+						<a href="/work">Our Work</a>
+						<a href="/testimonials">Testimonials</a>
+						<a href="/blog">Field Notes</a>
+						<a href="/faq">FAQ</a>
+						<a href="/contact">Contact</a>
+					</div>
+
+					<!-- Hours column -->
+					<div class="footer-col">
+						<h4>Hours</h4>
+						<p class="footer-hours-item"><strong>Monday – Friday</strong><br/>7:00 AM – 5:00 PM</p>
+						<p class="footer-hours-item"><strong>Saturday</strong><br/>By Appointment</p>
+						<p class="footer-hours-item"><strong>Sunday</strong><br/>Closed</p>
+					</div>
+				</div>
+
+				<div class="footer-bottom">
+					<div class="container footer-bottom-inner">
+						<p>&copy; {new Date().getFullYear()} {siteTitle}. All rights reserved.</p>
+						<div class="footer-bottom-links">
+							{footerMenu?.items.map((item) => (
+								<a href={item.url}>{item.label}</a>
+							))}
+							<a href="/_emdash/admin" class="admin-link"><i class="ph ph-lock-simple" /> Client Login</a>
+						</div>
+						<p class="footer-powered">
+							Built by <a href="https://phronemalabs.com" class="phronema-link">
+								<svg width="14" height="14" viewBox="0 0 64 64" fill="none" style="display:inline-block;vertical-align:-2px;margin-right:3px;">
+									<circle cx="27" cy="36" r="16" stroke="#C9963A" stroke-width="5.5"/>
+									<circle cx="50" cy="12" r="5" fill="#C9963A"/>
+								</svg>Phronema Labs</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// Mobile nav toggle
+			const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+			const links = document.querySelector<HTMLElement>(".nav-links");
+			toggle?.addEventListener("click", () => {
+				const expanded = toggle.getAttribute("aria-expanded") === "true";
+				toggle.setAttribute("aria-expanded", String(!expanded));
+				links?.classList.toggle("nav-open");
+				toggle.classList.toggle("is-open");
+			});
+
+			// Scroll-triggered header style
+			const header = document.getElementById("site-header");
+			window.addEventListener("scroll", () => {
+				if (window.scrollY > 60) {
+					header?.classList.add("scrolled");
+				} else {
+					header?.classList.remove("scrolled");
+				}
+			}, { passive: true });
+
+			// Scroll reveal
+			const revealEls = document.querySelectorAll<HTMLElement>("[data-reveal]");
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						(entry.target as HTMLElement).classList.add("revealed");
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.1, rootMargin: "0px 0px -60px 0px" });
+			revealEls.forEach((el) => observer.observe(el));
+		</script>
+
+		<style is:global>
+			@layer base;
+
+			@layer base {
+				*, *::before, *::after {
+					box-sizing: border-box;
+					margin: 0;
+					padding: 0;
+				}
+
+				:root {
+					--color-bg: #faf9f7;
+					--color-text: #141414;
+					--color-muted: #6b6b6b;
+					--color-border: #d4d0ca;
+					--color-border-dark: rgba(255,255,255,0.08);
+					--color-surface: #f0ede8;
+					--color-primary: #ff6b00;
+					--color-primary-dark: #cc5500;
+					--color-primary-light: #fff3e8;
+					--color-accent: #f5c518;
+					--color-accent-light: #fffbea;
+					--color-success: #22c55e;
+					--color-warning: #f59e0b;
+
+					/* Industrial fonts */
+					--font-display: "Bebas Neue", "Impact", sans-serif;
+					--font-body: "DM Sans", sans-serif;
+					--font-mono: "DM Mono", "SF Mono", monospace;
+
+					/* Size scale */
+					--font-size-xs: 0.6875rem;
+					--font-size-sm: 0.875rem;
+					--font-size-base: 1rem;
+					--font-size-md: 1rem;
+					--font-size-lg: 1.125rem;
+					--font-size-xl: 1.375rem;
+					--font-size-2xl: 1.875rem;
+					--font-size-3xl: 2.75rem;
+					--font-size-4xl: 3.75rem;
+					--font-size-5xl: 5rem;
+					--font-size-6xl: 7rem;
+
+					--spacing-xs: 0.25rem;
+					--spacing-sm: 0.5rem;
+					--spacing-md: 1rem;
+					--spacing-lg: 1.75rem;
+					--spacing-xl: 2.5rem;
+					--spacing-2xl: 4rem;
+					--spacing-3xl: 6rem;
+					--spacing-4xl: 8rem;
+					--spacing-5xl: 11rem;
+
+					--max-width: 720px;
+					--wide-width: 1360px;
+					--radius-sm: 2px;
+					--radius: 4px;
+					--radius-lg: 6px;
+					--radius-full: 9999px;
+
+					--transition-fast: 120ms ease;
+					--transition-base: 200ms ease;
+					--transition-slow: 350ms ease;
+
+					--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.12);
+					--shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+					--shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.22);
+					--shadow-xl: 0 32px 64px rgba(0, 0, 0, 0.32);
+				}
+
+				html {
+					scroll-behavior: smooth;
+					font-size: 100%;
+				}
+
+				body {
+					font-family: var(--font-body);
+					font-size: var(--font-size-base);
+					line-height: 1.65;
+					color: var(--color-text);
+					background: var(--color-bg);
+					-webkit-font-smoothing: antialiased;
+					min-height: 100vh;
+				}
+
+				a { color: currentColor; text-decoration: none; }
+				img { max-width: 100%; height: auto; display: block; }
+
+				/* Display font for all headings */
+				h1, h2, h3 {
+					font-family: var(--font-display);
+					font-weight: 400; /* Bebas Neue has a single weight */
+					line-height: 0.95;
+					letter-spacing: 0.02em;
+					text-transform: uppercase;
+				}
+
+				h4, h5, h6 {
+					font-family: var(--font-body);
+					font-weight: 700;
+					line-height: 1.25;
+					letter-spacing: 0.01em;
+				}
+
+				h1 { font-size: var(--font-size-5xl); }
+				h2 { font-size: var(--font-size-4xl); }
+				h3 { font-size: var(--font-size-3xl); }
+				h4 { font-size: var(--font-size-xl); }
+
+				/* Scroll reveal */
+				[data-reveal] {
+					opacity: 0;
+					transform: translateY(28px);
+					transition: opacity 0.6s ease, transform 0.6s ease;
+				}
+
+				[data-reveal].revealed {
+					opacity: 1;
+					transform: translateY(0);
+				}
+
+				[data-reveal][data-delay="1"] { transition-delay: 0.1s; }
+				[data-reveal][data-delay="2"] { transition-delay: 0.2s; }
+				[data-reveal][data-delay="3"] { transition-delay: 0.3s; }
+				[data-reveal][data-delay="4"] { transition-delay: 0.4s; }
+
+				/* Base button */
+				.btn {
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					gap: 0.5rem;
+					padding: 0.875rem 2rem;
+					font-family: var(--font-body);
+					font-size: var(--font-size-sm);
+					font-weight: 700;
+					letter-spacing: 0.06em;
+					text-transform: uppercase;
+					border-radius: var(--radius-sm);
+					cursor: pointer;
+					transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+					border: 2px solid transparent;
+				}
+
+				.btn:hover { transform: translateY(-2px); }
+				.btn:active { transform: translateY(0); }
+
+				.btn-primary {
+					color: white;
+					background: var(--color-primary);
+					border-color: var(--color-primary);
+				}
+
+				.btn-primary:hover {
+					background: var(--color-primary-dark);
+					border-color: var(--color-primary-dark);
+					box-shadow: 0 8px 24px rgba(255,107,0,0.4);
+				}
+
+				.btn-secondary {
+					color: var(--color-text);
+					background: transparent;
+					border: 2px solid var(--color-border);
+				}
+
+				.btn-secondary:hover {
+					border-color: var(--color-text);
+					background: var(--color-text);
+					color: var(--color-bg);
+				}
+
+				.btn-dark {
+					color: white;
+					background: var(--color-text);
+					border-color: var(--color-text);
+				}
+
+				.btn-dark:hover {
+					background: var(--color-primary);
+					border-color: var(--color-primary);
+				}
+
+				.btn-lg {
+					padding: 1.125rem 2.5rem;
+					font-size: var(--font-size-base);
+				}
+			}
+		</style>
+
+		<style>
+			/* ===== TOP-LEVEL HEADER ===== */
+			.site-header {
+				position: sticky;
+				top: 0;
+				z-index: 100;
+				background: rgba(20, 20, 20, 0.97);
+				backdrop-filter: blur(8px);
+				border-bottom: 2px solid var(--color-primary);
+				transition: border-color var(--transition-base), background var(--transition-base);
+			}
+
+			.site-header.scrolled {
+				border-bottom-color: rgba(255,107,0,0.3);
+				background: rgba(20, 20, 20, 0.99);
+			}
+
+			.nav {
+				max-width: var(--site-max-width);
+				margin: 0 auto;
+				padding: 0 var(--site-gutter);
+				height: 70px;
+				display: flex;
+				align-items: center;
+				gap: var(--spacing-xl);
+			}
+
+			/* Logo */
+			.logo-text {
+				font-family: "Bebas Neue", sans-serif;
+				font-size: 1.75rem;
+				letter-spacing: 0.08em;
+				color: white;
+				text-transform: uppercase;
+			}
+
+			.logo-accent {
+				color: var(--color-primary);
+			}
+
+			.site-logo-img {
+				height: 44px;
+				width: auto;
+				display: block;
+				filter: brightness(0) invert(1);
+			}
+
+			/* Mobile toggle */
+			.nav-toggle {
+				display: none;
+				flex-direction: column;
+				gap: 5px;
+				background: none;
+				border: none;
+				cursor: pointer;
+				padding: 4px;
+				margin-left: auto;
+			}
+
+			.hamburger-line {
+				display: block;
+				width: 26px;
+				height: 2px;
+				background: white;
+				transition: all var(--transition-fast);
+				transform-origin: center;
+			}
+
+			.nav-toggle.is-open .hamburger-line:nth-child(1) {
+				transform: translateY(7px) rotate(45deg);
+			}
+
+			.nav-toggle.is-open .hamburger-line:nth-child(2) {
+				opacity: 0;
+			}
+
+			.nav-toggle.is-open .hamburger-line:nth-child(3) {
+				transform: translateY(-7px) rotate(-45deg);
+			}
+
+			/* Nav links */
+			.nav-links {
+				display: flex;
+				gap: var(--spacing-lg);
+				margin-left: auto;
+			}
+
+			.nav-link {
+				font-family: var(--font-body);
+				font-size: var(--font-size-sm);
+				font-weight: 500;
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+				color: rgba(255,255,255,0.6);
+				transition: color var(--transition-fast);
+				position: relative;
+			}
+
+			.nav-link::after {
+				content: "";
+				position: absolute;
+				bottom: -4px;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: var(--color-primary);
+				transform: scaleX(0);
+				transition: transform var(--transition-fast);
+			}
+
+			.nav-link:hover {
+				color: white;
+			}
+
+			.nav-link:hover::after {
+				transform: scaleX(1);
+			}
+
+			/* Nav actions */
+			.nav-actions {
+				display: flex;
+				align-items: center;
+				gap: var(--spacing-md);
+				flex-shrink: 0;
+			}
+
+			.nav-phone {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: var(--font-size-sm);
+				font-weight: 600;
+				color: rgba(255,255,255,0.5);
+				transition: color var(--transition-fast);
+			}
+
+			.nav-phone i { color: var(--color-primary); }
+
+			.nav-phone:hover { color: white; }
+
+			.nav-cta {
+				padding: 0.6rem 1.4rem;
+				font-family: var(--font-body);
+				font-size: var(--font-size-xs);
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: #111;
+				background: var(--color-primary);
+				border: none;
+				border-radius: 2px;
+				transition: background var(--transition-fast), transform var(--transition-fast);
+			}
+
+			.nav-cta:hover {
+				background: var(--color-accent);
+				transform: translateY(-1px);
+			}
+
+			main { min-height: calc(100vh - 200px); }
+
+			/* ===== FOOTER ===== */
+			.site-footer {
+				margin-top: 0;
+				position: relative;
+			}
+
+			.footer-cut {
+				height: 80px;
+				background: #111111;
+				clip-path: polygon(0 100%, 100% 0%, 100% 100%);
+				margin-top: -1px;
+			}
+
+			.footer-body {
+				background: #111111;
+				color: rgba(255, 255, 255, 0.7);
+				padding-top: 0;
+			}
+
+			.footer-grid {
+				display: grid;
+				grid-template-columns: 1.8fr 1fr 1fr 1fr;
+				gap: var(--spacing-2xl);
+				padding-top: var(--spacing-2xl);
+				padding-bottom: var(--spacing-2xl);
+			}
+
+			.footer-brand {
+				display: flex;
+				flex-direction: column;
+				gap: var(--spacing-md);
+			}
+
+			.footer-logo-text {
+				font-family: "Bebas Neue", sans-serif;
+				font-size: 2.5rem;
+				letter-spacing: 0.08em;
+				color: white;
+				line-height: 1;
+			}
+
+			.footer-logo-dot {
+				color: var(--color-primary);
+			}
+
+			.footer-tagline {
+				font-size: var(--font-size-sm);
+				color: rgba(255,255,255,0.45);
+				line-height: 1.6;
+				max-width: 260px;
+			}
+
+			.footer-contact-list {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				margin-top: var(--spacing-sm);
+			}
+
+			.footer-contact-item {
+				display: flex;
+				align-items: flex-start;
+				gap: 8px;
+				font-size: var(--font-size-sm);
+				color: rgba(255,255,255,0.5);
+				text-decoration: none;
+				transition: color var(--transition-fast);
+				line-height: 1.5;
+			}
+
+			.footer-contact-item i {
+				color: var(--color-primary);
+				font-size: 15px;
+				flex-shrink: 0;
+				margin-top: 2px;
+			}
+
+			a.footer-contact-item:hover { color: white; }
+
+			.footer-social {
+				display: flex;
+				gap: 8px;
+				margin-top: var(--spacing-sm);
+			}
+
+			.footer-social a {
+				width: 36px;
+				height: 36px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: 1px solid rgba(255,255,255,0.12);
+				border-radius: 2px;
+				color: rgba(255,255,255,0.4);
+				font-size: 17px;
+				transition: all var(--transition-fast);
+			}
+
+			.footer-social a:hover {
+				background: var(--color-primary);
+				border-color: var(--color-primary);
+				color: white;
+			}
+
+			.footer-col h4 {
+				font-family: var(--font-body);
+				font-size: var(--font-size-xs);
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: rgba(255,255,255,0.35);
+				margin-bottom: var(--spacing-lg);
+				border-bottom: 1px solid rgba(255,255,255,0.08);
+				padding-bottom: var(--spacing-sm);
+			}
+
+			.footer-col a {
+				display: block;
+				font-size: var(--font-size-sm);
+				color: rgba(255,255,255,0.55);
+				padding: 4px 0;
+				transition: color var(--transition-fast), padding-left var(--transition-fast);
+				text-decoration: none;
+			}
+
+			.footer-col a:hover {
+				color: white;
+				padding-left: 6px;
+			}
+
+			.footer-hours-item {
+				font-size: var(--font-size-sm);
+				color: rgba(255,255,255,0.5);
+				line-height: 1.6;
+				margin-bottom: var(--spacing-md);
+			}
+
+			.footer-hours-item strong {
+				display: block;
+				color: rgba(255,255,255,0.75);
+				font-weight: 600;
+			}
+
+			.footer-bottom {
+				border-top: 1px solid rgba(255,255,255,0.07);
+			}
+
+			.footer-bottom-inner {
+				padding: var(--spacing-lg) 0;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: var(--spacing-md);
+				font-size: var(--font-size-xs);
+				color: rgba(255,255,255,0.3);
+			}
+
+			.footer-bottom-links {
+				display: flex;
+				gap: var(--spacing-lg);
+			}
+
+			.footer-bottom-links a {
+				color: rgba(255,255,255,0.3);
+				text-decoration: none;
+				transition: color var(--transition-fast);
+			}
+
+			.footer-bottom-links a:hover { color: rgba(255,255,255,0.6); }
+
+			.admin-link {
+				display: flex;
+				align-items: center;
+				gap: 4px;
+			}
+
+			.footer-powered a { color: rgba(255,255,255,0.4); }
+
+			.phronema-link {
+				font-weight: 600;
+				color: var(--color-primary) !important;
+				transition: opacity var(--transition-fast);
+			}
+
+			.phronema-link:hover { opacity: 0.8; }
+
+			/* ===== RESPONSIVE ===== */
+			@media (max-width: 900px) {
+				.nav-toggle { display: flex; }
+
+				.nav-links {
+					display: none;
+					position: fixed;
+					top: 70px;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background: rgba(17,17,17,0.98);
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					gap: var(--spacing-xl);
+					z-index: 99;
+				}
+
+				.nav-links.nav-open { display: flex; }
+
+				.nav-link {
+					font-size: 1.5rem;
+					color: white;
+				}
+
+				.nav-phone { display: none; }
+				.nav-actions .nav-cta { display: none; }
+
+				.footer-grid { grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); }
+				.footer-bottom-inner { flex-direction: column; text-align: center; }
+				.footer-bottom-links { flex-wrap: wrap; justify-content: center; }
+
+				h1 { font-size: var(--font-size-4xl); }
+				h2 { font-size: var(--font-size-3xl); }
+			}
+
+			@media (max-width: 480px) {
+				.footer-grid { grid-template-columns: 1fr; }
+				.footer-cut { height: 40px; }
+			}
+		</style>
+	</body>
+</html>

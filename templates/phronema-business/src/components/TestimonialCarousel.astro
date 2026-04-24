@@ -114,10 +114,14 @@ const { testimonials } = Astro.props;
 	}
 
 	.carousel-card {
-		max-width: 700px;
+		max-width: 640px;
 		margin: 0 auto;
 		text-align: center;
 		padding: var(--spacing-2xl);
+		background: white;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border);
+		box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 	}
 
 	.carousel-stars {
@@ -161,7 +165,7 @@ const { testimonials } = Astro.props;
 	}
 
 	.carousel-btn {
-		background: var(--color-surface);
+		background: white;
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-full);
 		width: 40px;
@@ -173,6 +177,7 @@ const { testimonials } = Astro.props;
 		font-size: 18px;
 		color: var(--color-text);
 		transition: all var(--transition-fast);
+		box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 	}
 
 	.carousel-btn:hover {

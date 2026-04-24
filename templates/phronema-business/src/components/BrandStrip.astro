@@ -1,13 +1,13 @@
 ---
 const brands = [
-	"Carrier", "Trane", "Rheem", "Kohler", "Moen",
-	"Lennox", "Goodman", "Delta", "GE", "Square D"
+	"American Bar Association", "State Bar", "Martindale-Hubbell",
+	"Best Lawyers in America", "Super Lawyers", "ACTEC"
 ];
 ---
 
 <section class="brand-strip">
 	<div class="container">
-		<p class="brand-label">We service & install all major brands</p>
+		<p class="brand-label">Professional memberships & recognition</p>
 		<div class="brand-logos">
 			{brands.map((brand) => (
 				<span class="brand-name">{brand}</span>
@@ -39,11 +39,12 @@ const brands = [
 	}
 
 	.brand-name {
-		font-size: var(--font-size-lg);
+		font-size: var(--font-size-base);
 		font-weight: 700;
-		color: var(--color-muted);
-		opacity: 0.4;
-		letter-spacing: 0.02em;
+		color: var(--color-text);
+		opacity: 0.2;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
 	}
 
 	@media (max-width: 600px) {

@@ -1,0 +1,177 @@
+---
+interface Props {
+	title: string;
+	summary?: string;
+	icon?: string;
+	priceFrom?: string;
+	href: string;
+	ctaLabel?: string;
+}
+
+const { title, summary, icon, priceFrom, href, ctaLabel } = Astro.props;
+
+const ICON_MAP: Record<string, string> = {
+	code: "ph-code",
+	"paint-brush": "ph-paint-brush",
+	"chart-line-up": "ph-chart-line-up",
+	globe: "ph-globe",
+	devices: "ph-devices",
+	"shield-check": "ph-shield-check",
+	leaf: "ph-leaf",
+	tree: "ph-tree-evergreen",
+	plant: "ph-plant",
+	wall: "ph-wall",
+	drop: "ph-drop",
+	scissors: "ph-scissors",
+};
+---
+
+<a href={href} class="service-card">
+	{icon && (
+		<div class="service-icon">
+			<i class={`ph ${ICON_MAP[icon] || `ph-${icon}`}`} />
+		</div>
+	)}
+	<div class="service-card-body">
+		<h3 class="service-title">{title}</h3>
+		{summary && <p class="service-summary">{summary}</p>}
+		{priceFrom && <p class="service-price">From {priceFrom}</p>}
+	</div>
+	<span class="service-link">
+		{ctaLabel || "Learn More"}
+		<span class="service-arrow">
+			<i class="ph ph-arrow-right" />
+		</span>
+	</span>
+</a>
+
+<style>
+	.service-card {
+		display: flex;
+		flex-direction: column;
+		padding: 2rem 1.75rem 1.75rem;
+		background: white;
+		border: 1.5px solid var(--color-border-light, #ede8df);
+		border-radius: 24px;
+		transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+		text-decoration: none;
+		color: var(--color-text);
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Subtle top accent line */
+	.service-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 2rem;
+		right: 2rem;
+		height: 2px;
+		background: linear-gradient(to right, var(--color-sage, #8fae7e), var(--color-accent, #c4704b));
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		border-radius: 0 0 2px 2px;
+	}
+
+	.service-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 20px 48px rgba(26, 58, 42, 0.12);
+		border-color: var(--color-border, #ddd6c8);
+	}
+
+	.service-card:hover::before {
+		opacity: 1;
+	}
+
+	.service-icon {
+		width: 52px;
+		height: 52px;
+		border-radius: 16px;
+		background: var(--color-sage-light, #edf3e8);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 24px;
+		color: var(--color-primary);
+		margin-bottom: 1.25rem;
+		transition: background 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		flex-shrink: 0;
+	}
+
+	.service-card:hover .service-icon {
+		background: var(--color-primary);
+		color: white;
+		transform: rotate(-5deg) scale(1.05);
+	}
+
+	.service-card-body {
+		flex: 1;
+	}
+
+	.service-title {
+		font-family: var(--font-display, "Cormorant Garamond", serif);
+		font-size: 1.5rem;
+		font-weight: 400;
+		color: var(--color-primary);
+		margin-bottom: 0.75rem;
+		line-height: 1.2;
+		letter-spacing: -0.01em;
+	}
+
+	.service-summary {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.9rem;
+		color: var(--color-muted);
+		line-height: 1.7;
+	}
+
+	.service-price {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: var(--color-accent);
+		letter-spacing: 0.04em;
+		margin-top: 0.75rem;
+	}
+
+	.service-link {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 1.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--color-border-light, #ede8df);
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+		color: var(--color-text-light);
+		transition: color 0.2s ease;
+	}
+
+	.service-card:hover .service-link {
+		color: var(--color-primary);
+	}
+
+	.service-arrow {
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		border: 1.5px solid currentColor;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 13px;
+		transition: background 0.25s ease, color 0.25s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		flex-shrink: 0;
+	}
+
+	.service-card:hover .service-arrow {
+		background: var(--color-primary);
+		border-color: var(--color-primary);
+		color: white;
+		transform: translateX(3px);
+	}
+</style>

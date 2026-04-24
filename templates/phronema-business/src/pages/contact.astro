@@ -20,114 +20,161 @@ if (Astro.request.method === "POST") {
 }
 ---
 
-<Base title="Contact Us" description="Get in touch for a free consultation about your home service needs.">
-	{/* Hero */}
-	<section class="section" style="padding-bottom: var(--spacing-xl);">
-		<div class="container" style="text-align: center;">
-			<h1>Get in touch</h1>
-			<p style="color: var(--color-muted); font-size: var(--font-size-lg); margin-top: var(--spacing-sm); max-width: 600px; margin-inline: auto;">
-				Request a quote, schedule service, or ask a question. We respond within 1 business hour during working hours.
-			</p>
+<Base title="Contact Us" description="Schedule a consultation with Caldwell & Associates — in-person, phone, or video. We respond within one business day.">
+
+	{/* ===== PAGE HERO ===== */}
+	<section class="contact-hero">
+		<div class="contact-hero-overlay"></div>
+		<div class="container contact-hero-inner">
+			<span class="eyebrow-light">Get in Touch</span>
+			<h1>Schedule a <em>consultation</em></h1>
+			<p>Tell us about your matter and we will be in touch within one business day to confirm your appointment. All consultations are confidential.</p>
 		</div>
 	</section>
 
-	{/* Two-column: Info left, Form right */}
+	{/* ===== TWO-COLUMN LAYOUT ===== */}
 	<section class="container contact-section">
 		<div class="contact-two-col">
-			{/* LEFT: Contact info + hours */}
+
+			{/* LEFT: Contact info */}
 			<div class="contact-left">
+
 				<div class="info-block">
 					<div class="info-item">
-						<div class="info-icon"><i class="ph ph-phone" /></div>
+						<div class="info-icon"><i class="ph ph-phone"></i></div>
 						<div>
 							<h3>Call Us</h3>
 							<a href="tel:5552345678">(555) 234-5678</a>
-							<span>24/7 for emergencies</span>
+							<span>Monday–Friday, 8:30 AM–5:30 PM</span>
 						</div>
 					</div>
 					<div class="info-item">
-						<div class="info-icon"><i class="ph ph-envelope" /></div>
+						<div class="info-icon"><i class="ph ph-envelope"></i></div>
 						<div>
 							<h3>Email</h3>
-							<a href="mailto:service@summithomeservices.com">service@summithomeservices.com</a>
-							<span>We respond within 1 hour</span>
+							<a href="mailto:contact@caldwellandassociates.com">contact@caldwellandassociates.com</a>
+							<span>We respond within one business day</span>
 						</div>
 					</div>
 					<div class="info-item">
-						<div class="info-icon"><i class="ph ph-map-pin" /></div>
+						<div class="info-icon"><i class="ph ph-map-pin"></i></div>
 						<div>
-							<h3>Location</h3>
-							<p>482 Industrial Parkway, Suite 5</p>
+							<h3>Office Location</h3>
+							<p>1200 Commerce Tower, Suite 1800</p>
 							<span>Springfield, ST 62704</span>
 						</div>
 					</div>
 				</div>
 
 				<div class="hours-block">
-					<h3><i class="ph ph-clock" /> Business Hours</h3>
+					<h3><i class="ph ph-clock"></i> Business Hours</h3>
 					<table class="hours-table">
 						<tbody>
-							<tr><td>Monday – Friday</td><td>7:00 AM – 6:00 PM</td></tr>
-							<tr><td>Saturday</td><td>8:00 AM – 2:00 PM</td></tr>
-							<tr><td>Sunday</td><td class="closed">Closed</td></tr>
-							<tr class="emergency-row"><td>Emergency</td><td>24/7</td></tr>
+							<tr><td>Monday – Thursday</td><td>8:30 AM – 5:30 PM</td></tr>
+							<tr><td>Friday</td><td>8:30 AM – 5:00 PM</td></tr>
+							<tr class="weekend-row"><td>Saturday – Sunday</td><td class="closed">Closed</td></tr>
 						</tbody>
 					</table>
 				</div>
 
-				<div class="social-row">
-					<a href="https://facebook.com/summithomeservices" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" /></a>
-					<a href="https://instagram.com/summithomeservices" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" /></a>
-					<a href="https://g.page/summithomeservices" target="_blank" rel="noopener noreferrer" aria-label="Google"><i class="ph ph-google-logo" /></a>
+				<div class="consultation-types">
+					<h3>Consultation Options</h3>
+					<div class="consult-list">
+						<div class="consult-item">
+							<i class="ph ph-buildings"></i>
+							<div>
+								<strong>In-Person</strong>
+								<span>At our Commerce Tower office</span>
+							</div>
+						</div>
+						<div class="consult-item">
+							<i class="ph ph-phone"></i>
+							<div>
+								<strong>Phone</strong>
+								<span>We call you at a time that works</span>
+							</div>
+						</div>
+						<div class="consult-item">
+							<i class="ph ph-video-camera"></i>
+							<div>
+								<strong>Video</strong>
+								<span>Zoom or Google Meet — your choice</span>
+							</div>
+						</div>
+					</div>
 				</div>
+
+				<div class="social-row">
+					<a href="https://linkedin.com/company/caldwellandassociates" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+					<a href="https://facebook.com/caldwellandassociates" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+				</div>
+
 			</div>
 
 			{/* RIGHT: Contact form */}
 			<div class="contact-right">
 				<div class="form-card">
-					<h2>Send us a message</h2>
+					<div class="form-card-header">
+						<span class="form-ribbon"><i class="ph ph-calendar-check"></i> Free Consultation</span>
+						<h2>Request a consultation</h2>
+						<p>All inquiries are treated with strict confidentiality. No obligation.</p>
+					</div>
 
 					{formSuccess ? (
 						<div class="form-success">
-							<i class="ph ph-check-circle" />
-							<h3>Thank you!</h3>
-							<p>We've received your message and will get back to you within one business hour.</p>
+							<div class="success-icon"><i class="ph ph-check-circle"></i></div>
+							<h3>Thank you — we will be in touch.</h3>
+							<p>We have received your request and will contact you within one business day to confirm your appointment. Please check your email for a confirmation.</p>
+							<a href="/" class="btn btn-secondary" style="margin-top: var(--spacing-lg);">Return to Home</a>
 						</div>
 					) : (
 						<form method="POST" class="contact-form">
-							{formError && <p class="form-error">{formError}</p>}
+							{formError && <p class="form-error"><i class="ph ph-warning-circle"></i> {formError}</p>}
 							<div class="form-row">
 								<div class="form-group">
-									<label for="name">Name *</label>
-									<input type="text" id="name" name="name" required placeholder="Your name" />
+									<label for="name">Full Name <span class="required">*</span></label>
+									<input type="text" id="name" name="name" required placeholder="Your full name" autocomplete="name" />
 								</div>
 								<div class="form-group">
-									<label for="email">Email *</label>
-									<input type="email" id="email" name="email" required placeholder="you@example.com" />
+									<label for="email">Email Address <span class="required">*</span></label>
+									<input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email" />
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group">
-									<label for="phone">Phone</label>
-									<input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
+									<label for="phone">Phone Number</label>
+									<input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" autocomplete="tel" />
 								</div>
 								<div class="form-group">
-									<label for="service">Service Needed</label>
+									<label for="service">Practice Area</label>
 									<select id="service" name="service">
-										<option value="">Select a service...</option>
-										<option value="plumbing">Plumbing</option>
-										<option value="hvac">Heating & AC</option>
-										<option value="electrical">Electrical</option>
-										<option value="emergency">Emergency Service</option>
-										<option value="other">Other</option>
+										<option value="">Select a practice area...</option>
+										<option value="business-law">Business Law</option>
+										<option value="estate-planning">Estate Planning</option>
+										<option value="family-law">Family Law</option>
+										<option value="litigation">Commercial Litigation</option>
+										<option value="real-estate">Real Estate</option>
+										<option value="employment-law">Employment Law</option>
+										<option value="other">Other / Not Sure</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="message">How can we help? *</label>
-								<textarea id="message" name="message" rows="5" required placeholder="Describe what you need..."></textarea>
+								<label for="preferred">Preferred Contact Method</label>
+								<select id="preferred" name="preferred">
+									<option value="email">Email</option>
+									<option value="phone">Phone</option>
+									<option value="either">Either is fine</option>
+								</select>
 							</div>
-							<button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
+							<div class="form-group">
+								<label for="message">Tell us about your matter <span class="required">*</span></label>
+								<textarea id="message" name="message" rows="5" required placeholder="Please share a brief description of your situation and what kind of help you are looking for. This information is confidential."></textarea>
+							</div>
+							<button type="submit" class="form-submit-btn">
+								<i class="ph ph-paper-plane-tilt"></i> Send Message
+							</button>
+							<p class="form-note"><i class="ph ph-lock-simple"></i> Your information is protected by attorney-client privilege from the moment of contact.</p>
 						</form>
 					)}
 				</div>
@@ -135,64 +182,123 @@ if (Astro.request.method === "POST") {
 		</div>
 	</section>
 
-	{/* Full-width map pinned to Springfield */}
+	{/* ===== MAP ===== */}
 	<section class="map-full">
 		<iframe
 			src="https://www.openstreetmap.org/export/embed.html?bbox=-89.67%2C39.77%2C-89.63%2C39.80&layer=mapnik&marker=39.7817%2C-89.6501"
 			width="100%"
-			height="400"
+			height="420"
 			style="border: 0; display: block;"
 			loading="lazy"
-			title="Summit Home Services — 482 Industrial Parkway, Springfield"
+			title="Caldwell & Associates — 1200 Commerce Tower, Springfield"
 		></iframe>
 		<div class="map-overlay">
 			<div class="container">
 				<div class="map-badge">
-					<i class="ph ph-map-pin" />
+					<i class="ph ph-map-pin"></i>
 					<div>
-						<strong>Summit Home Services</strong>
-						<span>482 Industrial Parkway, Suite 5, Springfield, ST 62704</span>
+						<strong>Caldwell &amp; Associates</strong>
+						<span>1200 Commerce Tower, Suite 1800, Springfield, ST 62704</span>
 					</div>
+					<a href="https://maps.google.com/?q=1200+Commerce+Tower+Springfield" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Get Directions</a>
 				</div>
 			</div>
 		</div>
 	</section>
+
 </Base>
 
 <style>
+	/* ===== Hero ===== */
+	.contact-hero {
+		position: relative;
+		background:
+			url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600&h=500&fit=crop') center/cover no-repeat;
+		padding: var(--space-4xl) 0;
+		color: white;
+		min-height: 260px;
+		display: flex;
+		align-items: center;
+	}
+
+	.contact-hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, var(--color-primary-dark) 0%, color-mix(in srgb, var(--color-primary) 75%, #000) 100%);
+		opacity: 0.92;
+	}
+
+	.contact-hero-inner {
+		position: relative;
+		z-index: 1;
+	}
+
+	.eyebrow-light {
+		display: inline-block;
+		font-family: var(--font-body);
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--color-accent);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.contact-hero h1 {
+		font-size: clamp(2rem, 4vw, 3rem);
+		font-weight: 400;
+		line-height: 1.1;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.contact-hero h1 em {
+		font-style: italic;
+		color: color-mix(in srgb, var(--color-accent) 90%, white);
+	}
+
+	.contact-hero p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-lg);
+		color: rgba(255,255,255,0.75);
+		max-width: 520px;
+		line-height: 1.7;
+	}
+
+	/* ===== Two-col layout ===== */
 	.contact-section {
-		padding-bottom: var(--spacing-4xl);
+		padding-block: var(--space-4xl);
 	}
 
 	.contact-two-col {
 		display: grid;
-		grid-template-columns: 1fr 1.3fr;
-		gap: var(--spacing-3xl);
+		grid-template-columns: 1fr 1.35fr;
+		gap: var(--space-3xl);
 		align-items: start;
 	}
 
-	/* Left column */
+	/* ===== Left column ===== */
 	.contact-left {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-xl);
+		gap: var(--spacing-2xl);
 	}
 
 	.info-block {
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-lg);
+		gap: var(--spacing-xl);
 	}
 
 	.info-item {
 		display: flex;
 		gap: var(--spacing-md);
+		align-items: flex-start;
 	}
 
 	.info-icon {
 		width: 44px;
 		height: 44px;
-		border-radius: var(--radius);
+		border-radius: var(--radius-md);
 		background: var(--color-primary);
 		color: white;
 		display: flex;
@@ -203,29 +309,34 @@ if (Astro.request.method === "POST") {
 	}
 
 	.info-item h3 {
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
 		font-weight: 700;
-		margin-bottom: 2px;
+		margin-bottom: 3px;
 	}
 
 	.info-item a {
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
 		color: var(--color-text);
 		text-decoration: none;
 		display: block;
+		transition: color 0.2s ease;
 	}
 
-	.info-item a:hover {
-		color: var(--color-primary);
-	}
+	.info-item a:hover { color: var(--color-primary); }
 
 	.info-item p {
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
 	}
 
 	.info-item span {
+		font-family: var(--font-body);
 		font-size: var(--font-size-xs);
 		color: var(--color-muted);
+		display: block;
+		margin-top: 2px;
 	}
 
 	/* Hours */
@@ -237,17 +348,16 @@ if (Astro.request.method === "POST") {
 	}
 
 	.hours-block h3 {
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
 		font-weight: 700;
 		display: flex;
 		align-items: center;
-		gap: var(--spacing-xs);
+		gap: 6px;
 		margin-bottom: var(--spacing-md);
 	}
 
-	.hours-block h3 i {
-		color: var(--color-primary);
-	}
+	.hours-block h3 i { color: var(--color-primary); }
 
 	.hours-table {
 		width: 100%;
@@ -256,6 +366,7 @@ if (Astro.request.method === "POST") {
 
 	.hours-table td {
 		padding: var(--spacing-xs) 0;
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
 		border-bottom: 1px solid var(--color-border);
 	}
@@ -265,18 +376,50 @@ if (Astro.request.method === "POST") {
 		color: var(--color-muted);
 	}
 
-	.hours-table tr:last-child td {
-		border-bottom: none;
-	}
+	.hours-table tr:last-child td { border-bottom: none; }
 
-	.hours-table .closed {
-		font-style: italic;
-	}
+	.hours-table .closed { font-style: italic; }
 
-	.emergency-row td {
-		padding-top: var(--spacing-sm) !important;
+	.weekend-row td { color: var(--color-muted); }
+
+	/* Consultation types */
+	.consultation-types h3 {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
 		font-weight: 700;
-		color: var(--color-primary) !important;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.consult-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+	}
+
+	.consult-item {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+	}
+
+	.consult-item i {
+		font-size: 22px;
+		color: var(--color-primary);
+		width: 32px;
+		flex-shrink: 0;
+	}
+
+	.consult-item strong {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		display: block;
+	}
+
+	.consult-item span {
+		font-family: var(--font-body);
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
 	}
 
 	/* Social */
@@ -295,26 +438,70 @@ if (Astro.request.method === "POST") {
 		border-radius: var(--radius);
 		font-size: 22px;
 		color: var(--color-muted);
-		transition: all var(--transition-fast);
+		transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
 	.social-row a:hover {
 		background: var(--color-primary);
 		color: white;
 		border-color: var(--color-primary);
+		transform: translateY(-2px) scale(1.05);
+		box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary) 30%, transparent);
 	}
 
-	/* Right column — form */
+	/* ===== Right column — form ===== */
 	.form-card {
-		padding: var(--spacing-2xl);
-		background: var(--color-surface);
+		background: white;
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-lg);
+		padding: var(--spacing-2xl);
+		box-shadow: var(--shadow-md);
+		position: relative;
+		overflow: hidden;
 	}
 
-	.form-card h2 {
-		font-size: var(--font-size-xl);
+	/* Top accent bar */
+	.form-card::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+	}
+
+	.form-card-header {
 		margin-bottom: var(--spacing-xl);
+		position: relative;
+	}
+
+	.form-ribbon {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		background: var(--color-accent);
+		color: white;
+		font-family: var(--font-body);
+		font-size: 10px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		padding: 5px 12px;
+		border-radius: var(--radius-sm);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.form-card-header h2 {
+		font-size: var(--font-size-2xl);
+		font-weight: 400;
+		margin-bottom: 4px;
+	}
+
+	.form-card-header p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
 	}
 
 	.contact-form {
@@ -332,25 +519,29 @@ if (Astro.request.method === "POST") {
 	.form-group {
 		display: flex;
 		flex-direction: column;
-		gap: 4px;
+		gap: 5px;
 	}
 
 	.form-group label {
-		font-weight: 500;
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
+		font-weight: 600;
+		color: var(--color-text);
 	}
+
+	.required { color: var(--color-accent); }
 
 	.form-group input,
 	.form-group textarea,
 	.form-group select {
 		padding: 10px 14px;
-		border: 1px solid var(--color-border);
+		border: 1.5px solid var(--color-border);
 		border-radius: var(--radius-sm);
-		font-family: inherit;
-		font-size: var(--font-size-base);
-		background: var(--color-bg);
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
 		color: var(--color-text);
-		transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+		background: var(--color-surface);
+		transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 	}
 
 	.form-group input:focus,
@@ -358,7 +549,8 @@ if (Astro.request.method === "POST") {
 	.form-group select:focus {
 		outline: none;
 		border-color: var(--color-primary);
-		box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+		background: white;
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 12%, transparent);
 	}
 
 	.form-group input::placeholder,
@@ -367,24 +559,88 @@ if (Astro.request.method === "POST") {
 		opacity: 0.5;
 	}
 
+	.form-group textarea { resize: vertical; }
+
 	.form-error {
 		padding: var(--spacing-md);
 		background: #fef2f2;
 		color: #dc2626;
+		border: 1px solid #fee2e2;
 		border-radius: var(--radius-sm);
+		font-family: var(--font-body);
 		font-size: var(--font-size-sm);
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.form-submit-btn {
+		width: 100%;
+		padding: 14px;
+		background: var(--color-primary);
+		color: white;
+		border: none;
+		border-radius: var(--radius-sm);
+		font-family: var(--font-body);
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+		margin-top: 4px;
+	}
+
+	.form-submit-btn:hover {
+		background: var(--color-primary-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
+	}
+
+	.form-note {
+		font-family: var(--font-body);
+		font-size: 11px;
+		color: var(--color-muted);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 5px;
+		margin-top: var(--spacing-sm);
+		text-align: center;
+		line-height: 1.5;
 	}
 
 	.form-success {
 		text-align: center;
-		padding: var(--spacing-2xl);
+		padding: var(--spacing-2xl) var(--spacing-xl);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
-	.form-success i { font-size: 48px; color: #22c55e; }
-	.form-success h3 { margin-top: var(--spacing-md); }
-	.form-success p { margin-top: var(--spacing-sm); color: var(--color-muted); }
+	.success-icon {
+		font-size: 56px;
+		color: #22c55e;
+		margin-bottom: var(--spacing-md);
+	}
 
-	/* Map */
+	.form-success h3 {
+		font-size: var(--font-size-xl);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.form-success p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-md);
+		color: var(--color-muted);
+		line-height: 1.7;
+		max-width: 380px;
+	}
+
+	/* ===== Map ===== */
 	.map-full {
 		position: relative;
 	}
@@ -400,46 +656,57 @@ if (Astro.request.method === "POST") {
 	.map-badge {
 		display: inline-flex;
 		align-items: center;
-		gap: var(--spacing-sm);
-		background: var(--color-bg);
+		gap: var(--spacing-md);
+		background: white;
 		padding: var(--spacing-md) var(--spacing-lg);
-		border-radius: var(--radius);
-		box-shadow: var(--shadow-lg);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-xl);
 		pointer-events: auto;
-		margin-left: var(--spacing-xl);
+		margin-left: var(--spacing-2xl);
 	}
 
 	.map-badge i {
 		font-size: 24px;
 		color: var(--color-primary);
+		flex-shrink: 0;
 	}
 
 	.map-badge strong {
 		display: block;
-		font-size: var(--font-size-sm);
+		font-family: var(--font-display);
+		font-size: var(--font-size-base);
+		font-weight: 400;
 	}
 
 	.map-badge span {
 		display: block;
+		font-family: var(--font-body);
 		font-size: var(--font-size-xs);
 		color: var(--color-muted);
 	}
 
-	@media (max-width: 768px) {
+	.btn-sm {
+		padding: 0.4rem var(--spacing-md);
+		font-size: var(--font-size-xs);
+		white-space: nowrap;
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 900px) {
 		.contact-two-col {
 			grid-template-columns: 1fr;
 		}
 
-		.form-row {
-			grid-template-columns: 1fr;
-		}
+		.contact-left { order: 2; }
+		.contact-right { order: 1; }
+	}
 
-		.contact-left {
-			order: 2;
-		}
-
-		.contact-right {
-			order: 1;
+	@media (max-width: 600px) {
+		.form-row { grid-template-columns: 1fr; }
+		.map-badge {
+			flex-direction: column;
+			align-items: flex-start;
+			margin-left: var(--spacing-md);
 		}
 	}
 </style>

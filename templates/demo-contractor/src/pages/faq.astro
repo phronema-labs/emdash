@@ -1,0 +1,584 @@
+---
+import { getEmDashCollection, getEntryTerms, getTaxonomyTerms } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const { entries: faqs, cacheHint } = await getEmDashCollection("faqs", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const categories = await getTaxonomyTerms("faq_category");
+
+const faqsWithCategories = await Promise.all(
+	faqs.map(async (faq) => {
+		const terms = await getEntryTerms(faq.id, "faq_category");
+		return { faq, category: terms[0]?.label || "General" };
+	})
+);
+
+const grouped = faqsWithCategories.reduce<Record<string, typeof faqsWithCategories>>((acc, item) => {
+	(acc[item.category] ??= []).push(item);
+	return acc;
+}, {});
+
+// Hardcoded FAQs organized by category, displayed if no CMS data
+const hardcodedFaqs = [
+	{
+		category: "Timeline & Scheduling",
+		items: [
+			{
+				q: "How long does a typical kitchen remodel take?",
+				a: "A full kitchen remodel typically runs 6–10 weeks from demolition to final inspection, depending on scope. Custom cabinetry lead times are the biggest variable — we factor this into your schedule before we start demo so there's no idle time on site.",
+			},
+			{
+				q: "How far out are you booked?",
+				a: "Our typical lead time is 6–10 weeks from signed contract to project start. Smaller projects (single bathroom, flooring, painting) can sometimes begin sooner. We'll give you an accurate start date when you request an estimate.",
+			},
+			{
+				q: "What happens if bad weather or material delays push my timeline?",
+				a: "We build schedule buffer into every project for exactly this reason. If something genuinely outside our control causes a delay, we notify you immediately with a revised timeline — not a surprise on move-in day. We don't pad schedules to look good and then slip.",
+			},
+		],
+	},
+	{
+		category: "Permits & Inspections",
+		items: [
+			{
+				q: "Do you handle permits?",
+				a: "Yes, completely. We pull all required permits with the City and County of Denver (and surrounding jurisdictions), coordinate all inspections, and manage the inspection schedule. You never have to deal with the building department. Permitted work is a condition of your warranty.",
+			},
+			{
+				q: "What if I want to skip permits to save money?",
+				a: "We don't build without permits. Unpermitted work is a liability issue for you — it can cause problems when you sell, may void your homeowner's insurance, and puts our license at risk. We include permit costs in your estimate upfront so there are no surprises.",
+			},
+		],
+	},
+	{
+		category: "Pricing & Contracts",
+		items: [
+			{
+				q: "Do you do time and materials billing or fixed-price contracts?",
+				a: "Fixed price only. We provide a detailed line-item estimate, you review and approve it, and that's what you pay — barring scope changes you request. We don't do T&M billing because we believe you should know your final cost before we swing a hammer.",
+			},
+			{
+				q: "What's your payment schedule?",
+				a: "We typically structure payments in three draws: a deposit at contract signing (typically 10%), a draw at project midpoint when major rough-in work is complete, and a final payment at substantial completion. The exact schedule is in your contract.",
+			},
+			{
+				q: "What causes a change order?",
+				a: "Change orders happen when you request something outside the original scope, or when we encounter something genuinely unforeseen (like structural damage inside a wall that no inspection could have caught). We price change orders transparently and require your written approval before proceeding.",
+			},
+		],
+	},
+	{
+		category: "Insurance & Warranty",
+		items: [
+			{
+				q: "Are you licensed, bonded, and insured?",
+				a: "Yes. We carry $2M in general liability coverage, workers compensation for all employees, and maintain an active Colorado General Contractor License (CGC #B-42918). We're happy to provide certificates of insurance before any work begins.",
+			},
+			{
+				q: "What does your 5-year workmanship warranty cover?",
+				a: "Our warranty covers defects in our labor and workmanship for 5 years from project completion. If something we built fails due to our installation, we come back and fix it at no cost. It does not cover normal wear, damage caused by misuse, or manufacturer defects (those are covered by product warranties we help you navigate).",
+			},
+		],
+	},
+];
+
+const hasLiveFaqs = faqs.length > 0;
+---
+
+<Base title="FAQ" description="Common questions about Ironclad Builders — timeline, permits, pricing, insurance, warranties, and how we work.">
+	<PageHero
+		title="Questions, Answered"
+		subtitle="Everything you need to know before hiring a general contractor. Still have a question? Call us."
+		image="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1600&h=600&fit=crop"
+	/>
+
+	{/* ===== QUICK CONTACT STRIP ===== */}
+	<div class="faq-contact-strip">
+		<div class="container strip-inner">
+			<p>Can't find your answer?</p>
+			<div class="strip-actions">
+				<a href="/contact" class="btn btn-primary btn-sm">Ask Us Directly</a>
+				<a href="tel:7205554100" class="strip-phone">
+					<i class="ph ph-phone-call"></i>
+					(720) 555-4100
+				</a>
+			</div>
+		</div>
+	</div>
+
+	{/* ===== FAQ CONTENT ===== */}
+	<section class="faq-main">
+		<div class="container faq-layout">
+
+			{/* Side nav — category jumps */}
+			<aside class="faq-nav">
+				<div class="faq-nav-sticky">
+					<span class="label-tag">// Categories</span>
+					<nav class="faq-cat-nav">
+						{(hasLiveFaqs ? Object.keys(grouped) : hardcodedFaqs.map(g => g.category)).map((cat) => (
+							<a href={`#${cat.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} class="faq-cat-link">
+								<i class="ph ph-caret-right"></i>
+								{cat}
+							</a>
+						))}
+					</nav>
+					<div class="faq-nav-cta">
+						<p>Ready to get started?</p>
+						<a href="/contact" class="btn btn-primary" style="width: 100%; justify-content: center;">Free Estimate</a>
+					</div>
+				</div>
+			</aside>
+
+			{/* FAQ accordion content */}
+			<div class="faq-content">
+				{hasLiveFaqs ? (
+					Object.entries(grouped).map(([category, items]) => (
+						<div
+							class="faq-category-block"
+							id={category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}
+						>
+							<div class="faq-cat-header">
+								<span class="faq-cat-label">{category}</span>
+							</div>
+							<div class="faq-list">
+								{items.map(({ faq }) => (
+									<details class="faq-item">
+										<summary class="faq-question">
+											<span>{faq.data.question}</span>
+											<div class="faq-toggle">
+												<i class="ph ph-plus faq-icon-plus"></i>
+												<i class="ph ph-minus faq-icon-minus"></i>
+											</div>
+										</summary>
+										<div class="faq-answer">
+											{faq.data.answer ? (
+												<PortableText value={faq.data.answer} />
+											) : (
+												<p>Answer coming soon.</p>
+											)}
+										</div>
+									</details>
+								))}
+							</div>
+						</div>
+					))
+				) : (
+					hardcodedFaqs.map((group) => (
+						<div
+							class="faq-category-block"
+							id={group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}
+						>
+							<div class="faq-cat-header">
+								<span class="faq-cat-label">{group.category}</span>
+							</div>
+							<div class="faq-list">
+								{group.items.map((item) => (
+									<details class="faq-item">
+										<summary class="faq-question">
+											<span>{item.q}</span>
+											<div class="faq-toggle">
+												<i class="ph ph-plus faq-icon-plus"></i>
+												<i class="ph ph-minus faq-icon-minus"></i>
+											</div>
+										</summary>
+										<div class="faq-answer">
+											<p>{item.a}</p>
+										</div>
+									</details>
+								))}
+							</div>
+						</div>
+					))
+				)}
+			</div>
+		</div>
+	</section>
+
+	{/* ===== BOTTOM CTA ===== */}
+	<section class="faq-cta">
+		<div class="faq-cta-cut"></div>
+		<div class="faq-cta-body">
+			<div class="container faq-cta-inner">
+				<div data-reveal>
+					<span class="label-tag label-tag--light">// Next Step</span>
+					<h2>READY TO GET YOUR ESTIMATE?</h2>
+					<p>Free in-home consultation. Fixed-price quote within 5 business days. No obligation.</p>
+				</div>
+				<div class="faq-cta-actions" data-reveal data-delay="2">
+					<a href="/contact" class="btn-cta-primary">
+						<i class="ph ph-calendar-check"></i>
+						Schedule Free Consultation
+					</a>
+					<a href="tel:7205554100" class="btn-cta-phone">
+						<i class="ph ph-phone-call"></i>
+						(720) 555-4100
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== LABELS ===== */
+	.label-tag {
+		font-family: "DM Mono", monospace;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+	}
+
+	.label-tag--light {
+		color: rgba(255,107,0,0.85);
+	}
+
+	/* ===== CONTACT STRIP ===== */
+	.faq-contact-strip {
+		background: var(--color-surface);
+		border-bottom: 1px solid var(--color-border);
+		padding: 1rem 0;
+	}
+
+	.strip-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-md);
+		flex-wrap: wrap;
+	}
+
+	.strip-inner p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+	}
+
+	.strip-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-lg);
+	}
+
+	.btn-sm {
+		padding: 0.5rem 1.25rem !important;
+		font-size: var(--font-size-xs) !important;
+	}
+
+	.strip-phone {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		color: #111;
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+
+	.strip-phone i { color: var(--color-primary); }
+	.strip-phone:hover { color: var(--color-primary); }
+
+	/* ===== MAIN FAQ AREA ===== */
+	.faq-main {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+	}
+
+	.faq-layout {
+		display: grid;
+		grid-template-columns: 240px 1fr;
+		gap: var(--space-3xl);
+		align-items: start;
+	}
+
+	/* ===== SIDE NAV ===== */
+	.faq-nav-sticky {
+		position: sticky;
+		top: 90px;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xl);
+	}
+
+	.faq-cat-nav {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		margin-top: var(--space-md);
+	}
+
+	.faq-cat-link {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: var(--color-muted);
+		padding: 0.6rem 0.875rem;
+		border-left: 2px solid var(--color-border);
+		text-decoration: none;
+		transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+	}
+
+	.faq-cat-link i {
+		font-size: 12px;
+		opacity: 0;
+		transition: opacity 0.15s ease;
+	}
+
+	.faq-cat-link:hover {
+		color: #111;
+		border-left-color: var(--color-primary);
+		background: rgba(255,107,0,0.04);
+	}
+
+	.faq-cat-link:hover i {
+		opacity: 1;
+		color: var(--color-primary);
+	}
+
+	.faq-nav-cta {
+		background: #111;
+		padding: 1.25rem;
+		border-left: 3px solid var(--color-primary);
+	}
+
+	.faq-nav-cta p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		color: rgba(255,255,255,0.5);
+		margin-bottom: var(--space-md);
+	}
+
+	/* ===== FAQ CONTENT ===== */
+	.faq-content {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3xl);
+	}
+
+	.faq-category-block {
+		scroll-margin-top: 100px;
+	}
+
+	.faq-cat-header {
+		margin-bottom: var(--space-xl);
+		padding-bottom: var(--space-md);
+		border-bottom: 2px solid #111;
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+	}
+
+	.faq-cat-label {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: #111;
+	}
+
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.faq-item {
+		background: white;
+		border: 1px solid var(--color-border);
+		border-left: 3px solid transparent;
+		overflow: hidden;
+		transition: border-left-color 0.2s ease;
+	}
+
+	.faq-item[open] {
+		border-left-color: var(--color-primary);
+	}
+
+	.faq-question {
+		padding: 1.25rem 1.5rem;
+		cursor: pointer;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: var(--space-lg);
+		list-style: none;
+		user-select: none;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-base);
+		font-weight: 600;
+		color: #111;
+		line-height: 1.4;
+		transition: background 0.15s ease;
+	}
+
+	.faq-question::-webkit-details-marker { display: none; }
+
+	.faq-question:hover {
+		background: rgba(255,107,0,0.03);
+	}
+
+	.faq-toggle {
+		width: 32px;
+		height: 32px;
+		background: #111;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		font-size: 14px;
+		color: white;
+		border-radius: 2px;
+		transition: background 0.2s ease;
+	}
+
+	.faq-item[open] .faq-toggle {
+		background: var(--color-primary);
+	}
+
+	.faq-icon-minus { display: none; }
+	.faq-item[open] .faq-icon-plus { display: none; }
+	.faq-item[open] .faq-icon-minus { display: block; }
+
+	.faq-answer {
+		padding: 0 1.5rem 1.5rem;
+		border-top: 1px solid var(--color-border);
+		background: var(--color-surface);
+	}
+
+	.faq-answer :global(p),
+	.faq-answer p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-base);
+		line-height: 1.75;
+		color: var(--color-muted);
+		margin-top: 1rem;
+		margin-bottom: 0;
+	}
+
+	.faq-answer :global(p + p) {
+		margin-top: var(--space-md);
+	}
+
+	/* ===== BOTTOM CTA ===== */
+	.faq-cta {
+		position: relative;
+		background: #111;
+	}
+
+	.faq-cta-cut {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+
+	.faq-cta-body {
+		background: #111;
+		padding: var(--space-3xl) 0 var(--space-4xl);
+	}
+
+	.faq-cta-inner {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: var(--space-3xl);
+		align-items: center;
+	}
+
+	.faq-cta-inner h2 {
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		color: white;
+		margin: var(--space-md) 0 var(--space-md);
+	}
+
+	.faq-cta-inner p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		color: rgba(255,255,255,0.55);
+		max-width: 480px;
+	}
+
+	.faq-cta-actions {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+		flex-shrink: 0;
+		align-items: flex-start;
+	}
+
+	.btn-cta-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 1rem 2rem;
+		background: var(--color-primary);
+		color: white;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		border-radius: 2px;
+		text-decoration: none;
+		transition: background 0.15s ease, transform 0.15s ease;
+		white-space: nowrap;
+	}
+
+	.btn-cta-primary:hover {
+		background: var(--color-primary-dark);
+		transform: translateY(-2px);
+	}
+
+	.btn-cta-phone {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 1rem 2rem;
+		color: rgba(255,255,255,0.7);
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		border: 1px solid rgba(255,255,255,0.2);
+		border-radius: 2px;
+		text-decoration: none;
+		transition: all 0.15s ease;
+		white-space: nowrap;
+	}
+
+	.btn-cta-phone i { color: var(--color-primary); }
+	.btn-cta-phone:hover { border-color: rgba(255,255,255,0.5); color: white; }
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 900px) {
+		.faq-layout {
+			grid-template-columns: 1fr;
+		}
+		.faq-nav {
+			display: none;
+		}
+		.faq-cta-inner {
+			grid-template-columns: 1fr;
+		}
+		.faq-cta-actions {
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.strip-inner {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>

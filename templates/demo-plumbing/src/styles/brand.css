@@ -1,0 +1,57 @@
+/* ==========================================================
+   Brand Config — Summit Home Services
+   Clean Utilitarian / Trust-First
+   Blue anchor (#0052cc) + Amber emergency (#e8940a)
+   ========================================================== */
+
+:root {
+	/* Summit Home Services (Demo) — Blue / Amber Utility */
+	--brand-primary: #0052cc;
+	--brand-primary-dark: #003d99;
+	--brand-primary-light: #dbeafe;
+
+	--brand-accent: #e8940a;
+	--brand-accent-dark: #c47a08;
+	--brand-accent-light: #fef3c7;
+
+	--brand-dark: #0a0f1e;
+
+	--brand-surface: #f0f4f9;
+	--brand-surface-warm: #fffbeb;
+
+	/* Utility-specific extras */
+	--brand-available: #16a34a;
+	--brand-available-pulse: rgba(22, 163, 74, 0.3);
+
+	--brand-border: #d1dce8;
+	--brand-border-strong: #a8bbd0;
+
+	--brand-gray-50: #f0f4f9;
+	--brand-gray-100: #e2eaf2;
+	--brand-gray-200: #c8d8e8;
+	--brand-gray-500: #6b82a0;
+	--brand-gray-700: #384860;
+	--brand-gray-900: #0d1526;
+}
+
+/* ==========================================================
+   DO NOT EDIT BELOW — these map brand values to the site
+   ========================================================== */
+
+:root {
+	--color-primary: var(--brand-primary);
+	--color-primary-dark: var(--brand-primary-dark);
+	--color-primary-light: var(--brand-primary-light);
+	--color-accent: var(--brand-accent);
+	--color-accent-dark: var(--brand-accent-dark);
+	--color-accent-light: var(--brand-accent-light);
+	--color-dark-section: var(--brand-dark);
+	--color-surface: var(--brand-surface);
+	--color-surface-warm: var(--brand-surface-warm);
+	--color-available: var(--brand-available);
+	--color-available-pulse: var(--brand-available-pulse);
+	--color-border: var(--brand-border);
+	--color-border-strong: var(--brand-border-strong);
+	--color-muted: var(--brand-gray-500);
+	--color-text-dark: var(--brand-gray-900);
+}

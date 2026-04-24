@@ -1,0 +1,81 @@
+---
+const brands = [
+	"Andersen", "Pella", "Kohler", "Moen", "KraftMaid",
+	"Cambria", "James Hardie", "Trex", "GAF", "Marvin"
+];
+---
+
+<div class="brand-strip">
+	<div class="container brand-inner">
+		<span class="brand-eyebrow">// Trusted Partners & Materials</span>
+		<div class="brand-logos">
+			{brands.map((brand) => (
+				<span class="brand-name">{brand}</span>
+			))}
+		</div>
+	</div>
+</div>
+
+<style>
+	.brand-strip {
+		background: var(--color-surface, #f0ede8);
+		border-top: 1px solid var(--color-border, #d4d0ca);
+		border-bottom: 1px solid var(--color-border, #d4d0ca);
+		padding: 2rem var(--site-gutter);
+	}
+
+	.brand-inner {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-2xl, 4rem);
+	}
+
+	.brand-eyebrow {
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-primary, #ff6b00);
+		flex-shrink: 0;
+		white-space: nowrap;
+	}
+
+	.brand-logos {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem var(--spacing-xl, 2.5rem);
+		align-items: center;
+	}
+
+	.brand-name {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm, 0.875rem);
+		font-weight: 700;
+		color: var(--color-text, #141414);
+		opacity: 0.25;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		transition: opacity 0.15s ease;
+	}
+
+	.brand-name:hover {
+		opacity: 0.6;
+	}
+
+	@media (max-width: 768px) {
+		.brand-inner {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--spacing-md, 1rem);
+		}
+
+		.brand-logos {
+			gap: var(--spacing-sm, 0.5rem) var(--spacing-lg, 1.75rem);
+		}
+
+		.brand-name {
+			font-size: var(--font-size-xs, 0.6875rem);
+		}
+	}
+</style>

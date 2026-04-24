@@ -1,0 +1,255 @@
+---
+interface Props {
+	testimonials: Array<{
+		quote: string;
+		author: string;
+		role?: string;
+		company?: string;
+		rating?: number;
+	}>;
+}
+
+const { testimonials } = Astro.props;
+---
+
+<div class="carousel" data-carousel>
+	<div class="carousel-track" data-carousel-track>
+		{testimonials.map((t, i) => (
+			<div class="carousel-slide" data-index={i}>
+				<div class="carousel-card">
+					{t.rating && (
+						<div class="carousel-stars">
+							{Array.from({ length: 5 }).map((_, si) => (
+								<i class={`ph ${si < (t.rating ?? 0) ? "ph-star-fill" : "ph-star"}`} />
+							))}
+						</div>
+					)}
+					<blockquote>
+						<span class="quote-mark">"</span>
+						{t.quote}
+						<span class="quote-mark quote-mark--close">"</span>
+					</blockquote>
+					<div class="carousel-author">
+						<div class="author-line"></div>
+						<div class="author-info">
+							<strong>{t.author}</strong>
+							{(t.role || t.company) && (
+								<span>{t.role}{t.role && t.company ? `, ${t.company}` : t.company}</span>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+		))}
+	</div>
+	<div class="carousel-controls">
+		<button class="carousel-btn" data-carousel-prev aria-label="Previous">
+			<i class="ph ph-arrow-left" />
+		</button>
+		<div class="carousel-dots" data-carousel-dots>
+			{testimonials.map((_, i) => (
+				<button class:list={["carousel-dot", { active: i === 0 }]} data-dot={i} aria-label={`Slide ${i + 1}`} />
+			))}
+		</div>
+		<button class="carousel-btn" data-carousel-next aria-label="Next">
+			<i class="ph ph-arrow-right" />
+		</button>
+	</div>
+</div>
+
+<script>
+	document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((carousel) => {
+		const track = carousel.querySelector<HTMLElement>("[data-carousel-track]")!;
+		const slides = track.querySelectorAll<HTMLElement>(".carousel-slide");
+		const dots = carousel.querySelectorAll<HTMLElement>("[data-dot]");
+		const prevBtn = carousel.querySelector("[data-carousel-prev]");
+		const nextBtn = carousel.querySelector("[data-carousel-next]");
+		let current = 0;
+		let interval: ReturnType<typeof setInterval>;
+
+		function goTo(index: number) {
+			current = ((index % slides.length) + slides.length) % slides.length;
+			track.style.transform = `translateX(-${current * 100}%)`;
+			dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
+		}
+
+		function startAuto() {
+			interval = setInterval(() => goTo(current + 1), 5500);
+		}
+
+		function resetAuto() {
+			clearInterval(interval);
+			startAuto();
+		}
+
+		prevBtn?.addEventListener("click", () => { goTo(current - 1); resetAuto(); });
+		nextBtn?.addEventListener("click", () => { goTo(current + 1); resetAuto(); });
+		dots.forEach((dot) => {
+			dot.addEventListener("click", () => { goTo(Number(dot.dataset.dot)); resetAuto(); });
+		});
+
+		let startX = 0;
+		track.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+		track.addEventListener("touchend", (e) => {
+			const diff = startX - e.changedTouches[0].clientX;
+			if (Math.abs(diff) > 50) {
+				goTo(diff > 0 ? current + 1 : current - 1);
+				resetAuto();
+			}
+		});
+
+		startAuto();
+	});
+</script>
+
+<style>
+	.carousel {
+		overflow: hidden;
+		position: relative;
+	}
+
+	.carousel-track {
+		display: flex;
+		transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.carousel-slide {
+		min-width: 100%;
+		padding: 0 var(--spacing-md);
+		box-sizing: border-box;
+	}
+
+	.carousel-card {
+		max-width: 780px;
+		margin: 0 auto;
+		padding: var(--spacing-2xl) var(--spacing-xl);
+		position: relative;
+	}
+
+	/* Left border accent */
+	.carousel-card::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: var(--spacing-xl);
+		bottom: var(--spacing-xl);
+		width: 3px;
+		background: var(--color-primary, #ff6b00);
+	}
+
+	.carousel-stars {
+		display: flex;
+		gap: 4px;
+		color: var(--color-accent, #f5c518);
+		font-size: 18px;
+		margin-bottom: var(--spacing-lg);
+	}
+
+	blockquote {
+		font-family: "DM Sans", sans-serif;
+		font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+		line-height: 1.65;
+		font-style: italic;
+		color: var(--color-text, #141414);
+		position: relative;
+	}
+
+	.quote-mark {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 3rem;
+		line-height: 0;
+		vertical-align: -0.4em;
+		color: var(--color-primary, #ff6b00);
+		opacity: 0.4;
+		font-style: normal;
+	}
+
+	.quote-mark--close {
+		margin-left: 2px;
+	}
+
+	.carousel-author {
+		margin-top: var(--spacing-xl);
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-lg);
+	}
+
+	.author-line {
+		width: 40px;
+		height: 2px;
+		background: var(--color-primary, #ff6b00);
+		flex-shrink: 0;
+	}
+
+	.author-info {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.author-info strong {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm, 0.875rem);
+		font-weight: 700;
+		color: var(--color-text, #141414);
+	}
+
+	.author-info span {
+		font-family: "DM Sans", sans-serif;
+		font-size: 12px;
+		color: var(--color-muted, #6b6b6b);
+		font-style: normal;
+	}
+
+	.carousel-controls {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: var(--spacing-md);
+		margin-top: var(--spacing-xl);
+		padding-left: var(--spacing-xl);
+	}
+
+	.carousel-btn {
+		background: transparent;
+		border: 1px solid var(--color-border, #d4d0ca);
+		width: 42px;
+		height: 42px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		font-size: 18px;
+		color: var(--color-text, #141414);
+		transition: all 0.15s ease;
+		border-radius: 2px;
+	}
+
+	.carousel-btn:hover {
+		background: var(--color-primary, #ff6b00);
+		border-color: var(--color-primary, #ff6b00);
+		color: white;
+	}
+
+	.carousel-dots {
+		display: flex;
+		gap: 6px;
+	}
+
+	.carousel-dot {
+		width: 24px;
+		height: 3px;
+		border-radius: 0;
+		border: none;
+		background: var(--color-border, #d4d0ca);
+		cursor: pointer;
+		transition: all 0.2s ease;
+		padding: 0;
+	}
+
+	.carousel-dot.active {
+		background: var(--color-primary, #ff6b00);
+		width: 40px;
+	}
+</style>

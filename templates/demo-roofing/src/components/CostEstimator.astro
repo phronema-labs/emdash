@@ -1,46 +1,47 @@
 ---
 ---
 
-<section class="estimator section" id="estimator">
+<section class="estimator" id="estimator">
 	<div class="container">
 		<header class="estimator-header">
+			<span class="estimator-label">INSTANT PRICING</span>
 			<h2>Get a Quick Estimate</h2>
-			<p>Select your service type and details for an instant ballpark price. For an exact quote, <a href="/contact">schedule a free estimate</a>.</p>
+			<p>Select your roof type and project scope for an instant ballpark price. For an exact quote, <a href="/contact">schedule a free inspection</a>.</p>
 		</header>
 
 		<div class="estimator-form" data-estimator>
 			<div class="estimator-step">
-				<label class="step-label">1. What do you need?</label>
+				<label class="step-label">1. What type of project?</label>
 				<div class="option-grid" data-field="service">
-					<button class="option-btn" data-value="plumbing">
-						<i class="ph ph-drop" />
-						<span>Plumbing</span>
+					<button class="option-btn" data-value="repair">
+						<i class="ph ph-wrench"></i>
+						<span>Roof Repair</span>
 					</button>
-					<button class="option-btn" data-value="hvac">
-						<i class="ph ph-thermometer" />
-						<span>HVAC</span>
+					<button class="option-btn" data-value="replacement">
+						<i class="ph ph-house"></i>
+						<span>Full Replacement</span>
 					</button>
-					<button class="option-btn" data-value="electrical">
-						<i class="ph ph-lightning" />
-						<span>Electrical</span>
+					<button class="option-btn" data-value="storm">
+						<i class="ph ph-cloud-rain"></i>
+						<span>Storm Damage</span>
 					</button>
 				</div>
 			</div>
 
 			<div class="estimator-step">
-				<label class="step-label">2. What type of job?</label>
+				<label class="step-label">2. Roof material?</label>
 				<div class="option-grid" data-field="type">
-					<button class="option-btn" data-value="repair">
-						<i class="ph ph-wrench" />
-						<span>Repair</span>
+					<button class="option-btn" data-value="shingle">
+						<i class="ph ph-stack"></i>
+						<span>Asphalt Shingle</span>
 					</button>
-					<button class="option-btn" data-value="install">
-						<i class="ph ph-plus-circle" />
-						<span>New Install</span>
+					<button class="option-btn" data-value="tile">
+						<i class="ph ph-grid-four"></i>
+						<span>Tile / Slate</span>
 					</button>
-					<button class="option-btn" data-value="maintenance">
-						<i class="ph ph-clipboard-text" />
-						<span>Maintenance</span>
+					<button class="option-btn" data-value="metal">
+						<i class="ph ph-rows"></i>
+						<span>Metal Roof</span>
 					</button>
 				</div>
 			</div>
@@ -49,16 +50,16 @@
 				<label class="step-label">3. How urgent?</label>
 				<div class="option-grid" data-field="urgency">
 					<button class="option-btn" data-value="routine">
-						<i class="ph ph-calendar" />
-						<span>Can wait a few days</span>
+						<i class="ph ph-calendar"></i>
+						<span>Planning Ahead</span>
 					</button>
 					<button class="option-btn" data-value="soon">
-						<i class="ph ph-clock" />
-						<span>This week</span>
+						<i class="ph ph-clock"></i>
+						<span>Within 2 Weeks</span>
 					</button>
 					<button class="option-btn" data-value="emergency">
-						<i class="ph ph-siren" />
-						<span>Emergency</span>
+						<i class="ph ph-siren"></i>
+						<span>Emergency Now</span>
 					</button>
 				</div>
 			</div>
@@ -67,8 +68,8 @@
 				<div class="result-card">
 					<span class="result-label">Estimated Range</span>
 					<span class="result-price" data-price></span>
-					<span class="result-note">*Exact pricing provided after on-site assessment. No obligation.</span>
-					<a href="/contact" class="btn btn-primary btn-lg">Schedule Free Estimate</a>
+					<span class="result-note">*Exact pricing after free on-site inspection. No obligation.</span>
+					<a href="/contact" class="btn btn-primary btn-lg">Schedule Free Inspection</a>
 				</div>
 			</div>
 		</div>
@@ -82,20 +83,20 @@
 		const priceEl = form.querySelector<HTMLElement>("[data-price]")!;
 
 		const PRICES: Record<string, Record<string, Record<string, string>>> = {
-			plumbing: {
-				repair: { routine: "$89 – $350", soon: "$89 – $400", emergency: "$149 – $500" },
-				install: { routine: "$200 – $2,500", soon: "$250 – $2,800", emergency: "$350 – $3,500" },
-				maintenance: { routine: "$89 – $150", soon: "$89 – $175", emergency: "$149 – $250" },
+			repair: {
+				shingle: { routine: "$350 – $1,200", soon: "$400 – $1,400", emergency: "$600 – $2,000" },
+				tile: { routine: "$500 – $2,000", soon: "$600 – $2,400", emergency: "$800 – $3,200" },
+				metal: { routine: "$400 – $1,800", soon: "$500 – $2,200", emergency: "$700 – $3,000" },
 			},
-			hvac: {
-				repair: { routine: "$89 – $450", soon: "$89 – $500", emergency: "$149 – $650" },
-				install: { routine: "$3,500 – $12,000", soon: "$3,800 – $13,000", emergency: "$4,500 – $15,000" },
-				maintenance: { routine: "$89 – $175", soon: "$89 – $200", emergency: "$149 – $300" },
+			replacement: {
+				shingle: { routine: "$6,000 – $15,000", soon: "$6,500 – $16,000", emergency: "$8,000 – $18,000" },
+				tile: { routine: "$12,000 – $28,000", soon: "$13,000 – $30,000", emergency: "$16,000 – $35,000" },
+				metal: { routine: "$10,000 – $25,000", soon: "$11,000 – $27,000", emergency: "$14,000 – $32,000" },
 			},
-			electrical: {
-				repair: { routine: "$99 – $400", soon: "$99 – $450", emergency: "$149 – $550" },
-				install: { routine: "$150 – $3,000", soon: "$200 – $3,500", emergency: "$300 – $4,000" },
-				maintenance: { routine: "$99 – $200", soon: "$99 – $225", emergency: "$149 – $300" },
+			storm: {
+				shingle: { routine: "$800 – $4,000", soon: "$1,000 – $5,000", emergency: "$500 – $3,500" },
+				tile: { routine: "$1,200 – $6,000", soon: "$1,500 – $7,500", emergency: "$800 – $5,000" },
+				metal: { routine: "$1,000 – $5,000", soon: "$1,200 – $6,500", emergency: "$700 – $4,500" },
 			},
 		};
 
@@ -104,12 +105,10 @@
 				const field = btn.closest("[data-field]")?.getAttribute("data-field");
 				if (!field) return;
 
-				// Toggle active state
 				btn.closest(".option-grid")?.querySelectorAll(".option-btn").forEach((b) => b.classList.remove("active"));
 				btn.classList.add("active");
 				state[field] = btn.dataset.value!;
 
-				// Show result when all 3 selected
 				if (state.service && state.type && state.urgency) {
 					const price = PRICES[state.service]?.[state.type]?.[state.urgency] ?? "Call for quote";
 					priceEl.textContent = price;
@@ -123,75 +122,119 @@
 
 <style>
 	.estimator {
-		background: white;
+		background: #111111;
+		padding-block: var(--space-4xl);
+		padding-inline: var(--site-gutter);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.estimator::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: repeating-linear-gradient(
+			-45deg,
+			transparent,
+			transparent 40px,
+			rgba(255, 255, 255, 0.01) 40px,
+			rgba(255, 255, 255, 0.01) 41px
+		);
+		pointer-events: none;
 	}
 
 	.estimator-header {
 		text-align: center;
-		margin-bottom: var(--spacing-3xl);
+		margin-bottom: 3.5rem;
+		position: relative;
+	}
+
+	.estimator-label {
+		display: inline-block;
+		font-family: var(--font-headline);
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		margin-bottom: 1rem;
 	}
 
 	.estimator-header h2 {
-		font-size: var(--font-size-3xl);
-		font-weight: 800;
+		font-size: clamp(2.5rem, 4vw, 4rem);
+		color: white;
+		margin-bottom: 1rem;
 	}
 
 	.estimator-header p {
-		color: var(--color-muted);
-		margin-top: var(--spacing-sm);
+		font-family: var(--font-body);
+		color: rgba(255, 255, 255, 0.45);
+		font-size: 1rem;
+		max-width: 520px;
+		margin-inline: auto;
 	}
 
 	.estimator-header a {
 		color: var(--color-primary);
 		text-decoration: underline;
+		text-underline-offset: 3px;
 	}
 
 	.estimator-form {
-		max-width: 700px;
+		max-width: 720px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-2xl);
+		gap: 2.5rem;
+		position: relative;
 	}
 
 	.step-label {
 		display: block;
-		font-weight: 600;
-		margin-bottom: var(--spacing-md);
-		font-size: var(--font-size-lg);
+		font-family: var(--font-headline);
+		font-weight: 800;
+		font-size: 1.1rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.7);
+		margin-bottom: 1rem;
 	}
 
 	.option-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-md);
+		gap: 1rem;
 	}
 
 	.option-btn {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--spacing-sm);
-		padding: var(--spacing-lg);
-		background: var(--color-bg);
-		border: 2px solid var(--color-border);
-		border-radius: var(--radius-lg);
+		gap: 0.6rem;
+		padding: 1.25rem 1rem;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: var(--radius-md);
 		cursor: pointer;
-		font-family: inherit;
-		font-size: var(--font-size-sm);
-		font-weight: 500;
-		color: var(--color-text);
+		font-family: var(--font-headline);
+		font-size: 0.9rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.5);
 		transition: all var(--transition-fast);
 	}
 
 	.option-btn i {
-		font-size: 28px;
-		color: var(--color-muted);
+		font-size: 1.6rem;
+		color: rgba(255, 255, 255, 0.25);
 		transition: color var(--transition-fast);
 	}
 
 	.option-btn:hover {
-		border-color: var(--color-primary);
+		border-color: rgba(220, 38, 38, 0.4);
+		background: rgba(220, 38, 38, 0.05);
+		color: white;
 	}
 
 	.option-btn:hover i {
@@ -200,57 +243,61 @@
 
 	.option-btn.active {
 		border-color: var(--color-primary);
-		background: var(--color-primary);
+		background: rgba(220, 38, 38, 0.12);
 		color: white;
+		box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
 	}
 
 	.option-btn.active i {
-		color: white;
+		color: var(--color-primary);
 	}
 
 	.result-card {
 		text-align: center;
-		padding: var(--spacing-2xl);
-		background: var(--color-bg);
-		border: 2px solid var(--color-primary);
-		border-radius: var(--radius-lg);
+		padding: 2.5rem;
+		background: rgba(220, 38, 38, 0.06);
+		border: 1px solid rgba(220, 38, 38, 0.3);
+		border-radius: var(--radius-md);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--spacing-md);
-		animation: slideUp 0.3s ease;
+		gap: 1rem;
+		animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 0 0 60px rgba(220, 38, 38, 0.1);
 	}
 
 	@keyframes slideUp {
-		from { opacity: 0; transform: translateY(10px); }
+		from { opacity: 0; transform: translateY(16px); }
 		to { opacity: 1; transform: translateY(0); }
 	}
 
 	.result-label {
-		font-size: var(--font-size-sm);
-		font-weight: 600;
+		font-family: var(--font-headline);
+		font-size: 0.75rem;
+		font-weight: 800;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: var(--color-muted);
+		letter-spacing: 0.18em;
+		color: rgba(255, 255, 255, 0.4);
 	}
 
 	.result-price {
-		font-size: var(--font-size-4xl);
-		font-weight: 800;
-		color: var(--color-primary);
+		font-family: var(--font-headline);
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		font-weight: 900;
+		color: white;
+		letter-spacing: 0.02em;
+		line-height: 1;
 	}
 
 	.result-note {
-		font-size: var(--font-size-xs);
-		color: var(--color-muted);
+		font-family: var(--font-body);
+		font-size: 0.8rem;
+		color: rgba(255, 255, 255, 0.3);
 		font-style: italic;
 	}
 
 	@media (max-width: 600px) {
-		.option-grid {
-			grid-template-columns: 1fr;
-		}
-
+		.option-grid { grid-template-columns: 1fr; }
 		.option-btn {
 			flex-direction: row;
 			justify-content: center;

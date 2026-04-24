@@ -1,0 +1,68 @@
+---
+const brands = [
+	"STIHL", "Husqvarna", "John Deere", "Toro", "Hunter",
+	"Rain Bird", "Belgard", "Tremron", "Pavestone", "Oldcastle"
+];
+---
+
+<section class="brand-strip">
+	<div class="container">
+		<p class="brand-label">Products &amp; equipment we work with</p>
+		<div class="brand-logos">
+			{brands.map((brand) => (
+				<span class="brand-name">{brand}</span>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.brand-strip {
+		background: var(--color-surface-alt, #ede8df);
+		padding: var(--space-2xl) var(--site-gutter);
+	}
+
+	.brand-label {
+		font-family: var(--font-body, "Jost", sans-serif);
+		text-align: center;
+		font-size: 0.7rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--color-muted, #7a8c72);
+		margin-bottom: 1.5rem;
+	}
+
+	.brand-logos {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem 2.5rem;
+		align-items: center;
+	}
+
+	.brand-name {
+		font-family: var(--font-body, "Jost", sans-serif);
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--color-text-light, #4a5e42);
+		opacity: 0.35;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		transition: opacity 0.25s ease;
+	}
+
+	.brand-name:hover {
+		opacity: 0.6;
+	}
+
+	@media (max-width: 600px) {
+		.brand-logos {
+			gap: 0.5rem 1.5rem;
+		}
+
+		.brand-name {
+			font-size: 0.8rem;
+		}
+	}
+</style>

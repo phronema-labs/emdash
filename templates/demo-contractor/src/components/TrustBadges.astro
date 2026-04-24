@@ -1,0 +1,142 @@
+---
+interface Props {
+	badges?: Array<{
+		icon: string;
+		label: string;
+		sublabel?: string;
+	}>;
+}
+
+const { badges = [
+	{ icon: "ph-shield-check", label: "Licensed & Insured", sublabel: "$2M Coverage" },
+	{ icon: "ph-star-fill", label: "4.9 Google Rating", sublabel: "285+ Reviews" },
+	{ icon: "ph-clock", label: "Mon–Fri 7AM–5PM", sublabel: "Sat by Appointment" },
+	{ icon: "ph-seal-check", label: "5-Year Warranty", sublabel: "On All Workmanship" },
+	{ icon: "ph-certificate", label: "BBB Accredited", sublabel: "A+ Rating" },
+] } = Astro.props;
+---
+
+<div class="trust-bar">
+	<div class="trust-inner">
+		{badges.map((badge) => (
+			<div class="trust-item">
+				<i class={`ph ${badge.icon}`} />
+				<div class="trust-text">
+					<strong>{badge.label}</strong>
+					{badge.sublabel && <span>{badge.sublabel}</span>}
+				</div>
+			</div>
+		))}
+	</div>
+</div>
+
+<style>
+	.trust-bar {
+		background: #111;
+		border-top: 1px solid rgba(255,255,255,0.05);
+		border-bottom: 1px solid rgba(255,255,255,0.05);
+		overflow: hidden;
+	}
+
+	.trust-inner {
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		padding: 0 var(--site-gutter);
+		display: flex;
+		justify-content: stretch;
+	}
+
+	.trust-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1.1rem 1.5rem;
+		flex: 1;
+		border-right: 1px solid rgba(255,255,255,0.06);
+		position: relative;
+		transition: background 0.15s ease;
+	}
+
+	.trust-item:first-child {
+		padding-left: 0;
+	}
+
+	.trust-item:last-child {
+		border-right: none;
+	}
+
+	.trust-item:hover {
+		background: rgba(255,107,0,0.05);
+	}
+
+	/* Top accent line on hover */
+	.trust-item::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: var(--color-primary, #ff6b00);
+		transform: scaleX(0);
+		transition: transform 0.2s ease;
+	}
+
+	.trust-item:hover::before {
+		transform: scaleX(1);
+	}
+
+	.trust-item i {
+		font-size: 22px;
+		color: var(--color-primary, #ff6b00);
+		flex-shrink: 0;
+	}
+
+	.trust-text {
+		display: flex;
+		flex-direction: column;
+		gap: 1px;
+	}
+
+	.trust-text strong {
+		font-family: "DM Sans", sans-serif;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		color: rgba(255,255,255,0.85);
+		white-space: nowrap;
+	}
+
+	.trust-text span {
+		font-family: "DM Sans", sans-serif;
+		font-size: 11px;
+		color: rgba(255,255,255,0.35);
+		white-space: nowrap;
+	}
+
+	@media (max-width: 900px) {
+		.trust-inner {
+			flex-wrap: wrap;
+		}
+
+		.trust-item {
+			flex: 1 1 45%;
+			border-right: 1px solid rgba(255,255,255,0.06);
+		}
+
+		.trust-item:nth-child(2n) {
+			border-right: none;
+		}
+
+		.trust-text span {
+			display: none;
+		}
+	}
+
+	@media (max-width: 540px) {
+		.trust-item {
+			flex: 1 1 100%;
+			border-right: none;
+			border-bottom: 1px solid rgba(255,255,255,0.06);
+		}
+	}
+</style>

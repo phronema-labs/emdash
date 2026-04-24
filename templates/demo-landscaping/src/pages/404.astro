@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Page Not Found">
+	<section class="container section" style="text-align: center;">
+		<h1 class="error-code">404</h1>
+		<p style="font-size: var(--font-size-xl); color: var(--color-muted); margin-top: var(--spacing-md);">
+			Page not found
+		</p>
+		<p style="color: var(--color-muted); margin-top: var(--spacing-sm);">
+			The page you're looking for doesn't exist or has been moved.
+		</p>
+		<div style="margin-top: var(--spacing-xl); display: flex; gap: var(--spacing-md); justify-content: center;">
+			<a href="/" class="btn btn-primary">Go Home</a>
+			<a href="/contact" class="btn btn-secondary">Contact Us</a>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.error-code {
+		font-size: 8rem;
+		font-weight: 800;
+		background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		line-height: 1;
+	}
+</style>

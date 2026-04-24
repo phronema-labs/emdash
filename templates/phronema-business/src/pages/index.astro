@@ -26,24 +26,63 @@ const testimonialData = testimonials.map((t) => ({
 ---
 
 <Base>
-	{/* ===== HERO — full bleed with overlay ===== */}
+	{/* ===== HERO — two-column with video + form ===== */}
 	<section class="hero-section">
+		<video
+			class="hero-video"
+			autoplay
+			muted
+			loop
+			playsinline
+			preload="auto"
+			poster="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600&h=900&fit=crop"
+		>
+			<source src="https://assets.mixkit.co/videos/39575/39575-720.mp4" type="video/mp4" />
+		</video>
 		<div class="hero-overlay"></div>
+		<!-- Cinematic vignette -->
+		<div class="hero-vignette" aria-hidden="true"></div>
 		<div class="container hero-inner">
-			<div class="hero-content">
-				<span class="hero-badge"><i class="ph ph-shield-check" /> Licensed & Insured · Since 2009</span>
-				<h1>Your home deserves the best care</h1>
-				<p class="hero-sub">Licensed plumbing, HVAC, and electrical services for homeowners and businesses. Same-day appointments available. Satisfaction guaranteed.</p>
-				<div class="hero-actions">
-					<a href="/contact" class="btn btn-hero-primary">
-						<i class="ph ph-calendar-check" /> Schedule Service
-					</a>
-					<a href="tel:5552345678" class="btn btn-hero-secondary">
-						<i class="ph ph-phone" /> (555) 234-5678
-					</a>
+			<div class="hero-grid">
+				<div class="hero-content">
+					<span class="hero-badge">
+						<span class="hero-badge-dot" aria-hidden="true"></span>
+						<i class="ph ph-scales" /> AV Preeminent Rated &middot; Est. 2001
+					</span>
+					<h1>Counsel you can<br /><em>count on</em></h1>
+					<p class="hero-sub">Business law, estate planning, and family law for individuals and companies who deserve experienced, straightforward legal guidance.</p>
+					<div class="hero-actions">
+						<a href="tel:5552345678" class="btn btn-hero-secondary">
+							<i class="ph ph-phone" /> (555) 234-5678
+						</a>
+					</div>
+					<div class="hero-proof">
+						<GoogleReviews rating={4.9} reviewCount={217} style="badge" />
+					</div>
 				</div>
-				<div class="hero-proof">
-					<GoogleReviews rating={4.9} reviewCount={512} style="badge" />
+				<div class="hero-form-wrap">
+					<span class="hero-form-ribbon"><i class="ph ph-calendar-check" /> Free Consultation</span>
+					<form class="hero-form" method="POST" action="/contact">
+						<h2 class="hero-form-title">Schedule a Consultation</h2>
+						<p class="hero-form-sub">We respond within one business day</p>
+						<div class="hero-form-fields">
+							<input type="text" name="name" placeholder="Your name" required />
+							<input type="tel" name="phone" placeholder="Phone number" required />
+							<select name="service">
+								<option value="">Practice area...</option>
+								<option value="business-law">Business Law</option>
+								<option value="estate-planning">Estate Planning</option>
+								<option value="family-law">Family Law</option>
+								<option value="litigation">Litigation</option>
+								<option value="other">Other / Not Sure</option>
+							</select>
+							<textarea name="message" rows="2" placeholder="Brief description of your matter"></textarea>
+							<button type="submit" class="hero-form-btn">
+								<i class="ph ph-calendar-check" /> Request Consultation
+							</button>
+						</div>
+						<p class="hero-form-note"><i class="ph ph-lock-simple" /> Confidential. No obligation.</p>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -54,14 +93,14 @@ const testimonialData = testimonials.map((t) => ({
 
 	{/* ===== SERVICES — light gray bg ===== */}
 	{services.length > 0 && (
-		<section class="section section-gray">
+		<section class="section section-gray section-with-divider">
 			<div class="container">
-				<div class="section-header">
-					<span class="section-label">What We Do</span>
-					<h2>Our Services</h2>
-					<p>Licensed technicians for every job, big or small. Same-day availability.</p>
+				<div class="section-header reveal">
+					<span class="section-label">Practice Areas</span>
+					<h2>How we can <em>help</em></h2>
+					<p>Experienced attorneys across the matters that matter most to individuals and businesses.</p>
 				</div>
-				<div class="services-grid">
+				<div class="services-grid reveal-stagger">
 					{services.slice(0, 4).map((service) => (
 						<ServiceCard
 							title={service.data.title}
@@ -74,7 +113,7 @@ const testimonialData = testimonials.map((t) => ({
 					))}
 				</div>
 				<div style="text-align: center; margin-top: var(--spacing-2xl);">
-					<a href="/services" class="btn btn-secondary">View All Services &rarr;</a>
+					<a href="/services" class="btn btn-secondary">View All Practice Areas &rarr;</a>
 				</div>
 			</div>
 		</section>
@@ -83,53 +122,56 @@ const testimonialData = testimonials.map((t) => ({
 	{/* ===== STATS — dark section ===== */}
 	<section class="section section-dark">
 		<div class="container">
-			<div class="stats-row">
+			<div class="stats-row reveal-stagger">
 				<div class="stat">
-					<span class="stat-number">15+</span>
-					<span class="stat-label">Years in Business</span>
+					<span class="stat-number">20+</span>
+					<span class="stat-label">Years in Practice</span>
 				</div>
 				<div class="stat-divider"></div>
 				<div class="stat">
-					<span class="stat-number">10,000+</span>
-					<span class="stat-label">Jobs Completed</span>
+					<span class="stat-number">1,200+</span>
+					<span class="stat-label">Matters Handled</span>
 				</div>
 				<div class="stat-divider"></div>
 				<div class="stat">
-					<span class="stat-number">4.9 <i class="ph ph-star-fill" style="color: #FBBC05; font-size: 20px;" /></span>
-					<span class="stat-label">Google Rating</span>
+					<span class="stat-number">AV <i class="ph ph-star-fill" style="color: #b8860b; font-size: 20px;" /></span>
+					<span class="stat-label">Martindale-Hubbell</span>
 				</div>
 				<div class="stat-divider"></div>
 				<div class="stat">
-					<span class="stat-number">24/7</span>
-					<span class="stat-label">Emergency Service</span>
+					<span class="stat-number">98%</span>
+					<span class="stat-label">Client Retention</span>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	{/* ===== WHY CHOOSE US — white bg ===== */}
-	<section class="section">
+	{/* ===== WHY CHOOSE US — white bg with mesh gradient ===== */}
+	<section class="section bg-mesh">
 		<div class="container">
-			<div class="section-header">
-				<span class="section-label">Why Choose Us</span>
-				<h2>The Summit difference</h2>
-				<p>We're not the cheapest, but we're the best value. Here's why homeowners trust us.</p>
+			<div class="section-header reveal">
+				<span class="section-label">Why Clients Choose Us</span>
+				<h2>The Caldwell <em>difference</em></h2>
+				<p>High-quality legal counsel without the big-firm bureaucracy. Partner-led representation from day one.</p>
 			</div>
-			<div class="why-grid">
+			<div class="why-grid reveal-stagger">
 				<div class="why-card">
-					<div class="why-icon"><i class="ph ph-clock" /></div>
-					<h3>Same-Day Service</h3>
-					<p>Call before noon and we'll be there today. No waiting around for a service window — we respect your time.</p>
+					<div class="why-icon"><i class="ph ph-handshake" /></div>
+					<h3>Direct Partner Access</h3>
+					<p>Your matter is handled by a named partner, not handed off to a junior associate. You get experienced counsel, not a learning curve.</p>
+					<span class="why-number" aria-hidden="true">01</span>
 				</div>
 				<div class="why-card">
 					<div class="why-icon"><i class="ph ph-currency-dollar" /></div>
-					<h3>Upfront Pricing</h3>
-					<p>You'll know the price before we start. No surprises, no hidden fees, no hourly billing games.</p>
+					<h3>Transparent Billing</h3>
+					<p>Flat fees where possible. Hourly rates disclosed upfront. No bill surprises, no 6-minute email increments, no nickel-and-diming.</p>
+					<span class="why-number" aria-hidden="true">02</span>
 				</div>
 				<div class="why-card">
 					<div class="why-icon"><i class="ph ph-seal-check" /></div>
-					<h3>Warranty on All Work</h3>
-					<p>Every repair and installation comes with our satisfaction guarantee and minimum 1-year labor warranty.</p>
+					<h3>Results-Focused Counsel</h3>
+					<p>We measure success by your outcome. Our reputation depends on the results we achieve, and we take that responsibility seriously.</p>
+					<span class="why-number" aria-hidden="true">03</span>
 				</div>
 			</div>
 		</div>
@@ -142,11 +184,11 @@ const testimonialData = testimonials.map((t) => ({
 	{testimonialData.length > 0 && (
 		<section class="section section-warm">
 			<div class="container">
-				<div class="section-header">
-					<span class="section-label">Testimonials</span>
-					<h2>What our customers say</h2>
+				<div class="section-header reveal">
+					<span class="section-label">Client Testimonials</span>
+					<h2>What our clients <em>say</em></h2>
 					<div style="margin-top: var(--spacing-md);">
-						<GoogleReviews rating={4.9} reviewCount={512} style="badge" />
+						<GoogleReviews rating={4.9} reviewCount={217} style="badge" />
 					</div>
 				</div>
 				<TestimonialCarousel testimonials={testimonialData} />
@@ -158,12 +200,12 @@ const testimonialData = testimonials.map((t) => ({
 	{projects.length > 0 && (
 		<section class="section section-gray">
 			<div class="container">
-				<div class="section-header">
-					<span class="section-label">Our Work</span>
-					<h2>Recent projects</h2>
-					<p>See some of our latest work across the metro area.</p>
+				<div class="section-header reveal">
+					<span class="section-label">Notable Matters</span>
+					<h2>Recent <em>engagements</em></h2>
+					<p>A selection of recent matters handled across our practice areas. Client identities are protected.</p>
 				</div>
-				<div class="projects-preview">
+				<div class="projects-preview reveal-stagger">
 					{projects.slice(0, 3).map((project) => (
 						<a href={`/work/${project.slug}`} class="project-preview-card">
 							<div class="project-preview-img">
@@ -172,7 +214,7 @@ const testimonialData = testimonials.map((t) => ({
 								) : (
 									<img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop" alt={project.data.title} loading="lazy" />
 								)}
-								<span class="project-overlay">View Project</span>
+								<span class="project-overlay">View Matter</span>
 							</div>
 							<div class="project-preview-info">
 								<h3>{project.data.title}</h3>
@@ -182,7 +224,7 @@ const testimonialData = testimonials.map((t) => ({
 					))}
 				</div>
 				<div style="text-align: center; margin-top: var(--spacing-2xl);">
-					<a href="/work" class="btn btn-secondary">View All Projects &rarr;</a>
+					<a href="/work" class="btn btn-secondary">View All Notable Matters &rarr;</a>
 				</div>
 			</div>
 		</section>
@@ -193,11 +235,15 @@ const testimonialData = testimonials.map((t) => ({
 
 	{/* ===== FINAL CTA — dark brand section ===== */}
 	<section class="section section-cta">
-		<div class="container" style="text-align: center;">
-			<h2>Need service today?</h2>
-			<p>Call now or book online. Same-day appointments and 24/7 emergency service available.</p>
+		<!-- Decorative orbs -->
+		<span class="cta-orb cta-orb-1" aria-hidden="true"></span>
+		<span class="cta-orb cta-orb-2" aria-hidden="true"></span>
+		<div class="container reveal" style="text-align: center; position: relative; z-index: 1;">
+			<span class="section-label" style="color: rgba(255,255,255,0.5);">Ready to Move Forward?</span>
+			<h2 style="margin-top: 0.5rem;">Let's discuss your <em>matter</em></h2>
+			<p>Schedule a confidential consultation today. In-person, phone, or video — whatever works for you.</p>
 			<div class="cta-actions">
-				<a href="/contact" class="btn btn-accent btn-lg">Schedule Service</a>
+				<a href="/contact" class="btn btn-accent btn-lg">Schedule a Consultation</a>
 				<a href="tel:5552345678" class="btn btn-outline-light btn-lg">
 					<i class="ph ph-phone" /> (555) 234-5678
 				</a>
@@ -208,6 +254,23 @@ const testimonialData = testimonials.map((t) => ({
 
 <style>
 	/* ===== Section styles ===== */
+	.section-with-divider {
+		position: relative;
+		margin-top: -1px;
+	}
+
+	.section-with-divider::before {
+		content: "";
+		position: absolute;
+		top: -40px;
+		left: 0;
+		right: 0;
+		height: 40px;
+		background: var(--color-surface);
+		clip-path: polygon(0 100%, 100% 0, 100% 100%);
+		z-index: 1;
+	}
+
 	.section-gray { background: var(--color-surface); }
 	.section-warm { background: var(--color-surface-warm, #fef8f4); }
 	.section-dark {
@@ -215,84 +278,208 @@ const testimonialData = testimonials.map((t) => ({
 		color: white;
 	}
 	.section-cta {
-		background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+		background:
+			radial-gradient(ellipse at 20% 60%, color-mix(in srgb, var(--color-accent) 20%, transparent), transparent 50%),
+			radial-gradient(ellipse at 80% 30%, color-mix(in srgb, var(--color-primary) 30%, transparent), transparent 60%),
+			linear-gradient(140deg, var(--color-primary-dark) 0%, color-mix(in srgb, var(--color-primary) 80%, #000) 100%);
 		color: white;
-		padding: var(--space-4xl) var(--site-gutter);
+		padding: var(--space-5xl) var(--site-gutter);
+		position: relative;
+		overflow: hidden;
 	}
+
+	.section-cta h2 {
+		font-size: clamp(2rem, 4.5vw, 3.25rem);
+		color: white;
+	}
+
+	.section-cta h2 em {
+		font-style: italic;
+		color: color-mix(in srgb, var(--color-accent) 90%, white);
+	}
+
+	/* Decorative floating orbs */
+	.cta-orb {
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.cta-orb-1 {
+		width: 400px;
+		height: 400px;
+		top: -150px;
+		right: -100px;
+		background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 15%, transparent), transparent 70%);
+	}
+
+	.cta-orb-2 {
+		width: 300px;
+		height: 300px;
+		bottom: -120px;
+		left: 5%;
+		background: radial-gradient(circle, color-mix(in srgb, var(--color-primary-light) 10%, transparent), transparent 70%);
+	}
+
 	.section-cta p {
-		color: rgba(255,255,255,0.8);
+		color: rgba(255,255,255,0.75);
+		font-family: var(--font-body, system-ui);
 		font-size: var(--font-size-lg);
-		margin-top: var(--spacing-sm);
-		max-width: 500px;
+		margin-top: var(--spacing-md);
+		max-width: 480px;
 		margin-inline: auto;
+		line-height: 1.7;
 	}
 
 	/* Section headers */
 	.section-header {
 		text-align: center;
-		margin-bottom: var(--spacing-3xl);
+		margin-bottom: var(--space-3xl);
 	}
 
 	.section-label {
 		display: inline-block;
-		font-size: 13px;
+		font-family: var(--font-body, system-ui);
+		font-size: 11px;
 		font-weight: 700;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.14em;
 		color: var(--color-primary);
 		margin-bottom: var(--spacing-sm);
+		background: linear-gradient(
+			110deg,
+			var(--color-primary) 30%,
+			var(--color-accent) 50%,
+			var(--color-primary) 70%
+		);
+		background-size: 200% auto;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		animation: shimmer 4s ease-in-out infinite;
 	}
 
 	.section-header h2 {
-		font-size: var(--font-size-3xl);
-		font-weight: 800;
+		font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+	}
+
+	.section-header h2 em {
+		font-style: italic;
+		color: var(--color-accent);
+		-webkit-text-fill-color: var(--color-accent);
 	}
 
 	.section-header p {
 		color: var(--color-muted);
+		font-family: var(--font-body, system-ui);
 		font-size: var(--font-size-lg);
-		margin-top: var(--spacing-sm);
-		max-width: 550px;
+		margin-top: var(--spacing-md);
+		max-width: 520px;
 		margin-inline: auto;
+		line-height: 1.7;
 	}
 
 	/* ===== Hero ===== */
 	.hero-section {
 		position: relative;
-		background: url("https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&h=900&fit=crop") center/cover no-repeat;
-		min-height: 520px;
+		background: #0a0f1a;
 		display: flex;
 		align-items: center;
+		overflow: hidden;
+		min-height: 640px;
+	}
+
+	.hero-video {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0.5;
 	}
 
 	.hero-overlay {
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(135deg, rgba(26, 35, 50, 0.92) 0%, rgba(30, 107, 184, 0.75) 100%);
+		background:
+			linear-gradient(135deg, var(--color-dark-section, #030712) 0%, color-mix(in srgb, var(--color-primary) 55%, #000) 100%);
+		opacity: 0.88;
+	}
+
+	/* Subtle radial vignette at edges */
+	.hero-vignette {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.45) 100%);
+		pointer-events: none;
+		z-index: 0;
 	}
 
 	.hero-inner {
 		position: relative;
 		z-index: 1;
-		padding: var(--space-4xl) var(--site-gutter);
+		padding: var(--space-5xl) var(--site-gutter);
+		width: 100%;
+	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1fr 420px;
+		gap: var(--spacing-3xl);
+		align-items: center;
 	}
 
 	.hero-content {
-		max-width: 800px;
 		color: white;
 	}
 
 	.hero-badge {
 		display: inline-flex;
 		align-items: center;
-		gap: 6px;
-		background: rgba(255,255,255,0.12);
-		border: 1px solid rgba(255,255,255,0.2);
-		padding: 6px 14px;
-		border-radius: 20px;
-		font-size: 13px;
+		gap: 8px;
+		background: rgba(255,255,255,0.08);
+		border: 1px solid rgba(255,255,255,0.15);
+		padding: 7px 16px;
+		border-radius: 24px;
+		font-family: var(--font-body, system-ui);
+		font-size: 12px;
 		font-weight: 500;
-		margin-bottom: var(--spacing-lg);
+		letter-spacing: 0.02em;
+		margin-bottom: var(--spacing-xl);
+		position: relative;
+		overflow: hidden;
+		animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+	}
+
+	.hero-badge::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			110deg,
+			transparent 25%,
+			rgba(255, 255, 255, 0.06) 40%,
+			rgba(255, 255, 255, 0.06) 45%,
+			transparent 60%
+		);
+		background-size: 250% 100%;
+		animation: shimmer 4s ease-in-out infinite;
+	}
+
+	/* Pulsing live dot */
+	.hero-badge-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: #22c55e;
+		flex-shrink: 0;
+		box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+		animation: pulse-dot 2s ease-in-out infinite;
+	}
+
+	@keyframes pulse-dot {
+		0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+		50% { box-shadow: 0 0 0 5px rgba(34, 197, 94, 0); }
 	}
 
 	.hero-badge i {
@@ -300,62 +487,236 @@ const testimonialData = testimonials.map((t) => ({
 	}
 
 	.hero-content h1 {
-		font-size: clamp(2.2rem, 5vw, 3.5rem);
-		font-weight: 800;
-		line-height: 1.1;
-		letter-spacing: -0.03em;
+		font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+		font-weight: 400;
+		line-height: 1.08;
+		letter-spacing: -0.02em;
+		animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+	}
+
+	.hero-content h1 em {
+		font-style: italic;
+		color: color-mix(in srgb, var(--color-accent) 85%, white);
 	}
 
 	.hero-sub {
+		font-family: var(--font-body, system-ui);
 		font-size: var(--font-size-lg);
-		line-height: 1.6;
-		color: rgba(255,255,255,0.85);
+		line-height: 1.7;
+		color: rgba(255,255,255,0.75);
 		margin-top: var(--spacing-md);
+		max-width: 460px;
+		animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
 	}
 
 	.hero-actions {
 		display: flex;
 		gap: var(--spacing-md);
 		flex-wrap: wrap;
-		margin-top: var(--spacing-xl);
+		margin-top: var(--spacing-lg);
+		animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
 	}
 
-	.btn-hero-primary {
-		background: var(--color-accent, #ff6b35) !important;
-		color: white !important;
-		border: 2px solid var(--color-accent, #ff6b35) !important;
-		padding: 14px 28px !important;
-		font-size: var(--font-size-base) !important;
-		font-weight: 700 !important;
+	.hero-actions .btn-hero-secondary {
+		background: transparent;
+		color: white;
+		border: 2px solid rgba(255,255,255,0.3);
+		padding: 10px 20px;
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		border-radius: var(--radius-sm);
 		display: inline-flex;
 		align-items: center;
 		gap: 8px;
+		text-decoration: none;
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 	}
 
-	.btn-hero-primary:hover {
-		background: #e55a2b !important;
-		border-color: #e55a2b !important;
-	}
-
-	.btn-hero-secondary {
-		background: transparent !important;
-		color: white !important;
-		border: 2px solid rgba(255,255,255,0.4) !important;
-		padding: 14px 28px !important;
-		font-size: var(--font-size-base) !important;
-		font-weight: 600 !important;
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-	}
-
-	.btn-hero-secondary:hover {
-		background: rgba(255,255,255,0.1) !important;
-		border-color: rgba(255,255,255,0.7) !important;
+	.hero-actions .btn-hero-secondary:hover {
+		background: rgba(255,255,255,0.1);
+		border-color: rgba(255,255,255,0.6);
+		transform: translateY(-1px);
 	}
 
 	.hero-proof {
-		margin-top: var(--spacing-xl);
+		margin-top: var(--spacing-lg);
+		animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+	}
+
+	/* Hero form */
+	.hero-form-wrap {
+		animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+		position: relative;
+	}
+
+	.hero-form-ribbon {
+		position: absolute;
+		top: -12px;
+		right: 20px;
+		z-index: 2;
+		background: var(--color-accent, #e00000);
+		color: white;
+		font-family: var(--font-body, system-ui);
+		font-size: 10px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		padding: 6px 14px;
+		border-radius: 6px 6px 6px 0;
+		box-shadow: 0 4px 16px color-mix(in srgb, var(--color-accent) 40%, transparent);
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		animation: pulse-glow 2s ease-in-out infinite;
+	}
+
+	.hero-form-ribbon::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: -6px;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 6px 8px 0 0;
+		border-color: color-mix(in srgb, var(--color-accent) 70%, #000) transparent transparent transparent;
+	}
+
+	.hero-form-ribbon i {
+		font-size: 13px;
+	}
+
+	.hero-form {
+		background: rgba(255, 255, 255, 0.97);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-2xl) var(--spacing-xl);
+		box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+		position: relative;
+		backdrop-filter: blur(4px);
+	}
+
+	/* Top accent gradient on form */
+	.hero-form::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 24px;
+		right: 24px;
+		height: 2px;
+		background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+		border-radius: 0 0 2px 2px;
+	}
+
+	.hero-form-title {
+		font-size: var(--font-size-2xl);
+		font-weight: 400;
+		color: var(--color-text);
+		margin-bottom: 4px;
+		letter-spacing: -0.02em;
+	}
+
+	.hero-form-sub {
+		font-family: var(--font-body, system-ui);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		margin-bottom: var(--spacing-xl);
+	}
+
+	.hero-form-fields {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.hero-form-fields input,
+	.hero-form-fields select,
+	.hero-form-fields textarea {
+		width: 100%;
+		padding: 11px 14px;
+		border: 1.5px solid rgba(0, 0, 0, 0.1);
+		border-radius: var(--radius-sm);
+		font-family: var(--font-body, system-ui);
+		font-size: var(--font-size-sm);
+		color: var(--color-text);
+		background: rgba(248, 250, 252, 0.8);
+		transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+	}
+
+	.hero-form-fields input::placeholder,
+	.hero-form-fields textarea::placeholder {
+		color: var(--color-muted);
+		opacity: 0.55;
+	}
+
+	.hero-form-fields input:focus,
+	.hero-form-fields select:focus,
+	.hero-form-fields textarea:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		background: white;
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 12%, transparent);
+	}
+
+	.hero-form-fields textarea {
+		resize: vertical;
+		min-height: 52px;
+	}
+
+	.hero-form-btn {
+		width: 100%;
+		padding: 14px;
+		background: var(--color-accent, #e00000);
+		color: white;
+		border: none;
+		border-radius: var(--radius-sm);
+		font-family: var(--font-body, system-ui);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		position: relative;
+		overflow: hidden;
+		transition: background 0.25s cubic-bezier(0.22, 1, 0.36, 1), transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+		margin-top: 4px;
+	}
+
+	.hero-form-btn::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			110deg,
+			transparent 20%,
+			rgba(255, 255, 255, 0.18) 38%,
+			rgba(255, 255, 255, 0.18) 42%,
+			transparent 60%
+		);
+		background-size: 200% 100%;
+		animation: shimmer 3s ease-in-out 2s infinite;
+	}
+
+	.hero-form-btn:hover {
+		background: color-mix(in srgb, var(--color-accent) 85%, #000);
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px color-mix(in srgb, var(--color-accent) 35%, transparent);
+	}
+
+	.hero-form-note {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		margin-top: 10px;
+		font-size: 11px;
+		color: var(--color-muted);
+	}
+
+	.hero-form-note i {
+		font-size: 12px;
 	}
 
 	/* ===== Stats ===== */
@@ -364,7 +725,7 @@ const testimonialData = testimonials.map((t) => ({
 		align-items: center;
 		justify-content: center;
 		gap: var(--spacing-3xl);
-		padding: var(--spacing-xl) 0;
+		padding: var(--spacing-lg) 0;
 	}
 
 	.stat {
@@ -376,24 +737,28 @@ const testimonialData = testimonials.map((t) => ({
 		align-items: center;
 		justify-content: center;
 		gap: 6px;
-		font-size: var(--font-size-4xl);
-		font-weight: 800;
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 4vw, 2.75rem);
+		font-weight: 400;
 		color: white;
+		letter-spacing: -0.02em;
 	}
 
 	.stat-label {
 		display: block;
-		font-size: var(--font-size-sm);
-		color: rgba(255,255,255,0.6);
+		font-family: var(--font-body, system-ui);
+		font-size: 11px;
+		font-weight: 600;
+		color: rgba(255,255,255,0.45);
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		margin-top: var(--spacing-xs);
+		letter-spacing: 0.1em;
+		margin-top: var(--spacing-sm);
 	}
 
 	.stat-divider {
 		width: 1px;
-		height: 50px;
-		background: rgba(255,255,255,0.15);
+		height: 56px;
+		background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent);
 	}
 
 	/* ===== Why cards ===== */
@@ -405,41 +770,95 @@ const testimonialData = testimonials.map((t) => ({
 
 	.why-card {
 		text-align: center;
-		padding: var(--spacing-2xl) var(--spacing-xl);
-		background: var(--color-surface);
+		padding: var(--space-2xl) var(--spacing-xl);
+		background: white;
 		border-radius: var(--radius-lg);
-		border: 1px solid var(--color-border);
-		box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-		transition: transform var(--transition-base), box-shadow var(--transition-base);
+		border: 1px solid rgba(0, 0, 0, 0.07);
+		box-shadow: var(--shadow-sm);
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	/* Numbered ghost overlay */
+	.why-number {
+		position: absolute;
+		bottom: -8px;
+		right: 12px;
+		font-family: var(--font-display);
+		font-size: 5rem;
+		font-weight: 400;
+		color: var(--color-primary-light, #e8edf5);
+		line-height: 1;
+		pointer-events: none;
+		user-select: none;
+		transition: color 0.3s ease;
+	}
+
+	.why-card:hover .why-number {
+		color: color-mix(in srgb, var(--color-primary) 8%, transparent);
 	}
 
 	.why-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+		transform: translateY(-5px);
+		box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+	}
+
+	/* Bottom reveal bar */
+	.why-card::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.why-card:hover::after {
+		transform: scaleX(1);
 	}
 
 	.why-icon {
-		width: 60px;
-		height: 60px;
+		width: 56px;
+		height: 56px;
 		margin: 0 auto var(--spacing-lg);
-		border-radius: var(--radius-full);
+		border-radius: var(--radius-md);
 		background: var(--color-primary-light);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 28px;
+		font-size: 24px;
 		color: var(--color-primary);
+		transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+		position: relative;
+		z-index: 1;
+	}
+
+	.why-card:hover .why-icon {
+		background: var(--color-primary);
+		color: white;
+		transform: scale(1.12) rotate(-4deg);
+		box-shadow: 0 8px 20px color-mix(in srgb, var(--color-primary) 25%, transparent);
 	}
 
 	.why-card h3 {
-		font-size: var(--font-size-lg);
+		font-size: var(--font-size-xl);
 		margin-bottom: var(--spacing-sm);
+		position: relative;
+		z-index: 1;
 	}
 
 	.why-card p {
 		color: var(--color-muted);
+		font-family: var(--font-body, system-ui);
 		font-size: var(--font-size-sm);
-		line-height: 1.6;
+		line-height: 1.7;
+		position: relative;
+		z-index: 1;
 	}
 
 	/* ===== Services ===== */
@@ -463,8 +882,8 @@ const testimonialData = testimonials.map((t) => ({
 		text-decoration: none;
 		color: var(--color-text);
 		transition: transform var(--transition-base), box-shadow var(--transition-base);
-		background: white;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+		background: var(--color-bg);
+		box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 	}
 
 	.project-preview-card:hover {
@@ -488,15 +907,17 @@ const testimonialData = testimonials.map((t) => ({
 	.project-overlay {
 		position: absolute;
 		inset: 0;
-		background: rgba(30, 107, 184, 0.8);
+		background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 85%, transparent) 0%, color-mix(in srgb, var(--color-dark-section, #1a2332) 80%, transparent) 100%);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		color: white;
 		font-weight: 600;
 		font-size: var(--font-size-sm);
+		letter-spacing: 0.03em;
 		opacity: 0;
-		transition: opacity var(--transition-base);
+		transition: opacity 0.35s ease;
+		backdrop-filter: blur(2px);
 	}
 
 	.project-preview-card:hover .project-overlay {
@@ -504,7 +925,7 @@ const testimonialData = testimonials.map((t) => ({
 	}
 
 	.project-preview-card:hover img {
-		transform: scale(1.05);
+		transform: scale(1.06);
 	}
 
 	.project-preview-info {
@@ -531,29 +952,64 @@ const testimonialData = testimonials.map((t) => ({
 		margin-top: var(--spacing-xl);
 	}
 
-	.btn-accent {
-		background: var(--color-accent) !important;
-		color: white !important;
-		border: none;
+	.cta-actions .btn-accent {
+		background: var(--color-accent);
+		color: white;
+		border: 2px solid var(--color-accent);
+		text-decoration: none;
+		position: relative;
+		overflow: hidden;
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 	}
 
-	.btn-accent:hover {
-		background: #e55a2b !important;
+	.cta-actions .btn-accent::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			110deg,
+			transparent 20%,
+			rgba(255, 255, 255, 0.2) 38%,
+			rgba(255, 255, 255, 0.2) 42%,
+			transparent 60%
+		);
+		background-size: 200% 100%;
+		animation: shimmer 3s ease-in-out 2s infinite;
 	}
 
-	.btn-outline-light {
-		color: white !important;
-		border: 2px solid rgba(255,255,255,0.4) !important;
+	.cta-actions .btn-accent:hover {
+		background: color-mix(in srgb, var(--color-accent) 85%, #000);
+		border-color: color-mix(in srgb, var(--color-accent) 85%, #000);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 28px color-mix(in srgb, var(--color-accent) 40%, transparent);
+	}
+
+	.cta-actions .btn-outline-light {
+		color: white;
+		border: 2px solid rgba(255,255,255,0.35);
 		background: transparent;
+		text-decoration: none;
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 	}
 
-	.btn-outline-light:hover {
-		background: rgba(255,255,255,0.1) !important;
-		border-color: rgba(255,255,255,0.7) !important;
+	.cta-actions .btn-outline-light:hover {
+		background: rgba(255,255,255,0.1);
+		border-color: rgba(255,255,255,0.6);
+		transform: translateY(-2px);
 	}
 
 	/* ===== Responsive ===== */
 	@media (max-width: 1024px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+			gap: var(--spacing-xl);
+		}
+		.hero-form-wrap {
+			max-width: 460px;
+		}
+		.hero-inner {
+			padding: var(--space-4xl) var(--site-gutter);
+		}
 		.services-grid { grid-template-columns: repeat(2, 1fr); }
 	}
 

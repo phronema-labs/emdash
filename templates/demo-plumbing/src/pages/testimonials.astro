@@ -1,0 +1,591 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import GoogleReviews from "../components/GoogleReviews.astro";
+
+const { entries: testimonials, cacheHint } = await getEmDashCollection("testimonials", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const fallbackTestimonials = [
+	{
+		quote: "Our furnace quit on a Friday night in January. Called Summit at 9 PM and a technician was at our house by 10:30. He had the part on his truck and had us back up and running before midnight. I was blown away.",
+		author: "Tom & Karen Albrecht",
+		role: "Homeowner",
+		company: "Springfield, IL",
+		rating: 5,
+		service: "Emergency HVAC",
+	},
+	{
+		quote: "Mike's team re-plumbed our entire 1940s farmhouse. The quote was fair, they stuck to it, and the work was cleaner than anything I've ever seen from a contractor. Every pipe labeled, every connection solid.",
+		author: "David Hendricks",
+		role: "Homeowner",
+		company: "Chatham, IL",
+		rating: 5,
+		service: "Whole-Home Plumbing",
+	},
+	{
+		quote: "I've tried three other HVAC companies over the years. Summit is the only one that came out, diagnosed the real problem, and fixed it the first time. No upsells, no phantom parts. Just honest work.",
+		author: "Maria Gonzalez",
+		role: "Property Manager",
+		company: "Springfield Metro",
+		rating: 5,
+		service: "HVAC Repair",
+	},
+	{
+		quote: "Called about a tripped breaker and they fit me in same day. James found a loose connection in the panel that could have been a serious hazard. He explained everything he found, no pressure tactics, and the price was exactly what they quoted.",
+		author: "Sandra Kowalczyk",
+		role: "Homeowner",
+		company: "Sherman, IL",
+		rating: 5,
+		service: "Electrical",
+	},
+	{
+		quote: "The drain cleaning crew was here within two hours and cleared a main line blockage that had been backing up my basement. Professional, clean, fast. Price was very fair. 100% would call again.",
+		author: "Jeff Burnham",
+		role: "Homeowner",
+		company: "Rochester, IL",
+		rating: 5,
+		service: "Drain Cleaning",
+	},
+	{
+		quote: "Had Summit install a new water heater and upgrade our electrical panel at the same time. Coordinated both crews, kept the house tidy, passed inspection first try. That kind of all-in-one capability saves so much hassle.",
+		author: "Patrick & Lisa Okafor",
+		role: "Homeowners",
+		company: "Springfield, IL",
+		rating: 5,
+		service: "Water Heater + Electrical",
+	},
+	{
+		quote: "I'm a retired contractor myself, so I know what good work looks like. Summit does good work. The technicians are knowledgeable, they don't cut corners, and they treat your home with respect. That's rare.",
+		author: "Ron Stricker",
+		role: "Retired Contractor",
+		company: "Auburn, IL",
+		rating: 5,
+		service: "Plumbing Repair",
+	},
+	{
+		quote: "Summit installed our mini-split system last summer. It's been flawless. The installation was neat, the system runs perfectly, and when I had a question two months later they called me back the same day. Outstanding service.",
+		author: "Theresa Vail",
+		role: "Homeowner",
+		company: "Williamsville, IL",
+		rating: 5,
+		service: "HVAC Installation",
+	},
+];
+
+const displayTestimonials = testimonials.length > 0
+	? testimonials.map((t) => ({
+		quote: t.data.quote,
+		author: t.data.author,
+		role: t.data.role || "",
+		company: t.data.company || "",
+		rating: (t.data.rating as number | undefined) ?? 5,
+		service: "",
+	}))
+	: fallbackTestimonials;
+---
+
+<Base title="Testimonials" description="See what Springfield homeowners say about Summit Home Services — plumbing, HVAC, and electrical you can count on.">
+	<PageHero
+		title="Customer Testimonials"
+		subtitle="Real reviews from homeowners across Sangamon County."
+		image="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&h=500&fit=crop"
+	/>
+
+	{/* Rating bar */}
+	<div class="rating-bar">
+		<div class="container rating-bar-inner">
+			<GoogleReviews rating={4.9} reviewCount={512} style="badge" />
+			<div class="rating-bar-divider"></div>
+			<div class="rating-bar-stat">
+				<strong>512</strong>
+				<span>Verified Google Reviews</span>
+			</div>
+			<div class="rating-bar-divider"></div>
+			<div class="rating-bar-stat">
+				<strong>10K+</strong>
+				<span>Jobs Completed Since 2009</span>
+			</div>
+			<div class="rating-bar-divider"></div>
+			<div class="rating-bar-stat">
+				<strong>100%</strong>
+				<span>Satisfaction Guarantee</span>
+			</div>
+			<div class="rating-bar-phone">
+				<i class="ph ph-phone-call" />
+				<a href="tel:5552345678">(555) 234-5678</a>
+			</div>
+		</div>
+	</div>
+
+	{/* Testimonials grid */}
+	<section class="section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-label">Verified Reviews</span>
+				<h2>What our customers say</h2>
+				<p>Every review below is from a real homeowner in the Springfield area. We don't filter or edit them.</p>
+			</div>
+
+			<div class="testimonials-grid">
+				{displayTestimonials.map((t) => (
+					<div class="testimonial-card">
+						<div class="testimonial-top">
+							{t.rating && (
+								<div class="stars" aria-label={`${t.rating} out of 5 stars`}>
+									{Array.from({ length: 5 }).map((_, i) => (
+										<i class={`ph ${i < t.rating ? "ph-star-fill" : "ph-star"}`} />
+									))}
+								</div>
+							)}
+							{t.service && (
+								<span class="service-tag">{t.service}</span>
+							)}
+						</div>
+
+						<blockquote class="testimonial-quote">
+							<i class="ph ph-quotes quote-mark" />
+							{t.quote}
+						</blockquote>
+
+						<div class="testimonial-author">
+							<div class="author-avatar" aria-hidden="true">
+								{t.author.charAt(0).toUpperCase()}
+							</div>
+							<div>
+								<strong>{t.author}</strong>
+								{(t.role || t.company) && (
+									<span class="author-meta">
+										{t.role}{t.role && t.company ? " · " : ""}{t.company}
+									</span>
+								)}
+							</div>
+							<div class="google-verified" title="Google Review">
+								<i class="ph ph-google-logo" />
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* Trust summary */}
+	<section class="section trust-summary">
+		<div class="container">
+			<div class="trust-cols">
+				<div class="trust-col">
+					<div class="trust-col-icon"><i class="ph ph-shield-check" /></div>
+					<h3>Licensed &amp; Insured</h3>
+					<p>All technicians licensed by the State of Illinois. $2M liability coverage on every job.</p>
+				</div>
+				<div class="trust-col">
+					<div class="trust-col-icon"><i class="ph ph-seal-check" /></div>
+					<h3>1-Year Labor Warranty</h3>
+					<p>Every repair and installation is backed by a written 1-year labor warranty. No exceptions.</p>
+				</div>
+				<div class="trust-col">
+					<div class="trust-col-icon"><i class="ph ph-clock" /></div>
+					<h3>Same-Day Service</h3>
+					<p>Call before noon and we'll be there today. Emergency response within 60 minutes.</p>
+				</div>
+				<div class="trust-col">
+					<div class="trust-col-icon"><i class="ph ph-currency-dollar" /></div>
+					<h3>Upfront Pricing</h3>
+					<p>You approve the price before we start. No hidden fees, no hourly billing surprises.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* CTA */}
+	<section class="cta-section">
+		<div class="container cta-inner">
+			<div>
+				<h2>Ready to join our list of happy customers?</h2>
+				<p>Call us or schedule online. Same-day appointments available.</p>
+			</div>
+			<div class="cta-actions">
+				<a href="tel:5552345678" class="cta-phone">
+					<i class="ph ph-phone-call" />
+					(555) 234-5678
+				</a>
+				<a href="/contact" class="btn btn-outline-em">Schedule Online</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* Rating bar */
+	.rating-bar {
+		background: white;
+		border-bottom: 1.5px solid var(--color-border);
+		padding: var(--spacing-md) 0;
+	}
+
+	.rating-bar-inner {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-xl);
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.rating-bar-divider {
+		width: 1px;
+		height: 28px;
+		background: var(--color-border);
+	}
+
+	.rating-bar-stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1px;
+	}
+
+	.rating-bar-stat strong {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xl);
+		font-weight: 900;
+		color: var(--color-primary);
+		letter-spacing: -0.02em;
+		line-height: 1;
+	}
+
+	.rating-bar-stat span {
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		font-family: var(--font-headline);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.rating-bar-phone {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-left: auto;
+	}
+
+	.rating-bar-phone i {
+		color: var(--color-primary);
+		font-size: 16px;
+	}
+
+	.rating-bar-phone a {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xl);
+		font-weight: 900;
+		color: var(--color-primary);
+		letter-spacing: -0.02em;
+		transition: color var(--transition-fast);
+	}
+
+	.rating-bar-phone a:hover { color: var(--color-primary-dark); }
+
+	/* Section header */
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--spacing-3xl);
+	}
+
+	.section-label {
+		display: inline-block;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-primary);
+		background: var(--color-primary-light);
+		padding: 3px 10px;
+		border-radius: var(--radius-sm);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.section-header h2 {
+		font-size: var(--font-size-3xl);
+		font-weight: 800;
+		letter-spacing: -0.03em;
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.section-header p {
+		color: var(--color-muted);
+		max-width: 500px;
+		margin-inline: auto;
+		line-height: 1.6;
+	}
+
+	/* Grid */
+	.testimonials-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-lg);
+	}
+
+	/* Card */
+	.testimonial-card {
+		background: white;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-xl);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+		transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+	}
+
+	.testimonial-card:hover {
+		border-color: var(--color-primary);
+		box-shadow: var(--shadow-lg);
+		transform: translateY(-2px);
+	}
+
+	.testimonial-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-sm);
+	}
+
+	.stars {
+		display: flex;
+		gap: 2px;
+		color: #f59e0b;
+		font-size: 15px;
+	}
+
+	.service-tag {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-primary);
+		background: var(--color-primary-light);
+		padding: 2px 8px;
+		border-radius: var(--radius-sm);
+		white-space: nowrap;
+	}
+
+	.testimonial-quote {
+		font-size: var(--font-size-sm);
+		line-height: 1.75;
+		color: var(--color-text);
+		flex: 1;
+		position: relative;
+	}
+
+	.quote-mark {
+		color: var(--color-primary-light);
+		font-size: 2rem;
+		line-height: 0;
+		vertical-align: -0.4em;
+		margin-right: 2px;
+	}
+
+	.testimonial-author {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+		padding-top: var(--spacing-md);
+		border-top: 1.5px solid var(--color-border);
+	}
+
+	.author-avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: var(--color-primary);
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-lg);
+		font-weight: 800;
+		flex-shrink: 0;
+	}
+
+	.testimonial-author strong {
+		display: block;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+	}
+
+	.author-meta {
+		display: block;
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+	}
+
+	.google-verified {
+		margin-left: auto;
+		font-size: 18px;
+		color: var(--color-muted);
+		opacity: 0.5;
+	}
+
+	/* Trust summary */
+	.trust-summary {
+		background: var(--color-surface);
+		border-top: 1.5px solid var(--color-border);
+	}
+
+	.trust-cols {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--spacing-lg);
+	}
+
+	.trust-col {
+		text-align: center;
+		padding: var(--spacing-xl);
+		background: white;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-md);
+	}
+
+	.trust-col-icon {
+		width: 52px;
+		height: 52px;
+		border-radius: var(--radius-md);
+		background: var(--color-primary-light);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 26px;
+		color: var(--color-primary);
+	}
+
+	.trust-col h3 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-base);
+		font-weight: 700;
+	}
+
+	.trust-col p {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	/* CTA */
+	.cta-section {
+		background: linear-gradient(135deg, var(--color-primary-dark) 0%, #0052cc 100%);
+		padding: var(--spacing-3xl) var(--site-gutter);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.cta-section::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+		background-size: 24px 24px;
+	}
+
+	.cta-inner {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-2xl);
+		flex-wrap: wrap;
+	}
+
+	.cta-inner h2 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-2xl);
+		font-weight: 800;
+		color: white;
+		margin-bottom: 4px;
+		letter-spacing: -0.02em;
+	}
+
+	.cta-inner p {
+		color: rgba(255,255,255,0.7);
+		font-size: var(--font-size-base);
+	}
+
+	.cta-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+		flex-shrink: 0;
+	}
+
+	.cta-phone {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 0.875rem 1.75rem;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xl);
+		font-weight: 900;
+		letter-spacing: -0.02em;
+		color: var(--color-text);
+		background: var(--color-accent);
+		border-radius: var(--radius);
+		transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+	}
+
+	.cta-phone:hover {
+		background: var(--color-accent-dark);
+		transform: translateY(-1px);
+		box-shadow: 0 8px 24px rgba(232, 148, 10, 0.5);
+		color: white;
+	}
+
+	.btn-outline-em {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.875rem 1.5rem;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: white;
+		background: transparent;
+		border: 2px solid rgba(255,255,255,0.3);
+		border-radius: var(--radius);
+		transition: all var(--transition-fast);
+	}
+
+	.btn-outline-em:hover {
+		background: rgba(255,255,255,0.12);
+		border-color: rgba(255,255,255,0.65);
+	}
+
+	/* Responsive */
+	@media (max-width: 1100px) {
+		.testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+		.trust-cols { grid-template-columns: repeat(2, 1fr); }
+	}
+
+	@media (max-width: 900px) {
+		.rating-bar-phone { margin-left: 0; }
+		.cta-inner { flex-direction: column; text-align: center; }
+		.cta-actions { flex-direction: column; width: 100%; }
+		.cta-phone { width: 100%; justify-content: center; }
+		.btn-outline-em { width: 100%; }
+	}
+
+	@media (max-width: 600px) {
+		.testimonials-grid { grid-template-columns: 1fr; }
+		.trust-cols { grid-template-columns: 1fr; }
+		.rating-bar-divider { display: none; }
+	}
+</style>

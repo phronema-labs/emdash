@@ -1,0 +1,42 @@
+/* ==========================================================
+   Brand Config — Ironclad Builders
+   Industrial Brutalist: Raw concrete, safety orange, steel
+
+   INDUSTRIAL PALETTE — NOT a color swap.
+   ========================================================== */
+
+:root {
+	/* Core palette — industrial brutalist */
+	--brand-primary: #ff6b00;          /* Safety orange — dominant accent */
+	--brand-primary-dark: #cc5500;     /* Burnt orange — hover/press states */
+	--brand-primary-light: #fff3e8;    /* Barely-there warm tint */
+
+	--brand-accent: #f5c518;           /* Construction yellow — secondary pop */
+	--brand-accent-light: #fffbea;
+
+	--brand-dark: #111111;             /* Near-black concrete */
+	--brand-steel: #2a2a2a;            /* Dark steel */
+	--brand-concrete: #1e1e1e;         /* Concrete dark */
+	--brand-mid: #3d3d3d;              /* Mid-tone steel */
+
+	--brand-surface: #f4f2ef;          /* Warm concrete white */
+	--brand-surface-warm: #faf9f7;
+}
+
+/* ==========================================================
+   DO NOT EDIT BELOW — these map brand values to the site
+   ========================================================== */
+
+:root {
+	--color-primary: var(--brand-primary);
+	--color-primary-dark: var(--brand-primary-dark);
+	--color-primary-light: var(--brand-primary-light);
+	--color-accent: var(--brand-accent);
+	--color-accent-light: var(--brand-accent-light);
+	--color-dark-section: var(--brand-dark);
+	--color-steel: var(--brand-steel);
+	--color-concrete: var(--brand-concrete);
+	--color-mid: var(--brand-mid);
+	--color-surface: var(--brand-surface);
+	--color-surface-warm: var(--brand-surface-warm);
+}

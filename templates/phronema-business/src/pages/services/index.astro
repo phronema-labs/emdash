@@ -6,45 +6,438 @@ import PageHero from "../../components/PageHero.astro";
 
 const { entries: services, cacheHint } = await getEmDashCollection("services", { status: "published" });
 if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const fallbackServices = [
+	{
+		slug: "business-law",
+		title: "Business Law",
+		summary: "From entity formation to complex commercial transactions, we counsel entrepreneurs and established companies through every stage of the business lifecycle.",
+		icon: "ph-buildings",
+		highlights: ["Entity formation & structuring", "Contracts & commercial agreements", "Mergers & acquisitions", "Business succession planning"],
+	},
+	{
+		slug: "estate-planning",
+		title: "Estate Planning",
+		summary: "Thoughtful, comprehensive plans that protect what you've built and ensure your wishes are honored — for individuals, families, and business owners.",
+		icon: "ph-file-text",
+		highlights: ["Wills & trusts", "Powers of attorney", "Healthcare directives", "Trust administration"],
+	},
+	{
+		slug: "family-law",
+		title: "Family Law",
+		summary: "Sensitive, experienced counsel for divorce, custody, and family transitions — focused on protecting your interests and your children's wellbeing.",
+		icon: "ph-house",
+		highlights: ["Divorce & separation", "Child custody & support", "Prenuptial agreements", "Adoption"],
+	},
+	{
+		slug: "litigation",
+		title: "Commercial Litigation",
+		summary: "When disputes require resolution in court, we bring thorough preparation and courtroom experience to protect your rights and pursue your objectives.",
+		icon: "ph-gavel",
+		highlights: ["Business disputes", "Contract enforcement", "Injunctive relief", "Appeals"],
+	},
+	{
+		slug: "real-estate",
+		title: "Real Estate",
+		summary: "Legal counsel for residential and commercial real estate transactions — purchases, sales, leases, and dispute resolution handled with precision.",
+		icon: "ph-map-pin",
+		highlights: ["Purchase & sale agreements", "Commercial leases", "Title review", "Real estate disputes"],
+	},
+	{
+		slug: "employment-law",
+		title: "Employment Law",
+		summary: "Guidance for employers navigating employment contracts, workplace policies, non-compete agreements, and employment-related disputes.",
+		icon: "ph-briefcase",
+		highlights: ["Employment contracts", "Non-compete agreements", "Employee handbooks", "Wrongful termination defense"],
+	},
+];
 ---
 
-<Base title="Services" description="Plumbing, HVAC, and electrical services for homeowners and businesses.">
+<Base title="Practice Areas" description="Business law, estate planning, family law, litigation, real estate, and employment law — experienced partner-led counsel for individuals and businesses.">
 	<PageHero
-		title="Our Services"
-		subtitle="Licensed technicians for plumbing, HVAC, and electrical — residential and commercial."
-		image="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&h=500&fit=crop"
+		title="Practice Areas"
+		subtitle="Experienced attorneys across the matters that matter most to individuals and growing businesses."
+		image="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600&h=500&fit=crop"
 	/>
 
-	<section class="container section">
-		{services.length > 0 ? (
-			<div class="services-grid">
-				{services.map((service) => (
-					<ServiceCard
-						title={service.data.title}
-						summary={service.data.summary}
-						icon={service.data.icon}
-						priceFrom={service.data.price_from}
-						href={`/services/${service.slug}`}
-						ctaLabel={service.data.cta_label}
-					/>
-				))}
+	{/* ===== INTRO ===== */}
+	<section class="section intro-section">
+		<div class="container intro-grid">
+			<div class="intro-content reveal">
+				<span class="eyebrow">What We Handle</span>
+				<h2>Comprehensive counsel across your <em>most important</em> legal matters</h2>
+				<p>Whether you're a business owner navigating a transaction, an individual planning your estate, or a family working through a difficult transition, Caldwell &amp; Associates brings the same level of partner-led dedication to every matter we take on.</p>
+				<p>We keep our practice areas focused so we can go deep rather than broad. Every attorney at the firm concentrates in their area and stays current on developments that affect our clients.</p>
+				<a href="/contact" class="btn btn-primary btn-lg" style="margin-top: var(--spacing-lg); display: inline-flex;">Schedule a Free Consultation &rarr;</a>
 			</div>
-		) : (
-			<p style="text-align: center; color: var(--color-muted);">
-				No services yet. <a href="/_emdash/admin">Add services</a> in the admin panel.
-			</p>
-		)}
+			<div class="intro-sidebar reveal">
+				<div class="sidebar-card">
+					<div class="sidebar-icon"><i class="ph ph-phone"></i></div>
+					<h3>Not sure where to start?</h3>
+					<p>Call us for a brief intake conversation — we will point you to the right attorney and tell you honestly if your matter is one we can help with.</p>
+					<a href="tel:5552345678" class="btn btn-secondary" style="margin-top: var(--spacing-md); width: 100%; justify-content: center;">(555) 234-5678</a>
+				</div>
+				<div class="trust-list">
+					<div class="trust-item"><i class="ph ph-check-circle"></i> Free initial consultations</div>
+					<div class="trust-item"><i class="ph ph-check-circle"></i> Partner-led representation</div>
+					<div class="trust-item"><i class="ph ph-check-circle"></i> Transparent, predictable fees</div>
+					<div class="trust-item"><i class="ph ph-check-circle"></i> AV Preeminent rated firm</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== SERVICES GRID ===== */}
+	<section class="section services-section">
+		<div class="container">
+			{services.length > 0 ? (
+				<div class="services-grid reveal-stagger">
+					{services.map((service) => (
+						<ServiceCard
+							title={service.data.title}
+							summary={service.data.summary}
+							icon={service.data.icon}
+							priceFrom={service.data.price_from}
+							href={`/services/${service.slug}`}
+							ctaLabel={service.data.cta_label}
+						/>
+					))}
+				</div>
+			) : (
+				<div class="services-full-grid reveal-stagger">
+					{fallbackServices.map((service) => (
+						<a href={`/services/${service.slug}`} class="service-full-card">
+							<div class="sfc-header">
+								<div class="sfc-icon"><i class={`ph ${service.icon}`}></i></div>
+								<h3>{service.title}</h3>
+							</div>
+							<p class="sfc-summary">{service.summary}</p>
+							<ul class="sfc-highlights">
+								{service.highlights.map((h) => (
+									<li><i class="ph ph-caret-right"></i> {h}</li>
+								))}
+							</ul>
+							<span class="sfc-cta">Learn more <i class="ph ph-arrow-right"></i></span>
+						</a>
+					))}
+				</div>
+			)}
+		</div>
+	</section>
+
+	{/* ===== BOTTOM CTA ===== */}
+	<section class="section cta-section">
+		<div class="container cta-inner">
+			<div class="cta-text reveal">
+				<h2>Not sure which practice area fits your situation?</h2>
+				<p>Tell us a bit about your matter and one of our attorneys will respond within one business day to let you know how we can help.</p>
+			</div>
+			<div class="cta-action reveal">
+				<a href="/contact" class="btn btn-accent-solid btn-lg">Schedule a Consultation</a>
+				<p class="cta-note"><i class="ph ph-lock-simple"></i> Confidential. No obligation.</p>
+			</div>
+		</div>
 	</section>
 </Base>
 
 <style>
+	/* ===== Intro section ===== */
+	.intro-section {
+		background: var(--color-surface);
+	}
+
+	.intro-grid {
+		display: grid;
+		grid-template-columns: 1fr 360px;
+		gap: var(--space-4xl);
+		align-items: start;
+	}
+
+	.intro-content h2 {
+		font-size: clamp(1.7rem, 3vw, 2.5rem);
+		margin-top: var(--space-sm);
+		margin-bottom: var(--space-lg);
+		line-height: 1.2;
+	}
+
+	.intro-content h2 em {
+		font-style: italic;
+		color: var(--color-accent);
+	}
+
+	.intro-content p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		line-height: 1.75;
+		margin-bottom: var(--spacing-md);
+	}
+
+	.sidebar-card {
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-xl);
+		box-shadow: var(--shadow-md);
+		margin-bottom: var(--spacing-xl);
+	}
+
+	.sidebar-icon {
+		width: 48px;
+		height: 48px;
+		border-radius: var(--radius-md);
+		background: var(--color-primary-light);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 22px;
+		color: var(--color-primary);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.sidebar-card h3 {
+		font-size: var(--font-size-lg);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.sidebar-card p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	.trust-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+	}
+
+	.trust-item {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		color: var(--color-text);
+	}
+
+	.trust-item i {
+		color: var(--color-accent);
+		font-size: 18px;
+		flex-shrink: 0;
+	}
+
+	/* ===== Services grid ===== */
+	.services-section {
+		background: white;
+	}
+
 	.services-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: var(--spacing-xl);
 	}
 
+	/* Full fallback card grid */
+	.services-full-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-xl);
+	}
+
+	.service-full-card {
+		display: flex;
+		flex-direction: column;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-2xl) var(--spacing-xl);
+		text-decoration: none;
+		color: var(--color-text);
+		transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.service-full-card::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.service-full-card:hover {
+		transform: translateY(-5px);
+		box-shadow: var(--shadow-xl);
+		border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+	}
+
+	.service-full-card:hover::after {
+		transform: scaleX(1);
+	}
+
+	.sfc-header {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.sfc-icon {
+		width: 52px;
+		height: 52px;
+		border-radius: var(--radius-md);
+		background: var(--color-primary-light);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 22px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+		transition: background 0.3s ease, color 0.3s ease;
+	}
+
+	.service-full-card:hover .sfc-icon {
+		background: var(--color-primary);
+		color: white;
+	}
+
+	.sfc-header h3 {
+		font-size: var(--font-size-xl);
+		line-height: 1.2;
+	}
+
+	.sfc-summary {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.7;
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.sfc-highlights {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-xs);
+		margin-bottom: var(--spacing-xl);
+		flex: 1;
+	}
+
+	.sfc-highlights li {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.sfc-highlights li i {
+		color: var(--color-accent);
+		font-size: 14px;
+		flex-shrink: 0;
+	}
+
+	.sfc-cta {
+		font-family: var(--font-body);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		color: var(--color-primary);
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		transition: gap 0.2s ease;
+	}
+
+	.service-full-card:hover .sfc-cta {
+		gap: 10px;
+	}
+
+	/* ===== CTA section ===== */
+	.cta-section {
+		background: var(--color-surface);
+	}
+
+	.cta-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-3xl);
+		flex-wrap: wrap;
+	}
+
+	.cta-text {
+		flex: 1;
+		min-width: 300px;
+	}
+
+	.cta-text h2 {
+		font-size: clamp(1.5rem, 2.5vw, 2rem);
+	}
+
+	.cta-text p {
+		font-family: var(--font-body);
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		margin-top: var(--spacing-sm);
+		line-height: 1.7;
+	}
+
+	.cta-action {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: var(--spacing-sm);
+		flex-shrink: 0;
+	}
+
+	.cta-note {
+		font-family: var(--font-body);
+		font-size: 11px;
+		color: var(--color-muted);
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.btn-accent-solid {
+		background: var(--color-accent);
+		color: white;
+		border: 2px solid var(--color-accent);
+		text-decoration: none;
+		transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.btn-accent-solid:hover {
+		background: color-mix(in srgb, var(--color-accent) 85%, #000);
+		border-color: color-mix(in srgb, var(--color-accent) 85%, #000);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 28px color-mix(in srgb, var(--color-accent) 40%, transparent);
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 1100px) {
+		.services-full-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+
+	@media (max-width: 900px) {
+		.intro-grid { grid-template-columns: 1fr; }
+		.intro-sidebar { order: -1; }
+		.sidebar-card { max-width: 480px; }
+		.cta-inner { flex-direction: column; align-items: flex-start; }
+		.cta-action { align-items: flex-start; }
+	}
+
 	@media (max-width: 600px) {
 		.services-grid { grid-template-columns: 1fr; }
+		.services-full-grid { grid-template-columns: 1fr; }
 	}
 </style>

@@ -1,0 +1,506 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../layouts/Base.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const { entries: services, cacheHint } = await getEmDashCollection("services", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const fallbackServices = [
+	{
+		slug: "plumbing",
+		data: {
+			title: "Plumbing Repair & Installation",
+			summary: "Leaks, clogs, fixture replacement, pipe repair, water line work, and full bathroom or kitchen plumbing. We carry the parts — most jobs done same visit.",
+			icon: "drop",
+			price_from: "$89",
+			cta_label: "Get Plumbing Help",
+		},
+	},
+	{
+		slug: "hvac",
+		data: {
+			title: "Heating & Air Conditioning",
+			summary: "Furnace repair, AC installation, heat pump service, duct cleaning, and seasonal tune-ups. NATE-certified technicians for all major brands.",
+			icon: "thermometer",
+			price_from: "$95",
+			cta_label: "Schedule HVAC Service",
+		},
+	},
+	{
+		slug: "electrical",
+		data: {
+			title: "Electrical",
+			summary: "Panel upgrades, outlet and switch installation, ceiling fans, whole-home rewiring, surge protection, and EV charger installation. Licensed and code-compliant.",
+			icon: "lightning",
+			price_from: "$99",
+			cta_label: "Get Electrical Help",
+		},
+	},
+	{
+		slug: "water-heater",
+		data: {
+			title: "Water Heater Service",
+			summary: "Traditional tank and tankless water heater installation, repair, and replacement. We stock the most common units and can have hot water restored same day.",
+			icon: "fire",
+			price_from: "$120",
+			cta_label: "Fix My Water Heater",
+		},
+	},
+	{
+		slug: "drain-cleaning",
+		data: {
+			title: "Drain Cleaning",
+			summary: "Hydro-jetting, mechanical snaking, and camera inspection for clogged or slow drains. Kitchen, bath, main line — we clear it and find the cause.",
+			icon: "pipe",
+			price_from: "$75",
+			cta_label: "Clear My Drain",
+		},
+	},
+	{
+		slug: "emergency-services",
+		data: {
+			title: "Emergency Service",
+			summary: "Burst pipes, no heat, flooding, gas smell, electrical hazard — call our 24/7 emergency line and we'll have a licensed technician at your door within the hour.",
+			icon: "wrench",
+			price_from: null,
+			cta_label: "Call Emergency Line",
+		},
+	},
+];
+
+const displayServices = services.length > 0 ? services : fallbackServices;
+---
+
+<Base title="Services" description="Licensed plumbing, HVAC, electrical, and emergency services for Springfield homeowners. Same-day available.">
+	<PageHero
+		title="Our Services"
+		subtitle="Licensed technicians for plumbing, HVAC, and electrical. Same-day available."
+		image="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&h=500&fit=crop"
+	/>
+
+	{/* Phone bar */}
+	<div class="phone-bar">
+		<div class="container phone-bar-inner">
+			<div class="phone-bar-left">
+				<span class="avail-dot"></span>
+				<span class="phone-bar-label">Available now — call for same-day service</span>
+			</div>
+			<a href="tel:5552345678" class="phone-bar-number">(555) 234-5678</a>
+		</div>
+	</div>
+
+	{/* Trust strip */}
+	<div class="trust-strip">
+		<div class="container trust-strip-inner">
+			<div class="trust-item">
+				<i class="ph ph-shield-check" />
+				<span>Licensed &amp; Insured</span>
+			</div>
+			<div class="trust-div"></div>
+			<div class="trust-item">
+				<i class="ph ph-clock" />
+				<span>Same-Day Service Available</span>
+			</div>
+			<div class="trust-div"></div>
+			<div class="trust-item">
+				<i class="ph ph-seal-check" />
+				<span>1-Year Labor Warranty</span>
+			</div>
+			<div class="trust-div"></div>
+			<div class="trust-item">
+				<i class="ph ph-currency-dollar" />
+				<span>Upfront Flat-Rate Pricing</span>
+			</div>
+			<div class="trust-div"></div>
+			<div class="trust-item">
+				<i class="ph ph-star-fill" style="color: #f59e0b;" />
+				<span>4.9 Google Rating — 512 Reviews</span>
+			</div>
+		</div>
+	</div>
+
+	{/* Services grid */}
+	<section class="section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-label">What We Do</span>
+				<h2>Every service, one call</h2>
+				<p>We handle plumbing, HVAC, and electrical so you don't have to juggle multiple contractors. Licensed specialists in every trade, under one roof.</p>
+			</div>
+
+			<div class="services-grid">
+				{displayServices.map((service) => (
+					<ServiceCard
+						title={service.data.title}
+						summary={service.data.summary}
+						icon={service.data.icon}
+						priceFrom={service.data.price_from}
+						href={`/services/${service.slug}`}
+						ctaLabel={service.data.cta_label}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* How it works */}
+	<section class="section how-section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-label">How It Works</span>
+				<h2>From call to completion</h2>
+			</div>
+			<div class="steps-grid">
+				<div class="step">
+					<div class="step-num">01</div>
+					<div class="step-body">
+						<h3>Call or book online</h3>
+						<p>Tell us what's going on. We'll confirm availability and give you an arrival window — same day if you call before noon.</p>
+					</div>
+				</div>
+				<div class="step">
+					<div class="step-num">02</div>
+					<div class="step-body">
+						<h3>We assess and quote</h3>
+						<p>Our technician inspects the problem and gives you a flat-rate price before touching anything. No work starts until you approve.</p>
+					</div>
+				</div>
+				<div class="step">
+					<div class="step-num">03</div>
+					<div class="step-body">
+						<h3>We fix it right</h3>
+						<p>We carry common parts on every truck. Most jobs are finished in a single visit. We clean up before we leave.</p>
+					</div>
+				</div>
+				<div class="step">
+					<div class="step-num">04</div>
+					<div class="step-body">
+						<h3>Backed by our guarantee</h3>
+						<p>Every repair comes with a written 1-year labor warranty. If something we fixed fails, we come back free of charge.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* Emergency CTA */}
+	<section class="emergency-cta">
+		<div class="container emergency-inner">
+			<div class="emergency-left">
+				<div class="emergency-pulse">
+					<span class="emergency-dot"></span>
+				</div>
+				<div>
+					<h2>Emergency? We're on it.</h2>
+					<p>Burst pipes, no heat, electrical hazard — call our 24/7 emergency line now.</p>
+				</div>
+			</div>
+			<div class="emergency-right">
+				<a href="tel:5552345678" class="emergency-phone-btn">
+					<i class="ph ph-phone-call" />
+					(555) 234-5678
+				</a>
+				<a href="/contact" class="btn btn-outline-em">Schedule Online</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* Phone bar */
+	.phone-bar {
+		background: var(--color-primary);
+		padding: var(--spacing-sm) 0;
+	}
+
+	.phone-bar-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-lg);
+		flex-wrap: wrap;
+	}
+
+	.phone-bar-left {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+	}
+
+	.phone-bar-label {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		color: rgba(255,255,255,0.85);
+	}
+
+	.avail-dot {
+		display: block;
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: #4ade80;
+		animation: pulse-ring 2s infinite;
+		flex-shrink: 0;
+	}
+
+	.phone-bar-number {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xl);
+		font-weight: 900;
+		color: white;
+		letter-spacing: -0.02em;
+		transition: color var(--transition-fast);
+	}
+
+	.phone-bar-number:hover { color: var(--color-accent); }
+
+	/* Trust strip */
+	.trust-strip {
+		border-bottom: 1.5px solid var(--color-border);
+		background: white;
+	}
+
+	.trust-strip-inner {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-xl);
+		padding-block: var(--spacing-md);
+		flex-wrap: wrap;
+	}
+
+	.trust-item {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	.trust-item i {
+		color: var(--color-primary);
+		font-size: 16px;
+	}
+
+	.trust-div {
+		width: 1px;
+		height: 20px;
+		background: var(--color-border);
+	}
+
+	/* Section header */
+	.section-header {
+		text-align: center;
+		margin-bottom: var(--spacing-3xl);
+	}
+
+	.section-label {
+		display: inline-block;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-primary);
+		background: var(--color-primary-light);
+		padding: 3px 10px;
+		border-radius: var(--radius-sm);
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.section-header h2 {
+		font-size: var(--font-size-3xl);
+		font-weight: 800;
+		letter-spacing: -0.03em;
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.section-header p {
+		color: var(--color-muted);
+		max-width: 560px;
+		margin-inline: auto;
+		line-height: 1.65;
+	}
+
+	/* Services grid */
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-lg);
+	}
+
+	/* How it works */
+	.how-section {
+		background: var(--color-surface);
+	}
+
+	.steps-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--spacing-lg);
+	}
+
+	.step {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+		padding: var(--spacing-xl);
+		background: white;
+		border: 1.5px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.step-num {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-3xl);
+		font-weight: 900;
+		color: var(--color-primary-light);
+		letter-spacing: -0.04em;
+		line-height: 1;
+	}
+
+	.step-body h3 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		margin-bottom: var(--spacing-sm);
+	}
+
+	.step-body p {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	/* Emergency CTA */
+	.emergency-cta {
+		background: linear-gradient(135deg, var(--color-primary-dark) 0%, #0052cc 100%);
+		padding: var(--spacing-3xl) var(--site-gutter);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.emergency-cta::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+		background-size: 24px 24px;
+	}
+
+	.emergency-inner {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-2xl);
+		flex-wrap: wrap;
+	}
+
+	.emergency-left {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-xl);
+		color: white;
+	}
+
+	.emergency-pulse {
+		position: relative;
+		width: 52px;
+		height: 52px;
+		flex-shrink: 0;
+	}
+
+	.emergency-dot {
+		position: absolute;
+		inset: 0;
+		border-radius: 50%;
+		background: var(--color-accent);
+		animation: pulse-ring 2s infinite;
+	}
+
+	.emergency-left h2 {
+		font-family: var(--font-headline);
+		font-size: var(--font-size-2xl);
+		font-weight: 800;
+		color: white;
+		margin-bottom: 4px;
+	}
+
+	.emergency-left p { color: rgba(255,255,255,0.7); }
+
+	.emergency-right {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-md);
+		flex-shrink: 0;
+	}
+
+	.emergency-phone-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 0.875rem 1.75rem;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-xl);
+		font-weight: 900;
+		letter-spacing: -0.02em;
+		color: var(--color-text);
+		background: var(--color-accent);
+		border-radius: var(--radius);
+		transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+	}
+
+	.emergency-phone-btn:hover {
+		background: var(--color-accent-dark);
+		transform: translateY(-1px);
+		box-shadow: 0 8px 24px rgba(232, 148, 10, 0.5);
+		color: white;
+	}
+
+	.btn-outline-em {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.875rem 1.5rem;
+		font-family: var(--font-headline);
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: white;
+		background: transparent;
+		border: 2px solid rgba(255,255,255,0.3);
+		border-radius: var(--radius);
+		transition: all var(--transition-fast);
+	}
+
+	.btn-outline-em:hover {
+		background: rgba(255,255,255,0.12);
+		border-color: rgba(255,255,255,0.65);
+	}
+
+	/* Responsive */
+	@media (max-width: 1100px) {
+		.steps-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+
+	@media (max-width: 900px) {
+		.services-grid { grid-template-columns: repeat(2, 1fr); }
+		.trust-div { display: none; }
+		.emergency-inner { flex-direction: column; text-align: center; }
+		.emergency-left { flex-direction: column; }
+		.emergency-right { flex-direction: column; width: 100%; }
+		.emergency-phone-btn, .btn-outline-em { width: 100%; justify-content: center; }
+		.phone-bar-inner { flex-direction: column; text-align: center; }
+	}
+
+	@media (max-width: 600px) {
+		.services-grid { grid-template-columns: 1fr; }
+		.steps-grid { grid-template-columns: 1fr; }
+	}
+</style>

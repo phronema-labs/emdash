@@ -1,0 +1,112 @@
+---
+import { getEmDashEntry, decodeSlug } from "emdash";
+import { PortableText, Image } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+
+const slug = decodeSlug(Astro.params.slug!);
+const { entry, cacheHint } = await getEmDashEntry("projects", slug);
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+if (!entry) return Astro.redirect("/404");
+
+const gallery = entry.data.gallery as Array<{ src: string; alt?: string }> | null;
+---
+
+<Base title={entry.data.title} description={entry.data.summary}>
+	<article class="container section">
+		{entry.data.featured_image && (
+			<div class="project-hero">
+				<Image value={entry.data.featured_image} alt={entry.data.title} />
+			</div>
+		)}
+
+		<header class="project-header">
+			<h1>{entry.data.title}</h1>
+			<div class="project-meta">
+				{entry.data.client && <span><strong>Client:</strong> {entry.data.client}</span>}
+				{entry.data.year && <span><strong>Year:</strong> {entry.data.year}</span>}
+				{entry.data.url && (
+					<a href={entry.data.url} target="_blank" rel="noopener noreferrer" class="project-link">
+						Visit Site <i class="ph ph-arrow-square-out" />
+					</a>
+				)}
+			</div>
+		</header>
+
+		{entry.data.content && (
+			<div class="prose">
+				<PortableText value={entry.data.content} />
+			</div>
+		)}
+
+		{gallery && gallery.length > 0 && (
+			<section class="project-gallery">
+				<h2>Gallery</h2>
+				<div class="gallery-grid">
+					{gallery.map((img) => (
+						<figure>
+							<img src={img.src} alt={img.alt || ""} loading="lazy" />
+						</figure>
+					))}
+				</div>
+			</section>
+		)}
+
+		<div style="margin-top: var(--spacing-3xl);">
+			<a href="/work" class="btn btn-secondary">&larr; Back to Work</a>
+		</div>
+	</article>
+</Base>
+
+<style>
+	.project-hero {
+		margin-bottom: var(--spacing-2xl);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+
+	.project-hero :global(img) {
+		width: 100%;
+		max-height: 500px;
+		object-fit: cover;
+	}
+
+	.project-header { margin-bottom: var(--spacing-2xl); }
+
+	.project-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-lg);
+		margin-top: var(--spacing-md);
+		color: var(--color-muted);
+		font-size: var(--font-size-sm);
+	}
+
+	.project-link {
+		color: var(--color-primary);
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-xs);
+	}
+
+	.prose { max-width: var(--max-width); }
+	.prose :global(p) { margin-bottom: var(--spacing-md); line-height: 1.7; }
+	.prose :global(h2) { margin-top: var(--spacing-2xl); margin-bottom: var(--spacing-md); }
+
+	.project-gallery { margin-top: var(--spacing-3xl); }
+	.project-gallery h2 { margin-bottom: var(--spacing-lg); }
+
+	.gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--spacing-md);
+	}
+
+	.gallery-grid figure { margin: 0; border-radius: var(--radius); overflow: hidden; }
+	.gallery-grid img { width: 100%; height: auto; }
+
+	@media (max-width: 600px) {
+		.gallery-grid { grid-template-columns: 1fr; }
+	}
+</style>

@@ -1,0 +1,1053 @@
+---
+import { getEmDashEntry, getEmDashCollection } from "emdash";
+import { PortableText, Image } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import TrustBadges from "../components/TrustBadges.astro";
+import BrandStrip from "../components/BrandStrip.astro";
+import TestimonialCarousel from "../components/TestimonialCarousel.astro";
+import CostEstimator from "../components/CostEstimator.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import GoogleReviews from "../components/GoogleReviews.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "home");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const { entries: services } = await getEmDashCollection("services", { status: "published" });
+const { entries: testimonials } = await getEmDashCollection("testimonials", { status: "published" });
+const { entries: projects } = await getEmDashCollection("projects", { status: "published" });
+
+const testimonialData = testimonials.map((t) => ({
+	quote: t.data.quote,
+	author: t.data.author,
+	role: t.data.role,
+	company: t.data.company,
+	rating: t.data.rating as number | undefined,
+}));
+---
+
+<Base>
+	{/* ===== HERO — asymmetric, full bleed, hard diagonal cut ===== */}
+	<section class="hero">
+		<div class="hero-bg-image"></div>
+		<div class="hero-overlay"></div>
+		<!-- Diagonal texture strips -->
+		<div class="hero-stripe hero-stripe-1"></div>
+		<div class="hero-stripe hero-stripe-2"></div>
+
+		<div class="hero-inner">
+			<!-- Left: all the copy -->
+			<div class="hero-copy" data-reveal>
+				<div class="hero-eyebrow">
+					<span class="hero-badge-dot"></span>
+					<span>Denver's Premier General Contractor</span>
+				</div>
+				<h1 class="hero-headline">
+					WE<br/>BUILD<br/><span class="hero-accent">THINGS</span><br/>THAT LAST
+				</h1>
+				<p class="hero-sub">
+					Full-service remodeling, additions, and new construction.
+					Design-build approach. Fixed-price contracts. 5-year warranty.
+				</p>
+				<div class="hero-actions">
+					<a href="/contact" class="btn-hero-primary">
+						<i class="ph ph-arrow-right"></i>
+						Get a Free Estimate
+					</a>
+					<a href="tel:7205554100" class="btn-hero-phone">
+						<i class="ph ph-phone-call"></i>
+						(720) 555-4100
+					</a>
+				</div>
+				<div class="hero-reviews">
+					<GoogleReviews rating={4.9} reviewCount={285} style="badge" />
+				</div>
+			</div>
+
+			<!-- Right: stats panel -->
+			<div class="hero-stats" data-reveal data-delay="2">
+				<div class="hero-stat-card">
+					<span class="hero-stat-num">16+</span>
+					<span class="hero-stat-label">Years in Business</span>
+				</div>
+				<div class="hero-stat-card">
+					<span class="hero-stat-num">800+</span>
+					<span class="hero-stat-label">Projects Completed</span>
+				</div>
+				<div class="hero-stat-card hero-stat-card--accent">
+					<span class="hero-stat-num">98%</span>
+					<span class="hero-stat-label">On-Budget</span>
+				</div>
+				<div class="hero-stat-card">
+					<span class="hero-stat-num">$0</span>
+					<span class="hero-stat-label">Change Order Surprises</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Hard diagonal bottom cut -->
+		<div class="hero-cut"></div>
+	</section>
+
+	{/* ===== TRUST BAR ===== */}
+	<TrustBadges />
+
+	{/* ===== SERVICES — dark section with diagonal top edge ===== */}
+	{services.length > 0 && (
+		<section class="services-section">
+			<div class="services-cut-top"></div>
+			<div class="services-body">
+				<div class="container">
+					<div class="section-head-raw" data-reveal>
+						<span class="label-tag">// What We Build</span>
+						<h2>OUR SERVICES</h2>
+					</div>
+					<div class="services-grid" data-reveal data-delay="2">
+						{services.slice(0, 4).map((service) => (
+							<ServiceCard
+								title={service.data.title}
+								summary={service.data.summary}
+								icon={service.data.icon}
+								priceFrom={service.data.price_from}
+								href={`/services/${service.slug}`}
+								ctaLabel={service.data.cta_label}
+							/>
+						))}
+					</div>
+					<div class="services-footer" data-reveal data-delay="3">
+						<a href="/services" class="btn btn-dark">View All Services</a>
+					</div>
+				</div>
+			</div>
+			<div class="services-cut-bottom"></div>
+		</section>
+	)}
+
+	{/* ===== SPLIT FEATURE — Why Choose Us + big image ===== */}
+	<section class="feature-split">
+		<div class="feature-split-image">
+			<img
+				src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&h=1100&fit=crop"
+				alt="Ironclad construction project"
+				loading="lazy"
+			/>
+			<div class="feature-split-image-overlay">
+				<span class="feature-split-badge">
+					<i class="ph ph-seal-check"></i>
+					Licensed &amp; Bonded Since 2008
+				</span>
+			</div>
+		</div>
+		<div class="feature-split-content">
+			<div data-reveal>
+				<span class="label-tag">// The Ironclad Difference</span>
+				<h2>WHY WE BUILD DIFFERENT</h2>
+			</div>
+			<div class="why-list">
+				<div class="why-item" data-reveal data-delay="1">
+					<div class="why-num">01</div>
+					<div class="why-text">
+						<h4>Design-Build Process</h4>
+						<p>Single point of contact from concept to completion. We own the entire process -- no finger-pointing between designer and builder.</p>
+					</div>
+				</div>
+				<div class="why-item" data-reveal data-delay="2">
+					<div class="why-num">02</div>
+					<div class="why-text">
+						<h4>Fixed-Price Contracts</h4>
+						<p>No change-order surprises. We quote it, we honor it. Detailed estimates mean you know the full cost before we swing a hammer.</p>
+					</div>
+				</div>
+				<div class="why-item" data-reveal data-delay="3">
+					<div class="why-num">03</div>
+					<div class="why-text">
+						<h4>5-Year Workmanship Warranty</h4>
+						<p>Industry-leading warranty on all work. If something we built isn't right, we come back and fix it. Full stop.</p>
+					</div>
+				</div>
+				<div class="why-item" data-reveal data-delay="4">
+					<div class="why-num">04</div>
+					<div class="why-text">
+						<h4>Transparent Communication</h4>
+						<p>Real-time project updates, weekly check-ins, and a dedicated project manager from day one through final walkthrough.</p>
+					</div>
+				</div>
+			</div>
+			<div data-reveal data-delay="4">
+				<a href="/about" class="btn btn-primary">About Our Process</a>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== RECENT PROJECTS — full bleed dark with horizontal scroll feel ===== */}
+	{projects.length > 0 && (
+		<section class="projects-section">
+			<div class="container">
+				<div class="projects-header" data-reveal>
+					<div>
+						<span class="label-tag label-tag--light">// Our Work</span>
+						<h2 class="projects-heading">RECENT BUILDS</h2>
+					</div>
+					<a href="/work" class="btn btn-outline-white">View All Projects</a>
+				</div>
+				<div class="projects-mosaic" data-reveal data-delay="2">
+					{projects.slice(0, 3).map((project, i) => (
+						<a href={`/work/${project.slug}`} class:list={["project-tile", { "project-tile--large": i === 0 }]}>
+							{project.data.featured_image ? (
+								<Image image={project.data.featured_image} />
+							) : (
+								<img
+									src={i === 0
+										? "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&h=700&fit=crop"
+										: `https://images.unsplash.com/photo-${i === 1 ? "1562259950-86a27c-9b3db0?w=600&h=500&fit=crop" : "1556909114-6e9d4f3e4dc?w=600&h=500&fit=crop"}`
+									}
+									alt={project.data.title}
+									loading="lazy"
+								/>
+							)}
+							<div class="project-tile-info">
+								<span class="project-tile-label">View Project</span>
+								<h3>{project.data.title}</h3>
+								{project.data.summary && <p>{project.data.summary}</p>}
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	{/* ===== TESTIMONIALS — concrete texture bg ===== */}
+	{testimonialData.length > 0 && (
+		<section class="testimonials-section">
+			<div class="container">
+				<div class="testimonials-head" data-reveal>
+					<div>
+						<span class="label-tag">// Client Reviews</span>
+						<h2>WHAT CLIENTS SAY</h2>
+					</div>
+					<GoogleReviews rating={4.9} reviewCount={285} style="badge" />
+				</div>
+				<div data-reveal data-delay="2">
+					<TestimonialCarousel testimonials={testimonialData} />
+				</div>
+			</div>
+		</section>
+	)}
+
+	{/* ===== COST ESTIMATOR ===== */}
+	<CostEstimator />
+
+	{/* ===== BRAND STRIP ===== */}
+	<BrandStrip />
+
+	{/* ===== FINAL CTA — orange concrete block ===== */}
+	<section class="cta-section">
+		<div class="cta-diagonal-bg"></div>
+		<div class="container cta-inner">
+			<div class="cta-content" data-reveal>
+				<span class="label-tag label-tag--light">// Start Your Project</span>
+				<h2>READY TO BUILD?</h2>
+				<p>Schedule a free in-home consultation. We'll walk the space, discuss your vision, and provide a no-obligation detailed estimate.</p>
+				<div class="cta-actions">
+					<a href="/contact" class="btn-cta-primary">
+						<i class="ph ph-calendar-check"></i>
+						Schedule a Free Estimate
+					</a>
+					<a href="tel:7205554100" class="btn-cta-phone">
+						<i class="ph ph-phone-call"></i>
+						(720) 555-4100
+					</a>
+				</div>
+			</div>
+			<div class="cta-stats" data-reveal data-delay="3">
+				<div class="cta-stat">
+					<i class="ph ph-shield-check"></i>
+					<span>$2M Liability Coverage</span>
+				</div>
+				<div class="cta-stat">
+					<i class="ph ph-certificate"></i>
+					<span>BBB A+ Accredited</span>
+				</div>
+				<div class="cta-stat">
+					<i class="ph ph-clock"></i>
+					<span>Response Within 24 Hours</span>
+				</div>
+				<div class="cta-stat">
+					<i class="ph ph-star-fill"></i>
+					<span>4.9 Stars — 285 Reviews</span>
+				</div>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== HERO ===== */
+	.hero {
+		position: relative;
+		min-height: 100svh;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		background: #111;
+	}
+
+	.hero-bg-image {
+		position: absolute;
+		inset: 0;
+		background: url("https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1800&h=1200&fit=crop") right center / cover no-repeat;
+		opacity: 0.18;
+	}
+
+	/* Concrete noise texture overlay */
+	.hero-overlay {
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(ellipse at 20% 50%, rgba(255,107,0,0.08) 0%, transparent 60%),
+			linear-gradient(to right, rgba(17,17,17,0.95) 40%, rgba(17,17,17,0.6) 100%);
+	}
+
+	/* Diagonal accent stripes — industrial grid feel */
+	.hero-stripe {
+		position: absolute;
+		left: -10%;
+		right: -10%;
+		height: 1px;
+		background: rgba(255,107,0,0.15);
+		transform-origin: left;
+	}
+
+	.hero-stripe-1 {
+		top: 35%;
+		transform: rotate(-8deg);
+	}
+
+	.hero-stripe-2 {
+		top: 60%;
+		transform: rotate(-8deg);
+		opacity: 0.5;
+	}
+
+	.hero-inner {
+		position: relative;
+		z-index: 2;
+		flex: 1;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 0;
+		align-items: center;
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		padding: var(--space-4xl) var(--site-gutter) var(--space-3xl);
+		width: 100%;
+	}
+
+	.hero-copy {
+		padding-right: var(--spacing-2xl);
+	}
+
+	.hero-eyebrow {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-family: "DM Mono", monospace;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		margin-bottom: var(--space-lg);
+	}
+
+	.hero-badge-dot {
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--color-primary);
+		animation: pulse 2s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.4; }
+	}
+
+	.hero-headline {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: clamp(5rem, 12vw, 10rem);
+		line-height: 0.88;
+		letter-spacing: 0.02em;
+		color: white;
+		margin-bottom: var(--space-xl);
+	}
+
+	.hero-accent {
+		color: var(--color-primary);
+		-webkit-text-stroke: 0;
+	}
+
+	.hero-sub {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-lg);
+		line-height: 1.65;
+		color: rgba(255,255,255,0.65);
+		max-width: 480px;
+		margin-bottom: var(--space-xl);
+	}
+
+	.hero-actions {
+		display: flex;
+		gap: var(--spacing-md);
+		flex-wrap: wrap;
+		margin-bottom: var(--space-xl);
+	}
+
+	.btn-hero-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 1rem 2rem;
+		background: var(--color-primary);
+		color: white;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		border-radius: 2px;
+		text-decoration: none;
+		transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.btn-hero-primary:hover {
+		background: var(--color-primary-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 10px 30px rgba(255,107,0,0.45);
+	}
+
+	.btn-hero-phone {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 1rem 2rem;
+		color: rgba(255,255,255,0.8);
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		border: 1px solid rgba(255,255,255,0.2);
+		border-radius: 2px;
+		text-decoration: none;
+		transition: all 0.15s ease;
+	}
+
+	.btn-hero-phone i { color: var(--color-primary); }
+
+	.btn-hero-phone:hover {
+		border-color: rgba(255,255,255,0.5);
+		color: white;
+	}
+
+	.hero-reviews {
+		margin-top: var(--space-md);
+	}
+
+	/* Stats panel */
+	.hero-stats {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		flex-shrink: 0;
+		width: 220px;
+	}
+
+	.hero-stat-card {
+		background: rgba(255,255,255,0.04);
+		border: 1px solid rgba(255,255,255,0.08);
+		padding: 1.25rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		border-left: 3px solid rgba(255,107,0,0.3);
+		transition: border-color 0.2s ease, background 0.2s ease;
+	}
+
+	.hero-stat-card:hover {
+		background: rgba(255,107,0,0.06);
+		border-left-color: var(--color-primary);
+	}
+
+	.hero-stat-card--accent {
+		background: rgba(255,107,0,0.1);
+		border-color: rgba(255,107,0,0.2);
+		border-left-color: var(--color-primary);
+	}
+
+	.hero-stat-num {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2.5rem;
+		line-height: 1;
+		color: white;
+		letter-spacing: 0.02em;
+	}
+
+	.hero-stat-label {
+		font-family: "DM Sans", sans-serif;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.45);
+	}
+
+	/* Hard diagonal cut at bottom of hero */
+	.hero-cut {
+		position: relative;
+		height: 80px;
+		background: var(--color-bg);
+		clip-path: polygon(0 100%, 100% 0, 100% 100%);
+		margin-top: -1px;
+		z-index: 3;
+	}
+
+	/* ===== SERVICES SECTION ===== */
+	.services-section {
+		position: relative;
+		background: #111;
+	}
+
+	.services-cut-top {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+	}
+
+	.services-cut-bottom {
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 100% 100%, 0 100%);
+	}
+
+	.services-body {
+		background: #111;
+		padding: var(--space-3xl) 0;
+	}
+
+	.section-head-raw {
+		margin-bottom: var(--space-2xl);
+	}
+
+	.section-head-raw h2 {
+		color: white;
+		font-size: clamp(2.5rem, 6vw, 5rem);
+		line-height: 0.95;
+		margin-top: var(--space-sm);
+	}
+
+	.label-tag {
+		font-family: "DM Mono", monospace;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+	}
+
+	.label-tag--light {
+		color: rgba(255,107,0,0.8);
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2px;
+	}
+
+	.services-footer {
+		margin-top: var(--space-2xl);
+		display: flex;
+		justify-content: flex-start;
+	}
+
+	/* ===== SPLIT FEATURE ===== */
+	.feature-split {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		min-height: 700px;
+		background: var(--color-bg);
+	}
+
+	.feature-split-image {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.feature-split-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.feature-split-image-overlay {
+		position: absolute;
+		bottom: var(--space-xl);
+		left: var(--space-xl);
+	}
+
+	.feature-split-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: var(--color-primary);
+		color: white;
+		font-family: "DM Sans", sans-serif;
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		padding: 10px 18px;
+		border-radius: 2px;
+	}
+
+	.feature-split-content {
+		padding: var(--space-4xl) var(--space-3xl);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--space-2xl);
+		background: #faf9f7;
+	}
+
+	.feature-split-content h2 {
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		line-height: 0.95;
+		margin-top: var(--space-sm);
+		color: #111;
+	}
+
+	.why-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-lg);
+	}
+
+	.why-item {
+		display: flex;
+		gap: var(--space-lg);
+		align-items: flex-start;
+		padding-bottom: var(--space-lg);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.why-item:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	.why-num {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 2.5rem;
+		line-height: 1;
+		color: var(--color-primary);
+		opacity: 0.4;
+		flex-shrink: 0;
+		width: 3rem;
+	}
+
+	.why-text h4 {
+		font-size: var(--font-size-base);
+		font-weight: 700;
+		color: #111;
+		margin-bottom: 4px;
+		letter-spacing: 0;
+	}
+
+	.why-text p {
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.65;
+	}
+
+	/* ===== PROJECTS ===== */
+	.projects-section {
+		background: #111;
+		padding: var(--space-4xl) 0;
+	}
+
+	.projects-header {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		margin-bottom: var(--space-2xl);
+	}
+
+	.projects-heading {
+		color: white;
+		font-size: clamp(2.5rem, 6vw, 5rem);
+		line-height: 0.95;
+		margin-top: var(--space-sm);
+	}
+
+	.btn-outline-white {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 0.75rem 1.5rem;
+		color: rgba(255,255,255,0.7);
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-xs);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		border: 1px solid rgba(255,255,255,0.2);
+		border-radius: 2px;
+		text-decoration: none;
+		transition: all 0.15s ease;
+		flex-shrink: 0;
+		margin-bottom: 0.4rem;
+	}
+
+	.btn-outline-white:hover {
+		border-color: var(--color-primary);
+		color: var(--color-primary);
+	}
+
+	/* Mosaic layout: first tile tall, two short tiles stacked on right */
+	.projects-mosaic {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		grid-template-rows: auto;
+		gap: 3px;
+	}
+
+	.project-tile {
+		position: relative;
+		overflow: hidden;
+		display: block;
+		text-decoration: none;
+		background: #1a1a1a;
+	}
+
+	.project-tile img,
+	.project-tile :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		min-height: 280px;
+		transition: transform 0.5s ease, filter 0.4s ease;
+		filter: brightness(0.7) saturate(0.8);
+	}
+
+	.project-tile--large {
+		grid-row: span 2;
+	}
+
+	.project-tile--large img,
+	.project-tile--large :global(img) {
+		min-height: 560px;
+	}
+
+	.project-tile:hover img,
+	.project-tile:hover :global(img) {
+		transform: scale(1.04);
+		filter: brightness(0.5) saturate(0.6);
+	}
+
+	.project-tile-info {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: var(--space-lg) var(--space-xl);
+		background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+		color: white;
+	}
+
+	.project-tile-label {
+		font-family: "DM Mono", monospace;
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		display: block;
+		margin-bottom: 6px;
+		opacity: 0;
+		transform: translateY(8px);
+		transition: opacity 0.3s ease, transform 0.3s ease;
+	}
+
+	.project-tile:hover .project-tile-label {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.project-tile-info h3 {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 1.75rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.project-tile-info p {
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		color: rgba(255,255,255,0.65);
+		margin-top: 4px;
+		line-height: 1.4;
+	}
+
+	/* ===== TESTIMONIALS ===== */
+	.testimonials-section {
+		background: var(--color-bg);
+		padding: var(--space-4xl) 0;
+		position: relative;
+	}
+
+	/* Diagonal top edge */
+	.testimonials-section::before {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 50px;
+		background: #111;
+		clip-path: polygon(0 0, 100% 0, 100% 100%);
+	}
+
+	.testimonials-head {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		margin-bottom: var(--space-2xl);
+		padding-top: var(--space-lg);
+	}
+
+	.testimonials-head h2 {
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		line-height: 0.95;
+		color: #111;
+		margin-top: var(--space-sm);
+	}
+
+	/* ===== CTA SECTION ===== */
+	.cta-section {
+		background: var(--color-primary);
+		position: relative;
+		overflow: hidden;
+		padding: var(--space-4xl) 0;
+	}
+
+	/* Diagonal top cut */
+	.cta-section::before {
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 60px;
+		background: var(--color-bg);
+		clip-path: polygon(0 0, 0 100%, 100% 0);
+	}
+
+	/* Large ghosted text behind */
+	.cta-section::after {
+		content: "BUILD";
+		position: absolute;
+		right: -2%;
+		bottom: -15%;
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 30vw;
+		line-height: 0.8;
+		color: rgba(0,0,0,0.08);
+		pointer-events: none;
+		letter-spacing: 0.02em;
+		user-select: none;
+	}
+
+	.cta-inner {
+		position: relative;
+		z-index: 2;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: var(--space-3xl);
+		align-items: center;
+		padding-top: var(--space-xl);
+	}
+
+	.cta-content h2 {
+		font-size: clamp(3rem, 7vw, 6rem);
+		line-height: 0.95;
+		color: white;
+		margin-top: var(--space-sm);
+	}
+
+	.cta-content p {
+		color: rgba(255,255,255,0.8);
+		font-size: var(--font-size-lg);
+		line-height: 1.65;
+		max-width: 500px;
+		margin-top: var(--space-md);
+	}
+
+	.cta-actions {
+		display: flex;
+		gap: var(--spacing-md);
+		flex-wrap: wrap;
+		margin-top: var(--space-xl);
+	}
+
+	.btn-cta-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 1.1rem 2.25rem;
+		background: #111;
+		color: white;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		border-radius: 2px;
+		text-decoration: none;
+		transition: background 0.15s ease, transform 0.15s ease;
+	}
+
+	.btn-cta-primary:hover {
+		background: #222;
+		transform: translateY(-2px);
+	}
+
+	.btn-cta-phone {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 1.1rem 2.25rem;
+		color: white;
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		border: 2px solid rgba(255,255,255,0.4);
+		border-radius: 2px;
+		text-decoration: none;
+		transition: all 0.15s ease;
+	}
+
+	.btn-cta-phone:hover {
+		border-color: white;
+		background: rgba(255,255,255,0.1);
+	}
+
+	.cta-stats {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+		flex-shrink: 0;
+	}
+
+	.cta-stat {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		color: rgba(255,255,255,0.85);
+		font-family: "DM Sans", sans-serif;
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+	}
+
+	.cta-stat i {
+		font-size: 18px;
+		color: white;
+		flex-shrink: 0;
+		opacity: 0.7;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 1100px) {
+		.hero-inner {
+			grid-template-columns: 1fr;
+		}
+
+		.hero-stats {
+			display: none;
+		}
+
+		.feature-split {
+			grid-template-columns: 1fr;
+		}
+
+		.feature-split-image {
+			min-height: 400px;
+		}
+
+		.feature-split-content {
+			padding: var(--space-2xl) var(--space-xl);
+		}
+
+		.cta-inner {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-stats {
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: var(--spacing-lg);
+		}
+	}
+
+	@media (max-width: 900px) {
+		.services-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.projects-mosaic {
+			grid-template-columns: 1fr;
+		}
+
+		.project-tile--large {
+			grid-row: auto;
+		}
+
+		.project-tile--large img,
+		.project-tile--large :global(img) {
+			min-height: 320px;
+		}
+
+		.projects-header {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--space-md);
+		}
+
+		.testimonials-head {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--space-md);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero-headline {
+			font-size: clamp(3.5rem, 15vw, 6rem);
+		}
+
+		.services-grid {
+			grid-template-columns: 1fr;
+			gap: 2px;
+		}
+
+		.cta-section::after {
+			display: none;
+		}
+	}
+</style>

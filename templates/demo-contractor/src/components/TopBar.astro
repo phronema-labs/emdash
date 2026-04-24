@@ -1,0 +1,110 @@
+---
+---
+
+<div class="top-bar">
+	<div class="top-bar-inner">
+		<div class="top-bar-left">
+			<span class="top-bar-tag">LICENSED & INSURED</span>
+			<span class="top-bar-sep">|</span>
+			<a href="tel:7205554100" class="top-bar-phone">
+				<i class="ph ph-phone-call" /> (720) 555-4100
+			</a>
+			<span class="top-bar-sep top-bar-sep-hours">|</span>
+			<span class="top-bar-info top-bar-hours"><i class="ph ph-clock" /> Mon–Fri 7AM–5PM</span>
+			<span class="top-bar-sep top-bar-sep-area">|</span>
+			<span class="top-bar-info top-bar-area"><i class="ph ph-map-pin" /> Denver Metro</span>
+		</div>
+		<div class="top-bar-right">
+			<a href="/contact" class="top-bar-cta">
+				<i class="ph ph-arrow-right" /> Free Estimate
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+	.top-bar {
+		background: var(--color-primary, #ff6b00);
+		color: rgba(255, 255, 255, 0.9);
+		font-size: 11px;
+		font-family: "DM Sans", sans-serif;
+	}
+
+	.top-bar-inner {
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		padding: 6px var(--site-gutter);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.top-bar-left {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+
+	.top-bar-tag {
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		font-size: 10px;
+		background: rgba(0,0,0,0.2);
+		padding: 2px 8px;
+		border-radius: 1px;
+	}
+
+	.top-bar-phone {
+		color: white;
+		font-weight: 700;
+		font-size: 12px;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		white-space: nowrap;
+		transition: opacity 0.15s ease;
+	}
+
+	.top-bar-phone:hover { opacity: 0.75; }
+
+	.top-bar-sep {
+		opacity: 0.4;
+		margin: 0 6px;
+	}
+
+	.top-bar-info {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		opacity: 0.8;
+	}
+
+	.top-bar-right { flex-shrink: 0; }
+
+	.top-bar-cta {
+		background: rgba(0,0,0,0.25);
+		color: white;
+		font-weight: 700;
+		font-size: 10px;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		padding: 4px 12px;
+		border-radius: 1px;
+		white-space: nowrap;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		transition: background 0.15s ease;
+		border: 1px solid rgba(255,255,255,0.2);
+	}
+
+	.top-bar-cta:hover { background: rgba(0,0,0,0.4); }
+
+	@media (max-width: 768px) {
+		.top-bar-info, .top-bar-sep { display: none; }
+		.top-bar-sep-hours, .top-bar-sep-area { display: none; }
+		.top-bar-hours, .top-bar-area { display: none; }
+	}
+</style>

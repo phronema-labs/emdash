@@ -5,6 +5,18 @@
 
 import type { ContentBylineCredit, PortableTextBlock } from "emdash";
 
+export interface Faq {
+  id: string;
+  slug: string | null;
+  status: string;
+  question: string;
+  answer?: PortableTextBlock[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface Page {
   id: string;
   slug: string | null;
@@ -23,8 +35,78 @@ export interface Post {
   status: string;
   title: string;
   featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number };
-  content?: PortableTextBlock[];
   excerpt?: string;
+  content?: PortableTextBlock[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface Project {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  client?: string;
+  featured_image: { id: string; src?: string; alt?: string; width?: number; height?: number };
+  summary?: string;
+  content?: PortableTextBlock[];
+  gallery?: unknown;
+  year?: string;
+  url?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface Service {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  icon?: string;
+  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number };
+  summary?: string;
+  content?: PortableTextBlock[];
+  price_from?: string;
+  cta_label?: string;
+  cta_url?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface TeamMember {
+  id: string;
+  slug: string | null;
+  status: string;
+  name: string;
+  role?: string;
+  photo?: { id: string; src?: string; alt?: string; width?: number; height?: number };
+  bio?: string;
+  email?: string;
+  phone?: string;
+  social_links?: unknown;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface Testimonial {
+  id: string;
+  slug: string | null;
+  status: string;
+  author: string;
+  role?: string;
+  company?: string;
+  avatar?: { id: string; src?: string; alt?: string; width?: number; height?: number };
+  quote: string;
+  rating?: number;
+  featured?: boolean;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -33,7 +115,12 @@ export interface Post {
 
 declare module "emdash" {
   interface EmDashCollections {
+    faqs: Faq;
     pages: Page;
     posts: Post;
+    projects: Project;
+    services: Service;
+    team: TeamMember;
+    testimonials: Testimonial;
   }
 }

@@ -9,9 +9,9 @@ interface Props {
 
 const { badges = [
 	{ icon: "ph-shield-check", label: "Licensed & Insured", sublabel: "$2M Coverage" },
-	{ icon: "ph-star", label: "4.9 Google Rating", sublabel: "500+ Reviews" },
-	{ icon: "ph-clock", label: "Same-Day Service", sublabel: "Call Before Noon" },
-	{ icon: "ph-seal-check", label: "Satisfaction Guarantee", sublabel: "Or Your Money Back" },
+	{ icon: "ph-star-fill", label: "4.9 Google Rating", sublabel: "847+ Reviews" },
+	{ icon: "ph-lightning-fill", label: "Emergency Response", sublabel: "24/7 Available" },
+	{ icon: "ph-seal-check", label: "Lifetime Warranty", sublabel: "All Workmanship" },
 	{ icon: "ph-certificate", label: "BBB Accredited", sublabel: "A+ Rating" },
 ] } = Astro.props;
 ---
@@ -34,52 +34,53 @@ const { badges = [
 
 <style>
 	.trust-badges {
-		background: var(--color-surface);
-		border-top: 1px solid var(--color-border);
-		border-bottom: 1px solid var(--color-border);
-		padding: var(--space-lg) var(--site-gutter);
+		background: #141414;
+		border-top: 1px solid rgba(255, 255, 255, 0.06);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+		padding: 1.5rem var(--site-gutter);
 	}
 
 	.badges-strip {
 		display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
-		gap: var(--spacing-xl);
+		gap: 2.5rem;
 	}
 
 	.badge {
 		display: flex;
 		align-items: center;
-		gap: var(--spacing-sm);
+		gap: 0.75rem;
 	}
 
 	.badge i {
-		font-size: 28px;
+		font-size: 1.6rem;
 		color: var(--color-primary);
 	}
 
 	.badge-text {
 		display: flex;
 		flex-direction: column;
+		gap: 1px;
 	}
 
 	.badge-text strong {
-		font-size: var(--font-size-sm);
-		font-weight: 600;
+		font-family: var(--font-headline);
+		font-size: 0.9rem;
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: white;
 	}
 
 	.badge-text span {
-		font-size: var(--font-size-xs);
-		color: var(--color-muted);
+		font-family: var(--font-body);
+		font-size: 0.75rem;
+		color: rgba(255, 255, 255, 0.4);
 	}
 
 	@media (max-width: 768px) {
-		.badges-strip {
-			gap: var(--spacing-lg);
-		}
-
-		.badge-text span {
-			display: none;
-		}
+		.badges-strip { gap: 1.5rem; }
+		.badge-text span { display: none; }
 	}
 </style>

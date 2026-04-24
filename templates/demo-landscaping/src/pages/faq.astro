@@ -1,0 +1,398 @@
+---
+import { getEmDashCollection, getEntryTerms, getTaxonomyTerms } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const { entries: faqs, cacheHint } = await getEmDashCollection("faqs", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const hasFaqs = faqs.length > 0;
+
+const hardcodedFaqs = [
+	{
+		category: "The Design Process",
+		items: [
+			{
+				q: "What does the design process look like from start to finish?",
+				a: "Every project begins with a complimentary site visit. We walk the property with you, listen carefully, and take notes on soil, light, drainage, and existing plantings. From there, we develop a concept — typically presented as a hand-drawn or digitally rendered plan — and work through one or two rounds of revisions before producing final construction documents. Most residential design engagements take four to eight weeks from the first site visit to an approved set of plans.",
+			},
+			{
+				q: "Do you offer consultations before committing to a full project?",
+				a: "Yes. Our initial site visit is always complimentary and carries no obligation. If you'd like a more structured two-hour consultation — including written notes and specific plant recommendations you can implement yourself — we offer that for a flat fee, which is credited toward any subsequent design work.",
+			},
+			{
+				q: "How involved will I need to be during the design phase?",
+				a: "As involved as you want to be. Some clients prefer to hand us the reins and respond to a single concept presentation. Others want to collaborate closely on every decision. We're comfortable with the full range. What we always ask is that all decision-makers — both partners, for example — are present at the concept presentation so we're not relaying feedback through an intermediary.",
+			},
+		],
+	},
+	{
+		category: "Plants and Ecology",
+		items: [
+			{
+				q: "Why do you emphasize native plants so strongly?",
+				a: "Native plants evolved alongside the insects, birds, and soil microorganisms of Central Texas. They're adapted to our clay soils, our unpredictable rainfall, and our brutal summer heat in ways that imported ornamentals simply aren't. A landscape built on natives establishes faster, requires less supplemental irrigation once established, and supports local wildlife in ways that exotic plantings cannot. That said, we're not dogmatic — we'll use well-adapted non-natives where they genuinely serve the design and the ecology.",
+			},
+			{
+				q: "Can you design a garden that looks lush even in a drought?",
+				a: "Absolutely. This is actually one of our specialties. A thoughtfully designed native and adaptive plant palette — layered with trees, mid-story shrubs, perennials, and groundcovers — can look full, green, and alive even through an Austin summer with minimal irrigation. The key is selecting species for their texture, their bloom succession, and their behavior in heat, not just their appearance at the nursery in April.",
+			},
+			{
+				q: "Do you use pesticides or synthetic fertilizers?",
+				a: "We do not routinely apply synthetic pesticides or fertilizers. Our maintenance programs are built around soil health — compost top-dressing, organic slow-release amendments, and practices that build beneficial insect populations rather than destroy them. If a serious pest or disease problem requires intervention, we'll discuss the options with you before applying anything.",
+			},
+		],
+	},
+	{
+		category: "Timeline and Costs",
+		items: [
+			{
+				q: "How long does a typical landscape installation take?",
+				a: "Most residential landscape installations take two to four weeks from mobilization to final cleanup, depending on the scope. Larger projects involving significant grading, extensive hardscape, or phased planting will take longer and are scheduled accordingly. We don't compress timelines at the expense of quality — if a project needs more time, we'll tell you in advance.",
+			},
+			{
+				q: "When is the best time of year to plant in Austin?",
+				a: "Fall — September through November — is the single best planting window in Central Texas. The soil is still warm, the air has cooled, and winter rains help plants establish without the stress of summer heat. Spring is our second-best window. We can plant almost any time of year, but summer installations require more intensive irrigation management and a higher mortality risk on some species.",
+			},
+			{
+				q: "Do you offer maintenance plans, and what do they include?",
+				a: "Yes. Our maintenance plans are written specifically for your plant palette — not a generic service schedule. Depending on the plan, a typical visit includes selective pruning for structure and bloom, irrigation adjustment, inspection for pests or disease, seasonal fertilization, and a brief written report of what was done and what to watch for. We offer monthly, bi-monthly, and quarterly visit schedules.",
+			},
+			{
+				q: "Do you work outside of Austin?",
+				a: "We serve clients throughout the Greater Austin metro area, the Texas Hill Country, San Antonio's northern suburbs, and select projects in the Fredericksburg and Wimberley areas. If you're unsure whether your property falls within our service area, just reach out — we're often willing to discuss projects in areas we don't typically cover if the scope and fit are right.",
+			},
+		],
+	},
+];
+---
+
+<Base title="FAQ" description="Answers to common questions about the Greenfield Landscaping design process, native plants, timelines, and care plans.">
+	<PageHero
+		title="Questions worth asking"
+		subtitle="If you don't see what you're looking for here, we're always happy to talk through it directly."
+		image="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&h=600&fit=crop"
+	/>
+
+	<section class="faq-section">
+		<div class="container faq-inner">
+
+			{/* Sidebar nav */}
+			<aside class="faq-nav fade-in">
+				<p class="faq-nav-label">Jump to</p>
+				{hasFaqs ? (
+					<ul>
+						<li><a href="#faqs">All Questions</a></li>
+					</ul>
+				) : (
+					<ul>
+						{hardcodedFaqs.map((group) => (
+							<li>
+								<a href={`#${group.category.toLowerCase().replace(/\s+/g, "-")}`}>
+									{group.category}
+								</a>
+							</li>
+						))}
+					</ul>
+				)}
+				<div class="faq-nav-cta">
+					<p>Have a question that isn't answered here?</p>
+					<a href="/contact" class="btn btn-secondary btn-sm">Ask Us Directly</a>
+				</div>
+			</aside>
+
+			{/* FAQ content */}
+			<div class="faq-content">
+				{hasFaqs ? (
+					<div id="faqs" class="faq-group fade-in">
+						{faqs.map((faq) => (
+							<details class="faq-item">
+								<summary class="faq-question">
+									<span>{faq.data.question}</span>
+									<span class="faq-toggle" aria-hidden="true">
+										<i class="ph ph-plus faq-icon-open"></i>
+										<i class="ph ph-minus faq-icon-close"></i>
+									</span>
+								</summary>
+								<div class="faq-answer">
+									{faq.data.answer ? (
+										<PortableText value={faq.data.answer} />
+									) : (
+										<p>Answer coming soon.</p>
+									)}
+								</div>
+							</details>
+						))}
+					</div>
+				) : (
+					<div class="faq-groups">
+						{hardcodedFaqs.map((group, gi) => (
+							<div
+								id={group.category.toLowerCase().replace(/\s+/g, "-")}
+								class={`faq-group fade-in fade-in-delay-${Math.min(gi + 1, 3)}`}
+							>
+								<h2 class="faq-group-title">{group.category}</h2>
+								{group.items.map((item) => (
+									<details class="faq-item">
+										<summary class="faq-question">
+											<span>{item.q}</span>
+											<span class="faq-toggle" aria-hidden="true">
+												<i class="ph ph-plus faq-icon-open"></i>
+												<i class="ph ph-minus faq-icon-close"></i>
+											</span>
+										</summary>
+										<div class="faq-answer">
+											<p>{item.a}</p>
+										</div>
+									</details>
+								))}
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+		</div>
+	</section>
+
+	{/* ===== Bottom CTA ===== */}
+	<section class="faq-cta">
+		<div class="container faq-cta-inner fade-in">
+			<div class="faq-cta-leaf" aria-hidden="true">
+				<i class="ph ph-leaf"></i>
+			</div>
+			<h2>Still have questions?</h2>
+			<p>Every landscape is different, and sometimes the right answer depends on details we'd need to see in person. We offer complimentary site visits throughout the Austin area — no commitment required.</p>
+			<div class="faq-cta-actions">
+				<a href="/contact" class="btn btn-primary">Schedule a Consultation</a>
+				<a href="tel:5125557200" class="btn btn-secondary">
+					<i class="ph ph-phone"></i>
+					(512) 555-7200
+				</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* ===== Layout ===== */
+	.faq-section {
+		padding: var(--space-5xl) 0;
+	}
+
+	.faq-inner {
+		display: grid;
+		grid-template-columns: 220px 1fr;
+		gap: var(--space-4xl);
+		align-items: start;
+	}
+
+	/* ===== Sidebar Nav ===== */
+	.faq-nav {
+		position: sticky;
+		top: 120px;
+	}
+
+	.faq-nav-label {
+		font-family: var(--font-body);
+		font-size: 0.68rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--color-muted);
+		margin-bottom: 0.75rem;
+	}
+
+	.faq-nav ul {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		border-left: 2px solid var(--color-border-light);
+		padding-left: 1rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.faq-nav li a {
+		font-size: 0.875rem;
+		color: var(--color-text-light);
+		transition: color var(--ease-fast);
+		display: block;
+		padding: 0.25rem 0;
+	}
+
+	.faq-nav li a:hover {
+		color: var(--color-primary);
+	}
+
+	.faq-nav-cta {
+		background: var(--color-surface);
+		border-radius: var(--radius-lg);
+		padding: 1.5rem;
+		border: 1px solid var(--color-border-light);
+	}
+
+	.faq-nav-cta p {
+		font-size: 0.8125rem;
+		color: var(--color-text-light);
+		line-height: 1.6;
+		margin-bottom: 1rem;
+	}
+
+	.btn-sm {
+		padding: 0.6rem 1.25rem;
+		font-size: 0.72rem;
+	}
+
+	/* ===== FAQ Groups ===== */
+	.faq-groups {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3xl);
+	}
+
+	.faq-group-title {
+		font-family: var(--font-display);
+		font-size: clamp(1.5rem, 2.5vw, 2rem);
+		color: var(--color-primary);
+		font-weight: 400;
+		margin-bottom: 1.5rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid var(--color-border-light);
+	}
+
+	/* ===== FAQ Items ===== */
+	.faq-item {
+		border-bottom: 1px solid var(--color-border-light);
+	}
+
+	.faq-item:first-of-type {
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.faq-question {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 1.5rem;
+		padding: 1.5rem 0;
+		cursor: pointer;
+		list-style: none;
+		font-family: var(--font-display);
+		font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+		font-weight: 400;
+		color: var(--color-primary);
+		line-height: 1.4;
+		transition: color var(--ease-fast);
+	}
+
+	.faq-question::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item:hover .faq-question {
+		color: var(--color-accent);
+	}
+
+	.faq-toggle {
+		flex-shrink: 0;
+		width: 28px;
+		height: 28px;
+		border-radius: var(--radius-full);
+		border: 1.5px solid var(--color-border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		color: var(--color-muted);
+		transition: all var(--ease-fast);
+		margin-top: 2px;
+	}
+
+	.faq-item[open] .faq-toggle {
+		background: var(--color-primary);
+		border-color: var(--color-primary);
+		color: white;
+	}
+
+	.faq-icon-open { display: block; }
+	.faq-icon-close { display: none; }
+
+	.faq-item[open] .faq-icon-open { display: none; }
+	.faq-item[open] .faq-icon-close { display: block; }
+
+	.faq-answer {
+		padding: 0 2.5rem 1.75rem 0;
+	}
+
+	.faq-answer p,
+	.faq-answer :global(p) {
+		font-size: 0.9375rem;
+		color: var(--color-text-light);
+		line-height: 1.85;
+		margin-bottom: 0.75rem;
+	}
+
+	.faq-answer :global(p:last-child) {
+		margin-bottom: 0;
+	}
+
+	/* ===== Bottom CTA ===== */
+	.faq-cta {
+		background: var(--color-surface);
+		border-top: 1px solid var(--color-border-light);
+		padding: var(--space-5xl) 0;
+	}
+
+	.faq-cta-inner {
+		text-align: center;
+		max-width: 600px;
+	}
+
+	.faq-cta-leaf {
+		width: 64px;
+		height: 64px;
+		background: var(--color-sage-light);
+		border-radius: var(--radius-full);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 28px;
+		color: var(--color-primary);
+		margin: 0 auto 2rem;
+	}
+
+	.faq-cta-inner h2 {
+		color: var(--color-primary);
+		font-size: clamp(1.8rem, 3vw, 2.75rem);
+		margin-bottom: 1rem;
+	}
+
+	.faq-cta-inner p {
+		font-size: 1rem;
+		color: var(--color-text-light);
+		line-height: 1.8;
+		margin-bottom: 2.5rem;
+	}
+
+	.faq-cta-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1.25rem;
+		flex-wrap: wrap;
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 900px) {
+		.faq-inner {
+			grid-template-columns: 1fr;
+		}
+
+		.faq-nav {
+			position: static;
+			display: none;
+		}
+	}
+</style>

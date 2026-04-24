@@ -1,0 +1,495 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const { entries: services, cacheHint } = await getEmDashCollection("services", { status: "published" });
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const hardcodedServices = [
+	{
+		slug: "landscape-design",
+		title: "Landscape Design",
+		summary: "A full design engagement from initial site analysis through detailed planting plans, grading diagrams, and construction documents. We study your land before we draw a single line.",
+		icon: "ph-pencil-ruler",
+		description: "Every project begins with a site visit and a long conversation about how you live and what your land wants to be. We develop concept drawings, refine them with you over one or two rounds, and produce the construction-ready documents your installation crew needs. You'll receive a planting schedule, material specifications, and a phasing guide if the project will be built in stages.",
+		details: ["Site analysis and soil testing", "Concept development and design review", "Construction documents and planting plans", "Contractor bid support"],
+		image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=600&fit=crop",
+	},
+	{
+		slug: "installation",
+		title: "Landscape Installation",
+		summary: "Our in-house installation crew brings your design to life. We work with our own team — not subcontractors — so we can maintain quality control through every phase of the build.",
+		icon: "ph-shovel",
+		description: "Installation is where a garden is born. Our crew handles grading, irrigation rough-in, hardscape construction, soil preparation, and planting. We manage the project from first shovelful to final mulching, keeping you informed at each milestone. Most residential installations are completed within two to four weeks, depending on scope.",
+		details: ["Grading and earthwork", "Hardscape construction", "Planting and mulching", "Irrigation installation and commissioning"],
+		image: "https://images.unsplash.com/photo-1592150621744-aca64f48394a?w=900&h=600&fit=crop",
+	},
+	{
+		slug: "hardscaping",
+		title: "Hardscaping",
+		summary: "Stone patios, decomposed granite paths, dry-stacked walls, fire pits, pergolas — the structural elements that give a garden its bones and extend your living space outdoors.",
+		icon: "ph-bricks",
+		description: "Great hardscaping feels like it grew up with the land around it. We source locally quarried Texas limestone, reclaimed wood, and regionally made tile wherever possible. Our masons and carpenters are craftspeople who take pride in the details: a perfectly set capstone, a threshold that aligns with the kitchen floor, a pergola scaled exactly to the space beneath it.",
+		details: ["Stone and brick patios", "Retaining walls and terracing", "Outdoor kitchens and fire features", "Shade structures and pergolas"],
+		image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=900&h=600&fit=crop",
+	},
+	{
+		slug: "irrigation",
+		title: "Irrigation & Water Management",
+		summary: "Smart, efficient irrigation systems designed around your plant palette and your microclimate. We don't overwater. We don't underwater. We design systems that learn your landscape.",
+		icon: "ph-drop",
+		description: "Water is the most precious resource in Central Texas, and we treat it with respect. Our irrigation designs begin with a water budget based on your plant list, your soil's infiltration rate, and historical rainfall data. We install pressure-compensating drip for planting beds and high-efficiency rotary heads for turf areas — all controlled by a weather-based smart controller that adjusts automatically.",
+		details: ["Drip irrigation for planting beds", "Smart controller installation", "Rainwater harvesting integration", "Annual system audits and backflow testing"],
+		image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&h=600&fit=crop",
+	},
+	{
+		slug: "maintenance",
+		title: "Ongoing Maintenance",
+		summary: "Seasonal care plans that keep your landscape thriving without the guesswork. We know your garden, and we visit it on a schedule that matches how it grows.",
+		icon: "ph-plant",
+		description: "A designed landscape needs tending. Our maintenance plans are written specifically for the plant palette we installed or inherited — not generic mow-and-blow schedules. Your assigned crew knows your property, its quirks, and what it looked like when it was at its best. We prune for structure, fertilize organically, monitor for pests, and adjust irrigation seasonally. You'll receive a written care report after each visit.",
+		details: ["Seasonal pruning and shaping", "Organic fertilization", "Irrigation adjustments and monitoring", "Seasonal color rotations and bed care"],
+		image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=900&h=600&fit=crop",
+	},
+];
+
+const displayServices = services.length > 0 ? services : null;
+
+const serviceImages = [
+	"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=600&fit=crop",
+	"https://images.unsplash.com/photo-1592150621744-aca64f48394a?w=900&h=600&fit=crop",
+	"https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=900&h=600&fit=crop",
+	"https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&h=600&fit=crop",
+	"https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=900&h=600&fit=crop",
+];
+---
+
+<Base title="Services" description="Landscape design, installation, hardscaping, irrigation, and maintenance services for homes and estates across Austin and the Texas Hill Country.">
+	<PageHero
+		title="Full-service landscape care"
+		subtitle="From the first sketch to the last pruning session — we're with you through every stage of your garden's life."
+		image="https://images.unsplash.com/photo-1598902108854-d1446a05d950?w=1600&h=600&fit=crop"
+	/>
+
+	{/* ===== Intro ===== */}
+	<section class="services-intro-section">
+		<div class="container">
+			<div class="services-intro-inner fade-in">
+				<span class="eyebrow">What We Do</span>
+				<p class="services-lead">Every Greenfield project is different. The terrain, the client, the budget, the plants — no two landscapes are the same. What remains constant is our process: careful listening, honest assessment, and craft that holds up over time.</p>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== Services — Alternating Rows ===== */}
+	{displayServices ? (
+		<section class="services-list-section">
+			{services.map((service, i) => (
+				<div class={`service-row ${i % 2 === 1 ? "service-row-reverse" : ""}`}>
+					<div class="service-row-image fade-in">
+						<img
+							src={serviceImages[i % serviceImages.length]}
+							alt={service.data.title}
+							loading="lazy"
+						/>
+					</div>
+					<div class="service-row-content fade-in fade-in-delay-1">
+						<span class="eyebrow">{`0${i + 1}`}</span>
+						<h2>{service.data.title}</h2>
+						<p class="service-summary">{service.data.summary}</p>
+						{service.data.price_from && (
+							<p class="service-price">Starting from <strong>${service.data.price_from.toLocaleString()}</strong></p>
+						)}
+						<a href={`/services/${service.slug}`} class="btn btn-primary">
+							{service.data.cta_label || "Learn More"}
+							<i class="ph ph-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+			))}
+		</section>
+	) : (
+		<section class="services-list-section">
+			{hardcodedServices.map((service, i) => (
+				<div class={`service-row ${i % 2 === 1 ? "service-row-reverse" : ""}`}>
+					<div class="service-row-image fade-in">
+						<img
+							src={service.image}
+							alt={service.title}
+							loading="lazy"
+						/>
+					</div>
+					<div class="service-row-content fade-in fade-in-delay-1">
+						<span class="eyebrow">0{i + 1}</span>
+						<h2>{service.title}</h2>
+						<p class="service-summary">{service.description}</p>
+						<ul class="service-details">
+							{service.details.map((detail) => (
+								<li>
+									<i class="ph ph-check-circle"></i>
+									{detail}
+								</li>
+							))}
+						</ul>
+						<a href={`/services/${service.slug}`} class="btn btn-primary">
+							Explore This Service
+							<i class="ph ph-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+			))}
+		</section>
+	)}
+
+	{/* ===== Process strip ===== */}
+	<section class="process-section">
+		<div class="container">
+			<div class="process-header fade-in">
+				<span class="eyebrow">Our Process</span>
+				<h2>How a project unfolds</h2>
+			</div>
+			<div class="process-steps">
+				<div class="process-step fade-in fade-in-delay-1">
+					<div class="process-num">01</div>
+					<h3>Site Visit</h3>
+					<p>We walk your property together, discussing your vision, your lifestyle, and what the land already wants to be. No charge, no pressure.</p>
+				</div>
+				<div class="process-connector" aria-hidden="true"></div>
+				<div class="process-step fade-in fade-in-delay-2">
+					<div class="process-num">02</div>
+					<h3>Design</h3>
+					<p>Our designers develop concepts, present options, and refine plans until every detail is right. You'll see exactly what you're getting before a single plant is ordered.</p>
+				</div>
+				<div class="process-connector" aria-hidden="true"></div>
+				<div class="process-step fade-in fade-in-delay-3">
+					<div class="process-num">03</div>
+					<h3>Installation</h3>
+					<p>Our crew arrives on a scheduled date, works with minimal disruption, and leaves your property better than they found it. Every installation is supervised by a senior team member.</p>
+				</div>
+				<div class="process-connector" aria-hidden="true"></div>
+				<div class="process-step fade-in fade-in-delay-3">
+					<div class="process-num">04</div>
+					<h3>Ongoing Care</h3>
+					<p>The garden grows, and so does our relationship. Our maintenance plans are written for your landscape, not a generic checklist. We're here for the long run.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* ===== CTA ===== */}
+	<section class="services-cta">
+		<div class="services-cta-img">
+			<img
+				src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1600&h=700&fit=crop"
+				alt="Garden landscape"
+				loading="lazy"
+			/>
+			<div class="services-cta-overlay"></div>
+		</div>
+		<div class="services-cta-content fade-in">
+			<span class="eyebrow eyebrow-light">Let's start</span>
+			<h2>Not sure which service fits your project?</h2>
+			<p>Tell us about your property and your goals, and we'll help you figure out the right starting point. The first conversation is always complimentary.</p>
+			<a href="/contact" class="btn btn-accent btn-lg">Schedule a Consultation</a>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.eyebrow {
+		display: inline-block;
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--color-accent);
+		margin-bottom: 1rem;
+	}
+
+	.eyebrow-light {
+		color: rgba(255,255,255,0.5);
+	}
+
+	/* ===== Intro ===== */
+	.services-intro-section {
+		padding: var(--space-4xl) 0 var(--space-2xl);
+	}
+
+	.services-intro-inner {
+		max-width: 700px;
+	}
+
+	.services-lead {
+		font-family: var(--font-display);
+		font-size: clamp(1.2rem, 2vw, 1.6rem);
+		color: var(--color-primary);
+		line-height: 1.6;
+		font-weight: 300;
+		font-style: italic;
+	}
+
+	/* ===== Service Rows ===== */
+	.services-list-section {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.service-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		min-height: 560px;
+	}
+
+	.service-row-reverse {
+		direction: rtl;
+	}
+
+	.service-row-reverse > * {
+		direction: ltr;
+	}
+
+	.service-row-image {
+		overflow: hidden;
+		position: relative;
+	}
+
+	.service-row-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform var(--ease-botanical);
+	}
+
+	.service-row:hover .service-row-image img {
+		transform: scale(1.04);
+	}
+
+	.service-row-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: var(--space-4xl) var(--space-3xl);
+		background: var(--color-bg);
+	}
+
+	.service-row:nth-child(even) .service-row-content {
+		background: var(--color-surface);
+	}
+
+	.service-row-content h2 {
+		color: var(--color-primary);
+		font-size: clamp(1.8rem, 3vw, 2.75rem);
+		margin-bottom: 1.25rem;
+	}
+
+	.service-summary {
+		font-size: 1.0rem;
+		color: var(--color-text-light);
+		line-height: 1.85;
+		margin-bottom: 1.5rem;
+	}
+
+	.service-price {
+		font-family: var(--font-body);
+		font-size: 0.875rem;
+		color: var(--color-muted);
+		margin-bottom: 1.75rem;
+	}
+
+	.service-price strong {
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.service-details {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.service-details li {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-size: 0.9rem;
+		color: var(--color-text-light);
+	}
+
+	.service-details i {
+		color: var(--color-sage);
+		font-size: 16px;
+		flex-shrink: 0;
+	}
+
+	/* ===== Process ===== */
+	.process-section {
+		background: var(--color-primary);
+		padding: var(--space-5xl) 0;
+		overflow: hidden;
+		position: relative;
+	}
+
+	.process-section::before {
+		content: '';
+		position: absolute;
+		top: -20%;
+		right: -10%;
+		width: 500px;
+		height: 500px;
+		background: radial-gradient(circle, rgba(143, 174, 126, 0.1) 0%, transparent 70%);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.process-header {
+		max-width: 480px;
+		margin-bottom: var(--space-3xl);
+		position: relative;
+	}
+
+	.process-header .eyebrow {
+		color: var(--color-sage);
+	}
+
+	.process-header h2 {
+		color: white;
+		font-size: clamp(1.8rem, 3.5vw, 3rem);
+	}
+
+	.process-steps {
+		display: flex;
+		align-items: flex-start;
+		gap: 0;
+		position: relative;
+	}
+
+	.process-step {
+		flex: 1;
+		padding-right: 2rem;
+	}
+
+	.process-num {
+		font-family: var(--font-display);
+		font-size: 3.5rem;
+		font-weight: 300;
+		color: rgba(255,255,255,0.15);
+		line-height: 1;
+		margin-bottom: 1rem;
+	}
+
+	.process-step h3 {
+		color: white;
+		font-size: 1.4rem;
+		font-weight: 400;
+		margin-bottom: 0.75rem;
+	}
+
+	.process-step p {
+		font-size: 0.9rem;
+		color: rgba(255,255,255,0.6);
+		line-height: 1.8;
+	}
+
+	.process-connector {
+		width: 1px;
+		height: 60px;
+		background: rgba(255,255,255,0.15);
+		align-self: flex-start;
+		margin-top: 1.75rem;
+		flex-shrink: 0;
+	}
+
+	/* ===== CTA ===== */
+	.services-cta {
+		position: relative;
+		min-height: 520px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.services-cta-img {
+		position: absolute;
+		inset: 0;
+	}
+
+	.services-cta-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.services-cta-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg,
+			rgba(15, 35, 24, 0.88) 0%,
+			rgba(26, 58, 42, 0.8) 100%
+		);
+	}
+
+	.services-cta-content {
+		position: relative;
+		z-index: 1;
+		text-align: center;
+		color: white;
+		max-width: 620px;
+		padding: var(--space-4xl) var(--site-gutter);
+	}
+
+	.services-cta-content h2 {
+		color: white;
+		font-size: clamp(1.8rem, 3.5vw, 3rem);
+		font-weight: 300;
+		margin-bottom: 1.25rem;
+	}
+
+	.services-cta-content p {
+		font-size: 1.05rem;
+		color: rgba(255,255,255,0.65);
+		line-height: 1.75;
+		margin-bottom: 2.5rem;
+	}
+
+	/* ===== Responsive ===== */
+	@media (max-width: 1024px) {
+		.service-row-content {
+			padding: var(--space-3xl) var(--space-2xl);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.service-row {
+			grid-template-columns: 1fr;
+			direction: ltr;
+		}
+
+		.service-row-reverse {
+			direction: ltr;
+		}
+
+		.service-row-image {
+			height: 300px;
+		}
+
+		.service-row-content {
+			padding: var(--space-2xl) var(--space-xl);
+		}
+
+		.process-steps {
+			flex-direction: column;
+			gap: var(--space-xl);
+		}
+
+		.process-connector {
+			width: 60px;
+			height: 1px;
+		}
+	}
+</style>

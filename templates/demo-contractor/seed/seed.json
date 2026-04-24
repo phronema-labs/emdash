@@ -1,0 +1,1666 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "General Contractor Demo",
+		"description": "A complete general contractor website demo",
+		"author": "Phronema Labs"
+	},
+
+	"settings": {
+		"title": "Ironclad Builders",
+		"tagline": "Built to last. Designed for life."
+	},
+
+	"collections": [
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		},
+		{
+			"slug": "posts",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"supports": ["drafts", "revisions", "search", "seo"],
+			"commentsEnabled": true,
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt",
+					"type": "text"
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		},
+		{
+			"slug": "services",
+			"label": "Services",
+			"labelSingular": "Service",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "icon",
+					"label": "Icon",
+					"type": "string"
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "price_from",
+					"label": "Starting Price",
+					"type": "string"
+				},
+				{
+					"slug": "cta_label",
+					"label": "CTA Button Label",
+					"type": "string"
+				},
+				{
+					"slug": "cta_url",
+					"label": "CTA Button URL",
+					"type": "string"
+				}
+			]
+		},
+		{
+			"slug": "team",
+			"label": "Team",
+			"labelSingular": "Team Member",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "name",
+					"label": "Name",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "role",
+					"label": "Role",
+					"type": "string"
+				},
+				{
+					"slug": "photo",
+					"label": "Photo",
+					"type": "image"
+				},
+				{
+					"slug": "bio",
+					"label": "Bio",
+					"type": "text"
+				},
+				{
+					"slug": "email",
+					"label": "Email",
+					"type": "string"
+				},
+				{
+					"slug": "phone",
+					"label": "Phone",
+					"type": "string"
+				},
+				{
+					"slug": "social_links",
+					"label": "Social Links",
+					"type": "json"
+				}
+			]
+		},
+		{
+			"slug": "testimonials",
+			"label": "Testimonials",
+			"labelSingular": "Testimonial",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "author",
+					"label": "Author",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "role",
+					"label": "Role",
+					"type": "string"
+				},
+				{
+					"slug": "company",
+					"label": "Company",
+					"type": "string"
+				},
+				{
+					"slug": "avatar",
+					"label": "Avatar",
+					"type": "image"
+				},
+				{
+					"slug": "quote",
+					"label": "Quote",
+					"type": "text",
+					"required": true
+				},
+				{
+					"slug": "rating",
+					"label": "Rating",
+					"type": "integer"
+				},
+				{
+					"slug": "featured",
+					"label": "Featured",
+					"type": "boolean"
+				}
+			]
+		},
+		{
+			"slug": "projects",
+			"label": "Projects",
+			"labelSingular": "Project",
+			"supports": ["drafts", "revisions", "search", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "client",
+					"label": "Client",
+					"type": "string"
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image",
+					"required": true
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "gallery",
+					"label": "Gallery",
+					"type": "json"
+				},
+				{
+					"slug": "year",
+					"label": "Year",
+					"type": "string"
+				},
+				{
+					"slug": "url",
+					"label": "Project URL",
+					"type": "string"
+				}
+			]
+		},
+		{
+			"slug": "faqs",
+			"label": "FAQs",
+			"labelSingular": "FAQ",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "question",
+					"label": "Question",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "answer",
+					"label": "Answer",
+					"type": "portableText"
+				}
+			]
+		}
+	],
+
+	"taxonomies": [
+		{
+			"name": "service_category",
+			"label": "Service Categories",
+			"labelSingular": "Service Category",
+			"hierarchical": true,
+			"collections": ["services"],
+			"terms": [
+				{ "slug": "residential", "label": "Residential" },
+				{ "slug": "kitchens", "label": "Kitchens" },
+				{ "slug": "bathrooms", "label": "Bathrooms" },
+				{ "slug": "additions", "label": "Additions" }
+			]
+		},
+		{
+			"name": "category",
+			"label": "Categories",
+			"labelSingular": "Category",
+			"hierarchical": true,
+			"collections": ["posts"],
+			"terms": [
+				{ "slug": "tips", "label": "Tips" },
+				{ "slug": "design", "label": "Design" },
+				{ "slug": "cost-planning", "label": "Cost Planning" }
+			]
+		},
+		{
+			"name": "tag",
+			"label": "Tags",
+			"labelSingular": "Tag",
+			"hierarchical": false,
+			"collections": ["posts"],
+			"terms": [
+				{ "slug": "remodeling", "label": "Remodeling" },
+				{ "slug": "kitchen", "label": "Kitchen" },
+				{ "slug": "bathroom", "label": "Bathroom" },
+				{ "slug": "addition", "label": "Addition" },
+				{ "slug": "design", "label": "Design" }
+			]
+		},
+		{
+			"name": "faq_category",
+			"label": "FAQ Categories",
+			"labelSingular": "FAQ Category",
+			"hierarchical": false,
+			"collections": ["faqs"],
+			"terms": [
+				{ "slug": "general", "label": "General" },
+				{ "slug": "pricing", "label": "Pricing" },
+				{ "slug": "process", "label": "Process" },
+				{ "slug": "design", "label": "Design" }
+			]
+		},
+		{
+			"name": "project_category",
+			"label": "Project Categories",
+			"labelSingular": "Project Category",
+			"hierarchical": false,
+			"collections": ["projects"],
+			"terms": [
+				{ "slug": "kitchen", "label": "Kitchen" },
+				{ "slug": "bathroom", "label": "Bathroom" },
+				{ "slug": "addition", "label": "Addition" },
+				{ "slug": "whole-home", "label": "Whole-Home" }
+			]
+		}
+	],
+
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary Navigation",
+			"items": [
+				{ "type": "custom", "label": "Home", "url": "/" },
+				{ "type": "custom", "label": "Services", "url": "/services" },
+				{ "type": "custom", "label": "Our Work", "url": "/work" },
+				{ "type": "custom", "label": "About", "url": "/about" },
+				{ "type": "custom", "label": "Blog", "url": "/blog" },
+				{ "type": "custom", "label": "Contact", "url": "/contact" }
+			]
+		},
+		{
+			"name": "footer",
+			"label": "Footer Navigation",
+			"items": [
+				{ "type": "custom", "label": "Privacy Policy", "url": "/pages/privacy" },
+				{ "type": "custom", "label": "Terms of Service", "url": "/pages/terms" },
+				{ "type": "custom", "label": "FAQ", "url": "/faq" }
+			]
+		}
+	],
+
+	"widgetAreas": [
+		{
+			"name": "sidebar",
+			"label": "Blog Sidebar",
+			"description": "Widget area displayed on blog pages",
+			"widgets": [
+				{
+					"type": "component",
+					"componentId": "core:search",
+					"title": "Search"
+				},
+				{
+					"type": "component",
+					"componentId": "core:categories",
+					"title": "Categories"
+				},
+				{
+					"type": "component",
+					"componentId": "core:recent-posts",
+					"title": "Recent Posts",
+					"settings": { "count": 5, "showDate": true }
+				}
+			]
+		},
+		{
+			"name": "footer",
+			"label": "Footer",
+			"description": "Widget area displayed in the site footer",
+			"widgets": [
+				{
+					"type": "content",
+					"title": "About Us",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Ironclad Builders has been transforming Denver homes since 2008. Licensed general contractor, bonded, and insured. CO License #GC-2008-4471."
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "content",
+					"title": "Service Area",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{ "_type": "span", "text": "Serving Denver, Washington Park, Cherry Creek, Highlands, Lakewood, Littleton, Arvada, and the greater Denver Metro area." }
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+
+	"content": {
+		"pages": [
+			{
+				"id": "home",
+				"slug": "home",
+				"status": "published",
+				"data": {
+					"title": "Home",
+					"content": [
+						{
+							"_type": "business.hero",
+							"_key": "hero",
+							"headline": "Your home, rebuilt the right way",
+							"subheadline": "Full-service general contracting and remodeling in Denver, CO. From kitchen renovations to whole-home transformations, our licensed team delivers craftsmanship that stands the test of time. Free consultations available.",
+							"primaryCta": { "label": "Get a Free Consultation", "url": "/contact" },
+							"secondaryCta": { "label": "Call (720) 555-3200", "url": "tel:7205553200" },
+							"image": { "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop", "alt": "Beautiful renovated Denver home with modern kitchen and open floor plan" },
+							"style": "split"
+						},
+						{
+							"_type": "business.features",
+							"_key": "features",
+							"headline": "Why Denver homeowners choose Ironclad",
+							"subheadline": "Over 15 years of transforming homes across the Denver Metro area.",
+							"features": [
+								{
+									"icon": "shield-check",
+									"title": "Licensed & Insured",
+									"description": "Fully licensed Colorado general contractor (GC-2008-4471), bonded, and insured with $2M in liability coverage. Your home is in safe hands."
+								},
+								{
+									"icon": "ruler",
+									"title": "Design-Build Under One Roof",
+									"description": "Our in-house design team and build crews work together from day one. One contract, one point of contact, no finger-pointing between designers and builders."
+								},
+								{
+									"icon": "seal-check",
+									"title": "5-Year Workmanship Warranty",
+									"description": "Every project we complete comes with a 5-year workmanship warranty. If something we built isn't right, we come back and fix it at no cost."
+								},
+								{
+									"icon": "clipboard",
+									"title": "Transparent Pricing",
+									"description": "Detailed line-item estimates before we start. No hidden fees, no surprise change orders. You know exactly what you're paying for and why."
+								},
+								{
+									"icon": "calendar-check",
+									"title": "On-Time Delivery",
+									"description": "We build realistic schedules and stick to them. Our project management system keeps you updated weekly with photos, progress reports, and next steps."
+								},
+								{
+									"icon": "certificate",
+									"title": "Permitted & Inspected",
+									"description": "We pull all required permits and schedule every inspection. Your project will be fully code-compliant and documented for resale."
+								}
+							]
+						},
+						{
+							"_type": "business.testimonials",
+							"_key": "testimonials",
+							"headline": "What our clients say",
+							"testimonials": [
+								{
+									"quote": "Ironclad completely gutted and rebuilt our 1960s kitchen. They handled everything from design through final inspection. The result is stunning and they finished two days ahead of schedule. We've already recommended them to three neighbors.",
+									"author": "Sarah & Mike D.",
+									"role": "Homeowners",
+									"company": "Washington Park, Denver",
+									"rating": 5
+								},
+								{
+									"quote": "We added a 400 sq ft primary suite above our garage. Ryan and his team managed permits, structural engineering, and the full build. They were communicative, clean, and the craftsmanship is impeccable. Worth every penny.",
+									"author": "James T.",
+									"role": "Homeowner",
+									"company": "Highlands, Denver",
+									"rating": 5
+								},
+								{
+									"quote": "Our basement went from an unfinished concrete box to a fully finished space with a wet bar, home theater, and guest bedroom. Lisa's design work was creative and practical, and the crew executed it perfectly.",
+									"author": "Andrea & Paul K.",
+									"role": "Homeowners",
+									"company": "Lakewood, CO",
+									"rating": 5
+								}
+							]
+						},
+						{
+							"_type": "business.stats",
+							"_key": "stats",
+							"stats": [
+								{ "value": "15+", "label": "Years in Business" },
+								{ "value": "600+", "label": "Projects Completed" },
+								{ "value": "4.9", "label": "Google Rating" },
+								{ "value": "$45M+", "label": "Total Project Value" }
+							]
+						},
+						{
+							"_type": "business.cta",
+							"_key": "cta",
+							"headline": "Ready to start your remodel?",
+							"description": "Call now or book online for a free in-home consultation. We'll walk through your space, discuss your goals, and give you a realistic budget range and timeline. No pressure, no obligation.",
+							"buttonLabel": "Schedule Free Consultation",
+							"buttonUrl": "/contact",
+							"style": "banner"
+						}
+					]
+				}
+			},
+			{
+				"id": "about",
+				"slug": "about",
+				"status": "published",
+				"data": {
+					"title": "About Ironclad Builders",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Ironclad Builders was founded in 2008 by Ryan Caldwell, a Denver native who spent a decade working for large commercial construction firms before realizing that residential homeowners deserved the same level of project management, communication, and craftsmanship that corporate clients expected. He started Ironclad with a simple idea: build it right, keep the client informed, and stand behind the work."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our story" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "What started as Ryan and a two-person crew doing kitchen and bathroom remodels has grown into a full-service design-build firm with 14 team members, a dedicated design studio, and over 600 completed projects across the Denver Metro area. We've maintained a 4.9-star Google rating because we treat every project like it's our own home. Our growth has come almost entirely from referrals and repeat clients, which tells us we're doing something right."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "How we work" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every project starts with a free in-home consultation where we listen to your goals, walk through the space, and discuss budget realities. If we're a good fit, our design team creates detailed plans and 3D renderings so you can see exactly what you're getting before a single wall comes down. Once the design is locked, you receive a line-item estimate with no hidden costs. During construction, our site superintendent is on-site daily and you get weekly photo updates and progress reports. We don't consider a project finished until the final inspection passes and you're completely satisfied."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Built for Denver" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Denver's housing stock is unique. Victorian row homes in Washington Park, mid-century ranches in Lakewood, Craftsman bungalows in Highlands, and modern builds in Cherry Creek all have different structural considerations, historical preservation requirements, and design opportunities. We've worked in every major Denver neighborhood and understand the permitting process, HOA requirements, and construction challenges specific to this market. Our crews are experienced with Colorado's climate demands, including proper moisture management, energy-efficient insulation, and foundation considerations for our expansive soils."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "contact",
+				"slug": "contact",
+				"status": "published",
+				"data": {
+					"title": "Contact Us",
+					"content": [
+						{
+							"_type": "business.hero",
+							"_key": "contact-hero",
+							"headline": "Get in touch",
+							"subheadline": "Request a free consultation, ask a question, or tell us about your project. We respond within 1 business day.",
+							"style": "centered"
+						},
+						{
+							"_type": "business.contact-info",
+							"_key": "contact-details",
+							"phone": "(720) 555-3200",
+							"email": "info@ironcladbuilders.com",
+							"address": "2740 Welton St, Suite 200, Denver, CO 80205",
+							"social": [
+								{ "platform": "facebook", "url": "https://facebook.com/ironcladbuilders" },
+								{ "platform": "instagram", "url": "https://instagram.com/ironcladbuilders" },
+								{ "platform": "google", "url": "https://g.page/ironcladbuilders" }
+							]
+						},
+						{
+							"_type": "business.hours",
+							"_key": "hours",
+							"headline": "Business Hours",
+							"hours": [
+								{ "day": "Monday", "open": "8:00 AM", "close": "5:00 PM" },
+								{ "day": "Tuesday", "open": "8:00 AM", "close": "5:00 PM" },
+								{ "day": "Wednesday", "open": "8:00 AM", "close": "5:00 PM" },
+								{ "day": "Thursday", "open": "8:00 AM", "close": "5:00 PM" },
+								{ "day": "Friday", "open": "8:00 AM", "close": "5:00 PM" },
+								{ "day": "Saturday", "open": "9:00 AM", "close": "1:00 PM" },
+								{ "day": "Sunday", "closed": true }
+							]
+						},
+						{
+							"_type": "business.map",
+							"_key": "map",
+							"address": "2740 Welton St, Suite 200, Denver, CO 80205",
+							"lat": 39.7555,
+							"lng": -104.9739,
+							"zoom": 14,
+							"markerTitle": "Ironclad Builders",
+							"height": "400px"
+						}
+					]
+				}
+			}
+		],
+		"posts": [
+			{
+				"id": "post-1",
+				"slug": "kitchen-remodel-timeline-what-to-expect-week-by-week",
+				"status": "published",
+				"data": {
+					"title": "Kitchen Remodel Timeline: What to Expect Week by Week",
+					"excerpt": "A full kitchen remodel takes 8 to 12 weeks from demo to done. Here's a realistic week-by-week breakdown so you know what's happening at each stage and can plan accordingly.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=800&fit=crop",
+							"alt": "Modern kitchen mid-renovation with new cabinetry being installed",
+							"filename": "kitchen-remodel-timeline.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The number one question we hear from homeowners planning a kitchen remodel is: how long will this take? The honest answer for a full gut renovation is 8 to 12 weeks of active construction, plus 4 to 6 weeks of design and pre-construction planning before that. Here's what happens at each stage so you're never caught off guard."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Weeks 1-2: Demolition and rough-in" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "This is the loud, dusty phase. We tear out old cabinets, countertops, flooring, and sometimes walls. Once the space is stripped down, the plumber and electrician come in to move or add supply lines, drains, and circuits to match the new layout. If you're moving the sink or adding an island with plumbing, this is when it happens. We also open up any walls being removed and install new structural headers if needed. Your kitchen is completely unusable during this phase, so plan to set up a temporary kitchen in another room."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Weeks 3-4: Framing, drywall, and inspections" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "After the rough-in plumbing and electrical pass inspection, we close up the walls with new drywall, tape, mud, and sand. Any structural changes are finalized. This is also when we install new windows if the plan calls for them. The space starts to take shape but still looks like a construction zone."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Weeks 5-6: Cabinets and major installations" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "This is the most exciting phase for most homeowners because the design vision starts coming to life. Custom or semi-custom cabinets are installed, followed by countertop templating. The countertop fabricator will template after cabinets are in and typically needs 7 to 10 business days to cut and polish the stone. While waiting on countertops, we install flooring, paint, and any trim work."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Weeks 7-8: Countertops, backsplash, and fixtures" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Countertops are installed, followed by the backsplash tile, then plumbing fixtures (sink, faucet, disposal), electrical fixtures (under-cabinet lights, pendants, outlets), and appliance hookups. The kitchen is finally starting to look finished. We test everything, make adjustments, and handle any punch list items."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Weeks 9-10: Final details and walk-through" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Hardware goes on the cabinets, final paint touch-ups happen, appliances are set in place and tested, and we do a thorough cleaning. We schedule a final walk-through with you to review every detail and create a punch list of anything that needs attention. Once the punch list is cleared and the final inspection passes, your kitchen is officially done. Most of our clients tell us the wait was absolutely worth it."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["tips"],
+					"tag": ["kitchen", "remodeling"]
+				}
+			},
+			{
+				"id": "post-2",
+				"slug": "adu-vs-addition-which-is-right-for-your-property",
+				"status": "published",
+				"data": {
+					"title": "ADU vs Addition: Which Is Right for Your Property?",
+					"excerpt": "Both ADUs and traditional additions add space to your property, but they serve different purposes, cost different amounts, and have different permitting requirements. Here's how to decide.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&h=800&fit=crop",
+							"alt": "Modern ADU structure in a residential backyard",
+							"filename": "adu-vs-addition.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Denver's housing market and recent zoning changes have made both ADUs (Accessory Dwelling Units) and traditional home additions popular options for homeowners who need more space. But they're fundamentally different projects. Understanding the differences will help you make the right decision for your property, your family, and your budget."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What's an ADU?" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "An ADU is a separate, self-contained living unit on the same lot as your primary home. It has its own entrance, kitchen, bathroom, and sleeping area. In Denver, ADUs can be detached (a separate structure in your backyard), attached (connected to your home but with a separate entrance), or converted from an existing structure like a garage. Denver updated its ADU ordinance in 2020 and again in 2024, making it easier to build them in most residential zones."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What's a traditional addition?" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A traditional addition expands your existing home. It could be a bump-out to enlarge a kitchen, a second-story addition for bedrooms, or a ground-level wing for a primary suite. The new space is integrated into your home's floor plan, HVAC, plumbing, and electrical systems. Additions increase your home's square footage and are reflected in your property's assessed value."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Cost comparison" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "In the Denver market, a detached ADU typically costs $150,000 to $300,000 depending on size and finishes. A traditional addition runs $200 to $400 per square foot, so a 400 sq ft primary suite addition would be $80,000 to $160,000. ADUs cost more per square foot because they require independent utilities, but they also generate rental income that can offset the investment. A well-built ADU in Denver can rent for $1,200 to $2,000 per month."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our recommendation" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Choose an ADU if you want rental income, a separate space for aging parents, or a home office completely separated from your living space. Choose a traditional addition if you need more room integrated into your daily living, like a bigger kitchen, additional bedrooms for a growing family, or a primary suite. We build both and can help you evaluate which makes more sense for your lot, your zoning, and your goals during a free consultation."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["design"],
+					"tag": ["addition", "design"]
+				}
+			},
+			{
+				"id": "post-3",
+				"slug": "5-mistakes-that-blow-your-remodeling-budget",
+				"status": "published",
+				"data": {
+					"title": "5 Mistakes That Blow Your Remodeling Budget",
+					"excerpt": "Most remodeling budgets go over not because of bad luck, but because of avoidable mistakes made before construction even starts. Here are the five we see most often.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=800&fit=crop",
+							"alt": "Homeowner reviewing construction plans and budget spreadsheet",
+							"filename": "remodeling-budget-mistakes.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "After 600 projects, we've seen just about every way a remodeling budget can go sideways. The good news is that most overruns are preventable. Here are the five most common mistakes and how to avoid them."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "1. Not setting a realistic budget upfront" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The internet is full of misleading cost estimates. A kitchen remodel for $10,000 sounds great until you realize that number assumes you're keeping the layout, reusing cabinets, and doing the work yourself. A full gut-and-rebuild kitchen in Denver realistically starts around $25,000 for a modest scope and can reach $75,000 or more for high-end finishes and layout changes. Start with an honest conversation with a contractor about what your goals will actually cost before you fall in love with a plan you can't afford."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "2. Skipping the contingency fund" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every remodeling project should have a 10 to 15 percent contingency built into the budget. When you open up walls in a 50-year-old Denver home, you will find surprises: outdated wiring, plumbing that doesn't meet code, water damage, or structural issues that weren't visible before demo. These aren't change orders or contractor upsells. They're real conditions that must be addressed. Without a contingency, these discoveries blow your budget. With one, they're just part of the plan."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "3. Making changes after construction starts" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Design changes during construction are the single biggest budget killer. Moving a sink after plumbing is roughed in, changing the cabinet layout after they've been ordered, or upgrading tile after the floor is prepped all cost significantly more than making those decisions during the design phase. Invest the time upfront to finalize every detail in writing and in 3D renderings before demo day. It's cheaper to change a rendering than to rip out new plumbing."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "4. Choosing the cheapest bid" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "If one bid is significantly lower than the others, that's a red flag, not a bargain. Low bids usually mean the contractor is underestimating the scope, planning to use inferior materials, skipping permits, or planning to make it up with change orders later. Get at least three bids and compare them line by line. The right contractor won't always be the cheapest, but they'll give you a complete, transparent estimate that accounts for the full scope of work."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "5. Not getting permits" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Skipping permits might seem like a way to save money and time, but it's a false economy. Unpermitted work can fail inspections when you sell, void your homeowner's insurance, and create liability if something goes wrong. In Denver, most remodeling work that involves structural, electrical, or plumbing changes requires a permit. A reputable contractor includes permitting in their scope and cost. If a contractor suggests skipping permits, find a different contractor."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["cost-planning"],
+					"tag": ["remodeling", "design"]
+				}
+			}
+		],
+		"services": [
+			{
+				"id": "kitchen-remodeling",
+				"slug": "kitchen-remodeling",
+				"status": "published",
+				"data": {
+					"title": "Kitchen Remodeling",
+					"icon": "cooking-pot",
+					"summary": "Full kitchen renovations from layout redesign to final hardware. Custom cabinetry, stone countertops, and fixtures installed by experienced crews.",
+					"price_from": "From $25,000",
+					"cta_label": "Plan Your Kitchen",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=800&fit=crop",
+							"alt": "Modern renovated kitchen with white cabinetry and quartz countertops",
+							"filename": "kitchen-remodeling.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The kitchen is where most remodeling projects start, and for good reason. It's the most-used room in the house, and a well-designed kitchen transforms how you cook, eat, and live. We handle every aspect of kitchen remodeling, from initial design and 3D renderings through demolition, construction, and final walk-through."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What we do" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Complete layout redesign including wall removal and structural modifications. Custom and semi-custom cabinetry from top manufacturers. Granite, quartz, marble, and butcher block countertop installation. Tile, hardwood, and luxury vinyl flooring. Plumbing relocation and fixture upgrades. Electrical panel upgrades, dedicated circuits, and lighting design. Backsplash tile installation. Appliance procurement and installation. Pantry and storage solutions."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "kitchens"]
+				}
+			},
+			{
+				"id": "bathroom-remodeling",
+				"slug": "bathroom-remodeling",
+				"status": "published",
+				"data": {
+					"title": "Bathroom Remodeling",
+					"icon": "bathtub",
+					"summary": "From powder room refreshes to full primary bathroom overhauls. Walk-in showers, soaking tubs, heated floors, and custom tile work.",
+					"price_from": "From $15,000",
+					"cta_label": "Plan Your Bathroom",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&h=800&fit=crop",
+							"alt": "Renovated bathroom with walk-in shower and modern tile",
+							"filename": "bathroom-remodeling.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A bathroom remodel delivers one of the highest returns on investment of any home improvement, and it's one of the projects homeowners enjoy most once it's done. Whether you're updating a dated guest bath or building a spa-like primary bathroom from scratch, our team handles the design, plumbing, tile, and finish work to create a space that looks great and functions flawlessly."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What we do" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Walk-in shower construction with custom tile, glass enclosures, and linear drains. Freestanding and built-in soaking tub installation. Heated floor systems (electric radiant). Double vanity and custom vanity builds. Plumbing rough-in and fixture upgrades. Waterproofing and moisture management. Ventilation upgrades. Lighting design including sconces, recessed cans, and dimmers. Accessibility features including grab bars, curbless showers, and comfort-height toilets."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "bathrooms"]
+				}
+			},
+			{
+				"id": "home-additions",
+				"slug": "home-additions-and-adus",
+				"status": "published",
+				"data": {
+					"title": "Home Additions & ADUs",
+					"icon": "house-line",
+					"summary": "Room additions, second-story additions, bump-outs, and accessory dwelling units. We handle structural engineering, permitting, and the full build.",
+					"price_from": "From $50,000",
+					"cta_label": "Discuss Your Addition",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&h=800&fit=crop",
+							"alt": "Home addition under construction with new framing visible",
+							"filename": "home-additions.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "When you love your neighborhood but need more space, an addition lets you stay where you are and build the home you need. We design and build all types of residential additions, from single-room bump-outs to full second-story builds and detached ADUs. Every project includes structural engineering, architectural plans, permitting, and construction management."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Types of additions we build" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Ground-level room additions for primary suites, family rooms, or home offices. Second-story additions (pop-tops) to add bedrooms and bathrooms above existing footprint. Kitchen bump-outs to expand cooking and dining space. Detached ADUs for rental income, aging parents, or home offices. Garage conversions to livable space. Sunroom and four-season room additions. We coordinate with structural engineers, architects, and Denver's permitting office to ensure your addition is code-compliant and integrates seamlessly with your existing home."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "additions"]
+				}
+			},
+			{
+				"id": "whole-home-renovation",
+				"slug": "whole-home-renovation",
+				"status": "published",
+				"data": {
+					"title": "Whole-Home Renovation",
+					"icon": "blueprint",
+					"summary": "Comprehensive renovations that transform every room. Ideal for older Denver homes that need modernized layouts, systems, and finishes throughout.",
+					"price_from": "From $75,000",
+					"cta_label": "Start Your Transformation",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
+							"alt": "Fully renovated open-concept living space with modern finishes",
+							"filename": "whole-home-renovation.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A whole-home renovation is the most comprehensive project we take on, and it's the most transformative. We take an outdated or poorly functioning home and reimagine every space: opening up floor plans, upgrading mechanical systems, replacing finishes throughout, and creating a home that feels brand new while preserving the character and bones of the original structure."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What a whole-home renovation includes" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Layout redesign and structural modifications including load-bearing wall removal. Full kitchen and bathroom renovations. Flooring replacement throughout. Electrical panel upgrade and rewiring where needed. Plumbing updates including supply lines and drain systems. HVAC replacement or upgrade. Window and door replacement. Interior and exterior paint. Trim, millwork, and built-in cabinetry. Lighting design for every room. Whole-home renovations typically require the homeowner to move out for 3 to 6 months. We help coordinate that timeline and provide regular updates so you always know when you're coming home."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential"]
+				}
+			},
+			{
+				"id": "basement-finishing",
+				"slug": "basement-finishing",
+				"status": "published",
+				"data": {
+					"title": "Basement Finishing",
+					"icon": "stairs",
+					"summary": "Transform unfinished basement space into living areas, home theaters, guest suites, wet bars, and home offices. Full design-build service.",
+					"price_from": "From $20,000",
+					"cta_label": "Plan Your Basement",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=800&fit=crop",
+							"alt": "Finished basement with comfortable seating area and modern lighting",
+							"filename": "basement-finishing.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Most Denver homes have basements, and most of those basements are either unfinished or poorly finished from a previous decade. A professional basement finish adds livable square footage to your home at a fraction of the cost per square foot of building an addition. Whether you want a family room, guest suite, home theater, wet bar, home office, or all of the above, we design and build basement spaces that feel like a natural extension of your home, not an afterthought."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What we build" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Open-concept family and entertainment rooms. Bedrooms with egress windows (required by code for sleeping rooms). Full and three-quarter bathrooms including shower tile and plumbing. Wet bars and kitchenettes. Home theater rooms with soundproofing and dedicated electrical. Home offices and studio spaces. Laundry rooms. Storage solutions and built-ins. We address moisture management, insulation, and HVAC distribution as part of every basement project to ensure the space is comfortable, dry, and energy-efficient year-round."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential"]
+				}
+			}
+		],
+		"team": [
+			{
+				"id": "team-1",
+				"slug": "ryan-caldwell",
+				"status": "published",
+				"data": {
+					"name": "Ryan Caldwell",
+					"role": "Owner & Licensed General Contractor",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face",
+							"alt": "Ryan Caldwell",
+							"filename": "ryan-caldwell.jpg"
+						}
+					},
+					"bio": "Born and raised in Denver with over 20 years in the construction industry. Ryan spent a decade managing commercial builds before founding Ironclad Builders in 2008 to bring that same level of project management and accountability to residential remodeling. He's on-site weekly reviewing active projects and personally meets with every client during the design phase. Licensed Colorado General Contractor, EPA Lead-Safe certified, and active member of the Denver Metro HBA.",
+					"email": "ryan@ironcladbuilders.com"
+				}
+			},
+			{
+				"id": "team-2",
+				"slug": "lisa-park",
+				"status": "published",
+				"data": {
+					"name": "Lisa Park",
+					"role": "Design Director",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
+							"alt": "Lisa Park",
+							"filename": "lisa-park.jpg"
+						}
+					},
+					"bio": "Lisa holds a degree in interior design from CU Denver and joined Ironclad in 2019. She leads the design team, creating space plans, material selections, and 3D renderings for every project. Her specialty is blending modern functionality with the character of Denver's older homes. She works closely with clients to understand how they actually use their space and designs solutions that fit their lifestyle, not just their Pinterest boards. 7 years with Ironclad.",
+					"email": "lisa@ironcladbuilders.com"
+				}
+			},
+			{
+				"id": "team-3",
+				"slug": "eduardo-vargas",
+				"status": "published",
+				"data": {
+					"name": "Eduardo Vargas",
+					"role": "Site Superintendent",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+							"alt": "Eduardo Vargas",
+							"filename": "eduardo-vargas.jpg"
+						}
+					},
+					"bio": "Eduardo has 12 years of experience in residential construction and oversees all active job sites for Ironclad. He coordinates subcontractors, manages daily schedules, and ensures every project meets our quality standards. His attention to detail and ability to solve problems on the fly keep projects on track and on budget. OSHA-30 certified, bilingual in English and Spanish, and known on every job site for running a clean, organized workspace.",
+					"email": "eduardo@ironcladbuilders.com"
+				}
+			}
+		],
+		"testimonials": [
+			{
+				"id": "testimonial-1",
+				"slug": "sarah-mike-d",
+				"status": "published",
+				"data": {
+					"author": "Sarah & Mike D.",
+					"role": "Homeowners",
+					"company": "Washington Park, Denver",
+					"quote": "Ironclad completely gutted and rebuilt our 1960s kitchen. They handled everything from design through final inspection. Lisa's design gave us an open layout we didn't think was possible in our bungalow, and the crew finished two days ahead of schedule. The result is stunning and we've already recommended them to three neighbors.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-2",
+				"slug": "james-t",
+				"status": "published",
+				"data": {
+					"author": "James T.",
+					"role": "Homeowner",
+					"company": "Highlands, Denver",
+					"quote": "We added a 400 sq ft primary suite above our garage. Ryan and his team managed structural engineering, permits, and the full build. They were communicative every step of the way, the site was always clean, and the craftsmanship is impeccable. The addition blends perfectly with the original 1920s Craftsman style. Worth every penny.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-3",
+				"slug": "andrea-paul-k",
+				"status": "published",
+				"data": {
+					"author": "Andrea & Paul K.",
+					"role": "Homeowners",
+					"company": "Lakewood, CO",
+					"quote": "Our basement went from an unfinished concrete box to a fully finished space with a wet bar, home theater, and guest bedroom. Lisa's design work was creative and practical. Eduardo's crew executed it perfectly and the soundproofing in the theater room is incredible. We basically added a second living space to our home for a fraction of what an addition would have cost.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-4",
+				"slug": "karen-l",
+				"status": "published",
+				"data": {
+					"author": "Karen L.",
+					"role": "Homeowner",
+					"company": "Cherry Creek, Denver",
+					"quote": "We hired Ironclad for a full primary bathroom renovation. They turned our cramped, dated bathroom into a spa-like retreat with a curbless shower, heated floors, and a freestanding tub. The tile work is flawless. Ryan was upfront about costs from the start and there were zero surprises on the final invoice. Exactly the experience you want from a contractor.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-5",
+				"slug": "marcus-r",
+				"status": "published",
+				"data": {
+					"author": "Marcus R.",
+					"role": "Homeowner",
+					"company": "Littleton, CO",
+					"quote": "Ironclad did a whole-home renovation on our 1975 ranch. New kitchen, two new bathrooms, opened up the main living area, replaced all the flooring, and updated the electrical throughout. We lived elsewhere for four months and Ryan kept us updated with weekly photos. Walking back in felt like moving into a brand-new house. The quality of the finish work is outstanding.",
+					"rating": 5,
+					"featured": false
+				}
+			}
+		],
+		"projects": [
+			{
+				"id": "wash-park-kitchen",
+				"slug": "washington-park-mid-century-kitchen",
+				"status": "published",
+				"data": {
+					"title": "Mid-Century Modern Kitchen Transformation",
+					"client": "The Davidson Family",
+					"year": "2025",
+					"summary": "Complete gut renovation of a 1962 ranch kitchen in Washington Park. Removed a load-bearing wall to create an open-concept layout, installed custom walnut cabinetry, waterfall quartz island, and professional-grade appliances. $85,000 project completed in 10 weeks.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=900&fit=crop",
+							"alt": "Renovated mid-century modern kitchen with walnut cabinets and quartz waterfall island",
+							"filename": "wash-park-kitchen.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The Davidson family's 1962 ranch home in Washington Park had its original galley kitchen with dark wood cabinets, laminate countertops, and a closed-off layout that cut the kitchen off from the dining and living areas. They wanted a modern, open kitchen that honored the home's mid-century character while dramatically improving functionality and light."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Scope" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Removed the load-bearing wall between kitchen and dining room, installing a concealed steel beam to maintain structural integrity. Designed and installed custom flat-panel walnut cabinetry with integrated pulls for a clean mid-century aesthetic. Fabricated and installed a 10-foot waterfall quartz island with seating for four. Relocated plumbing for a new sink placement in the island. Added a dedicated 50-amp circuit for a professional-grade range. Installed under-cabinet LED lighting and a trio of brushed brass pendant lights over the island. New luxury vinyl plank flooring throughout the kitchen and dining area. Completed in 10 weeks, on time and on budget at $85,000."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["kitchen"]
+				}
+			},
+			{
+				"id": "highlands-suite-addition",
+				"slug": "highlands-primary-suite-addition",
+				"status": "published",
+				"data": {
+					"title": "Primary Suite Addition Over Garage",
+					"client": "James Thornton",
+					"year": "2025",
+					"summary": "Second-story addition above an existing two-car garage in Denver's Highlands neighborhood. 520 sq ft primary suite with full bathroom, walk-in closet, and private balcony. $120,000 project completed in 14 weeks.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&h=900&fit=crop",
+							"alt": "Craftsman-style home with new second-story addition above garage",
+							"filename": "highlands-suite-addition.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "James Thornton loved his 1920s Craftsman bungalow in the Highlands but had outgrown the single-bathroom floor plan. Rather than move, he chose to add a primary suite above his detached two-car garage. The design challenge was matching the addition to the original Craftsman aesthetic while meeting modern energy and structural codes."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Scope" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Structural reinforcement of the existing garage to support the second story. 520 sq ft addition including bedroom, full bathroom with walk-in shower and soaking tub, walk-in closet with custom built-ins, and a private balcony overlooking the backyard. Exterior finished with matching lap siding, Craftsman-style trim, and period-appropriate windows. Connected to the main house via a covered breezeway at the second-floor level. Independent HVAC mini-split system for the suite. The project required Denver historic compatibility review and passed on the first submission. Completed in 14 weeks at $120,000."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["addition"]
+				}
+			},
+			{
+				"id": "lakewood-basement",
+				"slug": "lakewood-basement-finishing",
+				"status": "published",
+				"data": {
+					"title": "Full Basement Finish with Wet Bar and Home Theater",
+					"client": "The Kowalski Family",
+					"year": "2024",
+					"summary": "Transformed an unfinished 1,100 sq ft basement in Lakewood into a full entertainment level with wet bar, home theater, guest bedroom with egress window, and three-quarter bathroom. $65,000 project completed in 8 weeks.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=900&fit=crop",
+							"alt": "Finished basement entertainment area with wet bar and comfortable seating",
+							"filename": "lakewood-basement.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The Kowalski family had 1,100 sq ft of unfinished basement that they'd been using as storage for years. With two teenagers in the house, they needed a dedicated entertainment space and a guest bedroom for visiting family. We designed a layout that maximized every square foot while addressing the practical challenges of basement construction: moisture management, ceiling height, lighting, and ventilation."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Scope" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Interior drain tile and sump pump installation for moisture management. Closed-cell spray foam insulation on all exterior walls. Framing, drywall, and finishing for all rooms. Custom wet bar with quartz countertop, undermount sink, beverage refrigerator, and open shelving. Dedicated home theater room with double-layer drywall and Green Glue soundproofing, dedicated 20-amp circuit for AV equipment, and prewired surround sound. Guest bedroom with code-compliant egress window well installation. Three-quarter bathroom with tiled shower, vanity, and toilet. Luxury vinyl plank flooring throughout. Recessed LED lighting on dimmers in every room. Extended HVAC ductwork with dedicated return. Completed in 8 weeks at $65,000."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["whole-home"]
+				}
+			}
+		],
+		"faqs": [
+			{
+				"id": "faq-1",
+				"slug": "how-much-does-a-remodel-cost",
+				"status": "published",
+				"data": {
+					"question": "How much does a remodel cost?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Costs vary significantly by scope. In the Denver market, a kitchen remodel typically runs $25,000 to $75,000, a bathroom remodel $15,000 to $40,000, a basement finish $20,000 to $65,000, a home addition $50,000 to $200,000, and a whole-home renovation $75,000 and up. The final cost depends on the size of the space, the scope of structural and mechanical work, your material selections, and the complexity of the design. We provide free in-home consultations with a realistic budget range so you know what to expect before committing."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["pricing"] }
+			},
+			{
+				"id": "faq-2",
+				"slug": "how-long-does-a-remodel-take",
+				"status": "published",
+				"data": {
+					"question": "How long does a remodel take?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Timeline depends on the project scope. A bathroom remodel typically takes 4 to 6 weeks, a kitchen remodel 8 to 12 weeks, a basement finish 6 to 10 weeks, and a home addition or whole-home renovation 3 to 6 months. These timelines include construction only. Add 4 to 8 weeks before construction for design, material selection, permitting, and scheduling. We provide a detailed project schedule before starting and update it weekly so you always know where things stand."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["process"] }
+			},
+			{
+				"id": "faq-3",
+				"slug": "what-is-design-build",
+				"status": "published",
+				"data": {
+					"question": "What is the design-build process?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Design-build means one company handles both the design and construction of your project. With Ironclad, your designer and builder work together from day one, which eliminates the communication gaps, finger-pointing, and cost surprises that often happen when you hire a designer and a contractor separately. You get a single contract, a single point of contact, and a team that's aligned from concept through completion. Our process: consultation, design and 3D renderings, material selection, detailed estimate, permitting, construction, and final walk-through."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["process"] }
+			},
+			{
+				"id": "faq-4",
+				"slug": "do-you-handle-permits",
+				"status": "published",
+				"data": {
+					"question": "Do you handle permits and inspections?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. We handle the entire permitting process as part of every project that requires it. In Denver, most remodeling work involving structural, electrical, or plumbing changes requires permits from Denver Community Planning and Development. We prepare the applications, submit plans, pay permit fees (included in your estimate), and schedule all required inspections. We know Denver's code requirements and review processes well, which helps avoid delays. Never hire a contractor who suggests skipping permits. Unpermitted work can void your insurance, fail disclosure requirements when you sell, and create safety hazards."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["process"] }
+			},
+			{
+				"id": "faq-5",
+				"slug": "can-i-live-in-my-home-during-renovation",
+				"status": "published",
+				"data": {
+					"question": "Can I live in my home during the renovation?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "For most projects, yes. Kitchen remodels, bathroom remodels, and basement finishes can usually be done while you live in the home, though you'll need to plan for some inconvenience. We set up dust barriers, protect your floors and furniture, and create temporary kitchen setups when needed. For whole-home renovations or projects that involve removing multiple bathrooms or the main kitchen for an extended period, we recommend moving out temporarily. We'll give you an honest assessment during the consultation about what to expect and help you plan accordingly."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			},
+			{
+				"id": "faq-6",
+				"slug": "do-you-offer-financing",
+				"status": "published",
+				"data": {
+					"question": "Do you offer financing?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We don't provide financing directly, but we work with several lending partners who offer home improvement loans and HELOCs at competitive rates. We can connect you with a lender during the consultation phase so you know your financing options before committing to a project. Many of our clients use home equity lines of credit, which often offer lower rates than personal loans because the loan is secured by your home. We're happy to walk you through the options and help you find the right fit for your budget."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["pricing"] }
+			},
+			{
+				"id": "faq-7",
+				"slug": "what-warranty-do-you-offer",
+				"status": "published",
+				"data": {
+					"question": "What warranty do you offer?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every project we complete comes with a 5-year workmanship warranty covering our labor and installation. This is in addition to manufacturer warranties on the products and materials we install, which vary by product. If anything we built fails or doesn't perform as expected within the warranty period, we come back and fix it at no cost. We also do a 6-month post-completion check-in on every project to proactively address any issues that may have developed as the home settles with the new construction."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			},
+			{
+				"id": "faq-8",
+				"slug": "how-do-i-get-started",
+				"status": "published",
+				"data": {
+					"question": "How do I get started?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Call us at (720) 555-3200 or fill out the contact form on our website to schedule a free in-home consultation. During the consultation, we'll walk through your space, discuss your goals and priorities, talk about realistic budgets and timelines, and answer any questions you have. There's no pressure and no obligation. If we're a good fit, we'll follow up with a design proposal and estimate. Most clients schedule their consultation 2 to 4 weeks out, so the sooner you reach out, the sooner we can get your project on the calendar."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			}
+		]
+	}
+}

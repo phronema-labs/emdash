@@ -1,0 +1,41 @@
+/* ==========================================================
+   Brand Config — Greenfield Landscaping
+   Organic Editorial palette: deep forest, warm cream, terracotta
+   ========================================================== */
+
+:root {
+	/* Greenfield Landscaping — Organic Editorial */
+	--brand-primary: #1a3a2a;         /* Deep forest green */
+	--brand-primary-dark: #0f2318;    /* Darkest forest */
+	--brand-primary-light: #d4e8d8;   /* Soft sage wash */
+
+	--brand-accent: #c4704b;          /* Terracotta */
+	--brand-accent-light: #f7ece4;    /* Pale terracotta blush */
+
+	--brand-sage: #8fae7e;            /* Sage green */
+	--brand-sage-light: #edf3e8;      /* Pale sage */
+
+	--brand-dark: #0f2318;            /* Deep forest for footers */
+
+	--brand-surface: #f5f0e8;         /* Warm linen/cream */
+	--brand-surface-warm: #faf6ef;    /* Lighter warm cream */
+	--brand-surface-alt: #ede8df;     /* Slightly deeper cream */
+}
+
+/* ==========================================================
+   DO NOT EDIT BELOW — these map brand values to the site
+   ========================================================== */
+
+:root {
+	--color-primary: var(--brand-primary);
+	--color-primary-dark: var(--brand-primary-dark);
+	--color-primary-light: var(--brand-primary-light);
+	--color-accent: var(--brand-accent);
+	--color-accent-light: var(--brand-accent-light);
+	--color-sage: var(--brand-sage);
+	--color-sage-light: var(--brand-sage-light);
+	--color-dark-section: var(--brand-dark);
+	--color-surface: var(--brand-surface);
+	--color-surface-warm: var(--brand-surface-warm);
+	--color-surface-alt: var(--brand-surface-alt);
+}

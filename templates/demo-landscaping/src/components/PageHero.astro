@@ -1,0 +1,96 @@
+---
+interface Props {
+	title: string;
+	subtitle?: string;
+	image: string;
+}
+
+const { title, subtitle, image } = Astro.props;
+---
+
+<section class="page-hero" style={`--hero-img: url('${image}');`}>
+	<div class="page-hero-img-layer"></div>
+	<div class="page-hero-overlay"></div>
+	<div class="container page-hero-inner">
+		<div class="page-hero-content">
+			<h1>{title}</h1>
+			{subtitle && <p>{subtitle}</p>}
+		</div>
+	</div>
+	<div class="page-hero-wave" aria-hidden="true">
+		<svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 60 C360 20 720 50 1080 25 C1260 12 1380 40 1440 30 L1440 60 Z" fill="var(--color-bg, #faf6ef)"/>
+		</svg>
+	</div>
+</section>
+
+<style>
+	.page-hero {
+		position: relative;
+		min-height: 320px;
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+	}
+
+	.page-hero-img-layer {
+		position: absolute;
+		inset: 0;
+		background: var(--hero-img) center/cover no-repeat;
+		transition: transform 0s;
+	}
+
+	.page-hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(160deg, rgba(15, 35, 24, 0.85) 0%, rgba(26, 58, 42, 0.7) 100%);
+	}
+
+	.page-hero-inner {
+		position: relative;
+		z-index: 1;
+		padding: var(--space-4xl) var(--site-gutter) var(--space-5xl);
+	}
+
+	.page-hero-content {
+		max-width: 640px;
+	}
+
+	.page-hero h1 {
+		font-family: var(--font-display, "Cormorant Garamond", serif);
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		font-weight: 300;
+		color: white;
+		line-height: 1.15;
+	}
+
+	.page-hero p {
+		font-family: var(--font-body, "Jost", sans-serif);
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 1.05rem;
+		margin-top: 1rem;
+		line-height: 1.7;
+		max-width: 480px;
+	}
+
+	.page-hero-wave {
+		position: absolute;
+		bottom: -1px;
+		left: 0;
+		right: 0;
+		line-height: 0;
+		z-index: 2;
+	}
+
+	.page-hero-wave svg {
+		width: 100%;
+		height: 60px;
+		display: block;
+	}
+
+	@media (max-width: 768px) {
+		.page-hero h1 {
+			font-size: 2.25rem;
+		}
+	}
+</style>

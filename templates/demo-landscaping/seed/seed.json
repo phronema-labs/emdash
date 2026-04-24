@@ -1,0 +1,1699 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "Landscaping Demo",
+		"description": "A complete landscaping company website demo",
+		"author": "Phronema Labs"
+	},
+
+	"settings": {
+		"title": "Greenfield Landscaping",
+		"tagline": "Outdoor living, beautifully designed"
+	},
+
+	"collections": [
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		},
+		{
+			"slug": "posts",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"supports": ["drafts", "revisions", "search", "seo"],
+			"commentsEnabled": true,
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt",
+					"type": "text"
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		},
+		{
+			"slug": "services",
+			"label": "Services",
+			"labelSingular": "Service",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "icon",
+					"label": "Icon",
+					"type": "string"
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "price_from",
+					"label": "Starting Price",
+					"type": "string"
+				},
+				{
+					"slug": "cta_label",
+					"label": "CTA Button Label",
+					"type": "string"
+				},
+				{
+					"slug": "cta_url",
+					"label": "CTA Button URL",
+					"type": "string"
+				}
+			]
+		},
+		{
+			"slug": "team",
+			"label": "Team",
+			"labelSingular": "Team Member",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "name",
+					"label": "Name",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "role",
+					"label": "Role",
+					"type": "string"
+				},
+				{
+					"slug": "photo",
+					"label": "Photo",
+					"type": "image"
+				},
+				{
+					"slug": "bio",
+					"label": "Bio",
+					"type": "text"
+				},
+				{
+					"slug": "email",
+					"label": "Email",
+					"type": "string"
+				},
+				{
+					"slug": "phone",
+					"label": "Phone",
+					"type": "string"
+				},
+				{
+					"slug": "social_links",
+					"label": "Social Links",
+					"type": "json"
+				}
+			]
+		},
+		{
+			"slug": "testimonials",
+			"label": "Testimonials",
+			"labelSingular": "Testimonial",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "author",
+					"label": "Author",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "role",
+					"label": "Role",
+					"type": "string"
+				},
+				{
+					"slug": "company",
+					"label": "Company",
+					"type": "string"
+				},
+				{
+					"slug": "avatar",
+					"label": "Avatar",
+					"type": "image"
+				},
+				{
+					"slug": "quote",
+					"label": "Quote",
+					"type": "text",
+					"required": true
+				},
+				{
+					"slug": "rating",
+					"label": "Rating",
+					"type": "integer"
+				},
+				{
+					"slug": "featured",
+					"label": "Featured",
+					"type": "boolean"
+				}
+			]
+		},
+		{
+			"slug": "projects",
+			"label": "Projects",
+			"labelSingular": "Project",
+			"supports": ["drafts", "revisions", "search", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "client",
+					"label": "Client",
+					"type": "string"
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image",
+					"required": true
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "gallery",
+					"label": "Gallery",
+					"type": "json"
+				},
+				{
+					"slug": "year",
+					"label": "Year",
+					"type": "string"
+				},
+				{
+					"slug": "url",
+					"label": "Project URL",
+					"type": "string"
+				}
+			]
+		},
+		{
+			"slug": "faqs",
+			"label": "FAQs",
+			"labelSingular": "FAQ",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{
+					"slug": "question",
+					"label": "Question",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "answer",
+					"label": "Answer",
+					"type": "portableText"
+				}
+			]
+		}
+	],
+
+	"taxonomies": [
+		{
+			"name": "service_category",
+			"label": "Service Categories",
+			"labelSingular": "Service Category",
+			"hierarchical": true,
+			"collections": ["services"],
+			"terms": [
+				{ "slug": "residential", "label": "Residential" },
+				{ "slug": "commercial", "label": "Commercial" },
+				{ "slug": "design-build", "label": "Design-Build" },
+				{ "slug": "maintenance", "label": "Maintenance" }
+			]
+		},
+		{
+			"name": "category",
+			"label": "Categories",
+			"labelSingular": "Category",
+			"hierarchical": true,
+			"collections": ["posts"],
+			"terms": [
+				{ "slug": "tips", "label": "Tips" },
+				{ "slug": "seasonal", "label": "Seasonal" },
+				{ "slug": "native-plants", "label": "Native Plants" }
+			]
+		},
+		{
+			"name": "tag",
+			"label": "Tags",
+			"labelSingular": "Tag",
+			"hierarchical": false,
+			"collections": ["posts"],
+			"terms": [
+				{ "slug": "landscaping", "label": "Landscaping" },
+				{ "slug": "hardscaping", "label": "Hardscaping" },
+				{ "slug": "irrigation", "label": "Irrigation" },
+				{ "slug": "native-plants", "label": "Native Plants" }
+			]
+		},
+		{
+			"name": "faq_category",
+			"label": "FAQ Categories",
+			"labelSingular": "FAQ Category",
+			"hierarchical": false,
+			"collections": ["faqs"],
+			"terms": [
+				{ "slug": "general", "label": "General" },
+				{ "slug": "pricing", "label": "Pricing" },
+				{ "slug": "process", "label": "Process" },
+				{ "slug": "design", "label": "Design" }
+			]
+		},
+		{
+			"name": "project_category",
+			"label": "Project Categories",
+			"labelSingular": "Project Category",
+			"hierarchical": false,
+			"collections": ["projects"],
+			"terms": [
+				{ "slug": "residential", "label": "Residential" },
+				{ "slug": "commercial", "label": "Commercial" },
+				{ "slug": "hardscape", "label": "Hardscape" }
+			]
+		}
+	],
+
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary Navigation",
+			"items": [
+				{ "type": "custom", "label": "Home", "url": "/" },
+				{ "type": "custom", "label": "Services", "url": "/services" },
+				{ "type": "custom", "label": "Our Work", "url": "/work" },
+				{ "type": "custom", "label": "About", "url": "/about" },
+				{ "type": "custom", "label": "Blog", "url": "/blog" },
+				{ "type": "custom", "label": "Contact", "url": "/contact" }
+			]
+		},
+		{
+			"name": "footer",
+			"label": "Footer Navigation",
+			"items": [
+				{ "type": "custom", "label": "Privacy Policy", "url": "/pages/privacy" },
+				{ "type": "custom", "label": "Terms of Service", "url": "/pages/terms" },
+				{ "type": "custom", "label": "FAQ", "url": "/faq" }
+			]
+		}
+	],
+
+	"widgetAreas": [
+		{
+			"name": "sidebar",
+			"label": "Blog Sidebar",
+			"description": "Widget area displayed on blog pages",
+			"widgets": [
+				{
+					"type": "component",
+					"componentId": "core:search",
+					"title": "Search"
+				},
+				{
+					"type": "component",
+					"componentId": "core:categories",
+					"title": "Categories"
+				},
+				{
+					"type": "component",
+					"componentId": "core:recent-posts",
+					"title": "Recent Posts",
+					"settings": { "count": 5, "showDate": true }
+				}
+			]
+		},
+		{
+			"name": "footer",
+			"label": "Footer",
+			"description": "Widget area displayed in the site footer",
+			"widgets": [
+				{
+					"type": "content",
+					"title": "About Us",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Greenfield Landscaping has been creating beautiful outdoor spaces across the Austin area since 2012. Licensed, bonded, and insured."
+								}
+							]
+						}
+					]
+				},
+				{
+					"type": "content",
+					"title": "Service Area",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{ "_type": "span", "text": "Serving Austin, Westlake, Lakeway, Cedar Park, Dripping Springs, Georgetown, Round Rock, and the greater Central Texas area." }
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+
+	"content": {
+		"pages": [
+			{
+				"id": "home",
+				"slug": "home",
+				"status": "published",
+				"data": {
+					"title": "Home",
+					"content": [
+						{
+							"_type": "business.hero",
+							"_key": "hero",
+							"headline": "Outdoor living, beautifully designed",
+							"subheadline": "Full-service landscape design, installation, and maintenance in Austin, TX. From custom patios and native plantings to complete backyard transformations, our team builds outdoor spaces you'll love coming home to.",
+							"primaryCta": { "label": "Get a Free Consultation", "url": "/contact" },
+							"secondaryCta": { "label": "Call (512) 555-3200", "url": "tel:5125553200" },
+							"image": { "url": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&h=600&fit=crop", "alt": "Beautiful landscaped backyard with native Texas plantings and stone patio" },
+							"style": "split"
+						},
+						{
+							"_type": "business.features",
+							"_key": "features",
+							"headline": "Why Austin homeowners choose Greenfield",
+							"subheadline": "Over a decade of creating outdoor spaces that thrive in the Central Texas climate.",
+							"features": [
+								{
+									"icon": "tree-evergreen",
+									"title": "Design-Build Experts",
+									"description": "We handle every phase in-house, from initial landscape design through installation. One team, one vision, no miscommunication between designer and builder."
+								},
+								{
+									"icon": "plant",
+									"title": "Native Plant Specialists",
+									"description": "We design with plants that belong here. Native and adapted species that handle Texas heat, conserve water, and support local pollinators."
+								},
+								{
+									"icon": "drop",
+									"title": "Smart Irrigation",
+									"description": "Every installation includes a water-efficient irrigation plan. Drip zones, rain sensors, and smart controllers that comply with Austin's watering restrictions."
+								},
+								{
+									"icon": "wall",
+									"title": "Custom Hardscaping",
+									"description": "Natural stone patios, retaining walls, outdoor kitchens, fire pits, and pergolas. Built to last in Central Texas soil and weather conditions."
+								},
+								{
+									"icon": "shield-check",
+									"title": "Licensed & Insured",
+									"description": "Fully licensed, bonded, and insured with $2M in liability coverage. We pull permits when required and build to code every time."
+								},
+								{
+									"icon": "calendar-check",
+									"title": "Maintenance Plans",
+									"description": "Keep your landscape looking its best year-round with our scheduled maintenance programs. Mowing, pruning, fertilization, and seasonal color rotations."
+								}
+							]
+						},
+						{
+							"_type": "business.testimonials",
+							"_key": "testimonials",
+							"headline": "What our clients say",
+							"testimonials": [
+								{
+									"quote": "Greenfield completely transformed our backyard. We went from a bare lot of St. Augustine and a chain-link fence to a private retreat with a flagstone patio, native gardens, and a beautiful pergola. Daniel's design was exactly what we envisioned but couldn't articulate.",
+									"author": "Rachel & James T.",
+									"role": "Homeowners",
+									"company": "Westlake Hills, TX",
+									"rating": 5
+								},
+								{
+									"quote": "We hired them for a complete xeriscape conversion after our water bill hit $400 in July. They replaced our turf with native grasses, agave, and decomposed granite paths. Our water usage dropped by 60% and the yard looks better than it ever did with a traditional lawn.",
+									"author": "Mark D.",
+									"role": "Homeowner",
+									"company": "Dripping Springs, TX",
+									"rating": 5
+								},
+								{
+									"quote": "They handle all the landscaping for our three medical office locations. Reliable, professional, and the properties always look sharp. When we needed a complete redesign at our Cedar Park location, they turned it around in two weeks.",
+									"author": "Dr. Lisa Chen",
+									"role": "Practice Owner",
+									"company": "Cedar Park, TX",
+									"rating": 5
+								}
+							]
+						},
+						{
+							"_type": "business.stats",
+							"_key": "stats",
+							"stats": [
+								{ "value": "12+", "label": "Years in Business" },
+								{ "value": "800+", "label": "Projects Completed" },
+								{ "value": "4.9", "label": "Google Rating" },
+								{ "value": "100%", "label": "Licensed & Insured" }
+							]
+						},
+						{
+							"_type": "business.cta",
+							"_key": "cta",
+							"headline": "Ready to transform your outdoor space?",
+							"description": "Schedule a free on-site consultation. We'll walk your property, discuss your vision, and put together a design concept and estimate tailored to your goals and budget.",
+							"buttonLabel": "Schedule Free Consultation",
+							"buttonUrl": "/contact",
+							"style": "banner"
+						}
+					]
+				}
+			},
+			{
+				"id": "about",
+				"slug": "about",
+				"status": "published",
+				"data": {
+					"title": "About Greenfield Landscaping",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Greenfield Landscaping was founded in 2012 by Daniel Greenfield, a landscape architecture graduate from Texas State University who spent five years working for one of Austin's largest commercial landscape firms before deciding that homeowners deserved the same caliber of design and craftsmanship typically reserved for corporate campuses and luxury developments."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our story" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "What started as a solo design-build operation working out of a pickup truck has grown into a team of 14, including designers, installers, a dedicated hardscape crew, and a maintenance division. We've completed over 800 projects across the greater Austin area and maintained a 4.9-star Google rating because we treat every property like our own. Our approach is simple: listen to what our clients want, design something that works with the land and the climate, build it right, and stand behind it."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "How we work" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every project begins with a free on-site consultation. We walk the property with you, talk about how you use your outdoor space, discuss your wish list and budget, and take measurements. From there, we develop a design concept with a detailed proposal. Once approved, our crews handle everything from site prep and grading to planting, irrigation, and hardscape construction. We don't use subcontractors for core work. When the project is complete, we do a final walkthrough and provide a care guide for every plant we installed."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Built for Central Texas" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Central Texas presents unique challenges for landscaping. Alkaline clay soils, extreme summer heat, periodic droughts, and Stage 2 watering restrictions all demand thoughtful plant selection and smart irrigation design. We specialize in landscapes that thrive under these conditions. Our plant palettes lean heavily on Texas natives and proven adapted species that establish quickly, tolerate drought once established, and provide year-round interest. We design irrigation systems with drip zones, matched precipitation rates, and smart controllers that adjust to weather conditions automatically."
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"id": "contact",
+				"slug": "contact",
+				"status": "published",
+				"data": {
+					"title": "Contact Us",
+					"content": [
+						{
+							"_type": "business.hero",
+							"_key": "contact-hero",
+							"headline": "Get in touch",
+							"subheadline": "Request a free consultation, ask about our maintenance plans, or get a question answered. We respond within 1 business day.",
+							"style": "centered"
+						},
+						{
+							"_type": "business.contact-info",
+							"_key": "contact-details",
+							"phone": "(512) 555-3200",
+							"email": "info@greenfieldlandscaping.com",
+							"address": "4210 S Lamar Blvd, Suite 108, Austin, TX 78704",
+							"social": [
+								{ "platform": "facebook", "url": "https://facebook.com/greenfieldlandscaping" },
+								{ "platform": "instagram", "url": "https://instagram.com/greenfieldlandscaping" },
+								{ "platform": "google", "url": "https://g.page/greenfieldlandscaping" }
+							]
+						},
+						{
+							"_type": "business.hours",
+							"_key": "hours",
+							"headline": "Business Hours",
+							"hours": [
+								{ "day": "Monday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Tuesday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Wednesday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Thursday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Friday", "open": "7:00 AM", "close": "5:00 PM" },
+								{ "day": "Saturday", "open": "8:00 AM", "close": "12:00 PM" },
+								{ "day": "Sunday", "closed": true }
+							]
+						},
+						{
+							"_type": "business.map",
+							"_key": "map",
+							"address": "4210 S Lamar Blvd, Suite 108, Austin, TX 78704",
+							"lat": 30.2402,
+							"lng": -97.7886,
+							"zoom": 14,
+							"markerTitle": "Greenfield Landscaping",
+							"height": "400px"
+						}
+					]
+				}
+			}
+		],
+		"posts": [
+			{
+				"id": "post-1",
+				"slug": "best-drought-tolerant-plants-for-central-texas",
+				"status": "published",
+				"data": {
+					"title": "Best Drought-Tolerant Plants for Central Texas",
+					"excerpt": "Water restrictions, brutal summers, and rocky soil don't mean you're stuck with a barren yard. These native and adapted plants thrive in Austin's climate with minimal irrigation once established.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&h=800&fit=crop",
+							"alt": "Native Texas wildflowers and grasses in a residential landscape",
+							"filename": "drought-tolerant-plants.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every summer, we hear the same concern from Austin homeowners: how do I keep my yard looking good when it's 105 degrees and we're under Stage 2 watering restrictions? The answer isn't fighting the climate with more water. It's choosing plants that are built for it. Here are our top recommendations based on what we install and what we see thriving across hundreds of Central Texas landscapes."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Texas Sage (Leucophyllum frutescens)" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The quintessential Central Texas shrub. Texas Sage produces stunning purple blooms after summer rains, thrives in full sun and alkaline soil, and needs virtually no supplemental water once established. It grows 5-8 feet tall and makes an excellent hedge or accent plant. Available in several cultivars including 'Green Cloud', 'Desperado', and the compact 'Compacta'."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Mexican Feathergrass (Nassella tenuissima)" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "This fine-textured ornamental grass adds graceful movement to any landscape. It's exceptionally drought-tolerant, self-seeds readily (which can be a pro or con depending on your style), and looks beautiful catching the light in late afternoon. We use it extensively in mass plantings and as a filler between boulders and hardscape elements."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Flame Acanthus (Anisacanthus quadrifidus var. wrightii)" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A hummingbird magnet that blooms from late spring through fall with tubular red-orange flowers. Flame Acanthus is native to the Edwards Plateau, handles full sun and rocky soil without complaint, and bounces back quickly from hard freezes. It can grow 5 feet tall and wide but responds well to pruning if you want to keep it compact."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Agave and Yucca" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "For bold architectural form, nothing beats agave and yucca. Agave americana, Agave parryi, and Yucca rostrata are all excellent choices for Central Texas. They need almost no water, provide year-round structure, and pair beautifully with decomposed granite and native stone. Just be mindful of placement near walkways since some species have sharp leaf tips."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Zoysia Grass (for lawns)" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "If you want a traditional lawn area, Zoysia is our top recommendation over St. Augustine and Bermuda for most Austin properties. It uses 30-40% less water than St. Augustine, tolerates partial shade, has a dense growth habit that crowds out weeds, and stays green longer into fall. 'Palisades' and 'Cavalier' are the cultivars we install most. The trade-off is slower establishment, but the long-term payoff in water savings and reduced maintenance is significant."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "These are just a starting point. The best plant palette for your property depends on sun exposure, soil conditions, drainage, and how you want to use the space. We're happy to walk your yard and put together a planting plan that works for your specific conditions. Give us a call to schedule a free consultation."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["native-plants"],
+					"tag": ["landscaping", "native-plants"]
+				}
+			},
+			{
+				"id": "post-2",
+				"slug": "how-to-plan-your-backyard-renovation",
+				"status": "published",
+				"data": {
+					"title": "How to Plan Your Backyard Renovation",
+					"excerpt": "A backyard renovation is a major investment. Here's a step-by-step guide to planning yours so you get the outdoor space you actually want, on a budget that makes sense.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+							"alt": "Beautifully renovated backyard with patio and landscaping",
+							"filename": "backyard-renovation-planning.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A backyard renovation can be one of the best investments you make in your home, both for your quality of life and for resale value. But jumping in without a plan is how projects go over budget, take twice as long, and end up with features you never use. Here's the process we walk our clients through before we break ground."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "1. Define how you'll use the space" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Before you think about materials and plants, think about activities. Do you want a space for entertaining large groups or quiet evenings? Do kids need a play area? Do you want a pool or hot tub? An outdoor kitchen or just a simple grill pad? A fire pit for cool evenings? Space for a garden? A dog run? Make a list of everything you want, then prioritize. Not everything may fit your space or budget, but knowing your priorities helps us design something that works for how you actually live."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "2. Set a realistic budget" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "In Austin, a comprehensive backyard renovation typically ranges from $15,000 for basic landscaping and a simple patio to $80,000 or more for a full outdoor living space with kitchen, pergola, and pool surround. A good rule of thumb: plan to invest 10-15% of your home's value in outdoor living improvements. We always design in phases so you can build the most important elements first and add features over time as budget allows."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "3. Understand your property" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Central Texas properties have specific conditions that affect design. Soil type (most of Austin sits on clay or limestone), drainage patterns, sun exposure throughout the day, existing trees you want to preserve, utility easements, and setback requirements all influence what's possible. A professional site assessment before design work begins can save thousands in avoided problems later."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "4. Hire a design-build firm" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A design-build firm handles both the landscape design and the construction. This eliminates the communication gaps that happen when a designer hands off plans to a separate installer who interprets them differently. It also means the person designing your space knows exactly what things cost to build, so the design matches your budget from the start. Ask for references, look at completed projects, and verify licensing and insurance before you commit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "5. Plan for long-term maintenance" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A beautiful landscape is only as good as the maintenance plan behind it. During the design phase, be honest about how much time and effort you're willing to put into upkeep. If the answer is 'not much,' we'll design with low-maintenance plants, automated irrigation, and durable hardscape materials that age gracefully. If you love gardening, we'll build in dedicated bed space and easy-access irrigation for hands-on care. The best landscape is one that still looks great two years after installation."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Ready to start planning? We offer free on-site consultations where we'll walk your property, discuss your vision, and give you a ballpark estimate before any design fees. Call us or fill out the contact form to get started."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["tips"],
+					"tag": ["landscaping", "hardscaping"]
+				}
+			},
+			{
+				"id": "post-3",
+				"slug": "real-cost-of-professional-lawn-care-vs-diy",
+				"status": "published",
+				"data": {
+					"title": "The Real Cost of Professional Lawn Care vs. DIY",
+					"excerpt": "You can mow your own lawn, but is it actually saving you money? We break down the real costs of DIY vs. professional maintenance for an average Austin property.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1200&h=800&fit=crop",
+							"alt": "Well-maintained residential lawn with crisp edges",
+							"filename": "lawn-care-cost-comparison.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "One of the most common questions we get from new clients is whether professional lawn care is worth the cost compared to doing it themselves. The answer depends on your property size, your time, and what 'lawn care' actually means beyond just mowing. Here's an honest comparison."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "The true cost of DIY" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Most homeowners underestimate the cost of DIY lawn care because they only count the obvious expenses. A quality self-propelled mower runs $400-$800 and lasts 5-8 years. A string trimmer is $150-$300. A blower is $100-$250. Add fuel, oil, blade sharpening, and maintenance, and your equipment costs alone run $200-$400 per year. Then there's fertilizer ($100-$200/year for a typical Austin lot), pre-emergent herbicide ($50-$100), and the occasional bag of soil amendment. All in, the hard costs of DIY lawn care for a quarter-acre lot run $500-$800 per year."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "The time cost" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Here's where the math gets interesting. Mowing, edging, trimming, and blowing a typical Austin yard takes 1-2 hours per week during the growing season (roughly March through November in Central Texas). That's 35-70 hours per year. If you value your time at even $30/hour, you're spending $1,050-$2,100 in labor. Add the time spent on fertilizing, dealing with weeds, maintaining equipment, and the occasional weekend spent on a project that goes sideways, and the real cost of DIY is $1,500-$2,800 per year."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Professional maintenance costs" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Our weekly maintenance plans for a typical Austin residential property run $75-$150 per visit depending on lot size and scope. For a standard quarter-acre lot with weekly mowing during the growing season and bi-weekly in winter, the annual cost runs $2,400-$3,600. That includes mowing, edging, trimming, blowing, and basic bed maintenance. Add a fertilization and weed control program ($400-$600/year) and you're looking at $2,800-$4,200 total."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What you actually get" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The difference between a DIY lawn and a professionally maintained one is usually visible from the street. Consistent mowing height, clean edges, proper fertilization timing, correct pre-emergent application, and trained eyes spotting problems early (fungus, grub damage, irrigation issues) all add up to a healthier, better-looking lawn. Professional crews also finish faster because they have commercial equipment and a system. What takes you 90 minutes on Saturday takes a crew 25 minutes."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our recommendation" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "If you enjoy yard work and have the time, DIY can save you $1,000-$1,500 per year. But if your weekends are already full, or if you find yourself letting things slide until the yard looks rough, professional maintenance is often the better investment. The yard stays consistently maintained, problems get caught early, and you get your weekends back. We offer flexible plans that range from mow-only to full-service, so you can find a level that fits your budget."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"category": ["tips"],
+					"tag": ["landscaping"]
+				}
+			}
+		],
+		"services": [
+			{
+				"id": "landscape-design",
+				"slug": "landscape-design-and-installation",
+				"status": "published",
+				"data": {
+					"title": "Landscape Design & Installation",
+					"icon": "tree-evergreen",
+					"summary": "Custom landscape designs tailored to your property, lifestyle, and the Central Texas climate. We handle everything from concept through planting day.",
+					"price_from": "Free consultation",
+					"cta_label": "Book a Consultation",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1200&h=800&fit=crop",
+							"alt": "Professional landscape design with native Texas plantings",
+							"filename": "landscape-design.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Great landscaping starts with great design. We create custom landscape plans based on your property's unique conditions -- sun exposure, soil type, drainage, existing trees, and how you want to use the space. Every design accounts for Austin's climate, watering restrictions, and the long-term growth of every plant we specify."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our design-build process" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Free on-site consultation and property assessment. Detailed design concept with plant selections, material specifications, and layout. Transparent pricing with itemized proposal. Professional installation by our own crews (no subcontractors for core work). Irrigation system design and installation. Post-installation walkthrough with a written care guide for every plant. Optional ongoing maintenance to protect your investment."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "design-build"]
+				}
+			},
+			{
+				"id": "lawn-care",
+				"slug": "lawn-care-and-maintenance",
+				"status": "published",
+				"data": {
+					"title": "Lawn Care & Maintenance",
+					"icon": "plant",
+					"summary": "Weekly and bi-weekly maintenance programs that keep your property looking its best year-round. Mowing, edging, fertilization, and seasonal care.",
+					"price_from": "$75/visit",
+					"cta_label": "Get a Maintenance Quote",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1200&h=800&fit=crop",
+							"alt": "Freshly mowed and edged residential lawn",
+							"filename": "lawn-care.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "A beautiful landscape is only as good as the maintenance behind it. Our scheduled maintenance programs keep your lawn healthy, your beds tidy, and your property looking sharp without you having to lift a finger. We tailor every plan to your property's specific needs and your budget."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What's included" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Weekly or bi-weekly mowing at the correct height for your grass type. String trimming and clean edging along walks, drives, and beds. Debris blowing and cleanup. Bed maintenance including weeding, mulch touch-ups, and pruning. Seasonal fertilization and pre-emergent weed control. Irrigation system checks and seasonal adjustments. Seasonal color rotations for flower beds. Monthly property health reports so you know the condition of your landscape."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "commercial", "maintenance"]
+				}
+			},
+			{
+				"id": "hardscaping",
+				"slug": "hardscaping",
+				"status": "published",
+				"data": {
+					"title": "Hardscaping",
+					"icon": "wall",
+					"summary": "Patios, retaining walls, outdoor kitchens, fire pits, walkways, and pergolas. Custom-built with natural stone and premium materials that last.",
+					"price_from": "From $3,000",
+					"cta_label": "Discuss Your Project",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&h=800&fit=crop",
+							"alt": "Natural stone patio with outdoor seating area",
+							"filename": "hardscaping.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Hardscape elements define the structure and usability of your outdoor space. A well-designed patio extends your living area. A retaining wall solves drainage problems and creates visual interest. An outdoor kitchen turns your backyard into an entertainment hub. Our hardscape crew specializes in natural stone, pavers, and custom masonry built to handle Central Texas soil movement and weather."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "What we build" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Flagstone, travertine, and paver patios. Natural stone and block retaining walls. Outdoor kitchens with built-in grills, countertops, and storage. Fire pits and fireplaces. Pergolas and shade structures. Walkways and stepping stone paths. Seat walls and raised planters. Water features and dry creek beds. We use locally sourced Texas limestone and Lueders stone whenever possible for a look that belongs in the Hill Country."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "design-build"]
+				}
+			},
+			{
+				"id": "irrigation",
+				"slug": "irrigation-systems",
+				"status": "published",
+				"data": {
+					"title": "Irrigation Systems",
+					"icon": "drop",
+					"summary": "Smart irrigation design, installation, and repair. Drip systems, rotary heads, rain sensors, and Wi-Fi controllers that comply with Austin water restrictions.",
+					"price_from": "From $1,500",
+					"cta_label": "Schedule an Assessment",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&h=800&fit=crop",
+							"alt": "Drip irrigation system watering garden beds",
+							"filename": "irrigation-systems.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "In Central Texas, a properly designed irrigation system isn't a luxury -- it's essential. Between summer heat, watering restrictions, and the cost of water, an efficient system pays for itself in plant survival and reduced water bills. We design every system with matched precipitation rates, drip zones for beds, and smart controllers that adjust to weather conditions."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our irrigation services" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Complete irrigation system design and installation for new landscapes. Retrofit and upgrade of existing systems for water efficiency. Drip irrigation for beds, containers, and vegetable gardens. Smart controller installation (Rachio, Hunter Hydrawise, Rain Bird ESP-TM2). Rain and freeze sensor installation. Seasonal startup and winterization. Leak detection and repair. Backflow preventer testing and certification. Zone audits to identify waste and coverage gaps."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "commercial", "maintenance"]
+				}
+			},
+			{
+				"id": "tree-shrub-care",
+				"slug": "tree-and-shrub-care",
+				"status": "published",
+				"data": {
+					"title": "Tree & Shrub Care",
+					"icon": "tree",
+					"summary": "Professional pruning, deep root fertilization, disease diagnosis, and seasonal care for the trees and shrubs that anchor your landscape.",
+					"price_from": "$150/visit",
+					"cta_label": "Request Tree Service",
+					"cta_url": "/contact",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&h=800&fit=crop",
+							"alt": "Mature live oak tree in a well-maintained landscape",
+							"filename": "tree-shrub-care.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Trees are the most valuable plants in your landscape. A mature live oak or pecan can add tens of thousands of dollars to your property value, but only if it's healthy and well-maintained. Our tree and shrub care program keeps your woody plants in peak condition through proper pruning, targeted fertilization, and proactive disease management."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Services we provide" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Structural and maintenance pruning following ISA best practices. Crown thinning and raising for clearance and light penetration. Deep root fertilization for established trees. Oak wilt prevention and treatment protocols. Disease and pest diagnosis with targeted treatment plans. Storm damage assessment and corrective pruning. Shrub shaping, rejuvenation pruning, and hedge maintenance. New tree planting with proper staking and establishment care."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"service_category": ["residential", "maintenance"]
+				}
+			}
+		],
+		"team": [
+			{
+				"id": "team-1",
+				"slug": "daniel-greenfield",
+				"status": "published",
+				"data": {
+					"name": "Daniel Greenfield",
+					"role": "Owner & Lead Designer",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face",
+							"alt": "Daniel Greenfield",
+							"filename": "daniel-greenfield.jpg"
+						}
+					},
+					"bio": "Daniel holds a degree in landscape architecture from Texas State University and has over 15 years of experience designing and building landscapes across Central Texas. He founded Greenfield Landscaping in 2012 after spending five years at a large commercial firm, where he saw an opportunity to bring high-quality design to residential clients. Daniel is personally involved in every design project and can usually be found on a client's property at least twice a week during active installations.",
+					"email": "daniel@greenfieldlandscaping.com"
+				}
+			},
+			{
+				"id": "team-2",
+				"slug": "sofia-reyes",
+				"status": "published",
+				"data": {
+					"name": "Sofia Reyes",
+					"role": "Project Manager",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
+							"alt": "Sofia Reyes",
+							"filename": "sofia-reyes.jpg"
+						}
+					},
+					"bio": "Sofia has been with Greenfield for 6 years and manages every project from the signed proposal through final walkthrough. She coordinates crew scheduling, material deliveries, client communication, and permit applications. If you call the office, Sofia is the one making sure your project stays on track and on budget. Before joining Greenfield, she managed operations for a general contractor in San Antonio.",
+					"email": "sofia@greenfieldlandscaping.com"
+				}
+			},
+			{
+				"id": "team-3",
+				"slug": "marcus-washington",
+				"status": "published",
+				"data": {
+					"name": "Marcus Washington",
+					"role": "Hardscape Foreman",
+					"photo": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+							"alt": "Marcus Washington",
+							"filename": "marcus-washington.jpg"
+						}
+					},
+					"bio": "Marcus leads our hardscape crew and has over 10 years of experience building with natural stone in Central Texas. He specializes in flagstone patios, limestone retaining walls, and outdoor kitchen construction. His crew is known for precision work and clean job sites. Marcus is an ICPI-certified paver installer and has a particular talent for working with the irregularly shaped Texas limestone that gives Hill Country landscapes their character.",
+					"email": "marcus@greenfieldlandscaping.com"
+				}
+			}
+		],
+		"testimonials": [
+			{
+				"id": "testimonial-1",
+				"slug": "rachel-james-t",
+				"status": "published",
+				"data": {
+					"author": "Rachel & James T.",
+					"role": "Homeowners",
+					"company": "Westlake Hills, TX",
+					"quote": "Greenfield completely transformed our backyard. We went from a bare lot of St. Augustine and a chain-link fence to a private retreat with a flagstone patio, native gardens, and a cedar pergola. Daniel's design was exactly what we envisioned but couldn't articulate. The crew was professional, cleaned up every day, and finished on schedule. Two years later, everything is thriving.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-2",
+				"slug": "mark-d",
+				"status": "published",
+				"data": {
+					"author": "Mark D.",
+					"role": "Homeowner",
+					"company": "Dripping Springs, TX",
+					"quote": "We hired them for a complete xeriscape conversion after our water bill hit $400 in July. They replaced our turf with native grasses, agave, and decomposed granite paths. Our water usage dropped by 60% and the yard honestly looks better than it ever did with a traditional lawn. The neighbors keep asking who did the work.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-3",
+				"slug": "dr-lisa-chen",
+				"status": "published",
+				"data": {
+					"author": "Dr. Lisa Chen",
+					"role": "Practice Owner",
+					"company": "Cedar Park, TX",
+					"quote": "Greenfield handles all the landscaping for our three medical office locations. Reliable, professional, and the properties always look sharp for our patients. When we needed a complete front entry redesign at our Cedar Park location, they turned it around in two weeks with zero disruption to our practice. Highly recommend for commercial properties.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-4",
+				"slug": "amanda-p",
+				"status": "published",
+				"data": {
+					"author": "Amanda P.",
+					"role": "Homeowner",
+					"company": "Lakeway, TX",
+					"quote": "We needed a retaining wall to deal with erosion on our sloped lot, and Marcus and his crew built an absolutely beautiful limestone wall that solved the drainage problem and added a terraced garden we didn't even know was possible. The wall looks like it's been there for decades. Daniel's design turned our biggest headache into the best feature of our yard.",
+					"rating": 5,
+					"featured": true
+				}
+			},
+			{
+				"id": "testimonial-5",
+				"slug": "carlos-m",
+				"status": "published",
+				"data": {
+					"author": "Carlos M.",
+					"role": "Homeowner",
+					"company": "Cedar Park, TX",
+					"quote": "We've been on their weekly maintenance plan for three years now. The lawn has never looked better, the irrigation system runs perfectly, and they catch problems before we even notice them. Last spring they spotted early signs of take-all root rot and treated it before it spread. That kind of proactive care is worth every penny.",
+					"rating": 5,
+					"featured": false
+				}
+			}
+		],
+		"projects": [
+			{
+				"id": "westlake-backyard",
+				"slug": "westlake-hills-backyard-transformation",
+				"status": "published",
+				"data": {
+					"title": "Westlake Hills Backyard Transformation",
+					"client": "The Thompson Family",
+					"year": "2025",
+					"summary": "Complete backyard renovation featuring a travertine pool surround, custom outdoor kitchen with built-in Green Egg, cedar pergola, and native plantings on a sloped half-acre lot in Westlake Hills.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=900&fit=crop",
+							"alt": "Luxury backyard with pool, outdoor kitchen, and native landscaping",
+							"filename": "westlake-backyard.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The Thompsons had recently completed a pool installation but were left with a bare, graded backyard and no connection between the pool, the house, and the rest of their half-acre lot. They wanted a complete outdoor living space that felt cohesive, handled the grade change across the property, and featured plants that wouldn't struggle through Austin summers."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Scope" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "600 sq ft travertine patio with pool coping integration. Custom outdoor kitchen with countertops, built-in Big Green Egg, storage, and electrical. 14x16 cedar pergola with stainless steel cable railing. Two-tier limestone retaining wall system to manage the 4-foot grade change. Native plant beds featuring Texas Sage, flame acanthus, Mexican feathergrass, and Gulf muhly. Drip irrigation throughout planted areas with Rachio smart controller. Low-voltage LED landscape lighting along pathways and accent uplighting on specimen trees. Project completed in 4 weeks."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["residential", "hardscape"]
+				}
+			},
+			{
+				"id": "cedar-park-medical",
+				"slug": "cedar-park-medical-office-landscape",
+				"status": "published",
+				"data": {
+					"title": "Cedar Park Medical Office Landscape",
+					"client": "Hill Country Family Medicine",
+					"year": "2025",
+					"summary": "Complete commercial landscape redesign for a 12,000 sq ft medical office, replacing aging foundation plantings with a drought-tolerant, low-maintenance design that improved curb appeal and reduced water usage by 45%.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=900&fit=crop",
+							"alt": "Professional medical office with clean, modern landscaping",
+							"filename": "cedar-park-medical.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Hill Country Family Medicine's Cedar Park location had 15-year-old foundation plantings that were overgrown, inconsistent, and consuming excessive water. The practice wanted a fresh, professional appearance that would look good year-round with minimal maintenance and comply with the city's water conservation goals."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Result" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We removed all existing plantings and redesigned the front and side beds with a palette of Texas Sage, dwarf yaupon holly, Gulf muhly grass, and seasonal color rotations at the entry. Decomposed granite mulch replaced traditional hardwood mulch for a cleaner, longer-lasting look. The irrigation system was completely rebuilt with drip zones and a smart controller. Water usage dropped 45% in the first year. The practice now receives regular compliments from patients on the property's appearance, and the maintenance time was cut in half compared to the old landscape."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["commercial"]
+				}
+			},
+			{
+				"id": "dripping-springs-xeriscape",
+				"slug": "dripping-springs-xeriscape-conversion",
+				"status": "published",
+				"data": {
+					"title": "Dripping Springs Xeriscape Conversion",
+					"client": "The Davis Family",
+					"year": "2024",
+					"summary": "Full front and backyard xeriscape conversion on a 1-acre Hill Country property, replacing 8,000 sq ft of struggling St. Augustine with native grasses, agave, and decomposed granite pathways.",
+					"featured_image": {
+						"$media": {
+							"url": "https://images.unsplash.com/photo-1558521958-0a228e5765e2?w=1200&h=900&fit=crop",
+							"alt": "Xeriscaped yard with native plants, agave, and gravel paths",
+							"filename": "dripping-springs-xeriscape.jpg"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "The Davis family moved to Dripping Springs from Houston and quickly discovered that maintaining a traditional lawn on a well-fed 1-acre Hill Country lot was unsustainable. Their water bills were exceeding $400/month in summer, the St. Augustine was struggling on the thin, rocky soil, and they were spending every weekend trying to keep it alive. They wanted a landscape that looked intentional, required minimal water, and embraced the Hill Country aesthetic."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Design and installation" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We removed 8,000 sq ft of turf and replaced it with a designed landscape of native grasses (buffalo grass, blue grama, sideoats grama), specimen agave and yucca groupings, and meandering decomposed granite pathways connecting the house to a new fire pit area. Existing live oaks were preserved and highlighted with accent plantings of inland sea oats and cedar sage in the dappled shade beneath them. The irrigation system was converted from spray heads to a drip-only system with a Rachio controller. The Davis family's summer water bill dropped from $400 to under $150, and they report spending about 30 minutes a month on yard maintenance instead of every weekend."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": {
+					"project_category": ["residential"]
+				}
+			}
+		],
+		"faqs": [
+			{
+				"id": "faq-1",
+				"slug": "landscape-design-process",
+				"status": "published",
+				"data": {
+					"question": "What does your landscape design process look like?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We start with a free on-site consultation where we walk your property, discuss your goals, and take measurements. From there, we develop a design concept with a detailed plant list, material specifications, and layout. We present the design along with a line-item proposal so you know exactly what everything costs. Once approved, our crew handles all site prep, hardscape construction, irrigation installation, and planting. The typical timeline from first meeting to completed installation is 4-8 weeks depending on project scope."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["process"] }
+			},
+			{
+				"id": "faq-2",
+				"slug": "landscape-project-cost",
+				"status": "published",
+				"data": {
+					"question": "How much does a landscaping project cost?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Costs vary widely depending on scope. Basic landscaping with plants, mulch, and a simple irrigation system starts around $3,000-$5,000. A comprehensive backyard renovation with a patio, plantings, and irrigation typically runs $15,000-$40,000. Full outdoor living spaces with kitchens, pergolas, and extensive hardscape can range from $40,000-$100,000 or more. We provide detailed written estimates during the design phase so there are no surprises. We also design in phases if you'd like to spread the investment over time."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["pricing"] }
+			},
+			{
+				"id": "faq-3",
+				"slug": "project-timeline",
+				"status": "published",
+				"data": {
+					"question": "How long does a landscaping project take?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Simple planting projects can be completed in 1-3 days. A typical residential landscape installation with hardscape and irrigation takes 2-4 weeks. Larger projects with outdoor kitchens, extensive retaining walls, or multi-phase designs may take 4-8 weeks. We provide a detailed timeline before work begins and keep you updated throughout the project. Weather can occasionally cause delays, but we communicate proactively if schedules need to shift."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["process"] }
+			},
+			{
+				"id": "faq-4",
+				"slug": "maintenance-plans",
+				"status": "published",
+				"data": {
+					"question": "Do you offer ongoing maintenance plans?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Yes. We offer weekly and bi-weekly maintenance plans that include mowing, edging, trimming, bed maintenance, and seasonal care. We also offer add-on programs for fertilization, weed control, irrigation management, and seasonal color rotations. Maintenance plans start at $75 per visit for a standard residential property. Many of our design-build clients transition to a maintenance plan after installation to protect their investment and keep everything looking its best."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["pricing"] }
+			},
+			{
+				"id": "faq-5",
+				"slug": "watering-restrictions",
+				"status": "published",
+				"data": {
+					"question": "How do you handle Austin's watering restrictions?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Every irrigation system we install is designed to comply with Austin Water's conservation rules, including the two-day-per-week watering schedule. We use drip irrigation for all beds (which is exempt from watering day restrictions), install rain and freeze sensors, and program smart controllers that adjust run times based on weather data. We also select plants that establish quickly and become drought-tolerant within one to two growing seasons. During new installation establishment periods, we coordinate with clients on hand-watering schedules that comply with the variance process if needed."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			},
+			{
+				"id": "faq-6",
+				"slug": "permits-needed",
+				"status": "published",
+				"data": {
+					"question": "Do I need a permit for landscaping work?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "Most planting and basic hardscape work does not require a permit in the Austin area. However, retaining walls over 4 feet, structures like pergolas and outdoor kitchens, electrical work for landscape lighting, and any work near drainage easements or in the Critical Water Quality Zone may require permits. We handle the entire permitting process when required, including applications, engineering drawings if needed, and scheduling inspections. Permit costs are included in our project estimates."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["process"] }
+			},
+			{
+				"id": "faq-7",
+				"slug": "warranty-coverage",
+				"status": "published",
+				"data": {
+					"question": "What warranty do you offer on plants and hardscape?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We provide a 1-year warranty on all plants installed by our crews, provided the irrigation system is maintained and watering schedules are followed. Hardscape work (patios, walls, walkways) carries a 5-year structural warranty covering settling, cracking, and drainage failures. Irrigation systems carry a 2-year warranty on parts and labor. If a plant fails within the warranty period and you've been watering as directed, we replace it at no cost. We also offer extended plant warranties for clients on our maintenance plans."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			},
+			{
+				"id": "faq-8",
+				"slug": "service-area",
+				"status": "published",
+				"data": {
+					"question": "What areas do you serve?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [
+								{
+									"_type": "span",
+									"text": "We serve the greater Austin area including Westlake Hills, Lakeway, Bee Cave, Cedar Park, Leander, Georgetown, Round Rock, Pflugerville, Dripping Springs, and surrounding Central Texas communities. For larger design-build projects, we're willing to travel further into the Hill Country. Our maintenance division primarily serves properties within a 25-mile radius of central Austin to keep service efficient and reliable."
+								}
+							]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["general"] }
+			}
+		]
+	}
+}
