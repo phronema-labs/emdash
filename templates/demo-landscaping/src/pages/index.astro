@@ -36,21 +36,23 @@ const testimonialData = testimonials.map((t) => ({
 				class="hero-img"
 				loading="eager"
 			/>
+		</div>
+		<div class="hero-content-wrap container">
 			<div class="hero-leaf-badge">
 				<i class="ph ph-leaf"></i>
 				Serving Austin Since 2012
 			</div>
-		</div>
-		<div class="hero-text-card">
-			<span class="hero-eyebrow">Landscape Design Studio</span>
-			<h1>Gardens that<br /><em>breathe</em> with<br />the seasons</h1>
-			<p class="hero-desc">Award-winning landscape design, native planting, and outdoor living spaces crafted for the Central Texas climate. Thoughtful. Lasting. Yours.</p>
-			<div class="hero-proof-row">
-				<GoogleReviews rating={4.8} reviewCount={340} style="badge" />
-			</div>
-			<div class="hero-cta-row">
-				<a href="/contact" class="btn btn-primary btn-lg">Begin Your Garden</a>
-				<a href="/work" class="hero-link">View Portfolio <i class="ph ph-arrow-right"></i></a>
+			<div class="hero-text-card">
+				<span class="hero-eyebrow">Landscape Design Studio</span>
+				<h1>Gardens that<br /><em>breathe</em> with<br />the seasons</h1>
+				<p class="hero-desc">Award-winning landscape design, native planting, and outdoor living spaces crafted for the Central Texas climate. Thoughtful. Lasting. Yours.</p>
+				<div class="hero-proof-row">
+					<GoogleReviews rating={4.8} reviewCount={340} style="badge" />
+				</div>
+				<div class="hero-cta-row">
+					<a href="/contact" class="btn btn-primary btn-lg">Begin Your Garden</a>
+					<a href="/work" class="hero-link">View Portfolio <i class="ph ph-arrow-right"></i></a>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -270,9 +272,6 @@ const testimonialData = testimonials.map((t) => ({
 	.hero-editorial {
 		position: relative;
 		width: 100%;
-		min-height: 88vh;
-		display: flex;
-		align-items: flex-end;
 		overflow: hidden;
 	}
 
@@ -296,9 +295,8 @@ const testimonialData = testimonials.map((t) => ({
 	}
 
 	.hero-leaf-badge {
-		position: absolute;
-		top: 2.5rem;
-		left: 2.5rem;
+		position: relative;
+		z-index: 2;
 		display: inline-flex;
 		align-items: center;
 		gap: 6px;
@@ -312,7 +310,8 @@ const testimonialData = testimonials.map((t) => ({
 		text-transform: uppercase;
 		padding: 0.5rem 1rem;
 		border-radius: var(--radius-full);
-		z-index: 2;
+		margin-bottom: auto;
+		align-self: flex-start;
 	}
 
 	.hero-leaf-badge i {
@@ -320,13 +319,31 @@ const testimonialData = testimonials.map((t) => ({
 		font-size: 14px;
 	}
 
-	/* The text card overlaps the bottom-right of the image */
-	.hero-text-card {
+	.hero-content-wrap {
 		position: relative;
 		z-index: 2;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		grid-template-rows: auto 1fr;
+		min-height: 88vh;
+		padding-top: 2.5rem;
+		padding-bottom: var(--space-3xl);
+		align-items: start;
+	}
+
+	.hero-leaf-badge {
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+	/* The text card sits bottom-right of the container */
+	.hero-text-card {
+		grid-column: 2;
+		grid-row: 2;
+		align-self: end;
+		justify-self: end;
 		background: var(--color-bg, #faf6ef);
 		max-width: 520px;
-		margin: 0 var(--site-gutter) var(--space-3xl) auto;
 		padding: 3rem 3rem 2.75rem;
 		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 		box-shadow: 0 -8px 48px rgba(26, 58, 42, 0.14), 0 -2px 16px rgba(26, 58, 42, 0.08);

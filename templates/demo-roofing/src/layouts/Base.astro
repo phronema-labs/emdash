@@ -757,5 +757,42 @@ const pageCtx = createPublicPageContext({
 				.emergency-divider { display: none; }
 			}
 		</style>
+
+		<!-- Demo banner -->
+		<div class="demo-banner">
+			<span>This is a demo template by <a href="https://phronemalabs.com">Phronema Labs</a></span>
+			<a href="https://phronemalabs.com/contact" class="demo-banner-cta">Get one for your business</a>
+		</div>
+		<style is:global>
+			.demo-banner {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				z-index: 9999;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 1.5rem;
+				padding: 0.65rem 1.5rem;
+				background: rgba(11,10,8,0.92);
+				backdrop-filter: blur(8px);
+				font-family: system-ui, sans-serif;
+				font-size: 0.8rem;
+				color: rgba(255,255,255,0.7);
+			}
+			.demo-banner a { color: #C9963A; text-decoration: none; }
+			.demo-banner a:hover { text-decoration: underline; }
+			.demo-banner-cta {
+				padding: 0.35rem 1rem;
+				background: #C9963A;
+				color: #0B0A08 !important;
+				border-radius: 4px;
+				font-weight: 600;
+				font-size: 0.75rem;
+				text-decoration: none !important;
+			}
+			.demo-banner-cta:hover { background: #d4a84d; }
+		</style>
 	</body>
 </html>

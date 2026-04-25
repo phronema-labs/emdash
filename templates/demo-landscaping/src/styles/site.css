@@ -64,7 +64,6 @@
 /* ---- Section ---- */
 .section {
 	padding-block: var(--space-5xl);
-	padding-inline: var(--site-gutter);
 }
 
 /* ---- Mobile overrides ---- */

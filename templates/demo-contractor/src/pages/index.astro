@@ -41,45 +41,58 @@ const testimonialData = testimonials.map((t) => ({
 					<span class="hero-badge-dot"></span>
 					<span>Denver's Premier General Contractor</span>
 				</div>
-				<h1 class="hero-headline">
-					WE<br/>BUILD<br/><span class="hero-accent">THINGS</span><br/>THAT LAST
-				</h1>
+				<h2 class="hero-tagline">Full-service remodeling, additions &amp; new construction</h2>
 				<p class="hero-sub">
-					Full-service remodeling, additions, and new construction.
 					Design-build approach. Fixed-price contracts. 5-year warranty.
+					No change-order surprises. 800+ projects completed since 2008.
 				</p>
-				<div class="hero-actions">
-					<a href="/contact" class="btn-hero-primary">
-						<i class="ph ph-arrow-right"></i>
-						Get a Free Estimate
-					</a>
-					<a href="tel:7205554100" class="btn-hero-phone">
-						<i class="ph ph-phone-call"></i>
-						(720) 555-4100
-					</a>
+				<div class="hero-trust-pills">
+					<span class="hero-pill"><i class="ph ph-shield-check"></i> Licensed &amp; Insured</span>
+					<span class="hero-pill"><i class="ph ph-calendar-check"></i> On-Time Guarantee</span>
+					<span class="hero-pill"><i class="ph ph-money"></i> Fixed-Price Contracts</span>
 				</div>
 				<div class="hero-reviews">
 					<GoogleReviews rating={4.9} reviewCount={285} style="badge" />
 				</div>
 			</div>
 
-			<!-- Right: stats panel -->
-			<div class="hero-stats" data-reveal data-delay="2">
-				<div class="hero-stat-card">
-					<span class="hero-stat-num">16+</span>
-					<span class="hero-stat-label">Years in Business</span>
-				</div>
-				<div class="hero-stat-card">
-					<span class="hero-stat-num">800+</span>
-					<span class="hero-stat-label">Projects Completed</span>
-				</div>
-				<div class="hero-stat-card hero-stat-card--accent">
-					<span class="hero-stat-num">98%</span>
-					<span class="hero-stat-label">On-Budget</span>
-				</div>
-				<div class="hero-stat-card">
-					<span class="hero-stat-num">$0</span>
-					<span class="hero-stat-label">Change Order Surprises</span>
+			<!-- Right: contact form -->
+			<div class="hero-form-wrap" data-reveal data-delay="2">
+				<div class="hero-form-card">
+					<div class="hero-form-header">
+						<strong>Get a Free Estimate</strong>
+						<span>No obligation. Response within 24 hours.</span>
+					</div>
+					<form class="hero-form" action="/contact" method="get">
+						<div class="hf-field">
+							<label for="hf-name">Your Name</label>
+							<input type="text" id="hf-name" name="name" placeholder="John Smith" autocomplete="name" />
+						</div>
+						<div class="hf-field">
+							<label for="hf-phone">Phone</label>
+							<input type="tel" id="hf-phone" name="phone" placeholder="(720) 555-0000" autocomplete="tel" />
+						</div>
+						<div class="hf-field">
+							<label for="hf-project">Project Type</label>
+							<select id="hf-project" name="project">
+								<option value="">Select project type...</option>
+								<option>Kitchen Remodel</option>
+								<option>Bathroom Remodel</option>
+								<option>Addition / ADU</option>
+								<option>Whole-Home Renovation</option>
+								<option>Commercial Build-Out</option>
+								<option>Other</option>
+							</select>
+						</div>
+						<div class="hf-field">
+							<label for="hf-msg">Tell us about your project</label>
+							<textarea id="hf-msg" name="message" rows="3" placeholder="Budget, timeline, scope..."></textarea>
+						</div>
+						<button type="submit" class="hf-submit">
+							<i class="ph ph-arrow-right"></i>
+							Request Estimate
+						</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -374,132 +387,50 @@ const testimonialData = testimonials.map((t) => ({
 		50% { opacity: 0.4; }
 	}
 
-	.hero-headline {
+	.hero-tagline {
 		font-family: "Bebas Neue", sans-serif;
-		font-size: clamp(5rem, 12vw, 10rem);
-		line-height: 0.88;
+		font-size: clamp(2rem, 4vw, 3.25rem);
+		line-height: 1.1;
 		letter-spacing: 0.02em;
 		color: white;
-		margin-bottom: var(--space-xl);
-	}
-
-	.hero-accent {
-		color: var(--color-primary);
-		-webkit-text-stroke: 0;
+		margin-bottom: var(--space-lg);
 	}
 
 	.hero-sub {
 		font-family: "DM Sans", sans-serif;
-		font-size: var(--font-size-lg);
-		line-height: 1.65;
-		color: rgba(255,255,255,0.65);
+		font-size: var(--font-size-base);
+		line-height: 1.7;
+		color: rgba(255,255,255,0.6);
 		max-width: 480px;
 		margin-bottom: var(--space-xl);
 	}
 
-	.hero-actions {
+	.hero-trust-pills {
 		display: flex;
-		gap: var(--spacing-md);
 		flex-wrap: wrap;
+		gap: 0.5rem;
 		margin-bottom: var(--space-xl);
 	}
 
-	.btn-hero-primary {
+	.hero-pill {
 		display: inline-flex;
 		align-items: center;
-		gap: 8px;
-		padding: 1rem 2rem;
-		background: var(--color-primary);
-		color: white;
-		font-family: "DM Sans", sans-serif;
-		font-size: var(--font-size-sm);
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
+		gap: 6px;
+		padding: 0.4rem 0.9rem;
+		background: rgba(255,255,255,0.06);
+		border: 1px solid rgba(255,255,255,0.1);
 		border-radius: 2px;
-		text-decoration: none;
-		transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-	}
-
-	.btn-hero-primary:hover {
-		background: var(--color-primary-dark);
-		transform: translateY(-2px);
-		box-shadow: 0 10px 30px rgba(255,107,0,0.45);
-	}
-
-	.btn-hero-phone {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		padding: 1rem 2rem;
-		color: rgba(255,255,255,0.8);
 		font-family: "DM Sans", sans-serif;
-		font-size: var(--font-size-sm);
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		border: 1px solid rgba(255,255,255,0.2);
-		border-radius: 2px;
-		text-decoration: none;
-		transition: all 0.15s ease;
+		font-size: 0.75rem;
+		font-weight: 500;
+		color: rgba(255,255,255,0.7);
+		letter-spacing: 0.03em;
 	}
 
-	.btn-hero-phone i { color: var(--color-primary); }
-
-	.btn-hero-phone:hover {
-		border-color: rgba(255,255,255,0.5);
-		color: white;
-	}
+	.hero-pill i { color: var(--color-primary); font-size: 14px; }
 
 	.hero-reviews {
 		margin-top: var(--space-md);
-	}
-
-	/* Stats panel */
-	.hero-stats {
-		display: flex;
-		flex-direction: column;
-		gap: 2px;
-		flex-shrink: 0;
-		width: 220px;
-	}
-
-	.hero-stat-card {
-		background: rgba(255,255,255,0.04);
-		border: 1px solid rgba(255,255,255,0.08);
-		padding: 1.25rem 1.5rem;
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-		border-left: 3px solid rgba(255,107,0,0.3);
-		transition: border-color 0.2s ease, background 0.2s ease;
-	}
-
-	.hero-stat-card:hover {
-		background: rgba(255,107,0,0.06);
-		border-left-color: var(--color-primary);
-	}
-
-	.hero-stat-card--accent {
-		background: rgba(255,107,0,0.1);
-		border-color: rgba(255,107,0,0.2);
-		border-left-color: var(--color-primary);
-	}
-
-	.hero-stat-num {
-		font-family: "Bebas Neue", sans-serif;
-		font-size: 2.5rem;
-		line-height: 1;
-		color: white;
-		letter-spacing: 0.02em;
-	}
-
-	.hero-stat-label {
-		font-family: "DM Sans", sans-serif;
-		font-size: 10px;
-		font-weight: 500;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: rgba(255,255,255,0.45);
 	}
 
 	/* Hard diagonal cut at bottom of hero */
@@ -1049,5 +980,124 @@ const testimonialData = testimonials.map((t) => ({
 		.cta-section::after {
 			display: none;
 		}
+	}
+</style>
+
+<style is:global>
+	/* Hero form styles - need global scope for nested elements */
+	.hero-form-wrap {
+		flex-shrink: 0;
+		width: 380px;
+	}
+
+	.hero-form-card {
+		background: #1a1a1a;
+		border: 1px solid rgba(255,255,255,0.08);
+		border-radius: 2px;
+		overflow: hidden;
+	}
+
+	.hero-form-header {
+		background: #ff6b00;
+		padding: 1.25rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.hero-form-header strong {
+		font-family: "Bebas Neue", sans-serif;
+		font-size: 1.35rem;
+		color: white;
+		letter-spacing: 0.04em;
+	}
+
+	.hero-form-header span {
+		font-family: "DM Sans", sans-serif;
+		font-size: 0.75rem;
+		color: rgba(255,255,255,0.75);
+	}
+
+	.hero-form {
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.hf-field {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.hf-field label {
+		font-family: "DM Sans", sans-serif;
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.4);
+	}
+
+	.hf-field input,
+	.hf-field select,
+	.hf-field textarea {
+		width: 100%;
+		padding: 0.65rem 0.875rem;
+		font-family: "DM Sans", sans-serif;
+		font-size: 0.9rem;
+		color: white;
+		background: rgba(255,255,255,0.05);
+		border: 1px solid rgba(255,255,255,0.12);
+		border-radius: 2px;
+		outline: none;
+		transition: border-color 0.15s ease;
+		-webkit-appearance: none;
+	}
+
+	.hf-field input::placeholder,
+	.hf-field textarea::placeholder {
+		color: rgba(255,255,255,0.25);
+	}
+
+	.hf-field input:focus,
+	.hf-field select:focus,
+	.hf-field textarea:focus {
+		border-color: #ff6b00;
+	}
+
+	.hf-field select {
+		color: rgba(255,255,255,0.5);
+	}
+
+	.hf-field textarea {
+		resize: vertical;
+		min-height: 70px;
+	}
+
+	.hf-submit {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 0.9rem 2rem;
+		background: #ff6b00;
+		color: white;
+		font-family: "DM Sans", sans-serif;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		border: none;
+		border-radius: 2px;
+		cursor: pointer;
+		transition: background 0.15s ease, transform 0.15s ease;
+		width: 100%;
+	}
+
+	.hf-submit:hover {
+		background: #e05e00;
+		transform: translateY(-2px);
 	}
 </style>
