@@ -1,0 +1,38 @@
+name: Deploy Demo Sites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'templates/demo-*/**'
+      - 'templates/phronema-business/**'
+      - 'packages/plugins/**'
+      - 'packages/emdash/**'
+      - 'Dockerfile.demo-*'
+      - 'Dockerfile.phronema-business'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Coolify redeployments
+        env:
+          COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+          COOLIFY_URL: https://hosting.phronemalabs.com/api/v1
+        run: |
+          # App UUIDs
+          APPS=(
+            "sdkw4j8a3eppqxg54d732lzi"  # apex
+            "g6uht27p55hzg95fre0zfh46"  # summit
+            "tpw55y3a61mftv0stwx698ys"  # ironclad
+            "w12ca9j4t4qjp3i86aj00fn4"  # greenfield
+            "aqteyb6ut3l5zdf6nrjhpqqy"  # caldwell
+          )
+
+          for uuid in "${APPS[@]}"; do
+            echo "Redeploying $uuid..."
+            curl -s -X POST "$COOLIFY_URL/applications/$uuid/restart" \
+              -H "Authorization: Bearer $COOLIFY_TOKEN" \
+              -H "Content-Type: application/json"
+            echo ""
+          done
