@@ -1,0 +1,197 @@
+---
+/**
+ * Hero section with arch-framed images, golden rays, and center icon.
+ * Ported from React Home.tsx hero carousel.
+ */
+interface Props {
+	images?: string[];
+	centerImage?: string;
+}
+
+const { images = [], centerImage } = Astro.props;
+const displayImages = images.length >= 6 ? images : Array(6).fill(images[0] || "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600&fit=crop");
+---
+
+<section class="hero-carousel">
+	<!-- Desktop: Multi-image layout with center icon -->
+	<div class="hero-desktop">
+		<div class="hero-images">
+			{displayImages.slice(0, 3).map((src, i) => (
+				<div class="hero-frame">
+					<div class="hero-frame-inner">
+						<img src={src} alt="Church Life" loading="lazy" />
+					</div>
+				</div>
+			))}
+
+			<!-- Center icon -->
+			<div class="hero-center">
+				<div class="hero-center-frame">
+					<img src={centerImage || displayImages[0]} alt="Church Icon" />
+				</div>
+			</div>
+
+			{displayImages.slice(3, 6).map((src, i) => (
+				<div class="hero-frame">
+					<div class="hero-frame-inner">
+						<img src={src} alt="Church Life" loading="lazy" />
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<!-- Mobile: Center + two flanking arches -->
+	<div class="hero-mobile">
+		<div class="hero-mobile-row">
+			<div class="hero-mobile-side">
+				<img src={displayImages[2]} alt="Church Life" />
+			</div>
+			<div class="hero-mobile-center">
+				<img src={centerImage || displayImages[0]} alt="Church Icon" />
+			</div>
+			<div class="hero-mobile-side">
+				<img src={displayImages[3]} alt="Church Life" />
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero-carousel {
+		padding: 2rem 0 2rem;
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		overflow: hidden;
+	}
+
+	/* Desktop layout */
+	.hero-desktop {
+		display: none;
+	}
+
+	@media (min-width: 768px) {
+		.hero-desktop { display: block; }
+		.hero-mobile { display: none; }
+	}
+
+	.hero-images {
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		max-width: var(--site-max-width);
+		margin-left: auto;
+		margin-right: auto;
+		position: relative;
+		padding: 0 1rem;
+	}
+
+	/* Arch-framed side images — PNGs have gold frames baked in */
+	.hero-frame {
+		width: 10rem;
+		flex-shrink: 0;
+		transition: transform 0.5s ease;
+		margin: 0 0.2rem;
+		position: relative;
+		z-index: 2;
+	}
+
+	.hero-frame:hover {
+		transform: scale(1.05);
+		z-index: 5;
+	}
+
+	.hero-frame-inner {
+		width: 100%;
+	}
+
+	.hero-frame-inner img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	/* Center icon — overlaps on top of adjacent side panels */
+	.hero-center {
+		width: 24rem;
+		position: relative;
+		transition: transform 0.5s ease;
+		flex-shrink: 0;
+		z-index: 3;
+		margin: 0 -1.5rem;
+	}
+
+	.hero-center:hover {
+		transform: scale(1.03);
+	}
+
+	.hero-center-frame {
+		width: 100%;
+		position: relative;
+		z-index: 10;
+	}
+
+	.hero-center-frame img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	/* Mobile */
+	.hero-mobile {
+		display: block;
+	}
+
+	.hero-mobile-row {
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		gap: 0;
+		padding: 0 0.5rem;
+	}
+
+	.hero-mobile-center {
+		width: 55%;
+		flex-shrink: 0;
+		z-index: 2;
+		margin: 0 -1.5rem;
+	}
+
+	.hero-mobile-center img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.hero-mobile-side {
+		width: 28%;
+		flex-shrink: 0;
+		z-index: 1;
+	}
+
+	.hero-mobile-side img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	@media (min-width: 768px) {
+		.hero-mobile { display: none; }
+	}
+
+	/* Larger screens — scale up, maintain overlap */
+	@media (min-width: 1024px) {
+		.hero-frame { width: 11rem; margin: 0 0.3rem; }
+		.hero-center { width: 28rem; margin: 0 -2rem; }
+	}
+
+	@media (min-width: 1280px) {
+		.hero-frame { width: 13rem; margin: 0 0.4rem; }
+		.hero-center { width: 32rem; margin: 0 -2.5rem; }
+	}
+
+	@media (min-width: 1440px) {
+		.hero-frame { width: 14rem; margin: 0 0.5rem; }
+		.hero-center { width: 35rem; margin: 0 -3rem; }
+	}
+</style>

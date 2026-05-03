@@ -1,0 +1,227 @@
+---
+import { getEmDashEntry } from "emdash";
+import Base from "../layouts/Base.astro";
+import HeroCarousel from "../components/HeroCarousel.astro";
+import ServiceTimesCard from "../components/ServiceTimesCard.astro";
+import TextWithSideImages from "../components/TextWithSideImages.astro";
+import ImageWithText from "../components/ImageWithText.astro";
+import QuickLinks from "../components/QuickLinks.astro";
+import IconGrid from "../components/IconGrid.astro";
+import BannerImage from "../components/BannerImage.astro";
+import OrnateSteps from "../components/OrnateSteps.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "home");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+---
+
+<Base isHome={true}>
+	{/* ===== HERO — red background with carousel ===== */}
+	<div class="hero-section">
+		<HeroCarousel
+		images={[
+			"/images/home/homepage-hero-arched-panel-01.png",
+			"/images/home/homepage-hero-arched-panel-02.png",
+			"/images/home/homepage-hero-arched-panel-03.png",
+			"/images/home/homepage-hero-arched-panel-05.png",
+			"/images/home/homepage-hero-arched-panel-06.png",
+			"/images/home/homepage-hero-arched-panel-07.png",
+		]}
+		centerImage="/images/home/homepage-hero-arched-panel-04.png"
+	/>
+
+		{/* Bottom border */}
+		<div class="hero-bottom-border"></div>
+	</div>
+
+	{/* Seal + Tagline on cream background */}
+	<section class="hero-tagline">
+		<div class="hero-seal">
+			<img src="/logo.png" alt="Holy Resurrection Antiochian Orthodox Church" class="hero-seal-img" />
+		</div>
+		<div class="container hero-tagline-inner">
+			<p class="hero-quote">Rooted in Tradition, Alive in Christ</p>
+			<div class="hero-ornament" aria-hidden="true">━━━ ◊ ◊ ◊ ━━━</div>
+			<p class="hero-welcome">Welcoming all who seek the ancient Christian faith</p>
+			<p class="hero-sub">Join us for worship, prayer, and life in Christ</p>
+		</div>
+	</section>
+
+	{/* ===== Services & Events Card (overlays dome banner) ===== */}
+	<ServiceTimesCard />
+
+	{/* ===== "Visiting a Church Can Be Intimidating" ===== */}
+	<TextWithSideImages
+		title="Visiting a Church Can Feel Intimidating — Especially an Orthodox One"
+		content="Being part of Ancient Orthodox Christianity is to be welcomed onto a more profound journey of deep, quiet, spiritual growth, by faithfully immersing oneself in all the mysteries of the Apostolic traditions; the Holy Trinity, Sacraments, studying the Scriptures and lives of the Saints, attending services, daily prayer and fasting brings your entire being into direct experiential encounter with the Triune God, transforming one's whole heart and becoming one with the loving body of Christ and hearing the voice of the Lord."
+		quote="Leave everything to God, my child, and you will immediately see how peaceful you will be, how much joy you will feel immediately and how much comfort and peace you will find."
+		quoteAuthor="St. Ephraim of Katounakia"
+		secondaryContent="Following the true Faith of the Apostles, who directly received and spread the word of Christ, is a commitment to strive to be more Christ-like, to know a profoundly deep peace, expressing faith through acts of love, and service to mankind, allowing God's grace to manifest, bringing Heaven to Earth."
+		buttonText="Learn More About Who We Are"
+		buttonHref="/about"
+		images={[
+			{ src: "/images/home/homepage-getting-to-know-us-image-01.png", alt: "Orthodox Worship" },
+			{ src: "/images/home/homepage-getting-to-know-us-image-02.png", alt: "Church Community" },
+		]}
+	/>
+
+	{/* ===== "We are a church that walks with you" ===== */}
+	<ImageWithText
+		title="We are a church that walks with you."
+		titleStyle="script"
+		content="Being part of Ancient Orthodox Christianity is to be welcomed onto a more profound journey of deep, quiet, spiritual growth, by faithfully immersing oneself in all the mysteries of the Apostolic traditions."
+		secondaryHeading="The Apostolic Faith"
+		secondaryContent="Following the true Faith of the Apostles, who directly received and spread the word of Christ, is a commitment to strive to be more Christ-like, guided by clergy and prayer, not trends."
+		image={{ src: "/images/home/homepage-getting-to-know-us-candles-feature-panel.png", alt: "Parish Life" }}
+		buttonText="What to Expect on Sunday"
+		buttonHref="/visitors"
+	/>
+
+	{/* ===== Quick Links ===== */}
+	<QuickLinks
+		title="Quick Links"
+		links={[
+			{
+				image: "/images/home/homepage-quick-links-image-01.png",
+				alt: "Contact Us",
+				text: "Contact Us",
+				href: "/contact",
+			},
+			{
+				image: "/images/home/homepage-quick-links-image-02.png",
+				alt: "Donate",
+				text: "Donate",
+				href: "/donate",
+			},
+			{
+				image: "/images/home/homepage-quick-links-image-03.png",
+				alt: "Join Us Online",
+				text: "Join Us Online",
+				href: "/visitors",
+			},
+		]}
+	/>
+
+	{/* ===== What You'll Find Here ===== */}
+	<IconGrid
+		title="What You'll Find Here"
+		items={[
+			{
+				icon: "/images/home/homepage-what-youll-find-here-arched-panel-01.png",
+				alt: "Ancient Worship",
+				title: "Ancient Worship",
+				description: "Rooted in scripture, tradition, and the life of the early church",
+			},
+			{
+				icon: "/images/home/homepage-what-youll-find-here-arched-panel-02.png",
+				alt: "Christ at the Center",
+				title: "Christ at the Center",
+				description: "Everything we do is oriented toward our Savior, the God-Man, Jesus Christ",
+			},
+			{
+				icon: "/images/home/homepage-what-youll-find-here-arched-panel-03.png",
+				alt: "Living Community",
+				title: "Living Community",
+				description: "Shared meals, feasts, prayer, and spiritual formation",
+			},
+		]}
+	/>
+
+	{/* ===== Censor Banner ===== */}
+	<BannerImage src="/censor-banner.png" alt="Ornamental Divider" />
+
+	{/* ===== Your First Visit ===== */}
+	<OrnateSteps
+		title="Your First Visit"
+		steps={[
+			{ title: "Come as you are", description: "Attend a Sunday Divine Liturgy or Vespers" },
+			{ title: "Observe and receive", description: "No pressure to participate—simply be present" },
+			{ title: "Stay and connect", description: "Join us for fellowship and conversation" },
+		]}
+		image={{ src: "/images/home/homepage-plan-your-visit-image.png", alt: "First Visit" }}
+		buttonText="Plan Your Visit"
+		buttonHref="/visitors"
+	/>
+</Base>
+
+<style>
+	/* Hero section with red background */
+	.hero-section {
+		background: var(--brand-primary);
+	}
+
+	.hero-bottom-border {
+		height: 40px;
+		background: url('/border-section-divider.png') repeat-x center / auto 100%;
+	}
+
+	.hero-tagline {
+		background: var(--brand-cream);
+		padding: 1rem 0 3rem;
+		position: relative;
+	}
+
+	.hero-seal {
+		display: flex;
+		justify-content: center;
+		margin-top: -6rem;
+		margin-bottom: 1rem;
+		position: relative;
+		z-index: 10;
+	}
+
+	.hero-seal-img {
+		width: 14rem;
+		height: 14rem;
+		object-fit: contain;
+	}
+
+	@media (min-width: 768px) {
+		.hero-seal-img {
+			width: 20rem;
+			height: 20rem;
+		}
+		.hero-seal {
+			margin-top: -12rem;
+		}
+	}
+
+	.hero-tagline-inner {
+		text-align: center;
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+	}
+
+	.hero-quote {
+		font-family: var(--font-quote-stack);
+		font-size: clamp(2rem, 4vw, 3rem);
+		color: var(--brand-primary);
+		font-style: italic;
+		letter-spacing: 0.02em;
+		line-height: 1.3;
+		margin-bottom: 2rem;
+	}
+
+	.hero-ornament {
+		color: rgba(0, 0, 0, 0.3);
+		font-size: var(--font-size-lg);
+		letter-spacing: 0.3em;
+		margin-bottom: 2.5rem;
+	}
+
+	.hero-welcome {
+		font-family: var(--font-body-stack);
+		font-size: clamp(1.1rem, 2vw, 1.5rem);
+		color: var(--brand-primary);
+		font-weight: 500;
+		letter-spacing: 0.03em;
+		margin-bottom: 0.5rem;
+	}
+
+	.hero-sub {
+		font-family: var(--font-body-stack);
+		font-size: clamp(1rem, 1.5vw, 1.25rem);
+		color: rgba(0, 0, 0, 0.6);
+		letter-spacing: 0.03em;
+	}
+
+</style>
