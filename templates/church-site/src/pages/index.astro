@@ -46,23 +46,15 @@ if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
 		</div>
 	</section>
 
-	{/* ===== Services & Events Card (overlays dome banner) ===== */}
-	<ServiceTimesCard />
+	{/* ===== Dome Banner ===== */}
+	<div class="dome-banner">
+		<img src="/landing-dome-banner.png" alt="Orthodox Church Dome Interior" class="dome-banner-img" />
+		<div class="dome-banner-border"></div>
+	</div>
 
-	{/* ===== "Visiting a Church Can Be Intimidating" ===== */}
-	<TextWithSideImages
-		title="Visiting a Church Can Feel Intimidating — Especially an Orthodox One"
-		content="Being part of Ancient Orthodox Christianity is to be welcomed onto a more profound journey of deep, quiet, spiritual growth, by faithfully immersing oneself in all the mysteries of the Apostolic traditions; the Holy Trinity, Sacraments, studying the Scriptures and lives of the Saints, attending services, daily prayer and fasting brings your entire being into direct experiential encounter with the Triune God, transforming one's whole heart and becoming one with the loving body of Christ and hearing the voice of the Lord."
-		quote="Leave everything to God, my child, and you will immediately see how peaceful you will be, how much joy you will feel immediately and how much comfort and peace you will find."
-		quoteAuthor="St. Ephraim of Katounakia"
-		secondaryContent="Following the true Faith of the Apostles, who directly received and spread the word of Christ, is a commitment to strive to be more Christ-like, to know a profoundly deep peace, expressing faith through acts of love, and service to mankind, allowing God's grace to manifest, bringing Heaven to Earth."
-		buttonText="Learn More About Who We Are"
-		buttonHref="/about"
-		images={[
-			{ src: "/images/home/homepage-getting-to-know-us-image-01.png", alt: "Orthodox Worship" },
-			{ src: "/images/home/homepage-getting-to-know-us-image-02.png", alt: "Church Community" },
-		]}
-	/>
+	{/* ===== Services & Events Card ===== */}
+	<ServiceTimesCard />
+	<div class="services-section-border"></div>
 
 	{/* ===== "We are a church that walks with you" ===== */}
 	<ImageWithText
@@ -163,8 +155,8 @@ if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
 	.hero-seal {
 		display: flex;
 		justify-content: center;
-		margin-top: -6rem;
-		margin-bottom: 1rem;
+		margin-top: -4rem;
+		margin-bottom: 0.5rem;
 		position: relative;
 		z-index: 10;
 	}
@@ -177,11 +169,11 @@ if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
 
 	@media (min-width: 768px) {
 		.hero-seal-img {
-			width: 20rem;
-			height: 20rem;
+			width: 16rem;
+			height: 16rem;
 		}
 		.hero-seal {
-			margin-top: -12rem;
+			margin-top: -8rem;
 		}
 	}
 
@@ -222,6 +214,26 @@ if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
 		font-size: clamp(1rem, 1.5vw, 1.25rem);
 		color: rgba(0, 0, 0, 0.6);
 		letter-spacing: 0.03em;
+	}
+
+	.services-section-border {
+		height: 40px;
+		background: url('/border-section-divider.png') repeat-x center / auto 100%;
+	}
+
+	.dome-banner {
+		width: 100%;
+	}
+
+	.dome-banner-img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.dome-banner-border {
+		height: 40px;
+		background: url('/border-section-divider.png') repeat-x center / auto 100%;
 	}
 
 </style>

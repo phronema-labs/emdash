@@ -1,0 +1,173 @@
+---
+import { getEmDashEntry } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "contact");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+---
+
+<Base title="Contact Us">
+	<section class="section">
+		<div class="container">
+			<h1 class="page-title">Contact Us</h1>
+
+			<div class="contact-grid">
+				<!-- Contact info -->
+				<div class="contact-info">
+					{entry?.data.content && (
+						<div class="prose contact-intro">
+							<PortableText value={entry.data.content} />
+						</div>
+					)}
+
+					<div class="info-cards">
+						<div class="info-card">
+							<h3>Address</h3>
+							<p>5901 E. 5th Street<br />Tucson, AZ 85711</p>
+						</div>
+						<div class="info-card">
+							<h3>Phone</h3>
+							<p>(520) 885-3515</p>
+						</div>
+						<div class="info-card">
+							<h3>Service Times</h3>
+							<p>Saturday Vespers: 5:00 PM<br />Sunday Orthros: 9:00 AM<br />Sunday Divine Liturgy: 10:00 AM</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Contact form -->
+				<div class="contact-form-wrap">
+					<form class="contact-form" method="POST" action="/contact">
+						<div class="form-row">
+							<div class="form-field">
+								<label for="firstName">First Name *</label>
+								<input type="text" id="firstName" name="firstName" required />
+							</div>
+							<div class="form-field">
+								<label for="lastName">Last Name *</label>
+								<input type="text" id="lastName" name="lastName" required />
+							</div>
+						</div>
+						<div class="form-field">
+							<label for="email">Email *</label>
+							<input type="email" id="email" name="email" required />
+						</div>
+						<div class="form-field">
+							<label for="phone">Phone</label>
+							<input type="tel" id="phone" name="phone" />
+						</div>
+						<div class="form-field">
+							<label for="message">Message *</label>
+							<textarea id="message" name="message" rows="5" required></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.page-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 3rem);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		margin-top: 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.contact-grid { grid-template-columns: 1fr; }
+	}
+
+	.contact-intro { margin-bottom: 2rem; }
+
+	.info-cards {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.info-card {
+		padding: 1.5rem;
+		background: white;
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.info-card h3 {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-sm);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		margin-bottom: 0.5rem;
+	}
+
+	.info-card p {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	.contact-form-wrap {
+		background: white;
+		padding: 2.5rem;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-md);
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.form-field {
+		margin-bottom: 1.25rem;
+	}
+
+	.form-field label {
+		display: block;
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--color-text);
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+	}
+
+	.form-field input,
+	.form-field textarea {
+		width: 100%;
+		padding: 0.75rem 1rem;
+		border: 1.5px solid rgba(0, 0, 0, 0.1);
+		border-radius: var(--radius-sm);
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--color-text);
+		background: var(--brand-cream);
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.form-field input:focus,
+	.form-field textarea:focus {
+		outline: none;
+		border-color: var(--brand-primary);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-primary) 12%, transparent);
+	}
+
+	.form-field textarea { resize: vertical; }
+</style>

@@ -1,0 +1,134 @@
+---
+/**
+ * Quick links grid with image cards and overlay buttons.
+ * Ported from QuickLinksGrid.tsx
+ */
+interface Props {
+	title?: string;
+	links: {
+		image: string;
+		alt: string;
+		text: string;
+		href: string;
+	}[];
+}
+
+const { title = "Quick Links", links } = Astro.props;
+---
+
+<section class="quick-links">
+	<div class="quick-links-banner">
+		<img src="/nav-banner.png" alt="" />
+	</div>
+
+	<div class="quick-links-body">
+		<div class="container">
+			<h2 class="quick-links-title">{title}</h2>
+
+			<div class="quick-links-grid">
+				{links.map((link) => (
+					<a href={link.href} class="quick-link-card">
+						<div class="quick-link-image">
+							<img src={link.image} alt={link.alt} loading="lazy" />
+							<div class="quick-link-overlay">
+								<span class="quick-link-btn">{link.text}</span>
+							</div>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.quick-links {
+		background: var(--brand-primary);
+	}
+
+	.quick-links-banner {
+		height: 48px;
+		overflow: hidden;
+	}
+
+	.quick-links-banner img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.quick-links-body {
+		padding: 4rem 0;
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+	}
+
+	.quick-links-title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 4vw, 2.5rem);
+		color: var(--brand-cream);
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.quick-links-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.quick-links-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+	}
+
+	.quick-link-card {
+		display: block;
+		text-decoration: none;
+	}
+
+	.quick-link-image {
+		position: relative;
+		aspect-ratio: 4/3;
+		overflow: hidden;
+		border-radius: var(--radius-md);
+	}
+
+	.quick-link-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.quick-link-card:hover img {
+		transform: scale(1.05);
+	}
+
+	.quick-link-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.2);
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		padding-bottom: 1.5rem;
+	}
+
+	.quick-link-btn {
+		padding: 0.75rem 1.5rem;
+		background: var(--brand-green);
+		color: white;
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		border-radius: 9999px;
+		transition: opacity 0.2s ease;
+	}
+
+	.quick-link-card:hover .quick-link-btn {
+		opacity: 0.9;
+	}
+</style>

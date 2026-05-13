@@ -1,0 +1,171 @@
+---
+import { getEmDashEntry } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "donate");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+---
+
+<Base title="Support Our Parish">
+	<!-- Hero -->
+	<section class="donate-hero">
+		<div class="donate-hero-parallax" style="background-image: url('/images/about/about-us-hero-image.png');">
+			<div class="donate-hero-overlay">
+				<div class="container">
+					<h1 class="donate-hero-title">Support Our Parish</h1>
+					<p class="donate-hero-sub">Your generosity sustains the life of our community</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container donate-content">
+			{entry?.data.content && (
+				<div class="prose donate-intro">
+					<PortableText value={entry.data.content} />
+				</div>
+			)}
+
+			<!-- Donation Options -->
+			<div class="donate-grid reveal-stagger">
+				<div class="donate-card card-elevated">
+					<div class="donate-icon">
+						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+							<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+						</svg>
+					</div>
+					<h3>Online Giving</h3>
+					<p>Make a one-time or recurring donation through our secure online giving platform.</p>
+					<a href="https://tithe.ly" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-lg donate-btn">Give Online via Tithe.ly</a>
+				</div>
+
+				<div class="donate-card card-elevated">
+					<div class="donate-icon">
+						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+							<rect x="2" y="6" width="20" height="12" rx="2"/>
+							<path d="M2 10h20"/>
+						</svg>
+					</div>
+					<h3>By Mail</h3>
+					<p>Send your donation by check, made payable to Holy Resurrection Antiochian Orthodox Church.</p>
+					<p class="donate-address">5901 E. 5th Street<br />Tucson, AZ 85711</p>
+				</div>
+
+				<div class="donate-card card-elevated">
+					<div class="donate-icon">
+						<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+							<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+							<polyline points="9,22 9,12 15,12 15,22"/>
+						</svg>
+					</div>
+					<h3>In Person</h3>
+					<p>Donations can be made in person during any service. Offering trays are passed during the Divine Liturgy.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.donate-hero {
+		margin-top: -4rem;
+	}
+
+	.donate-hero-parallax {
+		height: 40vh;
+		min-height: 300px;
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		position: relative;
+	}
+
+	.donate-hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, rgba(91, 25, 36, 0.85), rgba(61, 16, 24, 0.9));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.donate-hero-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		color: var(--brand-cream);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		text-align: center;
+	}
+
+	.donate-hero-sub {
+		font-family: var(--font-quote-stack);
+		font-size: clamp(1.5rem, 3vw, 2rem);
+		color: var(--brand-accent);
+		text-align: center;
+		font-style: italic;
+		margin-top: 0.5rem;
+	}
+
+	.donate-content {
+		max-width: 60rem;
+		margin: 0 auto;
+	}
+
+	.donate-intro {
+		text-align: center;
+		max-width: 40rem;
+		margin: 0 auto 3rem;
+	}
+
+	.donate-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.donate-grid { grid-template-columns: 1fr; }
+		.donate-hero-parallax { background-attachment: scroll; }
+	}
+
+	.donate-card {
+		padding: 2.5rem 2rem;
+		text-align: center;
+	}
+
+	.donate-icon {
+		color: var(--brand-accent);
+		margin-bottom: 1.5rem;
+	}
+
+	.donate-icon svg {
+		margin: 0 auto;
+	}
+
+	.donate-card h3 {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-xl);
+		color: var(--brand-primary);
+		margin-bottom: 1rem;
+	}
+
+	.donate-card p {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.7;
+	}
+
+	.donate-address {
+		font-weight: 600;
+		color: var(--brand-primary) !important;
+		margin-top: 1rem;
+	}
+
+	.donate-btn {
+		margin-top: 1.5rem;
+	}
+</style>

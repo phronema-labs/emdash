@@ -1,0 +1,101 @@
+---
+import { getEmDashCollection } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+
+const { entries: faqs } = await getEmDashCollection("faqs", { status: "published" });
+---
+
+<Base title="Frequently Asked Questions">
+	<section class="section">
+		<div class="container">
+			<h1 class="page-title">Frequently Asked Questions</h1>
+
+			<div class="faq-list">
+				{faqs.map((faq) => (
+					<details class="faq-item">
+						<summary class="faq-question">{faq.data.question}</summary>
+						<div class="faq-answer">
+							{faq.data.answer && <PortableText value={faq.data.answer} />}
+						</div>
+					</details>
+				))}
+			</div>
+
+			<div class="faq-cta">
+				<p>Have a question not answered here?</p>
+				<a href="/contact" class="btn btn-primary btn-lg">Contact Us</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.page-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 3rem);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 3rem;
+		text-align: center;
+	}
+
+	.faq-list {
+		max-width: 48rem;
+		margin: 0 auto;
+	}
+
+	.faq-item {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	}
+
+	.faq-question {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-lg);
+		color: var(--brand-primary);
+		padding: 1.5rem 0;
+		cursor: pointer;
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.faq-question::after {
+		content: "+";
+		font-size: 1.5rem;
+		color: var(--brand-accent);
+		flex-shrink: 0;
+		margin-left: 1rem;
+		transition: transform 0.3s ease;
+	}
+
+	.faq-item[open] .faq-question::after {
+		content: "−";
+	}
+
+	.faq-question::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-answer {
+		padding: 0 0 1.5rem;
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-base);
+		color: var(--color-muted);
+		line-height: 1.8;
+	}
+
+	.faq-cta {
+		text-align: center;
+		margin-top: 4rem;
+	}
+
+	.faq-cta p {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-lg);
+		color: var(--color-muted);
+		margin-bottom: 1.5rem;
+	}
+</style>

@@ -1,0 +1,36 @@
+{
+	"name": "@phronema-labs/emdash-starter-church",
+	"version": "0.1.0",
+	"description": "Orthodox church website starter for EmDash CMS",
+	"type": "module",
+	"private": true,
+	"emdash": {
+		"label": "Church Site",
+		"description": "Complete church website with ministries, clergy, events, and parish life",
+		"seed": "seed/seed.json"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"bootstrap": "emdash init && emdash seed",
+		"seed": "emdash seed"
+	},
+	"dependencies": {
+		"@astrojs/node": "catalog:",
+		"@astrojs/react": "catalog:",
+		"@emdash-cms/plugin-audit-log": "workspace:*",
+		"@emdash-cms/plugin-forms": "workspace:*",
+		"@emdash-cms/plugin-seo": "workspace:*",
+		"astro": "catalog:",
+		"better-sqlite3": "catalog:",
+		"emdash": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"better-sqlite3"
+		]
+	}
+}

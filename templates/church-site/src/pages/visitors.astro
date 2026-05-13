@@ -1,0 +1,228 @@
+---
+import { getEmDashEntry } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import BannerImage from "../components/BannerImage.astro";
+import OrnateSteps from "../components/OrnateSteps.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "visitors");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+---
+
+<Base title="Welcome, Visitors">
+	<!-- Hero -->
+	<section class="visitor-hero">
+		<div class="visitor-hero-parallax" style="background-image: url('/images/about/about-us-chandelier-feature.png');">
+			<div class="visitor-hero-overlay">
+				<div class="container">
+					<h1 class="visitor-hero-title">Welcome, Visitors</h1>
+					<p class="visitor-hero-sub">We are glad you are here</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Intro -->
+	<section class="section">
+		<div class="container visitor-intro">
+			{entry?.data.content && (
+				<div class="prose">
+					<PortableText value={entry.data.content} />
+				</div>
+			)}
+		</div>
+	</section>
+
+	<!-- What to Expect -->
+	<section class="section section-cream">
+		<div class="container">
+			<h2 class="section-heading">What to Expect on Sunday</h2>
+			<div class="expect-grid reveal-stagger">
+				<div class="expect-card card-elevated">
+					<h3>Orthros (Matins)</h3>
+					<p class="expect-time">9:00 AM</p>
+					<p>A service of psalms, hymns, and prayers preparing the faithful for the Divine Liturgy. You are welcome to arrive during this service.</p>
+				</div>
+				<div class="expect-card card-elevated">
+					<h3>Divine Liturgy</h3>
+					<p class="expect-time">10:00 AM</p>
+					<p>The central worship of the Orthodox Church — a service of Word and Sacrament that has remained essentially unchanged for nearly 2,000 years.</p>
+				</div>
+				<div class="expect-card card-elevated">
+					<h3>Fellowship</h3>
+					<p class="expect-time">After Liturgy</p>
+					<p>Join us for coffee hour and a shared meal after the service. This is a wonderful time to meet our community and ask questions.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Your First Visit -->
+	<OrnateSteps
+		title="Your First Visit"
+		steps={[
+			{ title: "Come as you are", description: "Attend a Sunday Divine Liturgy or Vespers. No special clothing required — modest, respectful attire is appreciated." },
+			{ title: "Observe and receive", description: "No pressure to participate — simply be present. The service involves standing, sitting, chanting, incense, and icons." },
+			{ title: "Stay and connect", description: "Join us for fellowship and conversation after the service. Our community loves welcoming visitors." },
+		]}
+		image={{ src: "/images/home/homepage-plan-your-visit-image.png", alt: "First Visit" }}
+		buttonText="Contact Us"
+		buttonHref="/contact"
+	/>
+
+	<!-- FAQ Preview -->
+	<section class="section">
+		<div class="container">
+			<h2 class="section-heading">Common Questions</h2>
+			<div class="faq-list reveal-stagger">
+				<div class="faq-item">
+					<h3>What should I expect when visiting for the first time?</h3>
+					<p>Orthodox worship is rich and may feel unfamiliar at first. You are welcome to simply observe — there is no pressure to participate beyond your comfort level.</p>
+				</div>
+				<div class="faq-item">
+					<h3>Is there a dress code?</h3>
+					<p>There is no strict dress code. We encourage modest, respectful attire. Some women choose to cover their heads during worship, but this is not required.</p>
+				</div>
+				<div class="faq-item">
+					<h3>Who can receive Holy Communion?</h3>
+					<p>Holy Communion is reserved for baptized and chrismated Orthodox Christians who have prepared through fasting, prayer, and recent confession. All visitors are welcome to approach for a blessing.</p>
+				</div>
+			</div>
+			<div class="faq-cta">
+				<a href="/faq" class="btn btn-primary btn-lg">View All FAQs</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.visitor-hero {
+		margin-top: -4rem;
+	}
+
+	.visitor-hero-parallax {
+		height: 45vh;
+		min-height: 350px;
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		position: relative;
+	}
+
+	.visitor-hero-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, rgba(91, 25, 36, 0.85), rgba(61, 16, 24, 0.9));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.visitor-hero-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		color: var(--brand-cream);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		text-align: center;
+	}
+
+	.visitor-hero-sub {
+		font-family: var(--font-quote-stack);
+		font-size: clamp(1.5rem, 3vw, 2rem);
+		color: var(--brand-accent);
+		text-align: center;
+		font-style: italic;
+		margin-top: 0.5rem;
+	}
+
+	.visitor-intro {
+		max-width: 48rem;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.section-cream { background: var(--brand-cream); }
+
+	.section-heading {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.expect-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+
+	@media (max-width: 768px) {
+		.expect-grid { grid-template-columns: 1fr; }
+	}
+
+	.expect-card {
+		padding: 2rem;
+		text-align: center;
+	}
+
+	.expect-card h3 {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-xl);
+		color: var(--brand-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.expect-time {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--brand-accent);
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+
+	.expect-card p:last-child {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.7;
+	}
+
+	.faq-list {
+		max-width: 48rem;
+		margin: 0 auto;
+	}
+
+	.faq-item {
+		padding: 2rem 0;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	}
+
+	.faq-item h3 {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-lg);
+		color: var(--brand-primary);
+		margin-bottom: 0.75rem;
+	}
+
+	.faq-item p {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-base);
+		color: var(--color-muted);
+		line-height: 1.7;
+	}
+
+	.faq-cta {
+		text-align: center;
+		margin-top: 3rem;
+	}
+
+	@media (max-width: 768px) {
+		.visitor-hero-parallax {
+			background-attachment: scroll;
+		}
+	}
+</style>

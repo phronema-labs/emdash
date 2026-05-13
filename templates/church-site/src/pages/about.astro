@@ -1,0 +1,151 @@
+---
+import { getEmDashEntry, getEmDashCollection } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import BannerImage from "../components/BannerImage.astro";
+
+const { entry, cacheHint } = await getEmDashEntry("pages", "about");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+
+const { entries: clergy } = await getEmDashCollection("clergy", { status: "published" });
+const { entries: ministries } = await getEmDashCollection("ministries", { status: "published" });
+---
+
+<Base title="About Us">
+	<section class="section">
+		<div class="container">
+			<h1 class="page-title">{entry?.data.title || "About Us"}</h1>
+			{entry?.data.content && (
+				<div class="prose">
+					<PortableText value={entry.data.content} />
+				</div>
+			)}
+		</div>
+	</section>
+
+	<BannerImage src="/banner-iconostasis.png" alt="Iconostasis" />
+
+	{clergy.length > 0 && (
+		<section class="section section-cream">
+			<div class="container">
+				<h2 class="section-heading">Our Clergy</h2>
+				<div class="clergy-grid">
+					{clergy.map((member) => (
+						<div class="clergy-card">
+							{member.data.photo && (
+								<img src={(member.data.photo as any).src || (member.data.photo as any).url} alt={member.data.name} class="clergy-photo" />
+							)}
+							<h3 class="clergy-name">{member.data.name}</h3>
+							{member.data.title && <p class="clergy-title">{member.data.title}</p>}
+							{member.data.bio && <p class="clergy-bio">{member.data.bio}</p>}
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	{ministries.length > 0 && (
+		<section class="section">
+			<div class="container">
+				<h2 class="section-heading">Our Ministries</h2>
+				<div class="ministries-grid">
+					{ministries.map((ministry) => (
+						<a href={`/ministries/${ministry.slug}`} class="ministry-card card-elevated">
+							<h3>{ministry.data.title}</h3>
+							{ministry.data.summary && <p>{ministry.data.summary}</p>}
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+</Base>
+
+<style>
+	.page-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 3rem);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	.section-cream { background: var(--brand-cream); }
+
+	.section-heading {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-3xl);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.clergy-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+	}
+
+	.clergy-card { text-align: center; }
+
+	.clergy-photo {
+		width: 12rem;
+		height: 12rem;
+		border-radius: 50%;
+		object-fit: cover;
+		margin: 0 auto 1.5rem;
+		box-shadow: var(--shadow-md);
+	}
+
+	.clergy-name {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-xl);
+		color: var(--brand-primary);
+	}
+
+	.clergy-title {
+		font-family: var(--font-body-stack);
+		color: var(--brand-accent);
+		font-style: italic;
+		margin-top: 0.25rem;
+	}
+
+	.clergy-bio {
+		font-family: var(--font-body-stack);
+		color: var(--color-muted);
+		line-height: 1.7;
+		margin-top: 1rem;
+		max-width: 28rem;
+		margin-inline: auto;
+	}
+
+	.ministries-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.ministry-card {
+		padding: 2rem;
+		text-decoration: none;
+	}
+
+	.ministry-card h3 {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-lg);
+		color: var(--brand-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.ministry-card p {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+</style>

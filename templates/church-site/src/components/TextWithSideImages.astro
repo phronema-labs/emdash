@@ -1,0 +1,168 @@
+---
+/**
+ * Text block with ornate background pattern and side images.
+ * Ported from TextWithSideImagesBlock.tsx
+ */
+interface Props {
+	title: string;
+	content: string;
+	quote?: string;
+	quoteAuthor?: string;
+	secondaryContent?: string;
+	images?: { src: string; alt: string }[];
+	buttonText?: string;
+	buttonHref?: string;
+}
+
+const { title, content, quote, quoteAuthor, secondaryContent, images = [], buttonText, buttonHref } = Astro.props;
+---
+
+<section class="text-side-images">
+	<div class="container">
+		<div class="text-side-images-inner">
+			<div class="text-content">
+				<h2 class="text-heading">{title}</h2>
+				<div class="text-body">
+					<p>{content}</p>
+				</div>
+
+				{quote && (
+					<blockquote class="text-quote">
+						<p class="text-quote-body">{quote}</p>
+						{quoteAuthor && <cite class="text-quote-cite">— {quoteAuthor}</cite>}
+					</blockquote>
+				)}
+
+				{secondaryContent && (
+					<div class="text-body text-secondary-content">
+						<p>{secondaryContent}</p>
+					</div>
+				)}
+
+				{buttonText && (
+					<a href={buttonHref || "#"} class="btn btn-green btn-lg text-side-btn">{buttonText}</a>
+				)}
+			</div>
+
+			{images.length > 0 && (
+				<div class="side-images">
+					{images.map((img) => (
+						<div class="side-image-wrap">
+							<img src={img.src} alt={img.alt} loading="lazy" />
+						</div>
+					))}
+				</div>
+			)}
+		</div>
+	</div>
+</section>
+
+<style>
+	.text-side-images {
+		padding: 4rem 0;
+		background: var(--brand-cream);
+	}
+
+	.text-side-images-inner {
+		position: relative;
+		display: flex;
+		justify-content: center;
+	}
+
+	.text-content {
+		background-color: #8B5A3C;
+		background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M40 40c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm20-20c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20z'/%3E%3Cpath d='M40 0l4 12 12-4-4 12 12 4-12 4 4 12-12-4-4 12-4-12-12 4 4-12-12-4 12-4-4-12 12 4z' opacity='0.3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+		background-size: 80px 80px;
+		padding: 3rem 4rem;
+		width: 100%;
+		min-height: 500px;
+	}
+
+	.text-heading {
+		font-family: var(--font-heading);
+		font-size: clamp(1.5rem, 3vw, 2rem);
+		color: var(--brand-cream);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 1.5rem;
+	}
+
+	.text-body {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-base);
+		line-height: 1.8;
+		color: var(--brand-cream);
+		max-width: 36rem;
+	}
+
+	.text-quote {
+		margin: 2rem 0;
+		padding: 0;
+		border: none;
+	}
+
+	.text-quote-body {
+		font-family: var(--font-quote-stack);
+		font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+		color: var(--brand-accent);
+		line-height: 1.4;
+		font-style: italic;
+	}
+
+	.text-quote-cite {
+		display: block;
+		margin-top: 1rem;
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-lg);
+		color: var(--brand-cream);
+		font-style: normal;
+	}
+
+	.text-secondary-content {
+		margin-top: 1.5rem;
+	}
+
+	.text-side-btn {
+		margin-top: 2rem;
+	}
+
+	/* Side images */
+	.side-images {
+		display: none;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		transform: translate(50%, -50%);
+		gap: 1rem;
+		flex-direction: column;
+	}
+
+	@media (min-width: 768px) {
+		.side-images { display: flex; }
+	}
+
+	.side-image-wrap {
+		position: relative;
+	}
+
+	.side-image-wrap img {
+		width: 30rem;
+		height: 24rem;
+		object-fit: cover;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+	}
+
+	.side-image-wrap::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: color-mix(in srgb, var(--brand-rust) 20%, transparent);
+	}
+
+	@media (max-width: 767px) {
+		.text-content {
+			width: 100%;
+			padding: 2rem;
+		}
+	}
+</style>

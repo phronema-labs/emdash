@@ -1,0 +1,130 @@
+---
+/**
+ * Ornate section with numbered steps and side image.
+ * Ported from OrnateTextWithImage.tsx
+ */
+interface Props {
+	title: string;
+	steps: { title: string; description: string }[];
+	image?: { src: string; alt: string };
+	buttonText?: string;
+	buttonHref?: string;
+}
+
+const { title, steps, image, buttonText, buttonHref } = Astro.props;
+---
+
+<section class="ornate-steps">
+	<div class="ornate-banner">
+		<img src="/images/home/hompage-plan-your-visit-decorative-divider.png" alt="" />
+	</div>
+
+	<div class="ornate-content">
+		<div class="container">
+			<div class="ornate-grid">
+				<div class="ornate-text">
+					<h2 class="ornate-title">{title}</h2>
+
+					<div class="ornate-steps-list">
+						{steps.map((step, i) => (
+							<div class="ornate-step">
+								<h3 class="ornate-step-title">
+									{i + 1}. {step.title}
+								</h3>
+								<p class="ornate-step-desc">{step.description}</p>
+							</div>
+						))}
+					</div>
+
+					{buttonText && (
+						<a href={buttonHref || "#"} class="btn btn-green btn-lg">{buttonText}</a>
+					)}
+				</div>
+
+				{image && (
+					<div class="ornate-image">
+						<img src={image.src} alt={image.alt} loading="lazy" />
+					</div>
+				)}
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.ornate-steps {
+		background: #f5f5dc;
+	}
+
+	.ornate-banner {
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		height: 12rem;
+		padding: 2rem var(--site-gutter);
+	}
+
+	.ornate-banner img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.ornate-content {
+		padding: 4rem 0;
+	}
+
+	.ornate-grid {
+		display: grid;
+		gap: 3rem;
+		align-items: center;
+	}
+
+	@media (min-width: 1024px) {
+		.ornate-grid { grid-template-columns: 1fr 1fr; }
+	}
+
+	.ornate-title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		margin-bottom: 2rem;
+	}
+
+	.ornate-steps-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+	}
+
+	.ornate-step-title {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-lg);
+		font-weight: 600;
+		color: var(--brand-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.ornate-step-desc {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-base);
+		color: var(--brand-primary);
+		line-height: 1.7;
+		padding-left: 1.5rem;
+	}
+
+	.ornate-image {
+		display: flex;
+		align-items: stretch;
+	}
+
+	.ornate-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-lg);
+	}
+</style>

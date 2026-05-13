@@ -1,0 +1,129 @@
+---
+/**
+ * Two-column layout with script title, text content, and side image.
+ * Ported from ImageWithTextBlock.tsx
+ */
+interface Props {
+	title: string;
+	titleStyle?: "script" | "heading";
+	content: string;
+	secondaryHeading?: string;
+	secondaryContent?: string;
+	image?: { src: string; alt: string };
+	buttonText?: string;
+	buttonHref?: string;
+}
+
+const {
+	title,
+	titleStyle = "script",
+	content,
+	secondaryHeading,
+	secondaryContent,
+	image,
+	buttonText,
+	buttonHref,
+} = Astro.props;
+
+const titleClass = titleStyle === "script" ? "title-script" : "title-heading";
+---
+
+<section class="image-with-text">
+	<div class="container">
+		<h2 class:list={["iwt-title", titleClass]}>{title}</h2>
+
+		<div class="iwt-grid">
+			<div class="iwt-content">
+				<p class="iwt-body">{content}</p>
+
+				{secondaryHeading && (
+					<h3 class="iwt-secondary-heading">{secondaryHeading}</h3>
+				)}
+				{secondaryContent && (
+					<p class="iwt-body">{secondaryContent}</p>
+				)}
+
+				{buttonText && (
+					<a href={buttonHref || "#"} class="btn btn-green btn-lg iwt-btn">{buttonText}</a>
+				)}
+			</div>
+
+			{image && (
+				<div class="iwt-image">
+					<img src={image.src} alt={image.alt} loading="lazy" />
+				</div>
+			)}
+		</div>
+	</div>
+</section>
+
+<style>
+	.image-with-text {
+		padding: 4rem 0;
+		background: var(--brand-cream);
+		background-image: url(/branch-background.png);
+		background-repeat: no-repeat;
+		background-position: center 20%;
+		background-size: 60%;
+	}
+
+	.iwt-title {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.title-script {
+		font-family: var(--font-quote-stack);
+		font-size: clamp(3rem, 6vw, 4.5rem);
+		font-style: italic;
+		font-weight: 400;
+		color: var(--brand-blue);
+		letter-spacing: 0.02em;
+	}
+
+	.title-heading {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 3rem);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--brand-primary);
+	}
+
+	.iwt-grid {
+		display: grid;
+		gap: 3rem;
+		align-items: center;
+	}
+
+	@media (min-width: 1024px) {
+		.iwt-grid { grid-template-columns: 1fr 1fr; }
+	}
+
+	.iwt-body {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-base);
+		line-height: 1.8;
+		color: var(--color-muted);
+		margin-bottom: 1rem;
+	}
+
+	.iwt-secondary-heading {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-2xl);
+		color: var(--brand-rust);
+		margin-top: 1.5rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.iwt-btn {
+		margin-top: 1.5rem;
+	}
+
+	.iwt-image img {
+		width: 100%;
+		max-width: 28rem;
+		margin: 0 auto;
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-lg);
+	}
+</style>

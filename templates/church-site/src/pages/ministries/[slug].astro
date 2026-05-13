@@ -1,0 +1,101 @@
+---
+import { getEmDashEntry } from "emdash";
+import { PortableText } from "emdash/ui";
+import { decodeSlug } from "emdash";
+import Base from "../../layouts/Base.astro";
+
+const slug = decodeSlug(Astro.params.slug!);
+const { entry, cacheHint } = await getEmDashEntry("ministries", slug);
+if (!entry) return Astro.redirect("/404");
+if (cacheHint) Astro.response.headers.set("Cache-Control", cacheHint);
+---
+
+<Base title={entry.data.title}>
+	<section class="section">
+		<div class="container ministry-page">
+			<h1 class="page-title">{entry.data.title}</h1>
+
+			{entry.data.schedule && (
+				<p class="ministry-schedule">{entry.data.schedule}</p>
+			)}
+
+			{entry.data.content && (
+				<div class="prose ministry-content">
+					<PortableText value={entry.data.content} />
+				</div>
+			)}
+
+			{entry.data.contact_name && (
+				<div class="ministry-contact">
+					<h3>Contact</h3>
+					<p>{entry.data.contact_name}</p>
+					{entry.data.contact_email && <a href={`mailto:${entry.data.contact_email}`}>{entry.data.contact_email}</a>}
+				</div>
+			)}
+
+			<div class="ministry-back">
+				<a href="/about" class="btn btn-primary">Back to About Us</a>
+			</div>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.ministry-page {
+		max-width: 48rem;
+		margin: 0 auto;
+	}
+
+	.page-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 3rem);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 1rem;
+		text-align: center;
+	}
+
+	.ministry-schedule {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-base);
+		color: var(--brand-accent);
+		text-align: center;
+		font-weight: 600;
+		margin-bottom: 2rem;
+	}
+
+	.ministry-content {
+		margin-bottom: 3rem;
+	}
+
+	.ministry-contact {
+		background: white;
+		border-radius: var(--radius-md);
+		padding: 2rem;
+		box-shadow: var(--shadow-sm);
+		margin-bottom: 2rem;
+	}
+
+	.ministry-contact h3 {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-lg);
+		color: var(--brand-primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.ministry-contact p,
+	.ministry-contact a {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-base);
+		color: var(--color-muted);
+	}
+
+	.ministry-contact a:hover {
+		color: var(--brand-primary);
+	}
+
+	.ministry-back {
+		text-align: center;
+	}
+</style>

@@ -1,0 +1,441 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "Church Site Starter",
+		"description": "A complete Orthodox church website with ministries, clergy, events, and parish life",
+		"author": "Phronema Labs"
+	},
+
+	"settings": {
+		"title": "Holy Resurrection Antiochian Orthodox Church",
+		"tagline": "Rooted in Tradition, Alive in Christ"
+	},
+
+	"collections": [
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{ "slug": "title", "label": "Title", "type": "string", "required": true, "searchable": true },
+				{ "slug": "content", "label": "Content", "type": "portableText", "searchable": true }
+			]
+		},
+		{
+			"slug": "posts",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"supports": ["drafts", "revisions", "search", "seo"],
+			"fields": [
+				{ "slug": "title", "label": "Title", "type": "string", "required": true, "searchable": true },
+				{ "slug": "featured_image", "label": "Featured Image", "type": "image" },
+				{ "slug": "excerpt", "label": "Excerpt", "type": "text" },
+				{ "slug": "content", "label": "Content", "type": "portableText", "searchable": true }
+			]
+		},
+		{
+			"slug": "ministries",
+			"label": "Ministries",
+			"labelSingular": "Ministry",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{ "slug": "title", "label": "Title", "type": "string", "required": true, "searchable": true },
+				{ "slug": "icon", "label": "Icon", "type": "string" },
+				{ "slug": "featured_image", "label": "Featured Image", "type": "image" },
+				{ "slug": "summary", "label": "Summary", "type": "text", "searchable": true },
+				{ "slug": "content", "label": "Content", "type": "portableText", "searchable": true },
+				{ "slug": "schedule", "label": "Schedule", "type": "string" },
+				{ "slug": "contact_name", "label": "Contact Name", "type": "string" },
+				{ "slug": "contact_email", "label": "Contact Email", "type": "string" }
+			]
+		},
+		{
+			"slug": "clergy",
+			"label": "Clergy & Leadership",
+			"labelSingular": "Clergy Member",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{ "slug": "name", "label": "Name", "type": "string", "required": true, "searchable": true },
+				{ "slug": "title", "label": "Title", "type": "string" },
+				{ "slug": "photo", "label": "Photo", "type": "image" },
+				{ "slug": "bio", "label": "Bio", "type": "text" },
+				{ "slug": "email", "label": "Email", "type": "string" },
+				{ "slug": "phone", "label": "Phone", "type": "string" }
+			]
+		},
+		{
+			"slug": "events",
+			"label": "Events",
+			"labelSingular": "Event",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{ "slug": "title", "label": "Title", "type": "string", "required": true, "searchable": true },
+				{ "slug": "featured_image", "label": "Featured Image", "type": "image" },
+				{ "slug": "description", "label": "Description", "type": "text", "searchable": true },
+				{ "slug": "start_date", "label": "Start Date", "type": "string" },
+				{ "slug": "end_date", "label": "End Date", "type": "string" },
+				{ "slug": "location", "label": "Location", "type": "string" }
+			]
+		},
+		{
+			"slug": "faqs",
+			"label": "FAQs",
+			"labelSingular": "FAQ",
+			"supports": ["drafts", "revisions"],
+			"fields": [
+				{ "slug": "question", "label": "Question", "type": "string", "required": true, "searchable": true },
+				{ "slug": "answer", "label": "Answer", "type": "portableText" }
+			]
+		}
+	],
+
+	"taxonomies": [
+		{
+			"name": "ministry_type",
+			"label": "Ministry Types",
+			"labelSingular": "Ministry Type",
+			"hierarchical": true,
+			"collections": ["ministries"],
+			"terms": [
+				{ "slug": "worship", "label": "Worship" },
+				{ "slug": "education", "label": "Education" },
+				{ "slug": "fellowship", "label": "Fellowship" },
+				{ "slug": "outreach", "label": "Outreach" }
+			]
+		},
+		{
+			"name": "category",
+			"label": "Categories",
+			"labelSingular": "Category",
+			"hierarchical": true,
+			"collections": ["posts"],
+			"terms": [
+				{ "slug": "parish-news", "label": "Parish News" },
+				{ "slug": "spiritual-life", "label": "Spiritual Life" },
+				{ "slug": "community", "label": "Community" }
+			]
+		},
+		{
+			"name": "event_type",
+			"label": "Event Types",
+			"labelSingular": "Event Type",
+			"hierarchical": false,
+			"collections": ["events"],
+			"terms": [
+				{ "slug": "liturgical", "label": "Liturgical" },
+				{ "slug": "feast-day", "label": "Feast Day" },
+				{ "slug": "fellowship", "label": "Fellowship" },
+				{ "slug": "education", "label": "Education" }
+			]
+		},
+		{
+			"name": "faq_category",
+			"label": "FAQ Categories",
+			"labelSingular": "FAQ Category",
+			"hierarchical": false,
+			"collections": ["faqs"],
+			"terms": [
+				{ "slug": "visiting", "label": "Visiting" },
+				{ "slug": "orthodoxy", "label": "About Orthodoxy" },
+				{ "slug": "parish-life", "label": "Parish Life" }
+			]
+		}
+	],
+
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary Navigation",
+			"items": [
+				{ "type": "custom", "label": "Home", "url": "/" },
+				{ "type": "custom", "label": "About Us", "url": "/about" },
+				{ "type": "custom", "label": "Visitors", "url": "/visitors" },
+				{ "type": "custom", "label": "Calendars & Events", "url": "/events" },
+				{ "type": "custom", "label": "Contact", "url": "/contact" },
+				{ "type": "custom", "label": "Donate", "url": "/donate" }
+			]
+		},
+		{
+			"name": "footer",
+			"label": "Footer Navigation",
+			"items": [
+				{ "type": "custom", "label": "Privacy Policy", "url": "/pages/privacy" },
+				{ "type": "custom", "label": "Terms of Use", "url": "/pages/terms" },
+				{ "type": "custom", "label": "FAQ", "url": "/faq" }
+			]
+		}
+	],
+
+	"content": {
+		"pages": [
+			{
+				"id": "home",
+				"slug": "home",
+				"status": "published",
+				"data": {
+					"title": "Home",
+					"content": []
+				}
+			},
+			{
+				"id": "about",
+				"slug": "about",
+				"status": "published",
+				"data": {
+					"title": "About Holy Resurrection",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "Holy Resurrection Antiochian Orthodox Church is a parish of the Antiochian Orthodox Christian Archdiocese of North America, located in Tucson, Arizona. We are a welcoming community rooted in the ancient Apostolic faith, committed to worship, prayer, and service." }]
+						},
+						{
+							"_type": "block",
+							"style": "h2",
+							"children": [{ "_type": "span", "text": "Our Vision" }]
+						},
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "To be a vibrant Orthodox Christian community that faithfully preserves and shares the fullness of the Apostolic Faith, welcoming all who seek Christ and nurturing each person's journey toward theosis — union with God." }]
+						}
+					]
+				}
+			},
+			{
+				"id": "contact",
+				"slug": "contact",
+				"status": "published",
+				"data": {
+					"title": "Contact Us",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "We would love to hear from you. Whether you have questions about Orthodoxy, want to plan a visit, or need to reach our clergy, please don't hesitate to get in touch." }]
+						}
+					]
+				}
+			},
+			{
+				"id": "visitors",
+				"slug": "visitors",
+				"status": "published",
+				"data": {
+					"title": "Welcome, Visitors",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "Visiting an Orthodox church for the first time can feel unfamiliar. We want you to know that you are welcome here exactly as you are. You don't need to know what to do — simply come, observe, and let the beauty of the Liturgy speak to your heart." }]
+						}
+					]
+				}
+			},
+			{
+				"id": "donate",
+				"slug": "donate",
+				"status": "published",
+				"data": {
+					"title": "Support Our Parish",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "Your generous support sustains the life of our parish — from worship services and sacraments to education, outreach, and building maintenance. Every gift, large or small, helps us continue our mission." }]
+						}
+					]
+				}
+			}
+		],
+		"ministries": [
+			{
+				"id": "choir",
+				"slug": "choir",
+				"status": "published",
+				"data": {
+					"title": "Church Choir",
+					"icon": "ph-music-notes",
+					"summary": "Our choir leads the congregation in the beautiful Byzantine and Western chant traditions of the Orthodox Church.",
+					"schedule": "Rehearsals: Thursdays at 7:00 PM",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "The choir serves an essential liturgical role, leading the congregation in worship through sacred music. We welcome singers of all levels who wish to offer their voices in service to God." }]
+						}
+					]
+				},
+				"taxonomies": { "ministry_type": ["worship"] }
+			},
+			{
+				"id": "sunday-school",
+				"slug": "sunday-school",
+				"status": "published",
+				"data": {
+					"title": "Sunday School",
+					"icon": "ph-book-open",
+					"summary": "Religious education for children and youth, nurturing their faith through Scripture, tradition, and Orthodox Christian living.",
+					"schedule": "Sundays after Holy Communion",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "Our Sunday School program provides age-appropriate Orthodox Christian education for children from preschool through high school. Students learn about Scripture, the lives of the Saints, Church history, and how to live their faith." }]
+						}
+					]
+				},
+				"taxonomies": { "ministry_type": ["education"] }
+			},
+			{
+				"id": "mens-group",
+				"slug": "mens-group",
+				"status": "published",
+				"data": {
+					"title": "Men's Group",
+					"icon": "ph-users",
+					"summary": "Fellowship and spiritual growth for men of the parish through study, service, and community.",
+					"schedule": "First Saturday of each month, 8:00 AM",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "The Men's Group provides a space for men of the parish to grow in faith together through Bible study, book discussions, service projects, and fellowship. All men are welcome." }]
+						}
+					]
+				},
+				"taxonomies": { "ministry_type": ["fellowship"] }
+			},
+			{
+				"id": "antiochian-women",
+				"slug": "antiochian-women",
+				"status": "published",
+				"data": {
+					"title": "Antiochian Women",
+					"icon": "ph-heart",
+					"summary": "Women of the parish serving the church and community through fellowship, charity, and spiritual enrichment.",
+					"schedule": "Monthly meetings — see calendar",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "The Antiochian Women chapter supports the parish through charitable works, hospitality, and fellowship. Members organize fundraising events, coordinate meals for parishioners in need, and participate in archdiocesan initiatives." }]
+						}
+					]
+				},
+				"taxonomies": { "ministry_type": ["fellowship"] }
+			},
+			{
+				"id": "youth-ministry",
+				"slug": "youth-ministry",
+				"status": "published",
+				"data": {
+					"title": "Youth Ministry",
+					"icon": "ph-star",
+					"summary": "Engaging our teens in faith, service, and community through SOYO and Teen SOYO activities.",
+					"schedule": "Bi-weekly meetings — see calendar",
+					"content": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "Our youth ministry provides teens with opportunities to deepen their Orthodox faith through retreats, service projects, social events, and regional gatherings with other Antiochian parishes." }]
+						}
+					]
+				},
+				"taxonomies": { "ministry_type": ["education"] }
+			}
+		],
+		"clergy": [
+			{
+				"id": "fr-gabriel",
+				"slug": "fr-gabriel",
+				"status": "published",
+				"data": {
+					"name": "Fr. Gabriel Bilas",
+					"title": "Pastor",
+					"bio": "Fr. Gabriel serves as the pastor of Holy Resurrection, shepherding the parish with dedication to the Orthodox faith and a heart for welcoming all who seek Christ.",
+					"email": "frgabriel@holyresurrection.org"
+				}
+			}
+		],
+		"events": [
+			{
+				"id": "vespers-weekly",
+				"slug": "saturday-vespers",
+				"status": "published",
+				"data": {
+					"title": "Saturday Vespers",
+					"description": "Weekly Saturday evening Vespers service.",
+					"start_date": "Saturday 5:00 PM",
+					"location": "Church Nave"
+				},
+				"taxonomies": { "event_type": ["liturgical"] }
+			},
+			{
+				"id": "divine-liturgy",
+				"slug": "sunday-divine-liturgy",
+				"status": "published",
+				"data": {
+					"title": "Sunday Divine Liturgy",
+					"description": "Sunday Orthros at 9:00 AM followed by Divine Liturgy at 10:00 AM.",
+					"start_date": "Sunday 9:00 AM",
+					"location": "Church Nave"
+				},
+				"taxonomies": { "event_type": ["liturgical"] }
+			}
+		],
+		"faqs": [
+			{
+				"id": "faq-what-to-expect",
+				"slug": "what-to-expect",
+				"status": "published",
+				"data": {
+					"question": "What should I expect when visiting for the first time?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "Orthodox worship is rich and may feel unfamiliar at first. The service involves standing, sitting, chanting, incense, and icons. You are welcome to simply observe — there is no pressure to participate beyond your comfort level. Feel free to arrive a few minutes early, and don't hesitate to ask a greeter for help." }]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["visiting"] }
+			},
+			{
+				"id": "faq-dress-code",
+				"slug": "dress-code",
+				"status": "published",
+				"data": {
+					"question": "Is there a dress code?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "There is no strict dress code. We encourage modest, respectful attire — what you might wear to a nice dinner. Some women choose to cover their heads during worship, but this is not required. Come as you are; we are glad you are here." }]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["visiting"] }
+			},
+			{
+				"id": "faq-communion",
+				"slug": "who-can-receive-communion",
+				"status": "published",
+				"data": {
+					"question": "Who can receive Holy Communion?",
+					"answer": [
+						{
+							"_type": "block",
+							"style": "normal",
+							"children": [{ "_type": "span", "text": "Holy Communion is reserved for baptized and chrismated Orthodox Christians who have prepared through fasting, prayer, and recent confession. All visitors are welcome to approach for a blessing — simply cross your arms over your chest." }]
+						}
+					]
+				},
+				"taxonomies": { "faq_category": ["orthodoxy"] }
+			}
+		],
+		"posts": []
+	}
+}

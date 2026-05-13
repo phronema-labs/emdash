@@ -1,0 +1,37 @@
+---
+/**
+ * Full-width banner image. Ported from BannerImage.tsx
+ */
+interface Props {
+	src: string;
+	alt: string;
+	class?: string;
+}
+
+const { src, alt, class: className = "" } = Astro.props;
+---
+
+<section class:list={["banner-image", className]}>
+	<div class="banner-image-inner">
+		<img src={src} alt={alt} />
+	</div>
+</section>
+
+<style>
+	.banner-image {
+		width: 100%;
+		text-align: center;
+	}
+
+	.banner-image-inner {
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+		padding: 0 var(--site-gutter);
+	}
+
+	.banner-image-inner img {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+</style>

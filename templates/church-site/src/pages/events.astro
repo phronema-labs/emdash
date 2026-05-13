@@ -1,0 +1,182 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../layouts/Base.astro";
+
+const { entries: events } = await getEmDashCollection("events", { status: "published" });
+---
+
+<Base title="Calendars & Events">
+	<section class="section">
+		<div class="container">
+			<h1 class="page-title">Calendars & Events</h1>
+
+			<!-- Regular Services -->
+			<div class="services-section reveal">
+				<h2 class="section-heading">Weekly Services</h2>
+				<div class="services-grid">
+					<div class="service-card card-elevated">
+						<h3>Saturday</h3>
+						<div class="service-detail">
+							<span class="service-name">Vespers</span>
+							<span class="service-time">5:00 PM</span>
+						</div>
+					</div>
+					<div class="service-card card-elevated">
+						<h3>Sunday</h3>
+						<div class="service-detail">
+							<span class="service-name">Orthros (Matins)</span>
+							<span class="service-time">9:00 AM</span>
+						</div>
+						<div class="service-detail">
+							<span class="service-name">Divine Liturgy</span>
+							<span class="service-time">10:00 AM</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Events listing -->
+			{events.length > 0 && (
+				<div class="events-section reveal">
+					<h2 class="section-heading">Upcoming Events</h2>
+					<div class="events-list reveal-stagger">
+						{events.map((event) => (
+							<div class="event-card card-elevated">
+								<div class="event-date-badge">
+									{event.data.start_date && <span class="event-date">{event.data.start_date}</span>}
+								</div>
+								<div class="event-info">
+									<h3>{event.data.title}</h3>
+									{event.data.description && <p>{event.data.description}</p>}
+									{event.data.location && <span class="event-location">{event.data.location}</span>}
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			)}
+		</div>
+	</section>
+</Base>
+
+<style>
+	.page-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 3rem);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 3rem;
+		text-align: center;
+	}
+
+	.section-heading {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-2xl);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.services-section {
+		margin-bottom: 4rem;
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2rem;
+		max-width: 40rem;
+		margin: 0 auto;
+	}
+
+	@media (max-width: 600px) {
+		.services-grid { grid-template-columns: 1fr; }
+	}
+
+	.service-card {
+		padding: 2rem;
+		text-align: center;
+	}
+
+	.service-card h3 {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-lg);
+		color: var(--brand-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		margin-bottom: 1.25rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 2px solid var(--brand-accent);
+	}
+
+	.service-detail {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.5rem 0;
+	}
+
+	.service-name {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--color-text);
+	}
+
+	.service-time {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--brand-accent);
+		font-weight: 600;
+	}
+
+	.events-list {
+		max-width: 40rem;
+		margin: 0 auto;
+	}
+
+	.event-card {
+		display: flex;
+		gap: 1.5rem;
+		padding: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.event-date-badge {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+	}
+
+	.event-date {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--brand-accent);
+		font-weight: 600;
+		white-space: nowrap;
+	}
+
+	.event-info h3 {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-base);
+		color: var(--brand-primary);
+		margin-bottom: 0.25rem;
+	}
+
+	.event-info p {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-sm);
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	.event-location {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-xs);
+		color: var(--color-muted);
+		font-style: italic;
+		margin-top: 0.25rem;
+		display: block;
+	}
+</style>

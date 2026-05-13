@@ -1,0 +1,166 @@
+---
+/**
+ * Three-column grid with arch-framed icons and golden rays.
+ * Ported from IconWithTextGrid.tsx
+ */
+interface Props {
+	title: string;
+	items: {
+		icon: string;
+		alt: string;
+		title: string;
+		description: string;
+	}[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section class="icon-grid">
+	<div class="container">
+		<h2 class="icon-grid-title">{title}</h2>
+
+		<div class="icon-grid-items reveal-stagger">
+			{items.map((item) => (
+				<div class="icon-item">
+					<div class="icon-frame-wrap">
+						<div class="icon-rays" aria-hidden="true">
+							{Array.from({ length: 32 }).map((_, i) => (
+								<div
+									class="icon-ray"
+									style={`--ray-angle: ${i * 11.25}deg;`}
+								/>
+							))}
+						</div>
+						<div class="icon-frame">
+							<img src={item.icon} alt={item.alt} loading="lazy" />
+						</div>
+					</div>
+					<h3 class="icon-item-title">{item.title}</h3>
+					<p class="icon-item-desc">{item.description}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.icon-grid {
+		padding: 4rem var(--site-gutter);
+		background: var(--brand-cream);
+		background-image: url(/background-pattern-2.png);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		max-width: var(--site-max-width);
+		margin: 0 auto;
+	}
+
+	.icon-grid-title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 5vw, 3.5rem);
+		color: var(--brand-rust);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+
+	.icon-grid-items {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 5rem;
+		text-align: center;
+	}
+
+	@media (max-width: 768px) {
+		.icon-grid-items {
+			grid-template-columns: 1fr;
+			max-width: 20rem;
+			margin: 0 auto;
+		}
+	}
+
+	.icon-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	/* Icon with rays */
+	.icon-frame-wrap {
+		width: 16rem;
+		height: 28rem;
+		position: relative;
+		transition: transform 0.5s ease;
+		margin-bottom: 1.5rem;
+	}
+
+	.icon-frame-wrap:hover {
+		transform: scale(1.05);
+	}
+
+	.icon-frame {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		z-index: 10;
+		border-radius: 50% 50% 8px 8px / 35% 35% 8px 8px;
+		padding: 0.75rem;
+		background-color: #e8ca8b;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+	}
+
+	.icon-frame img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 50% 50% 8px 8px / 35% 35% 8px 8px;
+	}
+
+	/* Rays */
+	.icon-rays {
+		position: absolute;
+		inset: -12rem;
+		z-index: 1;
+	}
+
+	.icon-ray {
+		position: absolute;
+		width: 2px;
+		height: 150px;
+		left: 50%;
+		top: 40%;
+		transform-origin: 0 0;
+		transform: rotate(var(--ray-angle)) translateY(-200px) translateX(-1px);
+		opacity: 0.5;
+		background: repeating-linear-gradient(
+			to bottom,
+			transparent 0px,
+			transparent 8px,
+			#facc15 8px,
+			#fbbf24 40px,
+			transparent 40px,
+			transparent 52px,
+			#facc15 52px,
+			#fbbf24 72px
+		);
+	}
+
+	.icon-item-title {
+		font-family: var(--font-heading);
+		font-size: var(--font-size-xl);
+		color: var(--brand-rust);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		margin-bottom: 0.75rem;
+	}
+
+	.icon-item-desc {
+		font-family: var(--font-body-stack);
+		font-size: var(--font-size-base);
+		color: var(--brand-rust);
+		line-height: 1.7;
+		max-width: 18rem;
+	}
+</style>
